@@ -1,6 +1,8 @@
 # fstrings
+[![Travis-CI Build Status](https://travis-ci.org/jimhester/fstrings.svg?branch=m
+aster)](https://travis-ci.org/jimhester/fstrings)
 
-Python style [fstrings](https://www.python.org/dev/peps/pep-0498/) for R.
+Paython style [fstrings](https://www.python.org/dev/peps/pep-0498/) for R.
 
 ```r
 name <- "Fred"
