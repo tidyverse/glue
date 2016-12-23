@@ -1,8 +1,6 @@
 # fstrings
-[![Travis-CI Build Status](https://travis-ci.org/jimhester/fstrings.svg?branch=m
-aster)](https://travis-ci.org/jimhester/fstrings)
-[![Coverage Status](https://img.shields.io/codecov/c/github/jimhester/fstrings/m
-aster.svg)](https://codecov.io/github/jimhester/fstrings?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/jimhester/fstrings.svg?branch=master)](https://travis-ci.org/jimhester/fstrings)
+[![Coverage Status](https://img.shields.io/codecov/c/github/jimhester/fstrings/master.svg)](https://codecov.io/github/jimhester/fstrings?branch=master)
 
 Python style [fstrings](https://www.python.org/dev/peps/pep-0498/) for R.
 
