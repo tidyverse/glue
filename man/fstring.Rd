@@ -3,24 +3,25 @@
 \name{fstring}
 \alias{fstring}
 \alias{f}
-\title{Format a string}
+\title{Format and interpolate a string}
 \usage{
 fstring(..., .sep = "", .fun = as.character, .envir = parent.frame())
 
 f(..., .sep = "", .fun = as.character, .envir = parent.frame())
 }
 \arguments{
-\item{...}{the string(s) to format, multiple inputs are concatonated together before formatting.}
+\item{...}{String(s) to format, multiple inputs are concatenated together before formatting.}
 
-\item{.sep}{separator used to collapse elements if \code{fun} returns more than one result.}
+\item{.sep}{Separator used to collapse elements if there is more than one result.}
 
-\item{.fun}{Function to call to format each expression.}
+\item{.fun}{Function to used to format each result.}
 
 \item{.envir}{Environment to evaluate each expression in. Expressions are
-evaluated in the order they appear.}
+evaluated from left to right.}
 }
 \description{
-Format a string
+Expressions enclosed by braces will be evaluated as R code. Single braces
+can be inserted by doubling them. The inputs are not vectorized.
 }
 \examples{
 name <- "Fred"
@@ -29,4 +30,10 @@ anniversary <- as.Date("1991-10-12")
 f('My name is {name},',
    'my age next year is {age + 1},',
    'my anniversary is {format(anniversary, "\%A, \%B \%d, \%Y")}.')
+
+# single braces can be inserted by doubling them
+f("My name is {name}, not {{name}}.")
+}
+\seealso{
+\url{https://www.python.org/dev/peps/pep-0498/} upon which this is based.
 }

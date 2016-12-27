@@ -38,7 +38,7 @@ f('My name is {name},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 ```
 
-If you do not want to interpret braces simply double them
+If you want to insert a single brace double them.
 ```{r}
 name <- "Fred"
 f("My name is {name}, not {{name}}.")
