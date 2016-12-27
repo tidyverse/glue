@@ -1,8 +1,8 @@
 Package: fstrings
-Title: What the Package Does (one line, title case)
+Title: Interpreted String Literals for R
 Version: 0.0.0.9000
 Authors@R: person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: An implementation of Interpreted String Literals (f-strings) for R.
 Depends: R (>= 3.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
