@@ -3,7 +3,7 @@
 \name{fstring}
 \alias{fstring}
 \alias{f}
-\title{Format a string}
+\title{Intrepret string literals}
 \usage{
 fstring(..., .sep = "", .fun = as.character, .envir = parent.frame())
 
@@ -20,7 +20,7 @@ f(..., .sep = "", .fun = as.character, .envir = parent.frame())
 evaluated in the order they appear.}
 }
 \description{
-Format a string
+Intrepret string literals
 }
 \examples{
 name <- "Fred"
@@ -29,4 +29,9 @@ anniversary <- as.Date("1991-10-12")
 f('My name is {name},',
    'my age next year is {age + 1},',
    'my anniversary is {format(anniversary, "\%A, \%B \%d, \%Y")}.')
+
+# Can also use alternative f$'text' syntax with `+`
+f$'My name is {name},' +
+  'my age next year is {age + 1},' +
+  'my anniversary is {format(anniversary, "\%A, \%B \%d, \%Y")}'
 }
