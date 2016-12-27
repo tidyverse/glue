@@ -78,3 +78,16 @@ test_that("fstring works with complex expressions", {
       }
   }"))
 })
+
+test_that("fstring works with large outputs", {
+  # initial buffer allocates input string length + 1024, 40 * 26 = 1040
+  foo <- paste(rep(letters, 40), collapse = "")
+
+  # re-allocation on result
+  expect_identical(foo, f("{foo}"))
+
+  # re-allocation on input
+  bar <- paste(rep(letters, 40), collapse = "")
+  additional <- " some more text that requires an allocation"
+  expect_identical(paste0(bar, additional), f("{bar}", additional))
+})
