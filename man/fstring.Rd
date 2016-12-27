@@ -12,7 +12,7 @@ f(..., .sep = "", .fun = as.character, .envir = parent.frame())
 \arguments{
 \item{...}{the string(s) to format, multiple inputs are concatonated together before formatting.}
 
-\item{.sep}{separator used to collapse elements if \code{fun} returns more than one item.}
+\item{.sep}{separator used to collapse elements if \code{fun} returns more than one result.}
 
 \item{.fun}{Function to call to format each expression.}
 

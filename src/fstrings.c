@@ -28,16 +28,24 @@ SEXP fstring_(SEXP x, SEXP f) {
     switch(state) {
       case text: {
         if (xx[i] == '{') {
-          state = brace;
-          brace_level = 1;
-          start = i + 1;
-        } else {
-          if (j + 1 >= out_len) {
-            out_len *= 2;
-            out = (char *) realloc(out, out_len);
+          if (i + 1 < in_len && xx[i + 1] == '{') {
+            ++i;
+          } else {
+            state = brace;
+            brace_level = 1;
+            start = i + 1;
+            break;
           }
-          out[j++] = xx[i];
         }
+        if (xx[i] == '}' && i + 1 < in_len && xx[i + 1] == '}') {
+          ++i;
+        }
+
+        if (j + 1 >= out_len) {
+          out_len *= 2;
+          out = (char *) realloc(out, out_len);
+        }
+        out[j++] = xx[i];
         break;
       }
       case escape: { state = prev_state; break; }
@@ -77,14 +85,6 @@ SEXP fstring_(SEXP x, SEXP f) {
       case brace: {
         switch (xx[i]) {
           case '{': {
-            if (i > 0 && brace_level == 1 && xx[i-1] == '{') {
-              if (j + 2 >= out_len) {
-                out_len *= 2;
-                out = (char *) realloc(out, out_len);
-              }
-              out[j++] = '{'; out[j++] = '{';
-              state = text; break;
-            }
             ++brace_level;
             break;
           }

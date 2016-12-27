@@ -38,6 +38,12 @@ f('My name is {name},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 ```
 
+If you do not want to interpret braces simply double them
+```{r}
+name <- "Fred"
+f("My name is {name}, not {{name}}.")
+```
+
 All valid R code works in expressions, including braces and escaping.
 Backslashes do need to be doubled just like in all R strings.
 ```{r}

@@ -63,8 +63,8 @@ test_that("fstring works with multiple expressions", {
   expect_identical(paste(as.character(foo), as.character(bar)), f("{foo} {bar}"))
 })
 
-test_that("fstring with doubled braces are ignored", {
-  expect_identical("{{foo}}", f("{{foo}}"))
+test_that("fstring with doubled braces are converted to single braces", {
+  expect_identical("{foo}", f("{{foo}}"))
 })
 
 test_that("fstring works with complex expressions", {

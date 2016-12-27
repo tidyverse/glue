@@ -30,6 +30,14 @@ f('My name is {name},',
 #> [1] "My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991."
 ```
 
+If you do not want to interpret braces simply double them
+
+``` r
+name <- "Fred"
+f("My name is {name}, not {{name}}.")
+#> [1] "My name is Fred, not {name}."
+```
+
 All valid R code works in expressions, including braces and escaping. Backslashes do need to be doubled just like in all R strings.
 
 ``` r
