@@ -1,5 +1,8 @@
 context("fstring")
 
+test_that("inputs are concatenated", {
+  expect_identical("1:10testastring12", f(1:10, "test", "a", "string", "{1:2}"))
+})
 test_that("fstring errors if the expression fails", {
   expect_error(f("{NoTfOuNd}"), "object .* not found")
 })

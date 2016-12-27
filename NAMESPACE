@@ -2,5 +2,4 @@
 
 export(f)
 export(fstring)
-importFrom(Rcpp,sourceCpp)
-useDynLib(fstrings)
+useDynLib(fstrings,fstring_)
