@@ -7,6 +7,10 @@ test_that("fstring errors if the expression fails", {
   expect_error(f("{NoTfOuNd}"), "object .* not found")
 })
 
+test_that("fstring errors if invalid f-string", {
+  expect_error(f("x={x"), "Expecting '}'")
+})
+
 test_that("fstring works with single expressions", {
   foo <- "foo"
   expect_identical(foo, f("{foo}"))

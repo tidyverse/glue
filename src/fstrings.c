@@ -114,6 +114,10 @@ SEXP fstring_(SEXP x, SEXP f) {
 
   }
 
+  if (state == brace) {
+    Rf_error("Expecting '}'");
+  }
+
   SEXP out_ = Rf_mkString(out);
   free(out);
 
