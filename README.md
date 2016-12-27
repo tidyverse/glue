@@ -18,7 +18,7 @@ devtools::install_github("jimhester/fstrings")
 Example
 -------
 
-Long strings can be broken by line and will be concatonated together
+Long strings can be broken by line and will be concatenated together
 
 ``` r
 name <- "Fred"
