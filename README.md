@@ -5,7 +5,7 @@ fstrings
 
 [![Travis-CI Build Status](https://travis-ci.org/jimhester/fstrings.svg?branch=master)](https://travis-ci.org/jimhester/fstrings) [![Coverage Status](https://img.shields.io/codecov/c/github/jimhester/fstrings/master.svg)](https://codecov.io/github/jimhester/fstrings?branch=master)
 
-Python style [f-strings](https://www.python.org/dev/peps/pep-0498/) for R.
+Python style [f-strings](https://www.python.org/dev/peps/pep-0498/) for R. Small, fast, dependency free interpreted string literals.
 
 Installation
 ------------
