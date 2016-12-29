@@ -3,7 +3,7 @@
 #' Expressions enclosed by braces will be evaluated as R code. Single braces
 #' can be inserted by doubling them. The inputs are not vectorized.
 #' @param ... String(s) to format, multiple inputs are concatenated together before formatting.
-#' @param .sep Separator used to collapse elements if there is more than one result.
+#' @param .sep Separator used to separate elements.
 #' @param .fun Function to used to format each result.
 #' @param .envir Environment to evaluate each expression in. Expressions are
 #' evaluated from left to right.
@@ -19,8 +19,7 @@
 #' # single braces can be inserted by doubling them
 #' f("My name is {name}, not {{name}}.")
 #'
-#' # Named arguments can also be supplied and are evaluated first in a
-#' # temporary environment.
+#' # Named arguments can also be supplied
 #' f('My name is {name},',
 #'   ' my age next year is {age + 1},',
 #'   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
@@ -43,10 +42,17 @@ fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character
   list2env(named_args, envir = .envir)
 
   # Concatenate unnamed arguments together
-  unnamed_args <- paste0(eval_args(dots[!named], envir = .envir), collapse = "")
+  unnamed_args <- eval_args(dots[!named], envir = .envir)
+
+  if (any(lengths(unnamed_args) != 1)) {
+    stop("All unnamed arguments must be length 1", call. = FALSE)
+  }
+  unnamed_args = paste0(unnamed_args, collapse = .sep)
 
   # Parse any fstrings
-  .Call(fstring_, unnamed_args, function(x) paste(collapse = .sep, .fun(eval(parse(text = x), envir = .envir))))
+  res <- .Call(fstring_, unnamed_args, function(x) .fun(eval(parse(text = x), envir = .envir)))
+
+  do.call(paste0, recycle_columns(res))
 }
 
 #' @export

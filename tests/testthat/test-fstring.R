@@ -1,7 +1,7 @@
 context("fstring")
 
-test_that("inputs are concatenated", {
-  expect_identical("1:10testastring12", f(1:10, "test", "a", "string", "{1:2}"))
+test_that("inputs are concatenated, interpolated variables recycled", {
+  expect_identical(c("testastring1", "testastring2"), f("test", "a", "string", "{1:2}"))
 })
 test_that("fstring errors if the expression fails", {
   expect_error(f("{NoTfOuNd}"), "object .* not found")
@@ -116,4 +116,16 @@ test_that("fstring evaluates arguments in the expected environment", {
   }
 
   expect_identical("x: 2, x+1: 3", fun())
+})
+
+test_that("error if non length 1 inputs", {
+  expect_error(f(1:2, "{1:2}"), "All unnamed arguments must be length 1")
+})
+
+test_that("error if not simple recycling", {
+  expect_error(f("{1:2}{1:10}"), "Variables must be length 1 or 10")
+})
+
+test_that("recycle_columns returns if zero length input", {
+  expect_identical(list(), recycle_columns(list()))
 })

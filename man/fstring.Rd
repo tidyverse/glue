@@ -12,7 +12,7 @@ f(..., .sep = "", .envir = parent.frame(), .fun = as.character)
 \arguments{
 \item{...}{String(s) to format, multiple inputs are concatenated together before formatting.}
 
-\item{.sep}{Separator used to collapse elements if there is more than one result.}
+\item{.sep}{Separator used to separate elements.}
 
 \item{.envir}{Environment to evaluate each expression in. Expressions are
 evaluated from left to right.}
@@ -34,8 +34,7 @@ f('My name is {name},',
 # single braces can be inserted by doubling them
 f("My name is {name}, not {{name}}.")
 
-# Named arguments can also be supplied and are evaluated first in a
-# temporary environment.
+# Named arguments can also be supplied
 f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "\%A, \%B \%d, \%Y")}.',

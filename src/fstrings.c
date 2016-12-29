@@ -2,6 +2,14 @@
 #include <string.h>
 #include "Rinternals.h"
 
+SEXP set(SEXP x, int i, SEXP val) {
+  if (i >= Rf_length(x)) {
+    x = Rf_lengthgets(x, i + 1);
+  }
+  SET_VECTOR_ELT(x, i, val);
+  return x;
+}
+
 SEXP fstring_(SEXP x, SEXP f) {
  typedef enum {
     text,
@@ -14,21 +22,23 @@ SEXP fstring_(SEXP x, SEXP f) {
   } states;
 
   const char* xx = CHAR(STRING_ELT(x, 0));
-  size_t in_len = LENGTH(STRING_ELT(x, 0)) + 1;
-  size_t out_len = in_len + 1024;
+  size_t str_len = LENGTH(STRING_ELT(x, 0)) + 1;
 
-  char * out = (char *) malloc(out_len);
+  char * str = (char *) malloc(str_len);
+
+  SEXP out = PROTECT(Rf_allocVector(VECSXP, 1));
 
   size_t j = 0;
+  size_t k = 0;
   int brace_level = 0;
   size_t start = 0;
   states state = text;
   states prev_state = text;
-  for(size_t i = 0;i < in_len;++i) {
+  for(size_t i = 0;i < str_len - 1;++i) {
     switch(state) {
       case text: {
         if (xx[i] == '{') {
-          if (i + 1 < in_len && xx[i + 1] == '{') {
+          if (i + 1 < str_len && xx[i + 1] == '{') {
             ++i;
           } else {
             state = brace;
@@ -37,15 +47,11 @@ SEXP fstring_(SEXP x, SEXP f) {
             break;
           }
         }
-        if (xx[i] == '}' && i + 1 < in_len && xx[i + 1] == '}') {
+        if (xx[i] == '}' && i + 1 < str_len && xx[i + 1] == '}') {
           ++i;
         }
 
-        if (j + 1 >= out_len) {
-          out_len *= 2;
-          out = (char *) realloc(out, out_len);
-        }
-        out[j++] = xx[i];
+        str[j++] = xx[i];
         break;
       }
       case escape: { state = prev_state; break; }
@@ -98,13 +104,14 @@ SEXP fstring_(SEXP x, SEXP f) {
           SEXP expr = PROTECT(Rf_ScalarString(Rf_mkCharLen(&xx[start], i - start)));
           SEXP call = PROTECT(Rf_lang2(f, expr));
           SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
-          size_t length = LENGTH(STRING_ELT(result, 0));
-          if (j + length >= out_len) {
-            out_len *= 2;
-            out = (char *) realloc(out, out_len);
-          }
-          strncpy(&out[j], CHAR(STRING_ELT(result, 0)), length);
-          j += length;
+
+          str[j] = '\0';
+          out = set(out, k++, Rf_mkString(str));
+          out = set(out, k++, result);
+
+          // Clear the string buffer
+          memset(str, 0, j);
+          j = 0;
           UNPROTECT(3);
           state = text;
         }
@@ -114,12 +121,17 @@ SEXP fstring_(SEXP x, SEXP f) {
 
   }
 
+  if (j > 0) {
+    str[j] = '\0';
+    out = set(out, k++, Rf_mkString(str));
+  }
+
   if (state == brace) {
     Rf_error("Expecting '}'");
   }
 
-  SEXP out_ = Rf_mkString(out);
-  free(out);
+  free(str);
 
-  return out_;
+  UNPROTECT(1);
+  return out;
 }
