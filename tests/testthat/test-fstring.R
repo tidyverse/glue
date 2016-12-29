@@ -135,3 +135,20 @@ test_that("collapse works", {
 
   expect_identical("123", collapse(1:3))
 })
+
+test_that("fstring_ evaluates in the object first, then enclosure, then parent", {
+  x <- 1
+  y <- 1
+  z <- 1
+  fun <- function(env = environment()) {
+    y <- 2
+    f_(list(x = 3), "{x} {y} {z}", .envir = env)
+  }
+
+  # The function environment
+  expect_identical("3 2 1", fun())
+
+  # This environment
+  env <- environment()
+  expect_identical("3 1 1", fun(env))
+})

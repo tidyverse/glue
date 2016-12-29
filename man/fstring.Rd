@@ -2,14 +2,23 @@
 % Please edit documentation in R/fstrings.R
 \name{fstring}
 \alias{fstring}
+\alias{fstring_}
+\alias{f_}
+\alias{fstring}
 \alias{f}
 \title{Format and interpolate a string}
 \usage{
+fstring_(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.character)
+
+f_(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.character)
+
 fstring(..., .sep = "", .envir = parent.frame(), .fun = as.character)
 
 f(..., .sep = "", .envir = parent.frame(), .fun = as.character)
 }
 \arguments{
+\item{.x}{An environment, list or data frame.}
+
 \item{...}{String(s) to format, multiple inputs are concatenated together before formatting.}
 
 \item{.sep}{Separator used to separate elements.}

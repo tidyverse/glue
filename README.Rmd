@@ -44,6 +44,10 @@ f('My name is {name},',
   name = "Joe",
   age = 40,
   anniversary = as.Date("2001-10-12"))
+
+# The f_ variant is useful in magrittr pipes
+library(magrittr)
+mtcars %>% f_("{rownames(.)} has {hp} hp")
 ```
 
 If you want to insert a single brace double them.

@@ -37,6 +37,26 @@ f('My name is {name},',
   age = 40,
   anniversary = as.Date("2001-10-12"))
 #> [1] "My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001."
+
+# The f_ variant is useful in magrittr pipes
+library(magrittr)
+mtcars %>% f_("{rownames(.)} has {hp} hp")
+#>  [1] "Mazda RX4 has 110 hp"           "Mazda RX4 Wag has 110 hp"      
+#>  [3] "Datsun 710 has 93 hp"           "Hornet 4 Drive has 110 hp"     
+#>  [5] "Hornet Sportabout has 175 hp"   "Valiant has 105 hp"            
+#>  [7] "Duster 360 has 245 hp"          "Merc 240D has 62 hp"           
+#>  [9] "Merc 230 has 95 hp"             "Merc 280 has 123 hp"           
+#> [11] "Merc 280C has 123 hp"           "Merc 450SE has 180 hp"         
+#> [13] "Merc 450SL has 180 hp"          "Merc 450SLC has 180 hp"        
+#> [15] "Cadillac Fleetwood has 205 hp"  "Lincoln Continental has 215 hp"
+#> [17] "Chrysler Imperial has 230 hp"   "Fiat 128 has 66 hp"            
+#> [19] "Honda Civic has 52 hp"          "Toyota Corolla has 65 hp"      
+#> [21] "Toyota Corona has 97 hp"        "Dodge Challenger has 150 hp"   
+#> [23] "AMC Javelin has 150 hp"         "Camaro Z28 has 245 hp"         
+#> [25] "Pontiac Firebird has 175 hp"    "Fiat X1-9 has 66 hp"           
+#> [27] "Porsche 914-2 has 91 hp"        "Lotus Europa has 113 hp"       
+#> [29] "Ford Pantera L has 264 hp"      "Ferrari Dino has 175 hp"       
+#> [31] "Maserati Bora has 335 hp"       "Volvo 142E has 109 hp"
 ```
 
 If you want to insert a single brace double them.

@@ -2,6 +2,7 @@
 #'
 #' Expressions enclosed by braces will be evaluated as R code. Single braces
 #' can be inserted by doubling them. The inputs are not vectorized.
+#' @param .x An environment, list or data frame.
 #' @param ... String(s) to format, multiple inputs are concatenated together before formatting.
 #' @param .sep Separator used to separate elements.
 #' @param .fun Function to used to format each result.
@@ -26,23 +27,28 @@
 #'   name = "Joe",
 #'   age = 40,
 #'   anniversary = as.Date("2001-10-12"))
-#' @useDynLib fstrings fstring_
+#'
+#' # The f_ variant is useful in magrittr pipes
+#' library(magrittr)
+#' mtcars %>% f_("{rownames(.)} has {hp} hp")
+#' @useDynLib fstrings fstring_impl
+#' @name fstring
 #' @export
-fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character) {
+fstring_ <- function(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.character) {
 
   # Perform all evaluations in a temporary environment
-  .envir <- new.env(parent = .envir)
+  env <- new.env(parent = .envir)
 
   # Capture unevaluated arguments
   dots <- eval(substitute(alist(...)))
   named <- has_names(dots)
 
   # Evaluate named arguments, add results to environment
-  named_args <- eval_args(dots[named], envir = .envir)
-  list2env(named_args, envir = .envir)
+  named_args <- eval_args(dots[named], envir = env, data = .x)
+  list2env(named_args, envir = env)
 
   # Concatenate unnamed arguments together
-  unnamed_args <- eval_args(dots[!named], envir = .envir)
+  unnamed_args <- eval_args(dots[!named], envir = env, data = .x)
 
   if (any(lengths(unnamed_args) != 1)) {
     stop("All unnamed arguments must be length 1", call. = FALSE)
@@ -50,9 +56,19 @@ fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character
   unnamed_args = paste0(unnamed_args, collapse = .sep)
 
   # Parse any fstrings
-  res <- .Call(fstring_, unnamed_args, function(x) .fun(eval(parse(text = x), envir = .envir)))
+  res <- .Call(fstring_impl, unnamed_args, function(expr) .fun(eval2(parse(text = expr), envir = env, data = .x)))
 
   do.call(paste0, recycle_columns(res))
+}
+
+#' @export
+#' @rdname fstring
+f_ <- fstring_
+
+#' @export
+#' @rdname fstring
+fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character) {
+  f_(NULL, ..., .sep = .sep, .envir = .envir, .fun = .fun)
 }
 
 #' @export

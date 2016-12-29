@@ -2,5 +2,7 @@
 
 export(collapse)
 export(f)
+export(f_)
 export(fstring)
-useDynLib(fstrings,fstring_)
+export(fstring_)
+useDynLib(fstrings,fstring_impl)

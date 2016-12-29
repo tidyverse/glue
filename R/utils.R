@@ -8,13 +8,21 @@ has_names <- function(x) {
 }
 
 # Use an explicit for loop rather than lapply to show evaluation order matters
-eval_args <- function(args, envir) {
+eval_args <- function(args, envir, data) {
   res <- vector("list", length(args))
   for (i in seq_along(args)) {
-    res[[i]] <- eval(args[[i]], envir = envir)
+    res[[i]] <- eval2(args[[i]], envir = envir, data = data)
   }
   names(res) <- names(args)
   res
+}
+
+eval2 <- function(x, envir = parent.frame(), data = NULL) {
+  if (is.null(data)) {
+    eval(x, envir = envir)
+  } else {
+    eval(x, envir = data, enclos = envir)
+  }
 }
 
 # From tibble::reccycle_columns
