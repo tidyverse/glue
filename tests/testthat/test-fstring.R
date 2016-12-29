@@ -152,3 +152,32 @@ test_that("fstring_ evaluates in the object first, then enclosure, then parent",
   env <- environment()
   expect_identical("3 1 1", fun(env))
 })
+
+test_that("trim works", {
+  expect_identical("test", trim("test"))
+  expect_identical("test",
+    trim(
+      "test"))
+  expect_identical("test",
+    trim(
+      "test
+    "))
+  expect_identical("test",
+    trim("
+      test
+    "))
+  expect_identical("test",
+    trim(
+      "test"))
+  expect_identical("test\n  test2",
+    trim("
+      test
+        test2
+    "))
+  expect_identical("test\n  test2\n    test3",
+    trim("
+      test
+        test2
+          test3
+    "))
+})

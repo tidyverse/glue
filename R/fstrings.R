@@ -58,7 +58,8 @@ fstring_ <- function(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.char
   # Parse any fstrings
   res <- .Call(fstring_impl, unnamed_args, function(expr) .fun(eval2(parse(text = expr), envir = env, data = .x)))
 
-  do.call(paste0, recycle_columns(res))
+  res <- do.call(paste0, recycle_columns(res))
+  trim(res)
 }
 
 #' @export
@@ -84,3 +85,22 @@ f <- fstring
 #' collapse(f("{1:10}"))
 #' @export
 collapse <- function(x, sep = "") paste(x, collapse = sep)
+
+trim <- function(x) {
+  for (i in seq_along(x)) {
+    lines <- strsplit(x[[i]], "\n")[[1]]
+    if (length(lines) == 1) {
+      x[[i]] <- lines
+    } else {
+      # find the minimum number of leading tabs or spaces after the first line,
+      #trim that number from the remaining lines.
+      ident <- min(nchar(reg_match(lines[-1], "^[ \t]*")))
+      x[[i]] <- paste0(c(lines[[1]], sub(paste0("^[ \t]{", ident, "}"), "", lines[-1])), collapse = "\n")
+
+      # Removing leading blank lines
+      x[[i]] <- sub("^[ \t]*\n", '', x[[i]])
+      x[[i]] <- sub("\n[ \t]*$", '', x[[i]])
+    }
+  }
+  x
+}
