@@ -34,13 +34,18 @@ fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character
   # Perform all evaluations in a temporary environment
   .envir <- new.env(parent = .envir)
 
+  # Capture unevaluated arguments
   dots <- eval(substitute(alist(...)))
   named <- has_names(dots)
 
-  named_args <- lapply(dots[named], eval, envir = .envir)
+  # Evaluate named arguments, add results to environment
+  named_args <- eval_args(dots[named], envir = .envir)
   list2env(named_args, envir = .envir)
 
-  unnamed_args <- paste0(lapply(dots[!named], eval, envir = .envir), collapse = "")
+  # Concatenate unnamed arguments together
+  unnamed_args <- paste0(eval_args(dots[!named], envir = .envir), collapse = "")
+
+  # Parse any fstrings
   .Call(fstring_, unnamed_args, function(x) paste(collapse = .sep, .fun(eval(parse(text = x), envir = .envir))))
 }
 
