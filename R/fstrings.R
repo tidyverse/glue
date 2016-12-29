@@ -30,16 +30,18 @@
 #' @useDynLib fstrings fstring_
 #' @export
 fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character) {
-  args <- list(...)
 
-  named <- has_names(args)
-  if (any(named)) {
-    .envir <- new.env(parent = .envir)
-    for (i in which(named)) {
-      assign(names(args)[[i]], eval(args[[i]], envir = .envir), envir = .envir)
-    }
-  }
-  .Call(fstring_, paste0(args[!named], collapse = ""), function(x) paste(collapse = .sep, .fun(eval(parse(text = x), envir = .envir))))
+  # Perform all evaluations in a temporary environment
+  .envir <- new.env(parent = .envir)
+
+  dots <- eval(substitute(alist(...)))
+  named <- has_names(dots)
+
+  named_args <- lapply(dots[named], eval, envir = .envir)
+  list2env(named_args, envir = .envir)
+
+  unnamed_args <- paste0(lapply(dots[!named], eval, envir = .envir), collapse = "")
+  .Call(fstring_, unnamed_args, function(x) paste(collapse = .sep, .fun(eval(parse(text = x), envir = .envir))))
 }
 
 #' @export

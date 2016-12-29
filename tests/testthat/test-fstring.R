@@ -107,3 +107,13 @@ test_that("fstring works with named arguments", {
 
   expect_identical("Fred", name)
 })
+
+test_that("fstring evaluates arguments in the expected environment", {
+  x <- 2
+  fun <- function() {
+    x <- 1
+    f("x: {x}, x+1: {y}", y = x + 1, .envir = parent.frame())
+  }
+
+  expect_identical("x: 2, x+1: 3", fun())
+})
