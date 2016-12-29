@@ -129,3 +129,9 @@ test_that("error if not simple recycling", {
 test_that("recycle_columns returns if zero length input", {
   expect_identical(list(), recycle_columns(list()))
 })
+
+test_that("collapse works", {
+  expect_identical("", collapse(character(0)))
+
+  expect_identical("123", collapse(1:3))
+})

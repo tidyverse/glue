@@ -58,3 +58,13 @@ fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character
 #' @export
 #' @rdname fstring
 f <- fstring
+
+#' Collapse a character vector
+#'
+#' Collapses a character vector of any length into a length 1 vector.
+#' @param x The character vector to collapse.
+#' @inheritParams base::paste
+#' @examples
+#' collapse(f("{1:10}"))
+#' @export
+collapse <- function(x, sep = "") paste(x, collapse = sep)
