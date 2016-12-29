@@ -28,9 +28,19 @@ f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 #> [1] "My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991."
+
+# You can use named arguments to assign temporary variables if desired
+f('My name is {name},',
+  ' my age next year is {age + 1},',
+  ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
+  name = "Joe",
+  age = 40,
+  anniversary = as.Date("2001-10-12"))
+#> [1] "My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001."
 ```
 
-If want to insert a single brace simply double them.
+If you want to insert a single brace double them.
+
 ``` r
 name <- "Fred"
 f("My name is {name}, not {{name}}.")

@@ -13,15 +13,33 @@
 #' age <- 50
 #' anniversary <- as.Date("1991-10-12")
 #' f('My name is {name},',
-#'    'my age next year is {age + 1},',
-#'    'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
+#'   'my age next year is {age + 1},',
+#'   'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 #'
 #' # single braces can be inserted by doubling them
 #' f("My name is {name}, not {{name}}.")
+#'
+#' # Named arguments can also be supplied and are evaluated first in a
+#' # temporary environment.
+#' f('My name is {name},',
+#'   ' my age next year is {age + 1},',
+#'   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
+#'   name = "Joe",
+#'   age = 40,
+#'   anniversary = as.Date("2001-10-12"))
 #' @useDynLib fstrings fstring_
 #' @export
-fstring <- function(..., .sep = "", .fun = as.character, .envir = parent.frame()) {
-  .Call(fstring_, paste0(list(...), collapse = ""), function(x) paste(collapse = .sep, .fun(eval(parse(text = x), envir = .envir))))
+fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character) {
+  args <- list(...)
+
+  named <- has_names(args)
+  if (any(named)) {
+    .envir <- new.env(parent = .envir)
+    for (i in which(named)) {
+      assign(names(args)[[i]], eval(args[[i]], envir = .envir), envir = .envir)
+    }
+  }
+  .Call(fstring_, paste0(args[!named], collapse = ""), function(x) paste(collapse = .sep, .fun(eval(parse(text = x), envir = .envir))))
 }
 
 #' @export

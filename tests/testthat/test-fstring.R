@@ -95,3 +95,15 @@ test_that("fstring works with large outputs", {
   additional <- " some more text that requires an allocation"
   expect_identical(paste0(bar, additional), f("{bar}", additional))
 })
+
+test_that("fstring works with named arguments", {
+  name <- "Fred"
+  res <- f('My name is {name},',
+    ' my age next year is {age + 1}',
+    name = "Joe",
+    age = 40)
+
+  expect_identical("My name is Joe, my age next year is 41", res)
+
+  expect_identical("Fred", name)
+})
