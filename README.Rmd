@@ -26,7 +26,7 @@ Python style [f-strings](https://www.python.org/dev/peps/pep-0498/) for R. Small
 devtools::install_github("jimhester/fstrings")
 ```
 
-## Example
+## Usage
 
 Long strings can be broken by line and will be concatenated together
 ```{r}
@@ -37,20 +37,35 @@ f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 
-# You can use named arguments to assign temporary variables if desired
+# You can use named arguments to assign temporary variables
 f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
   name = "Joe",
   age = 40,
   anniversary = as.Date("2001-10-12"))
+```
 
-# The f_ variant is useful in magrittr pipes
+The `f_` variant is useful in magrittr pipes
+```{r}
 library(magrittr)
 mtcars %>% f_("{rownames(.)} has {hp} hp")
 ```
 
-If you want to insert a single brace double them.
+Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally.
+```{r}
+fun <- function() {
+  cat(f("
+    A Formatted string
+    Can have multiple lines
+      And additional indention is preserved
+    "))
+}
+
+fun()
+```
+
+A literal brace can be inserted by using doubled braces.
 ```{r}
 name <- "Fred"
 f("My name is {name}, not {{name}}.")

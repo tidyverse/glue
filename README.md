@@ -15,8 +15,8 @@ Installation
 devtools::install_github("jimhester/fstrings")
 ```
 
-Example
--------
+Usage
+-----
 
 Long strings can be broken by line and will be concatenated together
 
@@ -29,7 +29,7 @@ f('My name is {name},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 #> [1] "My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991."
 
-# You can use named arguments to assign temporary variables if desired
+# You can use named arguments to assign temporary variables
 f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
@@ -37,8 +37,11 @@ f('My name is {name},',
   age = 40,
   anniversary = as.Date("2001-10-12"))
 #> [1] "My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001."
+```
 
-# The f_ variant is useful in magrittr pipes
+The `f_` variant is useful in magrittr pipes
+
+``` r
 library(magrittr)
 mtcars %>% f_("{rownames(.)} has {hp} hp")
 #>  [1] "Mazda RX4 has 110 hp"           "Mazda RX4 Wag has 110 hp"      
@@ -59,7 +62,24 @@ mtcars %>% f_("{rownames(.)} has {hp} hp")
 #> [31] "Maserati Bora has 335 hp"       "Volvo 142E has 109 hp"
 ```
 
-If you want to insert a single brace double them.
+Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally.
+
+``` r
+fun <- function() {
+  cat(f("
+    A Formatted string
+    Can have multiple lines
+      And additional indention is preserved
+    "))
+}
+
+fun()
+#> A Formatted string
+#> Can have multiple lines
+#>   And additional indention is preserved
+```
+
+A literal brace can be inserted by using doubled braces.
 
 ``` r
 name <- "Fred"
