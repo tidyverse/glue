@@ -36,8 +36,11 @@ anniversary <- as.Date("1991-10-12")
 f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
+```
 
-# You can use named arguments to assign temporary variables
+You can use named arguments to assign temporary variables
+
+```{r}
 f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
@@ -58,7 +61,7 @@ fun <- function() {
   cat(f("
     A Formatted string
     Can have multiple lines
-      And additional indention is preserved
+      with additional indention preserved
     "))
 }
 

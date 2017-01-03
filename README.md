@@ -28,8 +28,11 @@ f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 #> [1] "My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991."
+```
 
-# You can use named arguments to assign temporary variables
+You can use named arguments to assign temporary variables
+
+``` r
 f('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
@@ -69,14 +72,14 @@ fun <- function() {
   cat(f("
     A Formatted string
     Can have multiple lines
-      And additional indention is preserved
+      with additional indention preserved
     "))
 }
 
 fun()
 #> A Formatted string
 #> Can have multiple lines
-#>   And additional indention is preserved
+#>   with additional indention preserved
 ```
 
 A literal brace can be inserted by using doubled braces.
