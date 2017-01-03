@@ -8,13 +8,13 @@
 \alias{f}
 \title{Format and interpolate a string}
 \usage{
-fstring_(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.character)
+fstring_(.x, ..., .sep = "", .envir = parent.frame())
 
-f_(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.character)
+f_(.x, ..., .sep = "", .envir = parent.frame())
 
-fstring(..., .sep = "", .envir = parent.frame(), .fun = as.character)
+fstring(..., .sep = "", .envir = parent.frame())
 
-f(..., .sep = "", .envir = parent.frame(), .fun = as.character)
+f(..., .sep = "", .envir = parent.frame())
 }
 \arguments{
 \item{.x}{An environment, list or data frame.}
@@ -25,8 +25,6 @@ f(..., .sep = "", .envir = parent.frame(), .fun = as.character)
 
 \item{.envir}{Environment to evaluate each expression in. Expressions are
 evaluated from left to right.}
-
-\item{.fun}{Function to used to format each result.}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Single braces
@@ -50,6 +48,10 @@ f('My name is {name},',
   name = "Joe",
   age = 40,
   anniversary = as.Date("2001-10-12"))
+
+# The f_ variant is useful in magrittr pipes
+library(magrittr)
+mtcars \%>\% f_("{rownames(.)} has {hp} hp")
 }
 \seealso{
 \url{https://www.python.org/dev/peps/pep-0498/} upon which this is based.

@@ -5,7 +5,6 @@
 #' @param .x An environment, list or data frame.
 #' @param ... String(s) to format, multiple inputs are concatenated together before formatting.
 #' @param .sep Separator used to separate elements.
-#' @param .fun Function to used to format each result.
 #' @param .envir Environment to evaluate each expression in. Expressions are
 #' evaluated from left to right.
 #' @seealso \url{https://www.python.org/dev/peps/pep-0498/} upon which this is based.
@@ -34,7 +33,7 @@
 #' @useDynLib fstrings fstring_impl
 #' @name fstring
 #' @export
-fstring_ <- function(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.character) {
+fstring_ <- function(.x, ..., .sep = "", .envir = parent.frame()) {
 
   # Perform all evaluations in a temporary environment
   env <- new.env(parent = .envir)
@@ -56,7 +55,7 @@ fstring_ <- function(.x, ..., .sep = "", .envir = parent.frame(), .fun = as.char
   unnamed_args = paste0(unnamed_args, collapse = .sep)
 
   # Parse any fstrings
-  res <- .Call(fstring_impl, unnamed_args, function(expr) .fun(eval2(parse(text = expr), envir = env, data = .x)))
+  res <- .Call(fstring_impl, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
 
   res <- do.call(paste0, recycle_columns(res))
   trim(res)
@@ -68,8 +67,8 @@ f_ <- fstring_
 
 #' @export
 #' @rdname fstring
-fstring <- function(..., .sep = "", .envir = parent.frame(), .fun = as.character) {
-  f_(NULL, ..., .sep = .sep, .envir = .envir, .fun = .fun)
+fstring <- function(..., .sep = "", .envir = parent.frame()) {
+  f_(NULL, ..., .sep = .sep, .envir = .envir)
 }
 
 #' @export
