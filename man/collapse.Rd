@@ -4,17 +4,22 @@
 \alias{collapse}
 \title{Collapse a character vector}
 \usage{
-collapse(x, sep = "")
+collapse(x, sep = "", width = Inf)
 }
 \arguments{
 \item{x}{The character vector to collapse.}
 
 \item{sep}{a character string to separate the terms.  Not
     \code{\link{NA_character_}}.}
+
+\item{width}{The maximum string width before truncating with \sQuote{...}.}
 }
 \description{
 Collapses a character vector of any length into a length 1 vector.
 }
 \examples{
 collapse(f("{1:10}"))
+
+# Wide values can be truncated
+collapse(f("{1:10}"), width = 5)
 }

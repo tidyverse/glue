@@ -79,11 +79,25 @@ f <- fstring
 #'
 #' Collapses a character vector of any length into a length 1 vector.
 #' @param x The character vector to collapse.
+#' @param width The maximum string width before truncating with \sQuote{...}.
 #' @inheritParams base::paste
 #' @examples
 #' collapse(f("{1:10}"))
+#'
+#' # Wide values can be truncated
+#' collapse(f("{1:10}"), width = 5)
 #' @export
-collapse <- function(x, sep = "") paste(x, collapse = sep)
+collapse <- function(x, sep = "", width = Inf) {
+  x <- paste0(x, collapse = sep)
+  if (width < Inf) {
+    x_width <- nchar(x, "width")
+    too_wide <- x_width > width
+    if (too_wide) {
+      x <- paste0(substr(x, 1, width - 3), "...")
+    }
+  }
+  x
+}
 
 trim <- function(x) {
   for (i in seq_along(x)) {
