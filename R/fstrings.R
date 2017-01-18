@@ -87,7 +87,11 @@ f <- fstring
 #' # Wide values can be truncated
 #' collapse(f("{1:10}"), width = 5)
 #' @export
-collapse <- function(x, sep = "", width = Inf) {
+collapse <- function(x, sep = "", width = Inf, last = "") {
+  if (nzchar(last) && length(x) > 1) {
+    res <- collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
+    return(collapse(f(res, last, x[length(x)]), width = width))
+  }
   x <- paste0(x, collapse = sep)
   if (width < Inf) {
     x_width <- nchar(x, "width")
