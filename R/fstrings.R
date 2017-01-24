@@ -80,12 +80,17 @@ f <- fstring
 #' Collapses a character vector of any length into a length 1 vector.
 #' @param x The character vector to collapse.
 #' @param width The maximum string width before truncating with \sQuote{...}.
+#' @param last String used to separate the last two items if \sQuote{x} has at least
+#' 2 items.
 #' @inheritParams base::paste
 #' @examples
 #' collapse(f("{1:10}"))
 #'
 #' # Wide values can be truncated
 #' collapse(f("{1:10}"), width = 5)
+#'
+#' collapse(1:4, ",", last = " and ")
+#' #> 1, 2, 3 and 4
 #' @export
 collapse <- function(x, sep = "", width = Inf, last = "") {
   if (nzchar(last) && length(x) > 1) {

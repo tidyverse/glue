@@ -13,6 +13,9 @@ collapse(x, sep = "", width = Inf, last = "")
     \code{\link{NA_character_}}.}
 
 \item{width}{The maximum string width before truncating with \sQuote{...}.}
+
+\item{last}{String used to separate the last two items if \sQuote{x} has at least
+2 items.}
 }
 \description{
 Collapses a character vector of any length into a length 1 vector.
@@ -22,4 +25,7 @@ collapse(f("{1:10}"))
 
 # Wide values can be truncated
 collapse(f("{1:10}"), width = 5)
+
+collapse(1:4, ",", last = " and ")
+#> 1, 2, 3 and 4
 }
