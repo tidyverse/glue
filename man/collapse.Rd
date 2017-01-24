@@ -4,7 +4,7 @@
 \alias{collapse}
 \title{Collapse a character vector}
 \usage{
-collapse(x, sep = "", width = Inf)
+collapse(x, sep = "", width = Inf, last = "")
 }
 \arguments{
 \item{x}{The character vector to collapse.}
