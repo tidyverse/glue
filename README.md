@@ -1,18 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-fstrings
-========
+glue
+====
 
-[![Travis-CI Build Status](https://travis-ci.org/jimhester/fstrings.svg?branch=master)](https://travis-ci.org/jimhester/fstrings) [![Coverage Status](https://img.shields.io/codecov/c/github/jimhester/fstrings/master.svg)](https://codecov.io/github/jimhester/fstrings?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/tidyverse/glue.svg?branch=master)](https://travis-ci.org/tidyverse/glue) [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](https://codecov.io/github/tidyverse/glue?branch=master)
 
-Python style [f-strings](https://www.python.org/dev/peps/pep-0498/) for R. Small, fast, dependency free interpreted string literals.
+Glue strings to data in R. Small, fast, dependency free interpreted string literals.
 
 Installation
 ------------
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("jimhester/fstrings")
+devtools::install_github("tidyverse/glue")
 ```
 
 Usage
@@ -24,7 +24,7 @@ Long strings can be broken by line and will be concatenated together
 name <- "Fred"
 age <- 50
 anniversary <- as.Date("1991-10-12")
-f('My name is {name},',
+to('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 #> [1] "My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991."
@@ -33,7 +33,7 @@ f('My name is {name},',
 You can use named arguments to assign temporary variables
 
 ``` r
-f('My name is {name},',
+to('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
   name = "Joe",
@@ -42,11 +42,11 @@ f('My name is {name},',
 #> [1] "My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001."
 ```
 
-The `f_` variant is useful in magrittr pipes
+`to_data()` is useful in magrittr pipes
 
 ``` r
 library(magrittr)
-mtcars %>% f_("{rownames(.)} has {hp} hp")
+mtcars %>% to_data("{rownames(.)} has {hp} hp")
 #>  [1] "Mazda RX4 has 110 hp"           "Mazda RX4 Wag has 110 hp"      
 #>  [3] "Datsun 710 has 93 hp"           "Hornet 4 Drive has 110 hp"     
 #>  [5] "Hornet Sportabout has 175 hp"   "Valiant has 105 hp"            
@@ -69,7 +69,7 @@ Leading whitespace and blank lines are automatically trimmed, which lets you ind
 
 ``` r
 fun <- function() {
-  cat(f("
+  cat(to("
     A Formatted string
     Can have multiple lines
       with additional indention preserved
@@ -86,7 +86,7 @@ A literal brace can be inserted by using doubled braces.
 
 ``` r
 name <- "Fred"
-f("My name is {name}, not {{name}}.")
+to("My name is {name}, not {{name}}.")
 #> [1] "My name is Fred, not {name}."
 ```
 
@@ -94,7 +94,7 @@ All valid R code works in expressions, including braces and escaping. Backslashe
 
 ``` r
   `foo}\`` <- "foo"
-f("{
+to("{
       {
         '}\\'' # { and } in comments, single quotes
         \"}\\\"\" # or double quotes are ignored
@@ -107,7 +107,7 @@ f("{
 Other implementations
 =====================
 
-Some other implementations of string interpolation in R (although not using the f-string syntax).
+Some other implementations of string interpolation in R (although not using identical syntax).
 
 -   [stringr::str\_interp](http://stringr.tidyverse.org/reference/str_interp.html)
 -   [pystr::pystr\_format](https://cran.r-project.org/package=pystr)

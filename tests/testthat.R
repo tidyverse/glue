@@ -1,4 +1,4 @@
 library(testthat)
-library(fstrings)
+library(glue)
 
-test_check("fstrings")
+test_check("glue")

@@ -25,7 +25,7 @@ eval2 <- function(x, envir = parent.frame(), data = NULL) {
   }
 }
 
-# From tibble::reccycle_columns
+# From tibble::recycle_columns
 recycle_columns <- function (x)
 {
     if (length(x) == 0) {

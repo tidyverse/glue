@@ -12,28 +12,28 @@
 #' name <- "Fred"
 #' age <- 50
 #' anniversary <- as.Date("1991-10-12")
-#' f('My name is {name},',
+#' to('My name is {name},',
 #'   'my age next year is {age + 1},',
 #'   'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 #'
 #' # single braces can be inserted by doubling them
-#' f("My name is {name}, not {{name}}.")
+#' to("My name is {name}, not {{name}}.")
 #'
 #' # Named arguments can also be supplied
-#' f('My name is {name},',
+#' to('My name is {name},',
 #'   ' my age next year is {age + 1},',
 #'   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
 #'   name = "Joe",
 #'   age = 40,
 #'   anniversary = as.Date("2001-10-12"))
 #'
-#' # The f_ variant is useful in magrittr pipes
+#' # `to_data()` is useful in magrittr pipes
 #' library(magrittr)
-#' mtcars %>% f_("{rownames(.)} has {hp} hp")
-#' @useDynLib fstrings fstring_impl
-#' @name fstring
+#' mtcars %>% to_data("{rownames(.)} has {hp} hp")
+#' @useDynLib glue to_impl
+#' @name to
 #' @export
-fstring_ <- function(.x, ..., .sep = "", .envir = parent.frame()) {
+to_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
 
   # Perform all evaluations in a temporary environment
   env <- new.env(parent = .envir)
@@ -54,26 +54,18 @@ fstring_ <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   }
   unnamed_args = paste0(unnamed_args, collapse = .sep)
 
-  # Parse any fstrings
-  res <- .Call(fstring_impl, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
+  # Parse any to strings
+  res <- .Call(to_impl, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
 
   res <- do.call(paste0, recycle_columns(res))
   trim(res)
 }
 
 #' @export
-#' @rdname fstring
-f_ <- fstring_
-
-#' @export
-#' @rdname fstring
-fstring <- function(..., .sep = "", .envir = parent.frame()) {
-  f_(NULL, ..., .sep = .sep, .envir = .envir)
+#' @rdname to
+to <- function(..., .sep = "", .envir = parent.frame()) {
+  to_data(NULL, ..., .sep = .sep, .envir = .envir)
 }
-
-#' @export
-#' @rdname fstring
-f <- fstring
 
 #' Collapse a character vector
 #'
@@ -84,10 +76,10 @@ f <- fstring
 #' 2 items.
 #' @inheritParams base::paste
 #' @examples
-#' collapse(f("{1:10}"))
+#' collapse(to("{1:10}"))
 #'
 #' # Wide values can be truncated
-#' collapse(f("{1:10}"), width = 5)
+#' collapse(to("{1:10}"), width = 5)
 #'
 #' collapse(1:4, ",", last = " and ")
 #' #> 1, 2, 3 and 4
@@ -95,7 +87,7 @@ f <- fstring
 collapse <- function(x, sep = "", width = Inf, last = "") {
   if (nzchar(last) && length(x) > 1) {
     res <- collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
-    return(collapse(f(res, last, x[length(x)]), width = width))
+    return(collapse(to(res, last, x[length(x)]), width = width))
   }
   x <- paste0(x, collapse = sep)
   if (width < Inf) {
