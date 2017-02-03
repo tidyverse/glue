@@ -3,12 +3,18 @@
 \name{to}
 \alias{to}
 \alias{to_data}
+\alias{glue_to}
 \alias{to}
+\alias{glue}
 \title{Format and interpolate a string}
 \usage{
 to_data(.x, ..., .sep = "", .envir = parent.frame())
 
+glue_to(.x, ..., .sep = "", .envir = parent.frame())
+
 to(..., .sep = "", .envir = parent.frame())
+
+glue(..., .sep = "", .envir = parent.frame())
 }
 \arguments{
 \item{.x}{An environment, list or data frame.}

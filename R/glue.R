@@ -61,11 +61,19 @@ to_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   trim(res)
 }
 
+#' @rdname to
+#' @export
+glue_to <- to_data
+
 #' @export
 #' @rdname to
 to <- function(..., .sep = "", .envir = parent.frame()) {
   to_data(NULL, ..., .sep = .sep, .envir = .envir)
 }
+
+#' @rdname to
+#' @export
+glue <- to
 
 #' Collapse a character vector
 #'
