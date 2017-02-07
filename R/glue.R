@@ -124,5 +124,33 @@ trim <- function(x) {
       x[[i]] <- sub("\n[ \t]*$", '', x[[i]])
     }
   }
-  x
+  structure(x, class = "glue")
+}
+
+#' @export
+print.glue <- function(x, ..., sep = "\n") {
+  cat(x, ..., sep = sep)
+}
+
+#' Coerce object to glue
+#' @param x object to be coerced.
+#' @param ... further arguments passed to methods.
+#' @export
+as_glue <- function(x, ...) {
+  UseMethod("as_glue")
+}
+
+#' @export
+as_glue.default <- function(x, ...) {
+  as_glue(as.character(x))
+}
+
+#' @export
+as_glue.character <- function(x, ...) {
+  structure(x, class = "glue")
+}
+
+#' @export
+as.character.glue <- function(x, ...) {
+  unclass(x)
 }
