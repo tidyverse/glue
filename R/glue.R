@@ -12,28 +12,28 @@
 #' name <- "Fred"
 #' age <- 50
 #' anniversary <- as.Date("1991-10-12")
-#' to('My name is {name},',
+#' glue('My name is {name},',
 #'   'my age next year is {age + 1},',
 #'   'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 #'
 #' # single braces can be inserted by doubling them
-#' to("My name is {name}, not {{name}}.")
+#' glue("My name is {name}, not {{name}}.")
 #'
 #' # Named arguments can also be supplied
-#' to('My name is {name},',
+#' glue('My name is {name},',
 #'   ' my age next year is {age + 1},',
 #'   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
 #'   name = "Joe",
 #'   age = 40,
 #'   anniversary = as.Date("2001-10-12"))
 #'
-#' # `to_data()` is useful in magrittr pipes
+#' # `glue_data()` is useful in magrittr pipes
 #' library(magrittr)
-#' mtcars %>% to_data("{rownames(.)} has {hp} hp")
+#' mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 #' @useDynLib glue to_impl
-#' @name to
+#' @name glue
 #' @export
-to_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
+glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
 
   # Perform all evaluations in a temporary environment
   env <- new.env(parent = .envir)
@@ -61,19 +61,19 @@ to_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   trim(res)
 }
 
-#' @rdname to
+#' @rdname glue
 #' @export
-glue_to <- to_data
+to_data <- glue_data
 
 #' @export
-#' @rdname to
-to <- function(..., .sep = "", .envir = parent.frame()) {
+#' @rdname glue
+glue <- function(..., .sep = "", .envir = parent.frame()) {
   to_data(NULL, ..., .sep = .sep, .envir = .envir)
 }
 
-#' @rdname to
+#' @rdname glue
 #' @export
-glue <- to
+to <- glue
 
 #' Collapse a character vector
 #'
@@ -84,10 +84,10 @@ glue <- to
 #' 2 items.
 #' @inheritParams base::paste
 #' @examples
-#' collapse(to("{1:10}"))
+#' collapse(glue("{1:10}"))
 #'
 #' # Wide values can be truncated
-#' collapse(to("{1:10}"), width = 5)
+#' collapse(glue("{1:10}"), width = 5)
 #'
 #' collapse(1:4, ",", last = " and ")
 #' #> 1, 2, 3 and 4
@@ -95,7 +95,7 @@ glue <- to
 collapse <- function(x, sep = "", width = Inf, last = "") {
   if (nzchar(last) && length(x) > 1) {
     res <- collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
-    return(collapse(to(res, last, x[length(x)]), width = width))
+    return(collapse(glue(res, last, x[length(x)]), width = width))
   }
   x <- paste0(x, collapse = sep)
   if (width < Inf) {

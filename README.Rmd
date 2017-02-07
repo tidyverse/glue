@@ -35,7 +35,7 @@ Long strings can be broken by line and will be concatenated together
 name <- "Fred"
 age <- 50
 anniversary <- as.Date("1991-10-12")
-to('My name is {name},',
+glue('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 ```
@@ -43,7 +43,7 @@ to('My name is {name},',
 You can use named arguments to assign temporary variables
 
 ```{r}
-to('My name is {name},',
+glue('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
   name = "Joe",
@@ -60,7 +60,7 @@ mtcars %>% to_data("{rownames(.)} has {hp} hp")
 Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally.
 ```{r}
 fun <- function() {
-  cat(to("
+  cat(glue("
     A Formatted string
     Can have multiple lines
       with additional indention preserved
@@ -73,14 +73,14 @@ fun()
 A literal brace can be inserted by using doubled braces.
 ```{r}
 name <- "Fred"
-to("My name is {name}, not {{name}}.")
+glue("My name is {name}, not {{name}}.")
 ```
 
 All valid R code works in expressions, including braces and escaping.
 Backslashes do need to be doubled just like in all R strings.
 ```{r}
   `foo}\`` <- "foo"
-to("{
+glue("{
       {
         '}\\'' # { and } in comments, single quotes
         \"}\\\"\" # or double quotes are ignored

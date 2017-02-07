@@ -2,7 +2,7 @@
 
 export(collapse)
 export(glue)
-export(glue_to)
+export(glue_data)
 export(to)
 export(to_data)
 useDynLib(glue,to_impl)

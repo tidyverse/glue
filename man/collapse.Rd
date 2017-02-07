@@ -21,10 +21,10 @@ collapse(x, sep = "", width = Inf, last = "")
 Collapses a character vector of any length into a length 1 vector.
 }
 \examples{
-collapse(to("{1:10}"))
+collapse(glue("{1:10}"))
 
 # Wide values can be truncated
-collapse(to("{1:10}"), width = 5)
+collapse(glue("{1:10}"), width = 5)
 
 collapse(1:4, ",", last = " and ")
 #> 1, 2, 3 and 4
