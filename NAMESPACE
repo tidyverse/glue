@@ -3,6 +3,7 @@
 S3method(as.character,glue)
 S3method(as_glue,character)
 S3method(as_glue,default)
+S3method(as_glue,glue)
 S3method(print,glue)
 export(as_glue)
 export(collapse)

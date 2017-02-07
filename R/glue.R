@@ -146,6 +146,11 @@ as_glue.default <- function(x, ...) {
 }
 
 #' @export
+as_glue.glue <- function(x, ...) {
+  x
+}
+
+#' @export
 as_glue.character <- function(x, ...) {
   structure(x, class = "glue")
 }
