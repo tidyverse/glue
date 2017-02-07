@@ -42,11 +42,11 @@ glue('My name is {name},',
 #> [1] "My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001."
 ```
 
-`to_data()` is useful in magrittr pipes
+`glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
 
 ``` r
 library(magrittr)
-mtcars %>% to_data("{rownames(.)} has {hp} hp")
+mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 #>  [1] "Mazda RX4 has 110 hp"           "Mazda RX4 Wag has 110 hp"      
 #>  [3] "Datsun 710 has 93 hp"           "Hornet 4 Drive has 110 hp"     
 #>  [5] "Hornet Sportabout has 175 hp"   "Valiant has 105 hp"            

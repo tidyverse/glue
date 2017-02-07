@@ -51,10 +51,10 @@ glue('My name is {name},',
   anniversary = as.Date("2001-10-12"))
 ```
 
-`to_data()` is useful in magrittr pipes
+`glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
 ```{r}
 library(magrittr)
-mtcars %>% to_data("{rownames(.)} has {hp} hp")
+mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
 Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally.
