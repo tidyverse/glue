@@ -59,15 +59,11 @@ mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 
 Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally.
 ```{r}
-fun <- function() {
-  cat(glue("
+glue("
     A Formatted string
     Can have multiple lines
       with additional indention preserved
-    "))
-}
-
-fun()
+    ")
 ```
 
 A literal brace can be inserted by using doubled braces.
