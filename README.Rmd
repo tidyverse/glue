@@ -60,9 +60,18 @@ mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally.
 ```{r}
 glue("
-    A Formatted string
+    A formatted string
     Can have multiple lines
       with additional indention preserved
+    ")
+```
+
+You can use `\\` at the end of a line to prevent adding a newline.
+```{r}
+glue("
+    A formatted string \\
+    can also be on a \\
+    single line
     ")
 ```
 

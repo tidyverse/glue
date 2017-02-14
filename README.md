@@ -85,13 +85,24 @@ Leading whitespace and blank lines are automatically trimmed, which lets you ind
 
 ``` r
 glue("
-    A Formatted string
+    A formatted string
     Can have multiple lines
       with additional indention preserved
     ")
-#> A Formatted string
+#> A formatted string
 #> Can have multiple lines
 #>   with additional indention preserved
+```
+
+You can use `\\` at the end of a line to prevent adding a newline.
+
+``` r
+glue("
+    A formatted string \\
+    can also be on a \\
+    single line
+    ")
+#> A formatted string can also be on a single line
 ```
 
 A literal brace can be inserted by using doubled braces.

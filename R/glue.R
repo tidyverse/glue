@@ -52,7 +52,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   if (any(lengths(unnamed_args) != 1)) {
     stop("All unnamed arguments must be length 1", call. = FALSE)
   }
-  unnamed_args = paste0(unnamed_args, collapse = .sep)
+  unnamed_args <- paste0(unnamed_args, collapse = .sep)
 
   # Parse any to strings
   res <- .Call(to_impl, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
@@ -124,6 +124,10 @@ trim <- function(x) {
       x[[i]] <- sub("\n[ \t]*$", '', x[[i]])
     }
   }
+
+  # Strip any explicitly escaped newlines
+  x <- gsub("\\\\\n", "", x)
+
   structure(x, class = "glue")
 }
 

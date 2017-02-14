@@ -181,3 +181,13 @@ test_that("trim works", {
           test3
     "))
 })
+test_that("glue strips escaped newlines", {
+  expect_identical(
+    as_glue("foo bar baz"),
+    glue("foo bar \\\nbaz"))
+
+  expect_identical(
+    as_glue("foo bar baz"),
+    glue("foo bar \\
+      baz"))
+})
