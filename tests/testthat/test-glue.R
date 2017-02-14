@@ -181,6 +181,7 @@ test_that("trim works", {
           test3
     "))
 })
+
 test_that("glue strips escaped newlines", {
   expect_identical(
     as_glue("foo bar baz"),
@@ -190,4 +191,16 @@ test_that("glue strips escaped newlines", {
     as_glue("foo bar baz"),
     glue("foo bar \\
       baz"))
+})
+
+test_that("converting glue to character", {
+  expect_identical("foo bar", as.character(glue("foo bar")))
+})
+
+test_that("converting glue to glue", {
+  expect_identical(as_glue("foo bar"), as_glue(glue("foo bar")))
+})
+
+test_that("printing glue identical to cat()", {
+  expect_output(print(glue("foo\nbar")), "foo\nbar")
 })
