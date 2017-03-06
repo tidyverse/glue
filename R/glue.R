@@ -49,13 +49,20 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   # Concatenate unnamed arguments together
   unnamed_args <- eval_args(dots[!named], envir = env, data = .x)
 
-  if (any(lengths(unnamed_args) != 1)) {
+  lengths <- lengths(unnamed_args)
+  if (any(lengths == 0)) {
+    return(character(0))
+  }
+  if (any(lengths != 1)) {
     stop("All unnamed arguments must be length 1", call. = FALSE)
   }
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
 
   # Parse any to strings
   res <- .Call(to_impl, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
+  if (any(lengths(res) == 0)) {
+    return(character(0))
+  }
 
   res <- do.call(paste0, recycle_columns(res))
   trim(res)
@@ -68,7 +75,7 @@ to_data <- glue_data
 #' @export
 #' @rdname glue
 glue <- function(..., .sep = "", .envir = parent.frame()) {
-  to_data(NULL, ..., .sep = .sep, .envir = .envir)
+  glue_data(NULL, ..., .sep = .sep, .envir = .envir)
 }
 
 #' @rdname glue

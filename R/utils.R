@@ -32,10 +32,16 @@ recycle_columns <- function (x)
         return(x)
     }
     lengths <- vapply(x, NROW, integer(1))
+    if (any(lengths) == 0) {
+      return(character())
+    }
     max <- max(lengths)
     bad_len <- lengths != 1L & lengths != max
     if (any(bad_len)) {
-      stop("Variables must be length 1 or ", max, call. = FALSE)
+      stop(call. = FALSE,
+        ngettext(max,
+          "Variables must be length 1",
+          paste0("Variables must be length 1 or ", max), domain = NA))
     }
     short <- lengths == 1
     if (max != 1L && any(short)) {
