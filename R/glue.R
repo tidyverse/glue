@@ -75,7 +75,7 @@ to_data <- glue_data
 #' @export
 #' @rdname glue
 glue <- function(..., .sep = "", .envir = parent.frame()) {
-  glue_data(NULL, ..., .sep = .sep, .envir = .envir)
+  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir)
 }
 
 #' @rdname glue

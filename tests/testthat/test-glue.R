@@ -99,11 +99,16 @@ test_that("glue works with large outputs", {
 test_that("glue works with named arguments", {
   name <- "Fred"
   res <- glue('My name is {name},',
-    ' my age next year is {age + 1}',
+    ' my age next year is {age + 1},',
+    ' a dot is a {.}',
     name = "Joe",
-    age = 40)
+    age = 40,
+    . = "'.'")
 
-  expect_identical(as_glue("My name is Joe, my age next year is 41"), res)
+  expect_identical(
+    as_glue("My name is Joe, my age next year is 41, a dot is a '.'"),
+    res
+  )
 
   expect_identical("Fred", name)
 })
