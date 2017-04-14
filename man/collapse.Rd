@@ -12,9 +12,9 @@ collapse(x, sep = "", width = Inf, last = "")
 \item{sep}{a character string to separate the terms.  Not
     \code{\link{NA_character_}}.}
 
-\item{width}{The maximum string width before truncating with \sQuote{...}.}
+\item{width}{The maximum string width before truncating with \code{...}.}
 
-\item{last}{String used to separate the last two items if \sQuote{x} has at least
+\item{last}{String used to separate the last two items if \code{x} has at least
 2 items.}
 }
 \description{

@@ -7,7 +7,8 @@
 #' @param .sep Separator used to separate elements.
 #' @param .envir Environment to evaluate each expression in. Expressions are
 #' evaluated from left to right.
-#' @seealso \url{https://www.python.org/dev/peps/pep-0498/} upon which this is based.
+#' @seealso <https://www.python.org/dev/peps/pep-0498/> and
+#' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
 #' @examples
 #' name <- "Fred"
 #' age <- 50
@@ -87,8 +88,8 @@ to <- glue
 #'
 #' Collapses a character vector of any length into a length 1 vector.
 #' @param x The character vector to collapse.
-#' @param width The maximum string width before truncating with \sQuote{...}.
-#' @param last String used to separate the last two items if \sQuote{x} has at least
+#' @param width The maximum string width before truncating with `...`.
+#' @param last String used to separate the last two items if `x` has at least
 #' 2 items.
 #' @inheritParams base::paste
 #' @examples

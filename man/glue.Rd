@@ -54,5 +54,6 @@ library(magrittr)
 mtcars \%>\% glue_data("{rownames(.)} has {hp} hp")
 }
 \seealso{
-\url{https://www.python.org/dev/peps/pep-0498/} upon which this is based.
+\url{https://www.python.org/dev/peps/pep-0498/} and
+\url{https://www.python.org/dev/peps/pep-0257} upon which this is based.
 }
