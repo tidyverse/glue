@@ -57,7 +57,7 @@ glue('My name is {name},',
 head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
-##### Leading whitespace and blank lines are automatically trimmed.
+##### Leading whitespace and blank lines from the first and last lines are automatically trimmed.
 This lets you indent the strings naturally in code.
 ```{r}
 glue("
@@ -67,10 +67,12 @@ glue("
     ")
 ```
 
-##### `\\n` explicitly keeps a leading or trailing newline.
+##### An additional newline can be used if you want a leading or trailing newline.
 ```{r}
 glue("
-  \\ntrailing or leading newlines can be added explicitly\\n
+
+  leading or trailing newlines can be added explicitly
+
   ")
 ```
 
@@ -109,3 +111,4 @@ Some other implementations of string interpolation in R (although not using iden
 - [stringr::str_interp](http://stringr.tidyverse.org/reference/str_interp.html)
 - [pystr::pystr_format](https://cran.r-project.org/package=pystr)
 - [R.utils::gstring](https://cran.r-project.org/package=R.utils)
+- [rprintf](https://cran.r-project.org/package=rprintf)

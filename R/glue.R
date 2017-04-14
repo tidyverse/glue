@@ -123,11 +123,10 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
 #' These follow similar rules to [Python Docstrings](https://www.python.org/dev/peps/pep-0257),
 #' with the following features.
 #'
-#' - Leading and trailing whitespace is removed.
+#' - Leading and trailing whitespace from the first and last lines is removed.
 #' - A uniform amount of indentation is stripped from the second line on, equal
 #' to the minimum indentation of all non-blank lines after the first.
 #' - Lines can be continued across newlines by using `\\`.
-#' - Explicit trailing and leading newlines can be included with `\\n`.
 #' @param x A character vector to trim.
 #' @examples
 #' glue("
@@ -145,30 +144,10 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
 #'     can also be on a \\
 #'     single line
 #'     ")
+
+#' @useDynLib glue trim_
 trim <- function(x) {
-  for (i in seq_along(x)) {
-    lines <- strsplit(x[[i]], "\n")[[1]]
-    if (length(lines) == 1) {
-      x[[i]] <- lines
-    } else {
-      # find the minimum number of leading tabs or spaces after the first line,
-      # trim that number from the remaining lines.
-      ident <- min(nchar(reg_match(lines[-1], "^[ \t]*")))
-      x[[i]] <- paste0(c(lines[[1]], sub(paste0("^[ \t]{", ident, "}"), "", lines[-1])), collapse = "\n")
-
-      # Removing leading and trailing blank lines
-      x[[i]] <- sub("^[[:space:]]+", "", x[[i]])
-      x[[i]] <- sub("[[:space:]]+$", "", x[[i]])
-    }
-  }
-
-  # Strip any explicitly escaped newlines
-  x <- gsub("\\\\\n", "", x)
-
-  # Convert \\n to newlines
-  x <- gsub("\\\\n", "\n", x)
-
-  x
+  .Call(trim_, x)
 }
 
 #' @export

@@ -55,7 +55,7 @@ head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 #> Valiant has 105 hp
 ```
 
-##### Leading whitespace and blank lines are automatically trimmed.
+##### Leading whitespace and blank lines from the first and last lines are automatically trimmed.
 
 This lets you indent the strings naturally in code.
 
@@ -70,11 +70,13 @@ glue("
 #>   with additional indention preserved
 ```
 
-##### `\\n` explicitly keeps a leading or trailing newline.
+##### An additional newline can be used if you want a leading or trailing newline.
 
 ``` r
 glue("
-  \\ntrailing or leading newlines can be added explicitly\\n
+
+  leading or newlines can be added explicitly
+
   ")
 #> 
 #> trailing or leading newlines can be added explicitly
