@@ -10,7 +10,7 @@ SEXP set(SEXP x, int i, SEXP val) {
   return x;
 }
 
-SEXP to_impl(SEXP x, SEXP f) {
+SEXP glue_(SEXP x, SEXP f) {
  typedef enum {
     text,
     escape,

@@ -31,7 +31,7 @@
 #' # `glue_data()` is useful in magrittr pipes
 #' library(magrittr)
 #' mtcars %>% glue_data("{rownames(.)} has {hp} hp")
-#' @useDynLib glue to_impl
+#' @useDynLib glue glue_
 #' @name glue
 #' @export
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
@@ -58,8 +58,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   }
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
 
-  # Parse any to strings
-  res <- .Call(to_impl, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
+  # Parse any glue strings
+  res <- .Call(glue_, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
   if (any(lengths(res) == 0)) {
     return(character(0))
   }
