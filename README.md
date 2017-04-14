@@ -42,7 +42,7 @@ glue('My name is {name},',
 #> My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.
 ```
 
-`glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
+##### `glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
 
 ``` r
 `%>%` <- magrittr::`%>%`
