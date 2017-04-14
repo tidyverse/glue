@@ -1,7 +1,7 @@
 ---
 output:
   github_document:
-    html_preview: false
+    html_preview: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -30,7 +30,7 @@ devtools::install_github("tidyverse/glue")
 
 ## Usage
 
-Long strings can be broken by line and will be concatenated together
+###### Long strings are broken by line and concatenated together.
 ```{r}
 name <- "Fred"
 age <- 50
@@ -40,7 +40,7 @@ glue('My name is {name},',
   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
 ```
 
-You can use named arguments to assign temporary variables
+###### Named arguments are used to assign temporary variables.
 
 ```{r}
 glue('My name is {name},',
@@ -57,22 +57,25 @@ glue('My name is {name},',
 head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
-Leading whitespace and blank lines are automatically trimmed, which lets you
-indent the strings naturally. You can use `\\n` to explicitly keep a leading or
-trailing newline.
+###### Leading whitespace and blank lines are automatically trimmed.
+This lets you indent the strings naturally in code.
 ```{r}
 glue("
     A formatted string
     Can have multiple lines
       with additional indention preserved
     ")
+```
+
+###### `\\n` explicitly keeps a leading or trailing newline.
+```
 
 glue("
   \\ntrailing or leading newlines can be added explicitly\\n
   ")
 ```
 
-You can use `\\` at the end of a line to continue a line without adding a new line.
+###### `\\` at the end of a line continues it without a new line.
 ```{r}
 glue("
     A formatted string \\
@@ -81,13 +84,13 @@ glue("
     ")
 ```
 
-A literal brace can be inserted by using doubled braces.
+###### A literal brace is inserted by using doubled braces.
 ```{r}
 name <- "Fred"
 glue("My name is {name}, not {{name}}.")
 ```
 
-All valid R code works in expressions, including braces and escaping.
+###### All valid R code works in expressions, including braces and escaping.
 Backslashes do need to be doubled just like in all R strings.
 ```{r}
   `foo}\`` <- "foo"
