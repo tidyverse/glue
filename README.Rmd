@@ -1,7 +1,7 @@
 ---
 output:
   github_document:
-    html_preview: false
+    html_preview: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -30,7 +30,7 @@ devtools::install_github("tidyverse/glue")
 
 ## Usage
 
-Long strings can be broken by line and will be concatenated together
+###### Long strings can be broken by line and will be concatenated together
 ```{r}
 name <- "Fred"
 age <- 50

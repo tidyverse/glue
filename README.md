@@ -18,7 +18,7 @@ devtools::install_github("tidyverse/glue")
 Usage
 -----
 
-Long strings can be broken by line and will be concatenated together
+###### Long strings can be broken by line and will be concatenated together
 
 ``` r
 name <- "Fred"
