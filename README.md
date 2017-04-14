@@ -18,7 +18,7 @@ devtools::install_github("tidyverse/glue")
 Usage
 -----
 
-###### Long strings can be broken by line and will be concatenated together
+###### Long strings are broken by line and concatenated together.
 
 ``` r
 name <- "Fred"
@@ -30,7 +30,7 @@ glue('My name is {name},',
 #> My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.
 ```
 
-You can use named arguments to assign temporary variables
+###### Named arguments are used to assign temporary variables.
 
 ``` r
 glue('My name is {name},',
@@ -55,7 +55,9 @@ head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 #> Valiant has 105 hp
 ```
 
-Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally. You can use `\\n` to explicitly keep a leading or trailing newline.
+###### Leading whitespace and blank lines are automatically trimmed.
+
+This lets you indent the strings naturally in code.
 
 ``` r
 glue("
@@ -66,15 +68,16 @@ glue("
 #> A formatted string
 #> Can have multiple lines
 #>   with additional indention preserved
-
-glue("
-  \\ntrailing or leading newlines can be added explicitly\\n
-  ")
-#> 
-#> trailing or leading newlines can be added explicitly
 ```
 
-You can use `\\` at the end of a line to continue a line without adding a new line.
+###### `\\n` explicitly keeps a leading or trailing newline.
+
+
+    glue("
+      \\ntrailing or leading newlines can be added explicitly\\n
+      ")
+
+###### `\\` at the end of a line continues it without a new line.
 
 ``` r
 glue("
@@ -85,7 +88,7 @@ glue("
 #> A formatted string can also be on a single line
 ```
 
-A literal brace can be inserted by using doubled braces.
+###### A literal brace is inserted by using doubled braces.
 
 ``` r
 name <- "Fred"
@@ -93,7 +96,9 @@ glue("My name is {name}, not {{name}}.")
 #> My name is Fred, not {name}.
 ```
 
-All valid R code works in expressions, including braces and escaping. Backslashes do need to be doubled just like in all R strings.
+###### All valid R code works in expressions, including braces and escaping.
+
+Backslashes do need to be doubled just like in all R strings.
 
 ``` r
   `foo}\`` <- "foo"
