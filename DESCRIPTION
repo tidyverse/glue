@@ -4,11 +4,12 @@ Version: 0.0.0.9000
 Authors@R: person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre"))
 Description: An implementation of Interpreted String Literals (f-strings) for R.
 Depends: R (>= 3.0.0)
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 5.0.1.9000
 Suggests:
   testthat,
   covr,
   magrittr
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)

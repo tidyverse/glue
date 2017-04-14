@@ -65,7 +65,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   }
 
   res <- do.call(paste0, recycle_columns(res))
-  trim(res)
+
+  structure(trim(res), class = "glue")
 }
 
 #' @rdname glue
@@ -115,6 +116,34 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
   x
 }
 
+#' Trim a character vector
+#'
+#' This trims a character vector according to the trimming rules used by glue.
+#' These follow similar rules to [Python Docstrings](https://www.python.org/dev/peps/pep-0257),
+#' with the following features.
+#'
+#' - Leading and trailing whitespace is removed.
+#' - A uniform amount of indentation is stripped from the second line on, equal
+#' to the minimum indentation of all non-blank lines after the first.
+#' - Lines can be continued across newlines by using `\\`.
+#' - Explicit trailing and leading newlines can be included with `\\n`.
+#' @param x A character vector to trim.
+#' @examples
+#' glue("
+#'     A formatted string
+#'     Can have multiple lines
+#'       with additional indention preserved
+#'     ")
+#'
+#' glue("
+#'   \\ntrailing or leading newlines can be added explicitly\\n
+#'   ")
+#'
+#' glue("
+#'     A formatted string \\
+#'     can also be on a \\
+#'     single line
+#'     ")
 trim <- function(x) {
   for (i in seq_along(x)) {
     lines <- strsplit(x[[i]], "\n")[[1]]
@@ -122,7 +151,7 @@ trim <- function(x) {
       x[[i]] <- lines
     } else {
       # find the minimum number of leading tabs or spaces after the first line,
-      #trim that number from the remaining lines.
+      # trim that number from the remaining lines.
       ident <- min(nchar(reg_match(lines[-1], "^[ \t]*")))
       x[[i]] <- paste0(c(lines[[1]], sub(paste0("^[ \t]{", ident, "}"), "", lines[-1])), collapse = "\n")
 
@@ -138,7 +167,7 @@ trim <- function(x) {
   # Convert \\n to newlines
   x <- gsub("\\\\n", "\n", x)
 
-  structure(x, class = "glue")
+  x
 }
 
 #' @export
