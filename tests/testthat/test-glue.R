@@ -177,7 +177,7 @@ test_that("trim works", {
       "test
     "))
   expect_identical("test",
-    trim("
+    trim("      
       test
     "))
   expect_identical("test",
