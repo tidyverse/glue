@@ -57,8 +57,3 @@ recycle_columns <- function (x)
     }
     x
 }
-
-reg_match <- function(x, regexp, options = NULL) {
-  m <- gregexpr(regexp, x, perl = TRUE)
-  regmatches(x, m)[[1]]
-}
