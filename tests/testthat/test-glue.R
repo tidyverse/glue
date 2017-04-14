@@ -154,34 +154,34 @@ test_that("glue_data evaluates in the object first, then enclosure, then parent"
 })
 
 test_that("trim works", {
-  expect_identical(as_glue("test"), trim("test"))
-  expect_identical(as_glue("test"),
+  expect_identical("test", trim("test"))
+  expect_identical("test",
     trim(
       "test"))
-  expect_identical(as_glue("test"),
+  expect_identical("test",
     x <- trim(
       "test
     "))
-  expect_identical(as_glue("test"),
+  expect_identical("test",
     trim("
       test
     "))
-  expect_identical(as_glue("test"),
+  expect_identical("test",
     trim(
       "test"))
-  expect_identical(as_glue("test\n  test2"),
+  expect_identical("test\n  test2",
     trim("
       test
         test2
     "))
-  expect_identical(as_glue("test\n  test2\n    test3"),
+  expect_identical("test\n  test2\n    test3",
     trim("
       test
         test2
           test3
     "))
 
-  expect_identical(as_glue("test"),
+  expect_identical("test",
     trim("
 
 
@@ -193,20 +193,20 @@ test_that("trim works", {
 
 test_that("trim strips escaped newlines", {
   expect_identical(
-    as_glue("foo bar baz"),
+    "foo bar baz",
     trim("foo bar \\\nbaz"))
 
   expect_identical(
-    as_glue("foo bar baz"),
+    "foo bar baz",
     trim("foo bar \\
       baz"))
 
   expect_identical(
-    as_glue("foo bar baz\n"),
+    "foo bar baz\n",
     trim("foo bar baz\\n"))
 
   expect_identical(
-    as_glue("\nfoo bar baz"),
+    "\nfoo bar baz",
     trim("\\nfoo bar baz"))
 })
 
