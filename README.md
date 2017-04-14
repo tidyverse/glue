@@ -42,7 +42,7 @@ glue('My name is {name},',
 #> My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.
 ```
 
-##### `glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
+##### `glue_data()` is useful with [magrittr](https://cran.r-project.org/package=magrittr) pipes.
 
 ``` r
 `%>%` <- magrittr::`%>%`
@@ -75,11 +75,11 @@ glue("
 ``` r
 glue("
 
-  leading or newlines can be added explicitly
+  leading or trailing newlines can be added explicitly
 
   ")
 #> 
-#> trailing or leading newlines can be added explicitly
+#> leading or trailing newlines can be added explicitly
 ```
 
 ##### `\\` at the end of a line continues it without a new line.
@@ -125,3 +125,4 @@ Some other implementations of string interpolation in R (although not using iden
 -   [stringr::str\_interp](http://stringr.tidyverse.org/reference/str_interp.html)
 -   [pystr::pystr\_format](https://cran.r-project.org/package=pystr)
 -   [R.utils::gstring](https://cran.r-project.org/package=R.utils)
+-   [rprintf](https://cran.r-project.org/package=rprintf)

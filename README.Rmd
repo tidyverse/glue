@@ -51,7 +51,7 @@ glue('My name is {name},',
   anniversary = as.Date("2001-10-12"))
 ```
 
-##### `glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
+##### `glue_data()` is useful with [magrittr](https://cran.r-project.org/package=magrittr) pipes.
 ```{r}
 `%>%` <- magrittr::`%>%`
 head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
