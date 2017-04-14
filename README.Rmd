@@ -54,7 +54,7 @@ glue('My name is {name},',
 `glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
 ```{r}
 `%>%` <- magrittr::`%>%`
-mtcars %>% glue_data("{rownames(.)} has {hp} hp")
+head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
 Leading whitespace and blank lines are automatically trimmed, which lets you

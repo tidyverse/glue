@@ -46,39 +46,13 @@ glue('My name is {name},',
 
 ``` r
 `%>%` <- magrittr::`%>%`
-mtcars %>% glue_data("{rownames(.)} has {hp} hp")
+head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 #> Mazda RX4 has 110 hp
 #> Mazda RX4 Wag has 110 hp
 #> Datsun 710 has 93 hp
 #> Hornet 4 Drive has 110 hp
 #> Hornet Sportabout has 175 hp
 #> Valiant has 105 hp
-#> Duster 360 has 245 hp
-#> Merc 240D has 62 hp
-#> Merc 230 has 95 hp
-#> Merc 280 has 123 hp
-#> Merc 280C has 123 hp
-#> Merc 450SE has 180 hp
-#> Merc 450SL has 180 hp
-#> Merc 450SLC has 180 hp
-#> Cadillac Fleetwood has 205 hp
-#> Lincoln Continental has 215 hp
-#> Chrysler Imperial has 230 hp
-#> Fiat 128 has 66 hp
-#> Honda Civic has 52 hp
-#> Toyota Corolla has 65 hp
-#> Toyota Corona has 97 hp
-#> Dodge Challenger has 150 hp
-#> AMC Javelin has 150 hp
-#> Camaro Z28 has 245 hp
-#> Pontiac Firebird has 175 hp
-#> Fiat X1-9 has 66 hp
-#> Porsche 914-2 has 91 hp
-#> Lotus Europa has 113 hp
-#> Ford Pantera L has 264 hp
-#> Ferrari Dino has 175 hp
-#> Maserati Bora has 335 hp
-#> Volvo 142E has 109 hp
 ```
 
 Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally. You can use `\\n` to explicitly keep a leading or trailing newline.
