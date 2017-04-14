@@ -128,6 +128,7 @@ test_that("error if not simple recycling", {
 
 test_that("recycle_columns returns if zero length input", {
   expect_identical(list(), recycle_columns(list()))
+  expect_identical(character(), recycle_columns(list(character())))
 })
 
 test_that("collapse works", {
@@ -154,7 +155,11 @@ test_that("glue_data evaluates in the object first, then enclosure, then parent"
 })
 
 test_that("trim works", {
+  expect_identical("", trim(""))
+  expect_identical(character(), trim(character()))
   expect_identical("test", trim("test"))
+  expect_identical(c("foo", "bar"), trim(c("foo", "bar")))
+  expect_identical(c("foo", "bar"), trim(c("\nfoo", "bar\n")))
   expect_identical("test",
     trim(
       "test"))
@@ -181,12 +186,10 @@ test_that("trim works", {
           test3
     "))
 
-  expect_identical("test",
+  expect_identical("\ntest\n",
     trim("
 
-
       test
-
 
       "))
 })
@@ -203,11 +206,11 @@ test_that("trim strips escaped newlines", {
 
   expect_identical(
     "foo bar baz\n",
-    trim("foo bar baz\\n"))
+    trim("foo bar baz\n\n"))
 
   expect_identical(
     "\nfoo bar baz",
-    trim("\\nfoo bar baz"))
+    trim("\n\nfoo bar baz"))
 })
 
 test_that("converting glue to character", {
