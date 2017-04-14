@@ -44,8 +44,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   named <- has_names(dots)
 
   # Evaluate named arguments, add results to environment
-  named_args <- eval_args(dots[named], envir = env, data = .x)
-  list2env(named_args, envir = env)
+  assign_args(dots[named], envir = env, data = .x)
 
   # Concatenate unnamed arguments together
   unnamed_args <- eval_args(dots[!named], envir = env, data = .x)

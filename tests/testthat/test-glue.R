@@ -123,6 +123,10 @@ test_that("glue evaluates arguments in the expected environment", {
   expect_identical(as_glue("x: 2, x+1: 3"), fun())
 })
 
+test_that("glue assigns arguments in the environment", {
+  expect_identical(as_glue("1"), glue::glue("{b}", a = 1, b = a))
+})
+
 test_that("error if non length 1 inputs", {
   expect_error(glue(1:2, "{1:2}"), "All unnamed arguments must be length 1")
 })
