@@ -18,7 +18,7 @@ devtools::install_github("tidyverse/glue")
 Usage
 -----
 
-###### Long strings are broken by line and concatenated together.
+##### Long strings are broken by line and concatenated together.
 
 ``` r
 name <- "Fred"
@@ -30,7 +30,7 @@ glue('My name is {name},',
 #> My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.
 ```
 
-###### Named arguments are used to assign temporary variables.
+##### Named arguments are used to assign temporary variables.
 
 ``` r
 glue('My name is {name},',
@@ -55,7 +55,7 @@ head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 #> Valiant has 105 hp
 ```
 
-###### Leading whitespace and blank lines are automatically trimmed.
+##### Leading whitespace and blank lines are automatically trimmed.
 
 This lets you indent the strings naturally in code.
 
@@ -70,14 +70,14 @@ glue("
 #>   with additional indention preserved
 ```
 
-###### `\\n` explicitly keeps a leading or trailing newline.
+##### `\\n` explicitly keeps a leading or trailing newline.
 
 
     glue("
       \\ntrailing or leading newlines can be added explicitly\\n
       ")
 
-###### `\\` at the end of a line continues it without a new line.
+##### `\\` at the end of a line continues it without a new line.
 
 ``` r
 glue("
@@ -88,7 +88,7 @@ glue("
 #> A formatted string can also be on a single line
 ```
 
-###### A literal brace is inserted by using doubled braces.
+##### A literal brace is inserted by using doubled braces.
 
 ``` r
 name <- "Fred"
@@ -96,7 +96,7 @@ glue("My name is {name}, not {{name}}.")
 #> My name is Fred, not {name}.
 ```
 
-###### All valid R code works in expressions, including braces and escaping.
+##### All valid R code works in expressions, including braces and escaping.
 
 Backslashes do need to be doubled just like in all R strings.
 
