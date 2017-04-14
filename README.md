@@ -72,10 +72,13 @@ glue("
 
 ##### `\\n` explicitly keeps a leading or trailing newline.
 
-
-    glue("
-      \\ntrailing or leading newlines can be added explicitly\\n
-      ")
+``` r
+glue("
+  \\ntrailing or leading newlines can be added explicitly\\n
+  ")
+#> 
+#> trailing or leading newlines can be added explicitly
+```
 
 ##### `\\` at the end of a line continues it without a new line.
 

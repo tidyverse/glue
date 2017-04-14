@@ -1,7 +1,7 @@
 ---
 output:
   github_document:
-    html_preview: true
+    html_preview: false
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -68,8 +68,7 @@ glue("
 ```
 
 ##### `\\n` explicitly keeps a leading or trailing newline.
-```
-
+```{r}
 glue("
   \\ntrailing or leading newlines can be added explicitly\\n
   ")
