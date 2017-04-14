@@ -126,14 +126,17 @@ trim <- function(x) {
       ident <- min(nchar(reg_match(lines[-1], "^[ \t]*")))
       x[[i]] <- paste0(c(lines[[1]], sub(paste0("^[ \t]{", ident, "}"), "", lines[-1])), collapse = "\n")
 
-      # Removing leading blank lines
-      x[[i]] <- sub("^[ \t]*\n", '', x[[i]])
-      x[[i]] <- sub("\n[ \t]*$", '', x[[i]])
+      # Removing leading and trailing blank lines
+      x[[i]] <- sub("^[[:space:]]+", "", x[[i]])
+      x[[i]] <- sub("[[:space:]]+$", "", x[[i]])
     }
   }
 
   # Strip any explicitly escaped newlines
   x <- gsub("\\\\\n", "", x)
+
+  # Convert \\n to newlines
+  x <- gsub("\\\\n", "\n", x)
 
   structure(x, class = "glue")
 }

@@ -159,7 +159,7 @@ test_that("trim works", {
     trim(
       "test"))
   expect_identical(as_glue("test"),
-    trim(
+    x <- trim(
       "test
     "))
   expect_identical(as_glue("test"),
@@ -180,17 +180,34 @@ test_that("trim works", {
         test2
           test3
     "))
+
+  expect_identical(as_glue("test"),
+    trim("
+
+
+      test
+
+
+      "))
 })
 
-test_that("glue strips escaped newlines", {
+test_that("trim strips escaped newlines", {
   expect_identical(
     as_glue("foo bar baz"),
-    glue("foo bar \\\nbaz"))
+    trim("foo bar \\\nbaz"))
 
   expect_identical(
     as_glue("foo bar baz"),
-    glue("foo bar \\
+    trim("foo bar \\
       baz"))
+
+  expect_identical(
+    as_glue("foo bar baz\n"),
+    trim("foo bar baz\\n"))
+
+  expect_identical(
+    as_glue("\nfoo bar baz"),
+    trim("\\nfoo bar baz"))
 })
 
 test_that("converting glue to character", {

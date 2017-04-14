@@ -45,7 +45,7 @@ glue('My name is {name},',
 `glue_data()` is useful in [magrittr](https://cran.r-project.org/package=magrittr) pipes.
 
 ``` r
-library(magrittr)
+`%>%` <- magrittr::`%>%`
 mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 #> Mazda RX4 has 110 hp
 #> Mazda RX4 Wag has 110 hp
@@ -81,7 +81,7 @@ mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 #> Volvo 142E has 109 hp
 ```
 
-Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally.
+Leading whitespace and blank lines are automatically trimmed, which lets you indent the strings naturally. You can use `\\n` to explicitly keep a leading or trailing newline.
 
 ``` r
 glue("
@@ -92,9 +92,15 @@ glue("
 #> A formatted string
 #> Can have multiple lines
 #>   with additional indention preserved
+
+glue("
+  \\ntrailing or leading newlines can be added explicitly\\n
+  ")
+#> 
+#> trailing or leading newlines can be added explicitly
 ```
 
-You can use `\\` at the end of a line to prevent adding a newline.
+You can use `\\` at the end of a line to continue a line without adding a new line.
 
 ``` r
 glue("
