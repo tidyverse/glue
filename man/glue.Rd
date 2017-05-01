@@ -24,7 +24,8 @@ to(..., .sep = "", .envir = parent.frame())
 \item{.sep}{Separator used to separate elements.}
 
 \item{.envir}{Environment to evaluate each expression in. Expressions are
-evaluated from left to right.}
+evaluated from left to right. If \code{.x} is an environment, the expressions are
+evaluated in that environment and \code{.envir} is ignored.}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Single braces

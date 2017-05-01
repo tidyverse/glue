@@ -6,7 +6,8 @@
 #' @param ... String(s) to format, multiple inputs are concatenated together before formatting.
 #' @param .sep Separator used to separate elements.
 #' @param .envir Environment to evaluate each expression in. Expressions are
-#' evaluated from left to right.
+#' evaluated from left to right. If `.x` is an environment, the expressions are
+#' evaluated in that environment and `.envir` is ignored.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
 #' @examples
@@ -37,7 +38,12 @@
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
 
   # Perform all evaluations in a temporary environment
-  env <- new.env(parent = .envir)
+  if (is.environment(.x)) {
+    env <- new.env(parent = .x)
+    .envir <- NULL
+  } else {
+    env <- new.env(parent = .envir)
+  }
 
   # Capture unevaluated arguments
   dots <- eval(substitute(alist(...)))
