@@ -240,3 +240,21 @@ test_that("length 0 inputs produce length 0 outputs", {
   expect_identical(character(0), glue("foo", "{character(0)}"))
   expect_identical(character(0), glue("foo {character(0)}"))
 })
+
+test_that("values are trimmed before evaluation", {
+
+  x <- " a1\n b2\n c3"
+
+  expect_identical(
+as_glue(
+"A
+ a1
+ b2
+ c3
+B"),
+glue("
+  A
+  {x}
+  B
+  "))
+})

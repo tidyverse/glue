@@ -63,6 +63,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
     stop("All unnamed arguments must be length 1", call. = FALSE)
   }
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
+  unnamed_args <- trim(unnamed_args)
 
   # Parse any glue strings
   res <- .Call(glue_, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
@@ -72,7 +73,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
 
   res <- do.call(paste0, recycle_columns(res))
 
-  structure(trim(res), class = "glue")
+  structure(res, class = "glue")
 }
 
 #' @rdname glue
