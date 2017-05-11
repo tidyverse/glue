@@ -1,7 +1,7 @@
 #' Format and interpolate a string
 #'
 #' Expressions enclosed by braces will be evaluated as R code. Single braces
-#' can be inserted by doubling them. The inputs are not vectorized.
+#' can be inserted by doubling them.
 #' @param .x An environment, list or data frame.
 #' @param ... String(s) to format, multiple inputs are concatenated together before formatting.
 #' @param .sep Separator used to separate elements.

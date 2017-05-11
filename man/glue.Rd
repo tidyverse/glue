@@ -29,7 +29,7 @@ evaluated in that environment and \code{.envir} is ignored.}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Single braces
-can be inserted by doubling them. The inputs are not vectorized.
+can be inserted by doubling them.
 }
 \examples{
 name <- "Fred"
