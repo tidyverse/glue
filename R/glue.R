@@ -73,7 +73,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
 
   res <- do.call(paste0, recycle_columns(res))
 
-  structure(res, class = "glue")
+  structure(res, class = c("glue", "character"))
 }
 
 #' @rdname glue
@@ -181,7 +181,7 @@ as_glue.glue <- function(x, ...) {
 
 #' @export
 as_glue.character <- function(x, ...) {
-  structure(x, class = "glue")
+  structure(x, class = c("glue", "character"))
 }
 
 #' @export
