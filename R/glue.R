@@ -188,3 +188,8 @@ as_glue.character <- function(x, ...) {
 as.character.glue <- function(x, ...) {
   unclass(x)
 }
+
+#' @export
+as.Date.glue <- function(x, format, ...) {
+    base::as.Date.character(as.character(x), format = format, ...)
+}
