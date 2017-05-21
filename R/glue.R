@@ -159,6 +159,8 @@ trim <- function(x) {
 #' @export
 print.glue <- function(x, ..., sep = "\n") {
   cat(x, ..., sep = sep)
+
+  invisible(x)
 }
 
 #' Coerce object to glue
