@@ -11,6 +11,8 @@ Suggests:
   testthat,
   covr,
   magrittr
+Imports:
+  methods
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
