@@ -3,20 +3,13 @@
 \name{glue}
 \alias{glue}
 \alias{glue_data}
-\alias{to_data}
 \alias{glue}
-\alias{to}
 \title{Format and interpolate a string}
 \usage{
 glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
   .close = "}")
 
-to_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}")
-
 glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
-
-to(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
 }
 \arguments{
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}

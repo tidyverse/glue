@@ -84,19 +84,11 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   structure(res, class = c("glue", "character"))
 }
 
-#' @rdname glue
-#' @export
-to_data <- glue_data
-
 #' @export
 #' @rdname glue
 glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
   glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close)
 }
-
-#' @rdname glue
-#' @export
-to <- glue
 
 #' Collapse a character vector
 #'
