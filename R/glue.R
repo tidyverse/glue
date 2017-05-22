@@ -36,6 +36,10 @@
 #' # `glue_data()` is useful in magrittr pipes
 #' library(magrittr)
 #' mtcars %>% glue_data("{rownames(.)} has {hp} hp")
+#'
+#' # Alternative delimiters can also be used if needed
+#' one <- "1"
+#' glue("The value of $e^{2\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
@@ -86,8 +90,8 @@ to_data <- glue_data
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame()) {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir)
+glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
+  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close)
 }
 
 #' @rdname glue

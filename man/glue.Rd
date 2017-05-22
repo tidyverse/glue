@@ -14,9 +14,9 @@ glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
 to_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
   .close = "}")
 
-glue(..., .sep = "", .envir = parent.frame())
+glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
 
-to(..., .sep = "", .envir = parent.frame())
+to(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
 }
 \arguments{
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
@@ -61,6 +61,10 @@ glue('My name is {name},',
 # `glue_data()` is useful in magrittr pipes
 library(magrittr)
 mtcars \%>\% glue_data("{rownames(.)} has {hp} hp")
+
+# Alternative delimiters can also be used if needed
+one <- "1"
+glue("The value of $e^{2\\\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
 }
 \seealso{
 \url{https://www.python.org/dev/peps/pep-0498/} and

@@ -79,7 +79,7 @@ glue("
 
   ")
 #> 
-#>   leading or trailing newlines can be added explicitly
+#> leading or trailing newlines can be added explicitly
 ```
 
 ##### `\\` at the end of a line continues it without a new line.
@@ -99,6 +99,14 @@ glue("
 name <- "Fred"
 glue("My name is {name}, not {{name}}.")
 #> My name is Fred, not {name}.
+```
+
+##### Alternative delimiters can be specified with `.open` and `.close`.
+
+``` r
+one <- "1"
+glue("The value of $e^{2\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
+#> The value of $e^{2\pi i}$ is $1$.
 ```
 
 ##### All valid R code works in expressions, including braces and escaping.

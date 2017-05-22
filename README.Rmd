@@ -93,6 +93,12 @@ name <- "Fred"
 glue("My name is {name}, not {{name}}.")
 ```
 
+##### Alternative delimiters can be specified with `.open` and `.close`.
+```{r}
+one <- "1"
+glue("The value of $e^{2\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
+```
+
 ##### All valid R code works in expressions, including braces and escaping.
 Backslashes do need to be doubled just like in all R strings.
 ```{r}
