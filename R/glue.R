@@ -2,12 +2,16 @@
 #'
 #' Expressions enclosed by braces will be evaluated as R code. Single braces
 #' can be inserted by doubling them.
-#' @param .x An environment, list or data frame.
-#' @param ... String(s) to format, multiple inputs are concatenated together before formatting.
-#' @param .sep Separator used to separate elements.
-#' @param .envir Environment to evaluate each expression in. Expressions are
+#' @param .x \[`listish`]\cr An environment, list or data frame used to lookup values.
+#' @param ... \[`expressions`]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.
+#' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
+#' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
 #' evaluated from left to right. If `.x` is an environment, the expressions are
 #' evaluated in that environment and `.envir` is ignored.
+#' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
+#' full delimiter escapes it.
+#' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
+#' full delimiter escapes it.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
 #' @examples
@@ -35,7 +39,7 @@
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
-glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
+glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
 
   # Perform all evaluations in a temporary environment
   if (is.environment(.x)) {
@@ -66,7 +70,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame()) {
   unnamed_args <- trim(unnamed_args)
 
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)))
+  res <- .Call(glue_, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)), .open, .close)
   if (any(lengths(res) == 0)) {
     return(character(0))
   }

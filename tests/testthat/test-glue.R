@@ -260,3 +260,13 @@ glue("
   B
   "))
 })
+
+test_that("glue works with alternative delimiters", {
+  expect_identical(as_glue("{1}"), glue("{1}", .open = "", .close = ""))
+
+  expect_identical(as_glue("1"), glue("<<1>>", .open = "<<", .close = ">>"))
+
+  expect_identical(as_glue("a"), glue("[letters[[1]]]", .open = "[", .close = "]"))
+
+  expect_identical(as_glue("a"), glue("[[ letters[[1]] ]]", .open = "[[", .close = "]]"))
+})
