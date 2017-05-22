@@ -140,12 +140,6 @@ test_that("recycle_columns returns if zero length input", {
   expect_identical(character(), recycle_columns(list(character())))
 })
 
-test_that("collapse works", {
-  expect_identical("", collapse(character(0)))
-
-  expect_identical("123", collapse(1:3))
-})
-
 test_that("glue_data evaluates in the object first, then enclosure, then parent", {
   x <- 1
   y <- 1

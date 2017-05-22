@@ -1,7 +1,8 @@
 context("collapse")
 
 test_that("collapse works like paste(collapse=)", {
-  expect_identical(paste(collapse = "", character(0)), collapse(character(0)))
+  # Always return 0 length outputs for 0 length inputs.
+  #expect_identical(paste(collapse = "", character(0)), collapse(character(0)))
 
   expect_identical(paste(collapse = "", ""), collapse(""))
 
@@ -19,7 +20,7 @@ test_that("collapse truncates", {
 })
 
 test_that("last argument to collapse", {
-  expect_equal(collapse(character(), last = " and "), "")
+  expect_equal(collapse(character(), last = " and "), character())
   expect_equal(collapse("", last = " and "), "")
   expect_equal(collapse(1, last = " and "), "1")
   expect_equal(collapse(1:2, last = " and "), "1 and 2")
@@ -28,4 +29,8 @@ test_that("last argument to collapse", {
   expect_equal(collapse(1:4, ", ", last = " and ", width = 5), "1,...")
 
   expect_equal(collapse(1:4, ", ", last = " and ", width = 10), "1, 2, 3...")
+})
+
+test_that("collapse returns 0 length output for 0 length input", {
+  expect_identical(character(), collapse(character()))
 })

@@ -108,6 +108,9 @@ to <- glue
 #' #> 1, 2, 3 and 4
 #' @export
 collapse <- function(x, sep = "", width = Inf, last = "") {
+  if (length(x) == 0) {
+    return(character())
+  }
   if (nzchar(last) && length(x) > 1) {
     res <- collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
     return(collapse(glue(res, last, x[length(x)]), width = width))
