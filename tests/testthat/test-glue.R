@@ -155,6 +155,14 @@ test_that("glue_data evaluates in the object first, then enclosure, then parent"
   # This environment
   env <- environment()
   expect_identical(as_glue("3 1 1"), fun(env))
+
+  # A new environment
+  env2 <- new.env(parent = emptyenv())
+  env2$x <- 3
+  env2$y <- 3
+  env2$z <- 3
+
+  expect_identical(as_glue("3 3 3"), glue_data(env2, "{x} {y} {z}"))
 })
 
 test_that("trim works", {
