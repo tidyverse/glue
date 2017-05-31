@@ -147,10 +147,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
     };
   }
 
-  if (j > 0) {
-    str[j] = '\0';
-    out = set(out, k++, Rf_mkString(str));
-  }
+  str[j] = '\0';
+  out = set(out, k++, Rf_mkString(str));
 
   if (state == delim) {
     Rf_error("Expecting '%s'", close);

@@ -11,6 +11,10 @@ test_that("glue errors if invalid format", {
   expect_error(glue("x={x"), "Expecting '}'")
 })
 
+test_that("glue returns length 1 string from length 1 input", {
+  expect_identical(as_glue(""), glue(""))
+})
+
 test_that("glue works with single expressions", {
   foo <- "foo"
   expect_identical(as_glue(foo), glue("{foo}"))
