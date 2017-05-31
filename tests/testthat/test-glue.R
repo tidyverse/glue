@@ -7,7 +7,7 @@ test_that("glue errors if the expression fails", {
   expect_error(glue("{NoTfOuNd}"), "object .* not found")
 })
 
-test_that("glue errors if invalid f-string", {
+test_that("glue errors if invalid format", {
   expect_error(glue("x={x"), "Expecting '}'")
 })
 
