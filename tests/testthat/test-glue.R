@@ -237,10 +237,10 @@ test_that("printing glue identical to cat()", {
 })
 
 test_that("length 0 inputs produce length 0 outputs", {
-  expect_identical(character(0), glue("foo", character(0)))
+  expect_identical(as_glue(character(0)), glue("foo", character(0)))
 
-  expect_identical(character(0), glue("foo", "{character(0)}"))
-  expect_identical(character(0), glue("foo {character(0)}"))
+  expect_identical(as_glue(character(0)), glue("foo", "{character(0)}"))
+  expect_identical(as_glue(character(0)), glue("foo {character(0)}"))
 })
 
 test_that("values are trimmed before evaluation", {
