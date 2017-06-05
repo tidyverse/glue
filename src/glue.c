@@ -2,9 +2,10 @@
 #include <string.h>
 #include "Rinternals.h"
 
-SEXP set(SEXP x, int i, SEXP val) {
+SEXP set(SEXP x, PROTECT_INDEX x_idx, int i, SEXP val) {
   if (i >= Rf_length(x)) {
     x = Rf_lengthgets(x, i + 1);
+    REPROTECT(x, x_idx);
   }
   SET_VECTOR_ELT(x, i, val);
   return x;
@@ -21,10 +22,10 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
     comment
   } states;
 
-  const char* xx = CHAR(STRING_ELT(x, 0));
-  size_t str_len = LENGTH(STRING_ELT(x, 0)) + 1;
+  const char* xx = Rf_translateCharUTF8(STRING_ELT(x, 0));
+  size_t str_len = strlen(xx);
 
-  char* str = (char*)malloc(str_len);
+  char* str = (char*)malloc(str_len + 1);
 
   const char* open = CHAR(STRING_ELT(open_arg, 0));
   size_t open_len = strlen(open);
@@ -32,7 +33,9 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   const char* close = CHAR(STRING_ELT(close_arg, 0));
   size_t close_len = strlen(close);
 
-  SEXP out = PROTECT(Rf_allocVector(VECSXP, 1));
+  SEXP out = Rf_allocVector(VECSXP, 1);
+  PROTECT_INDEX out_idx;
+  PROTECT_WITH_INDEX(out, &out_idx);
 
   size_t j = 0;
   size_t k = 0;
@@ -40,13 +43,12 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   size_t start = 0;
   states state = text;
   states prev_state = text;
-  for (size_t i = 0; i < str_len - 1; ++i) {
+  for (size_t i = 0; i < str_len; ++i) {
     switch (state) {
       case text: {
         if (strncmp(&xx[i], open, open_len) == 0) {
           /* check for open delim doubled */
-          if (i + 2 * open_len < str_len &&
-              strncmp(&xx[i + open_len], open, open_len) == 0) {
+          if (strncmp(&xx[i + open_len], open, open_len) == 0) {
             i += open_len;
           } else {
             state = delim;
@@ -55,8 +57,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
             break;
           }
         }
-        if (i + 2 * close_len < str_len &&
-            strncmp(&xx[i], close, close_len) == 0 &&
+        if (strncmp(&xx[i], close, close_len) == 0 &&
             strncmp(&xx[i + close_len], close, close_len) == 0) {
           i += close_len;
         }
@@ -130,8 +131,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
           SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
 
           str[j] = '\0';
-          out = set(out, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
-          out = set(out, k++, result);
+          out = set(out, out_idx, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
+          out = set(out, out_idx, k++, result);
 
           // Clear the string buffer
           memset(str, 0, j);
@@ -148,7 +149,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   }
 
   str[j] = '\0';
-  out = set(out, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
+  out = set(out, out_idx, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
 
   if (state == delim) {
     Rf_error("Expecting '%s'", close);
