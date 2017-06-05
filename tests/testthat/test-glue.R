@@ -183,7 +183,7 @@ test_that("trim works", {
       "test
     "))
   expect_identical("test",
-    trim("      
+    trim("\x20\x20\x20\x20\x20\x20
       test
     "))
   expect_identical("test",
@@ -267,8 +267,16 @@ glue("
 
 test_that("glue works with alternative delimiters", {
   expect_identical(as_glue("{1}"), glue("{1}", .open = "", .close = ""))
+  expect_identical(as_glue("{{}}"), glue("{{}}", .open = "", .close = ""))
 
   expect_identical(as_glue("1"), glue("<<1>>", .open = "<<", .close = ">>"))
+  expect_identical(as_glue("<<>>"), glue("<<<<>>>>", .open = "<<", .close = ">>"))
+  expect_identical(as_glue("<<<>>>"), glue("<<<<<>>>>>", .open = "<<", .close = ">>"))
+
+  expect_identical(as_glue("1"), glue("{{1}}", .open = "{{", .close = "}}"))
+  expect_identical(as_glue("1"), glue("{{ {{1}} }}", .open = "{{", .close = "}}"))
+  expect_identical(as_glue("1"), glue("{{ {{{1}}} }}", .open = "{{", .close = "}}"))
+  expect_identical(as_glue("1"), glue("{{ {{{{1}}}} }}", .open = "{{", .close = "}}"))
 
   expect_identical(as_glue("a"), glue("[letters[[1]]]", .open = "[", .close = "]"))
 
