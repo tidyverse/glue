@@ -270,7 +270,7 @@ test_that("glue works with alternative delimiters", {
   expect_identical(as_glue("{{}}"), glue("{{}}", .open = "", .close = ""))
 
   expect_identical(as_glue("1"), glue("<<1>>", .open = "<<", .close = ">>"))
-  expect_identical(as_glue("<<<<>>>>"), glue("<<<<>>>>", .open = "<<", .close = ">>"))
+  expect_identical(as_glue("<<>>"), glue("<<<<>>>>", .open = "<<", .close = ">>"))
 
   expect_identical(as_glue("1"), glue("{{1}}", .open = "{{", .close = "}}"))
   expect_identical(as_glue("1"), glue("{{ {{1}} }}", .open = "{{", .close = "}}"))
