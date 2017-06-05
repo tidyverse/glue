@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Rinternals.h"
+#include <string.h>  // for strlen()
 
 SEXP trim_(SEXP x) {
 

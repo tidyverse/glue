@@ -23,9 +23,9 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   } states;
 
   const char* xx = Rf_translateCharUTF8(STRING_ELT(x, 0));
-  size_t str_len = strlen(xx) + 1;
+  size_t str_len = strlen(xx);
 
-  char* str = (char*)malloc(str_len);
+  char* str = (char*)malloc(str_len + 1);
 
   const char* open = CHAR(STRING_ELT(open_arg, 0));
   size_t open_len = strlen(open);
@@ -43,13 +43,12 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   size_t start = 0;
   states state = text;
   states prev_state = text;
-  for (size_t i = 0; i < str_len - 1; ++i) {
+  for (size_t i = 0; i < str_len; ++i) {
     switch (state) {
       case text: {
         if (strncmp(&xx[i], open, open_len) == 0) {
           /* check for open delim doubled */
-          if (i + 2 * open_len < str_len &&
-              strncmp(&xx[i + open_len], open, open_len) == 0) {
+          if (strncmp(&xx[i + open_len], open, open_len) == 0) {
             i += open_len;
           } else {
             state = delim;
@@ -58,8 +57,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
             break;
           }
         }
-        if (i + 2 * close_len < str_len &&
-            strncmp(&xx[i], close, close_len) == 0 &&
+        if (strncmp(&xx[i], close, close_len) == 0 &&
             strncmp(&xx[i + close_len], close, close_len) == 0) {
           i += close_len;
         }
