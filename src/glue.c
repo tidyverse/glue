@@ -2,9 +2,10 @@
 #include <string.h>
 #include "Rinternals.h"
 
-SEXP set(SEXP x, int i, SEXP val) {
+SEXP set(SEXP x, PROTECT_INDEX x_idx, int i, SEXP val) {
   if (i >= Rf_length(x)) {
     x = Rf_lengthgets(x, i + 1);
+    REPROTECT(x, x_idx);
   }
   SET_VECTOR_ELT(x, i, val);
   return x;
@@ -32,7 +33,9 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   const char* close = CHAR(STRING_ELT(close_arg, 0));
   size_t close_len = strlen(close);
 
-  SEXP out = PROTECT(Rf_allocVector(VECSXP, 1));
+  SEXP out = Rf_allocVector(VECSXP, 1);
+  PROTECT_INDEX out_idx;
+  PROTECT_WITH_INDEX(out, &out_idx);
 
   size_t j = 0;
   size_t k = 0;
@@ -130,8 +133,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
           SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
 
           str[j] = '\0';
-          out = set(out, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
-          out = set(out, k++, result);
+          out = set(out, out_idx, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
+          out = set(out, out_idx, k++, result);
 
           // Clear the string buffer
           memset(str, 0, j);
@@ -148,7 +151,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   }
 
   str[j] = '\0';
-  out = set(out, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
+  out = set(out, out_idx, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
 
   if (state == delim) {
     Rf_error("Expecting '%s'", close);
