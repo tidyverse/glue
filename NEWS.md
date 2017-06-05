@@ -1,5 +1,8 @@
 # glue 1.0.0.9000
 
+`glue()` always returns 'UTF-8' strings, converting inputs if in other
+encodings if needed.
+
 `to()` and `to_data()` have been removed.
 
 `glue()` and `glue_data()` can now take alternative delimiters to `{` and `}`.

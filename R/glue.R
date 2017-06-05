@@ -74,7 +74,13 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   unnamed_args <- trim(unnamed_args)
 
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args, function(expr) as.character(eval2(parse(text = expr), envir = env, data = .x)), .open, .close)
+  res <- .Call(glue_, unnamed_args,
+    function(expr)
+      enc2utf8(
+        as.character(
+          eval2(parse(text = expr), envir = env, data = .x))),
+      .open, .close)
+
   if (any(lengths(res) == 0)) {
     return(as_glue(character(0)))
   }

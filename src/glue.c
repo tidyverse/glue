@@ -130,7 +130,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
           SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
 
           str[j] = '\0';
-          out = set(out, k++, Rf_mkString(str));
+          out = set(out, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
           out = set(out, k++, result);
 
           // Clear the string buffer
@@ -148,7 +148,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   }
 
   str[j] = '\0';
-  out = set(out, k++, Rf_mkString(str));
+  out = set(out, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
 
   if (state == delim) {
     Rf_error("Expecting '%s'", close);

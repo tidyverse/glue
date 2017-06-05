@@ -274,3 +274,26 @@ test_that("glue works with alternative delimiters", {
 
   expect_identical(as_glue("a"), glue("[[ letters[[1]] ]]", .open = "[[", .close = "]]"))
 })
+
+test_that("glue always returns UTF-8 encoded strings regardless of input encodings", {
+  x <- "fa\xE7ile"
+  Encoding(x) <- "latin1"
+
+  x_out <- as_glue(enc2utf8(x))
+
+  expect_identical(x_out, glue(x))
+  expect_identical(x_out, glue("{x}"))
+
+  y <- "p\u00E4o"
+  Encoding(y) <- "UTF-8"
+
+  y_out <- as_glue(enc2utf8(y))
+
+  expect_identical(y_out, glue(y))
+  expect_identical(y_out, glue("{y}"))
+
+  xy_out <- as_glue(paste0(x_out, y_out))
+
+  expect_identical(xy_out, glue(x, y))
+  expect_identical(xy_out, glue("{x}{y}"))
+})
