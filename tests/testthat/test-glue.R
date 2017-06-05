@@ -1,7 +1,5 @@
 context("glue")
 
-gctorture2(99)
-
 test_that("inputs are concatenated, interpolated variables recycled", {
   expect_identical(as_glue(c("testastring1", "testastring2")), glue("test", "a", "string", "{1:2}"))
 })
