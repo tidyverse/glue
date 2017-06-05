@@ -8,8 +8,8 @@ SEXP trim_(SEXP x) {
 
   SEXP out = PROTECT(Rf_allocVector(STRSXP, len));
   for (size_t num = 0; num < len;++num) {
-    const char* xx = CHAR(STRING_ELT(x, num));
-    size_t str_len = LENGTH(STRING_ELT(x, num));
+    const char* xx = Rf_translateCharUTF8(STRING_ELT(x, num));
+    size_t str_len = strlen(xx);
     if (str_len == 0) {
       SET_STRING_ELT(out, num, R_BlankString);
       continue;
@@ -94,7 +94,7 @@ SEXP trim_(SEXP x) {
       }
     }
     str[end] = '\0';
-    SET_STRING_ELT(out, num, Rf_mkChar(str));
+    SET_STRING_ELT(out, num, Rf_mkCharCE(str, CE_UTF8));
     free(str);
   }
 

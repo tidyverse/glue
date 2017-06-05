@@ -22,8 +22,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
     comment
   } states;
 
-  const char* xx = CHAR(STRING_ELT(x, 0));
-  size_t str_len = LENGTH(STRING_ELT(x, 0)) + 1;
+  const char* xx = Rf_translateCharUTF8(STRING_ELT(x, 0));
+  size_t str_len = strlen(xx) + 1;
 
   char* str = (char*)malloc(str_len);
 
