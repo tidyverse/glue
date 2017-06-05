@@ -105,6 +105,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
       case delim: {
         if (strncmp(&xx[i], open, open_len) == 0) {
           ++delim_level;
+          i += open_len - 1;
         } else if (strncmp(&xx[i], close, close_len) == 0) {
           --delim_level;
           i += close_len - 1;
