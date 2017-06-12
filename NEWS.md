@@ -1,5 +1,7 @@
 # glue 1.0.0.9000
 
+Fix for PROTECT errors when resizing output strings.
+
 `glue()` always returns 'UTF-8' strings, converting inputs if in other
 encodings if needed.
 
