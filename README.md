@@ -3,7 +3,7 @@
 glue
 ====
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue) [![Travis-CI Build Status](https://travis-ci.org/tidyverse/glue.svg?branch=master)](https://travis-ci.org/tidyverse/glue) [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](https://codecov.io/github/tidyverse/glue?branch=master) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/glue)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/glue)](http://cran.r-project.org/package=glue) [![Travis-CI Build Status](http://travis-ci.org/tidyverse/glue.svg?branch=master)](http://travis-ci.org/tidyverse/glue) [![Coverage Status](http://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](http://codecov.io/github/tidyverse/glue?branch=master) [![AppVeyor Build Status](http://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&svg=true)](http://ci.appveyor.com/project/tidyverse/glue)
 
 Glue strings to data in R. Small, fast, dependency free interpreted string literals.
 
@@ -42,7 +42,7 @@ glue('My name is {name},',
 #> My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.
 ```
 
-##### `glue_data()` is useful with [magrittr](https://cran.r-project.org/package=magrittr) pipes.
+##### `glue_data()` is useful with [magrittr](http://cran.r-project.org/package=magrittr) pipes.
 
 ``` r
 `%>%` <- magrittr::`%>%`
@@ -131,6 +131,6 @@ Other implementations
 Some other implementations of string interpolation in R (although not using identical syntax).
 
 -   [stringr::str\_interp](http://stringr.tidyverse.org/reference/str_interp.html)
--   [pystr::pystr\_format](https://cran.r-project.org/package=pystr)
--   [R.utils::gstring](https://cran.r-project.org/package=R.utils)
--   [rprintf](https://cran.r-project.org/package=rprintf)
+-   [pystr::pystr\_format](http://cran.r-project.org/package=pystr)
+-   [R.utils::gstring](http://cran.r-project.org/package=R.utils)
+-   [rprintf](http://cran.r-project.org/package=rprintf)
