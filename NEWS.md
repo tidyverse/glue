@@ -1,3 +1,5 @@
+# glue 1.1.0.9000
+
 # glue 1.1.0
 
 Fix for PROTECT errors when resizing output strings.
