@@ -115,7 +115,7 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' @export
 collapse <- function(x, sep = "", width = Inf, last = "") {
   if (length(x) == 0) {
-    return(character())
+    return(as_glue(character()))
   }
   if (nzchar(last) && length(x) > 1) {
     res <- collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
@@ -129,7 +129,7 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
       x <- paste0(substr(x, 1, width - 3), "...")
     }
   }
-  x
+  as_glue(x)
 }
 
 #' Trim a character vector
