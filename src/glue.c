@@ -151,8 +151,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   }
 
   str[j] = '\0';
-  out =
-      set(out, out_idx, k++, Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
+  SEXP str_ = PROTECT(Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
+  out = set(out, out_idx, k++, str_);
 
   if (state == delim) {
     Rf_error("Expecting '%s'", close);
@@ -160,6 +160,6 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
 
   free(str);
 
-  UNPROTECT(1);
+  UNPROTECT(2);
   return out;
 }
