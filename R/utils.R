@@ -17,11 +17,10 @@ eval_args <- function(args, envir, data) {
   res
 }
 
-assign_args <- function(args, envir, data) {
-  res <- vector("list", length(args))
+assign_args <- function(args, env) {
   nms <- names(args)
   for (i in seq_along(args)) {
-    assign(nms[[i]], eval2(args[[i]], envir = envir, data = data), envir = envir)
+    assign(nms[[i]], overscope_eval_next(env, args[[i]]), envir = env)
   }
 }
 

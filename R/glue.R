@@ -42,26 +42,23 @@
 #' glue("The value of $e^{2\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
 #' @useDynLib glue glue_
 #' @name glue
+#' @import rlang
 #' @export
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
 
-  # Perform all evaluations in a temporary environment
-  if (is.environment(.x)) {
-    env <- new.env(parent = .x)
-    .envir <- NULL
-  } else {
-    env <- new.env(parent = .envir)
-  }
+  args <- quos(...)
+  named <- has_names(args)
 
-  # Capture unevaluated arguments
-  dots <- eval(substitute(alist(...)))
-  named <- has_names(dots)
 
-  # Evaluate named arguments, add results to environment
-  assign_args(dots[named], envir = env, data = .x)
+  data_src <- as_dictionary(.x, read_only = TRUE)
+  bottom <- child_env(.envir)
+  bottom$.data <- data_src
+  overscope <- new_overscope(bottom, enclosure = base_env())
+  on.exit(overscope_clean(overscope))
 
-  # Concatenate unnamed arguments together
-  unnamed_args <- eval_args(dots[!named], envir = env, data = .x)
+  assign_args(args[named], overscope)
+
+  unnamed_args <- eval_tidy(args[!named])
 
   lengths <- lengths(unnamed_args)
   if (any(lengths == 0)) {
@@ -75,10 +72,10 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
 
   # Parse any glue strings
   res <- .Call(glue_, unnamed_args,
-    function(expr)
+    function(e) {
       enc2utf8(
         as.character(
-          eval2(parse(text = expr), envir = env, data = .x))),
+          eval_bare(parse_expr(e), env = overscope)))},
       .open, .close)
 
   if (any(lengths(res) == 0)) {

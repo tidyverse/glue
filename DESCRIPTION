@@ -12,7 +12,8 @@ Suggests:
   covr,
   magrittr
 Imports:
-  methods
+  methods,
+  rlang
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
