@@ -1,4 +1,6 @@
-# glue 1.1.0.9000
+# glue 1.1.1
+
+Another fix for PROTECT / REPROTECT found by the rchk static analyzer.
 
 # glue 1.1.0
 

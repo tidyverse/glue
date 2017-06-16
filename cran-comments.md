@@ -1,7 +1,7 @@
-This release fixes PROTECT errors uncovered by running with `gctorture()` and
-also provides better support for unicode text. It should also fix the rchck
-warnings from
-https://raw.githubusercontent.com/kalibera/cran-checks/master/rchk/results/glue.out
+Another fix for PROTECT / REPROTECT found by the rchk static analyzer.
+
+I believe with these changes the rchk warnings will be fixed
+(https://raw.githubusercontent.com/kalibera/cran-checks/master/rchk/results/glue.out)
 
 ## Test environments
 * local OS X install, R 3.3.2
