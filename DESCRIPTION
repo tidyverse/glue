@@ -1,6 +1,6 @@
 Package: glue
 Title: Interpreted String Literals
-Version: 1.1.1
+Version: 1.1.1.9000
 Authors@R: person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre"))
 Description: An implementation of interpreted string literals, inspired by
   Python's Literal String Interpolation <https://www.python.org/dev/peps/pep-0498/> and Docstrings
