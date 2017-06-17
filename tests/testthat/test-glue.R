@@ -124,7 +124,7 @@ test_that("glue evaluates arguments in the expected environment", {
     glue("x: {x}, x+1: {y}", y = x + 1, .envir = parent.frame())
   }
 
-  expect_identical(as_glue("x: 2, x+1: 3"), fun())
+  expect_identical(as_glue("x: 2, x+1: 2"), fun())
 })
 
 test_that("glue assigns arguments in the environment", {

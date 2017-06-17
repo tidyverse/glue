@@ -2,18 +2,29 @@
 #'
 #' Expressions enclosed by braces will be evaluated as R code. Single braces
 #' can be inserted by doubling them.
-#' @param .x \[`listish`]\cr An environment, list or data frame used to lookup values.
-#' @param ... \[`expressions`]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.
-#' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
-#' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
-#' evaluated from left to right. If `.x` is an environment, the expressions are
-#' evaluated in that environment and `.envir` is ignored.
-#' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
-#' full delimiter escapes it.
-#' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
-#' full delimiter escapes it.
+#' @param .x \[`listish`]\cr An environment, list or data frame used
+#'   to lookup values.
+#' @param ... \[`expressions`]\cr Expressions string(s) to format,
+#'   multiple inputs are concatenated together before formatting.
+#'   Strings are evaluated in `.envir` while expressions are evaluated
+#'   in their original context. Expressions are evaluated from left to
+#'   right.
+#' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to
+#'   separate elements.
+#' @param .envir \[`environment`: `parent.frame()`]\cr Environment to
+#'   evaluate each string expression in. Symbolic expressions are
+#'   always evaluated in their original context. Note that tidyeval
+#'   idioms may be used to gain more control, e.g. unquoting a quosure
+#'   enclosed in a specific environment. If `.x` is an environment,
+#'   the expressions are evaluated in that environment and `.envir` is
+#'   ignored.
+#' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening
+#'   delimiter. Doubling the full delimiter escapes it.
+#' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing
+#'   delimiter. Doubling the full delimiter escapes it.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
-#' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
+#'   <https://www.python.org/dev/peps/pep-0257> upon which this is
+#'   based.
 #' @examples
 #' name <- "Fred"
 #' age <- 50
@@ -47,13 +58,16 @@
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
 
   args <- quos(...)
-  named <- has_names(args)
+  named <- have_name(args)
 
+  if (is_env(.x)) {
+    overscope <- new_overscope(.x, env_tail(.x), enclosure = .x)
+  } else {
+    bottom <- env_bury(empty_env(), !!! .x %||% list())
+    overscope <- new_overscope(bottom, enclosure = .envir)
+  }
 
-  data_src <- as_dictionary(.x, read_only = TRUE)
-  bottom <- child_env(.envir)
-  bottom$.data <- data_src
-  overscope <- new_overscope(bottom, enclosure = base_env())
+  overscope$.data <- as_dictionary(.x, read_only = TRUE)
   on.exit(overscope_clean(overscope))
 
   assign_args(args[named], overscope)
@@ -71,12 +85,11 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   unnamed_args <- trim(unnamed_args)
 
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args,
-    function(e) {
-      enc2utf8(
-        as.character(
-          eval_bare(parse_expr(e), env = overscope)))},
-      .open, .close)
+  eval_fn <- function(e) {
+    res <- overscope_eval_next(overscope, parse_quosure(e, .envir))
+    enc2utf8(as.character(res))
+  }
+  res <- .Call(glue_, unnamed_args, eval_fn, .open, .close)
 
   if (any(lengths(res) == 0)) {
     return(as_glue(character(0)))
