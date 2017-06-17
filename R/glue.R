@@ -61,7 +61,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   named <- have_name(args)
 
   if (is_env(.x)) {
-    overscope <- new_overscope(.x, top = empty_env(), enclosure = .x)
+    overscope <- new_overscope(.x, env_tail(.x), enclosure = .x)
   } else {
     bottom <- env_bury(empty_env(), !!! .x %||% list())
     overscope <- new_overscope(bottom, enclosure = .envir)
