@@ -49,11 +49,14 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   args <- quos(...)
   named <- have_name(args)
 
+  if (is_env(.x)) {
+    overscope <- new_overscope(.x, top = empty_env(), enclosure = .x)
+  } else {
+    bottom <- env_bury(empty_env(), !!! .x %||% list())
+    overscope <- new_overscope(bottom, enclosure = .envir)
+  }
 
-  data_src <- as_dictionary(.x, read_only = TRUE)
-  bottom <- child_env(.envir)
-  bottom$.data <- data_src
-  overscope <- new_overscope(bottom, enclosure = base_env())
+  overscope$.data <- as_dictionary(.x, read_only = TRUE)
   on.exit(overscope_clean(overscope))
 
   assign_args(args[named], overscope)
@@ -71,12 +74,11 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   unnamed_args <- trim(unnamed_args)
 
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args,
-    function(e) {
-      enc2utf8(
-        as.character(
-          eval_bare(parse_expr(e), env = overscope)))},
-      .open, .close)
+  eval_fn <- function(e) {
+    res <- overscope_eval_next(overscope, parse_quosure(e, .envir))
+    enc2utf8(as.character(res))
+  }
+  res <- .Call(glue_, unnamed_args, eval_fn, .open, .close)
 
   if (any(lengths(res) == 0)) {
     return(as_glue(character(0)))
