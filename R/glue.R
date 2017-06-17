@@ -47,7 +47,7 @@
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
 
   args <- quos(...)
-  named <- has_names(args)
+  named <- have_name(args)
 
 
   data_src <- as_dictionary(.x, read_only = TRUE)
