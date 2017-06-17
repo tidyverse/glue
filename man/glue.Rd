@@ -12,21 +12,31 @@ glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
 glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
 }
 \arguments{
-\item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
+\item{.x}{[\code{listish}]\cr An environment, list or data frame used
+to lookup values.}
 
-\item{...}{[\code{expressions}]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.}
+\item{...}{[\code{expressions}]\cr Expressions string(s) to format,
+multiple inputs are concatenated together before formatting.
+Strings are evaluated in \code{.envir} while expressions are evaluated
+in their original context. Expressions are evaluated from left to
+right.}
 
-\item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
+\item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to
+separate elements.}
 
-\item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
-evaluated from left to right. If \code{.x} is an environment, the expressions are
-evaluated in that environment and \code{.envir} is ignored.}
+\item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to
+evaluate each string expression in. Symbolic expressions are
+always evaluated in their original context. Note that tidyeval
+idioms may be used to gain more control, e.g. unquoting a quosure
+enclosed in a specific environment. If \code{.x} is an environment,
+the expressions are evaluated in that environment and \code{.envir} is
+ignored.}
 
-\item{.open}{[\code{character(1)}: \sQuote{\{}]\cr The opening delimiter. Doubling the
-full delimiter escapes it.}
+\item{.open}{[\code{character(1)}: \sQuote{\{}]\cr The opening
+delimiter. Doubling the full delimiter escapes it.}
 
-\item{.close}{[\code{character(1)}: \sQuote{\}}]\cr The closing delimiter. Doubling the
-full delimiter escapes it.}
+\item{.close}{[\code{character(1)}: \sQuote{\}}]\cr The closing
+delimiter. Doubling the full delimiter escapes it.}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Single braces
@@ -61,5 +71,6 @@ glue("The value of $e^{2\\\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
 }
 \seealso{
 \url{https://www.python.org/dev/peps/pep-0498/} and
-\url{https://www.python.org/dev/peps/pep-0257} upon which this is based.
+\url{https://www.python.org/dev/peps/pep-0257} upon which this is
+based.
 }

@@ -2,18 +2,29 @@
 #'
 #' Expressions enclosed by braces will be evaluated as R code. Single braces
 #' can be inserted by doubling them.
-#' @param .x \[`listish`]\cr An environment, list or data frame used to lookup values.
-#' @param ... \[`expressions`]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.
-#' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
-#' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
-#' evaluated from left to right. If `.x` is an environment, the expressions are
-#' evaluated in that environment and `.envir` is ignored.
-#' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
-#' full delimiter escapes it.
-#' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
-#' full delimiter escapes it.
+#' @param .x \[`listish`]\cr An environment, list or data frame used
+#'   to lookup values.
+#' @param ... \[`expressions`]\cr Expressions string(s) to format,
+#'   multiple inputs are concatenated together before formatting.
+#'   Strings are evaluated in `.envir` while expressions are evaluated
+#'   in their original context. Expressions are evaluated from left to
+#'   right.
+#' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to
+#'   separate elements.
+#' @param .envir \[`environment`: `parent.frame()`]\cr Environment to
+#'   evaluate each string expression in. Symbolic expressions are
+#'   always evaluated in their original context. Note that tidyeval
+#'   idioms may be used to gain more control, e.g. unquoting a quosure
+#'   enclosed in a specific environment. If `.x` is an environment,
+#'   the expressions are evaluated in that environment and `.envir` is
+#'   ignored.
+#' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening
+#'   delimiter. Doubling the full delimiter escapes it.
+#' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing
+#'   delimiter. Doubling the full delimiter escapes it.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
-#' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
+#'   <https://www.python.org/dev/peps/pep-0257> upon which this is
+#'   based.
 #' @examples
 #' name <- "Fred"
 #' age <- 50
