@@ -64,7 +64,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   unnamed_args <- eval_args(dots[!named], envir = env, data = .x)
 
   lengths <- lengths(unnamed_args)
-  if (any(lengths == 0)) {
+  if (any(lengths == 0) || length(unnamed_args) < length(dots[!named])) {
     return(as_glue(character(0)))
   }
   if (any(lengths != 1)) {
