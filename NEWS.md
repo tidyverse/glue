@@ -1,6 +1,6 @@
 # glue 1.1.1.9000
 
-
+Fix when last expression in `glue()` is NULL.
 
 # glue 1.1.1
 

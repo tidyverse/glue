@@ -183,7 +183,7 @@ test_that("trim works", {
       "test
     "))
   expect_identical("test",
-    trim("      
+    trim("
       test
     "))
   expect_identical("test",
@@ -242,6 +242,8 @@ test_that("printing glue identical to cat()", {
 
 test_that("length 0 inputs produce length 0 outputs", {
   expect_identical(as_glue(character(0)), glue("foo", character(0)))
+  expect_identical(as_glue(character(0)), glue("foo", NULL))
+  expect_identical(as_glue(character(0)), glue("foo", NULL, "bar"))
 
   expect_identical(as_glue(character(0)), glue("foo", "{character(0)}"))
   expect_identical(as_glue(character(0)), glue("foo {character(0)}"))
