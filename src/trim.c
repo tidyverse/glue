@@ -16,24 +16,30 @@ SEXP trim_(SEXP x) {
     }
 
     char* str = (char*)malloc(str_len + 1);
-    size_t start = 0;
-    size_t i = 0;
+    size_t i = 0, start = 0;
     bool new_line = false;
-    /* remove first blank line */
-    while (i < str_len) {
-      if (xx[i] == '\n') {
-        ++i;
-        start = i;
-        new_line = true;
-        break;
-      } else if (xx[i] == ' ' || xx[i] == '\t') {
-        ++i;
-      } else {
-        break;
-      }
+
+    /* skip leading blanks on first line */
+    while (start < str_len && (xx[start] == ' ' || xx[start] == '\t')) {
+      ++start;
+    }
+
+    /* Skip first newline */
+    if (start < str_len && xx[start] == '\n') {
+      new_line = true;
+      ++start;
     }
 
     i = start;
+
+    /* Ignore first line */
+    if (!new_line) {
+      while (i < str_len && xx[i] != '\n') {
+        ++i;
+      }
+      new_line = true;
+    }
+
     size_t indent = 0;
 
     /* Maximum size of size_t */
@@ -50,18 +56,23 @@ SEXP trim_(SEXP x) {
           if (indent < min_indent) {
             min_indent = indent;
           }
+          indent = 0;
           new_line = false;
         }
       }
       ++i;
     }
-    if (indent < min_indent) {
+
+    if (new_line && indent < min_indent) {
       min_indent = indent;
     }
 
     new_line = true;
     i = start;
     size_t j = 0;
+
+    /*Rprintf("start: %i\nindent: %i\nmin_indent: %i", start, indent,
+     * min_indent);*/
 
     /* copy the string removing the minimum indent from new lines */
     while (i < str_len) {
