@@ -143,6 +143,7 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
 #' to the minimum indentation of all non-blank lines after the first.
 #' - Lines can be continued across newlines by using `\\`.
 #' @param x A character vector to trim.
+#' @export
 #' @examples
 #' glue("
 #'     A formatted string
