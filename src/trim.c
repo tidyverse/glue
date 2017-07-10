@@ -1,14 +1,13 @@
-#include <stdlib.h>
-#include <stdbool.h>
 #include "Rinternals.h"
-#include <string.h>  // for strlen()
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h> // for strlen()
 
 SEXP trim_(SEXP x) {
-
   size_t len = LENGTH(x);
 
   SEXP out = PROTECT(Rf_allocVector(STRSXP, len));
-  for (size_t num = 0; num < len;++num) {
+  for (size_t num = 0; num < len; ++num) {
     const char* xx = Rf_translateCharUTF8(STRING_ELT(x, num));
     size_t str_len = strlen(xx);
     if (str_len == 0) {
@@ -16,12 +15,12 @@ SEXP trim_(SEXP x) {
       continue;
     }
 
-    char * str = (char *) malloc(str_len + 1);
+    char* str = (char*)malloc(str_len + 1);
     size_t start = 0;
     size_t i = 0;
     bool new_line = false;
     /* remove first blank line */
-    while(i < str_len) {
+    while (i < str_len) {
       if (xx[i] == '\n') {
         ++i;
         start = i;
@@ -41,7 +40,7 @@ SEXP trim_(SEXP x) {
     size_t min_indent = (size_t)-1;
 
     /* find minimum indent */
-    while(i < str_len) {
+    while (i < str_len) {
       if (xx[i] == '\n') {
         new_line = true;
       } else if (new_line) {
@@ -65,12 +64,12 @@ SEXP trim_(SEXP x) {
     size_t j = 0;
 
     /* copy the string removing the minimum indent from new lines */
-    while(i < str_len) {
+    while (i < str_len) {
       if (xx[i] == '\n') {
         new_line = true;
       } else if (xx[i] == '\\' && i + 1 < str_len && xx[i + 1] == '\n') {
         new_line = true;
-        i+=2;
+        i += 2;
         continue;
       } else if (new_line) {
         if (i + min_indent < str_len && (xx[i] == ' ' || xx[i] == '\t')) {
@@ -84,7 +83,7 @@ SEXP trim_(SEXP x) {
 
     /* Remove trailing whitespace up to the first newline */
     size_t end = j;
-    while(j > 0) {
+    while (j > 0) {
       if (str[j] == '\n') {
         end = j;
         break;
