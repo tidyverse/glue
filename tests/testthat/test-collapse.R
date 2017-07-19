@@ -34,3 +34,11 @@ test_that("last argument to collapse", {
 test_that("collapse returns 0 length output for 0 length input", {
   expect_identical(collapse(character()), as_glue(character()))
 })
+
+test_that("collapse returns NA_character_ if any inputs are NA", {
+  expect_identical(collapse(NA_character_), as_glue(NA_character_))
+
+  expect_identical(collapse(c(1, 2, 3, NA_character_)), as_glue(NA_character_))
+
+  expect_identical(collapse(c("foo", NA_character_, "bar")), as_glue(NA_character_))
+})
