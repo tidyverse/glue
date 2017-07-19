@@ -177,6 +177,8 @@ trim <- function(x) {
 
 #' @export
 print.glue <- function(x, ..., sep = "\n") {
+  x[is.na(x)] <- style_na(x[is.na(x)])
+
   cat(x, ..., sep = sep)
 
   invisible(x)
