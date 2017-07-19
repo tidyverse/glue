@@ -67,6 +67,6 @@ style_na <- function(x) {
   if (requireNamespace("crayon")) {
     crayon::style(x, bg = colour_na())
   } else {
-    x
+    x # nocov
   }
 }
