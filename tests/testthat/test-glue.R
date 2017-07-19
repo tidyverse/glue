@@ -247,3 +247,18 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
   expect_identical(xy_out, glue(x, y))
   expect_identical(xy_out, glue("{x}{y}"))
 })
+
+test_that("glue always returns NA_character_ if given any NA input", {
+  expect_identical(
+    glue("{NA}"),
+    as_glue(NA_character_))
+
+  x <- c("foo", NA_character_, "bar")
+  expect_identical(
+    glue("{x}"),
+    as_glue(c("foo", NA_character_, "bar")))
+
+  expect_identical(
+    glue("{1:3} - {x}"),
+    as_glue(c("1 - foo", NA_character_, "3 - bar")))
+})

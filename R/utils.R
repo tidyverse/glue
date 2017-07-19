@@ -57,3 +57,16 @@ recycle_columns <- function (x)
     }
     x
 }
+
+# From https://github.com/hadley/colformat/blob/0a35999e7d77b9b3a47b4a04662d1c2625f929d3/R/styles.R#L19-L25
+colour_na <- function() {
+  grDevices::rgb(5, 5, 2, maxColorValue = 5)
+}
+
+style_na <- function(x) {
+  if (requireNamespace("crayon")) {
+    crayon::style(x, bg = colour_na())
+  } else {
+    x # nocov
+  }
+}

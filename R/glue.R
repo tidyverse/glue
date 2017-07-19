@@ -85,7 +85,12 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
     return(as_glue(character(0)))
   }
 
+  res <- recycle_columns(res)
+  # Return NA for any rows that are NA
+  na_rows <- Reduce(`|`, lapply(res, is.na))
+
   res <- do.call(paste0, recycle_columns(res))
+  res[na_rows] <- NA_character_
 
   as_glue(res)
 }
@@ -117,9 +122,13 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
   if (length(x) == 0) {
     return(as_glue(character()))
   }
+  if (any(is.na(x))) {
+    return(as_glue(NA_character_))
+  }
+
   if (nzchar(last) && length(x) > 1) {
     res <- collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
-    return(collapse(glue(res, last, x[length(x)]), width = width))
+    return(collapse(paste0(res, last, x[length(x)]), width = width))
   }
   x <- paste0(x, collapse = sep)
   if (width < Inf) {
@@ -168,6 +177,8 @@ trim <- function(x) {
 
 #' @export
 print.glue <- function(x, ..., sep = "\n") {
+  x[is.na(x)] <- style_na(x[is.na(x)])
+
   cat(x, ..., sep = sep)
 
   invisible(x)

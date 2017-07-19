@@ -10,7 +10,8 @@ Depends: R (>= 3.0.0)
 Suggests:
   testthat,
   covr,
-  magrittr
+  magrittr,
+  crayon
 Imports:
   methods
 License: MIT + file LICENSE
