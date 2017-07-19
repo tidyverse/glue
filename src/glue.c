@@ -136,11 +136,6 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
         SEXP call = PROTECT(Rf_lang2(f, expr));
         SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
 
-        // If any result is NA, return NA
-        if (result == NA_STRING) {
-          return NA_STRING;
-        }
-
         // text in between last glue statement
         str[j] = '\0';
         SEXP str_ = PROTECT(Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
