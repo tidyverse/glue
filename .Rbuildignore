@@ -7,3 +7,4 @@
 ^appveyor\.yml$
 ^cran-comments\.md$
 ^revdep$
+^src/\.clang-format$
