@@ -13,7 +13,7 @@ Suggests:
   magrittr,
   crayon
 Imports:
-  methods
+  methods, R6
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
