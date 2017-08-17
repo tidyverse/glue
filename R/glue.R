@@ -43,7 +43,7 @@
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
-glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
+glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .transformer = IdentityTransformer$new()) {
 
   # Perform all evaluations in a temporary environment
   if (is.environment(.x)) {
@@ -75,17 +75,18 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
 
   # Parse any glue strings
   res <- .Call(glue_, unnamed_args,
-    function(expr)
-      enc2utf8(
-        as.character(
-          eval2(parse(text = expr), envir = env, data = .x))),
-      .open, .close)
+    function(expr) {
+      expr <- .transformer$input(expr)
+      res <- enc2utf8(as.character(eval2(parse(text = expr), envir = env, data = .x)))
+      res <- .transformer$output(res)
+    }, .open, .close)
 
   if (any(lengths(res) == 0)) {
     return(as_glue(character(0)))
   }
 
   res <- recycle_columns(res)
+
   # Return NA for any rows that are NA
   na_rows <- Reduce(`|`, lapply(res, is.na))
 
