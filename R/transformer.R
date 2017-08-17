@@ -2,9 +2,11 @@ IdentityTransformer <- R6::R6Class("IdentityTransformer",
   public = list(
     input = identity,
     eval = function(expr, env, data) {
-      enc2utf8(as.character(eval2(parse(text = expr), envir = env, data = data)))
+      eval2(parse(text = expr), envir = env, data = data)
     },
-    output = identity
+    output = function(x) {
+      enc2utf8(as.character(x))
+    }
   )
 )
 
@@ -72,6 +74,30 @@ EmojiTransformer <- R6::R6Class("EmojiTransformer",
         return(collapse(emo::ji_find(expr)$emoji))
       }
       emo::ji(expr)
+    }
+  )
+)
+
+FormatterTransformer <- R6::R6Class("FormatterTransformer",
+  inherit = IdentityTransformer,
+  private = list(
+    format = character()
+  ),
+  public = list(
+    input = function(x) {
+      m <- regexpr(":.+$", x)
+      if (m != -1) {
+        private$format <- substring(regmatches(x, m), 2)
+        regmatches(x, m) <- ""
+      }
+      x
+    },
+    output = function(x) {
+      if (nzchar(private$format)) {
+        do.call(sprintf, list(glue("%{private$format}f"), x))
+      } else {
+        as.character(x)
+      }
     }
   )
 )
