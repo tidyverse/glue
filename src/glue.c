@@ -37,6 +37,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   const char* close = CHAR(STRING_ELT(close_arg, 0));
   size_t close_len = strlen(close);
 
+  int delim_equal = strncmp(open, close, open_len) == 0;
+
   SEXP out = Rf_allocVector(VECSXP, 3);
   PROTECT_INDEX out_idx;
   PROTECT_WITH_INDEX(out, &out_idx);
@@ -107,7 +109,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
       break;
     }
     case delim: {
-      if (strncmp(&xx[i], open, open_len) == 0) {
+      if (!delim_equal && strncmp(&xx[i], open, open_len) == 0) {
         ++delim_level;
         i += open_len - 1;
       } else if (strncmp(&xx[i], close, close_len) == 0) {
