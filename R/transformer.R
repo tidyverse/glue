@@ -78,7 +78,7 @@ EmojiTransformer <- R6::R6Class("EmojiTransformer",
   )
 )
 
-FormatterTransformer <- R6::R6Class("FormatterTransformer",
+SprintfTransformer <- R6::R6Class("SprintfTransformer",
   inherit = IdentityTransformer,
   private = list(
     format = character()
