@@ -7,7 +7,7 @@
 \title{Format and interpolate a string}
 \usage{
 glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}")
+  .close = "}", .transformer = IdentityTransformer$new())
 
 glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
 }
@@ -27,6 +27,8 @@ full delimiter escapes it.}
 
 \item{.close}{[\code{character(1)}: \sQuote{\}}]\cr The closing delimiter. Doubling the
 full delimiter escapes it.}
+
+\item{.transformer}{TODO!}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Single braces

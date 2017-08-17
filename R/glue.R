@@ -12,6 +12,7 @@
 #' full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 #' full delimiter escapes it.
+#' @param .transformer TODO!
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
 #' @examples
