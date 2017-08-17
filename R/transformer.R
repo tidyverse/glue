@@ -1,6 +1,9 @@
 IdentityTransformer <- R6::R6Class("IdentityTransformer",
   public = list(
     input = identity,
+    eval = function(expr, env, data) {
+      enc2utf8(as.character(eval2(parse(text = expr), envir = env, data = data)))
+    },
     output = identity
   )
 )

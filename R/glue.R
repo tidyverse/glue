@@ -77,7 +77,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   res <- .Call(glue_, unnamed_args,
     function(expr) {
       expr <- .transformer$input(expr)
-      res <- enc2utf8(as.character(eval2(parse(text = expr), envir = env, data = .x)))
+      res <- .transformer$eval(expr, env, .x)
       res <- .transformer$output(res)
     }, .open, .close)
 
