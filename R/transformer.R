@@ -54,3 +54,24 @@ CollapseTransformer <- R6::R6Class("CollapseTransformer",
     }
   )
 )
+
+EmojiTransformer <- R6::R6Class("EmojiTransformer",
+  inherit = IdentityTransformer,
+  private = list(
+    collapse = FALSE
+  ),
+  public = list(
+    input = function(x) {
+      private$collapse <- grepl("[*]$", x)
+      x <- sub("[*]$", "", x)
+      x
+    },
+    eval = function(expr, env, data) {
+      if (private$collapse) {
+        private$collapse <- FALSE
+        return(collapse(emo::ji_find(expr)$emoji))
+      }
+      emo::ji(expr)
+    }
+  )
+)
