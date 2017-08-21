@@ -7,7 +7,7 @@
 \title{Format and interpolate a string}
 \usage{
 glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}", .transformer = IdentityTransformer$new())
+  .close = "}", .transformer = identity_transformer)
 
 glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
 }

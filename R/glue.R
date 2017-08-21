@@ -44,7 +44,7 @@
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
-glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .transformer = IdentityTransformer$new()) {
+glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .transformer = identity_transformer) {
 
   # Perform all evaluations in a temporary environment
   if (is.environment(.x)) {
@@ -77,9 +77,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   # Parse any glue strings
   res <- .Call(glue_, unnamed_args,
     function(expr) {
-      expr <- .transformer$input(expr)
-      res <- .transformer$eval(expr, env, .x)
-      res <- .transformer$output(res)
+      as.character(.transformer(expr, env, .x))
     }, .open, .close)
 
   if (any(lengths(res) == 0)) {
