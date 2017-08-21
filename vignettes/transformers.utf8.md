@@ -15,8 +15,16 @@ automatically quotes variables for you or add a syntax for automatically
 collapsing outputs.
 
 
+
+
 ```r
-con <- DBI::dbConnect(odbc::odbc(), "PostgreSQL")
+sql_quote_transformer <- function(connection) {
+  function(code, envir, data) {
+    DBI::dbQuoteString(con, evaluate(code, envir, data))
+  }
+}
+
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 glue_sql <- function(..., .con) {
   glue(..., .transformer = sql_quote_transformer(.con))
 }
@@ -34,6 +42,16 @@ Or a transformer which automatically collapses any glue block ending with `*`.
 
 
 ```r
+collapse_transformer <- function(regex = "[*]$", ...) {
+  function(code, envir, data) {
+    if (grepl(regex, code)) {
+        code <- sub(regex, "", code)
+    }
+    res <- evaluate(code, envir, data)
+    collapse(res, ...)
+  }
+}
+
 glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", "))
 ```
 
@@ -55,6 +73,15 @@ Or a transformer which converts the text to the equivalent emoji.
 
 
 ```r
+emoji_transformer <- function(code, envir, data) {
+  if (grepl("[*]$", code)) {
+    code <- sub("[*]$", "", code)
+    collapse(emo::ji_find(code)$emoji)
+  } else {
+    emo::ji(code)
+  }
+}
+
 glue_ji <- function(...) {
   glue(..., .open = ":", .close = ":", .transformer = emoji_transformer)
 }
@@ -76,6 +103,18 @@ glue_ji("many :heart*:")
 Or a transformer which allows succinct sprintf format strings.
 
 ```r
+sprintf_transformer <- function(code, envir, data) {
+  m <- regexpr(":.+$", code)
+  if (m != -1) {
+    format <- substring(regmatches(code, m), 2)
+    regmatches(code, m) <- ""
+    res <- evaluate(code, envir, data)
+    do.call(sprintf, list(glue("%{format}f"), res))
+  } else {
+    evaluate(code, envir, data)
+  }
+}
+
 glue_fmt <- function(...) {
   glue(..., .transformer = sprintf_transformer)
 }
