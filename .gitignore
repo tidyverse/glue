@@ -2,3 +2,4 @@
 .Rhistory
 .RData
 /revdep/.cache.rds
+inst/doc
