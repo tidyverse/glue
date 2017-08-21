@@ -18,14 +18,14 @@ collapsing outputs.
 library(glue)
 ```
 
-```{r}
+```{r eval = require("DBI") && require("RSQLite")}
 sql_quote_transformer <- function(connection) {
   function(code, envir, data) {
-    DBI::dbQuoteString(con, evaluate(code, envir, data))
+    dbQuoteString(con, evaluate(code, envir, data))
   }
 }
 
-con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+con <- dbConnect(SQLite(), ":memory:")
 glue_sql <- function(..., .con) {
   glue(..., .transformer = sql_quote_transformer(.con))
 }
@@ -55,13 +55,13 @@ glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", 
 
 Or a transformer which converts the text to the equivalent emoji.
 
-```{r, eval = requireNamespace("emo")}
+```{r, eval = require("emo")}
 emoji_transformer <- function(code, envir, data) {
   if (grepl("[*]$", code)) {
     code <- sub("[*]$", "", code)
-    collapse(emo::ji_find(code)$emoji)
+    collapse(ji_find(code)$emoji)
   } else {
-    emo::ji(code)
+    ji(code)
   }
 }
 
@@ -91,5 +91,3 @@ glue_fmt <- function(...) {
 }
 glue_fmt("π = {pi:.2}")
 ```
-
-# TODO: readr::as_chunk_callback

@@ -13,9 +13,7 @@ Suggests:
     magrittr,
     crayon,
     knitr,
-    rmarkdown,
-    DBI,
-    RSQLite
+    rmarkdown
 Imports:
   methods
 License: MIT + file LICENSE
