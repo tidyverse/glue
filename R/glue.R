@@ -12,7 +12,9 @@
 #' full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 #' full delimiter escapes it.
-#' @param .transformer TODO!
+#' @param .transformer \[`function]`\cr A function taking three parameters `code`, `envir` and
+#' `data` used to transform the output of each block before during or after
+#' evaluation. For example transformers see `vignette("transformers")`.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
 #' @examples
