@@ -28,7 +28,9 @@ full delimiter escapes it.}
 \item{.close}{[\code{character(1)}: \sQuote{\}}]\cr The closing delimiter. Doubling the
 full delimiter escapes it.}
 
-\item{.transformer}{TODO!}
+\item{.transformer}{[\code{function]}\cr A function taking three parameters \code{code}, \code{envir} and
+\code{data} used to transform the output of each block before during or after
+evaluation. For example transformers see \code{vignette("transformers")}.}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Single braces
