@@ -14,8 +14,9 @@ and after evaluation. This allows you to write things like `sql_glue()`, which
 automatically quotes variables for you or add a syntax for automatically
 collapsing outputs.
 
-```{r setup, echo = FALSE}
+```{r, include = FALSE}
 library(glue)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 ```{r eval = require("DBI") && require("RSQLite")}

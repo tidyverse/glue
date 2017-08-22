@@ -95,9 +95,8 @@ glue_sql &lt;-<span class="st"> </span><span class="cf">function</span>(..., .co
 
 var &lt;-<span class="st"> "foo"</span>
 tbl &lt;-<span class="st"> "bar"</span>
-<span class="kw">glue_sql</span>(<span class="st">"SELECT {var} FROM {tbl}"</span>, <span class="dt">.con =</span> con)</code></pre></div>
-<pre><code>## Loading required namespace: crayon</code></pre>
-<pre><code>## SELECT 'foo' FROM 'bar'</code></pre>
+<span class="kw">glue_sql</span>(<span class="st">"SELECT {var} FROM {tbl}"</span>, <span class="dt">.con =</span> con)
+<span class="co">#&gt; SELECT 'foo' FROM 'bar'</span></code></pre></div>
 <p>Or a transformer which automatically collapses any glue block ending with <code>*</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">collapse_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">regex =</span> <span class="st">"[*]$"</span>, ...) {
   <span class="cf">function</span>(code, envir, data) {
@@ -109,12 +108,13 @@ tbl &lt;-<span class="st"> "bar"</span>
   }
 }
 
-<span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>))</code></pre></div>
-<pre><code>## 1, 2, 3, 4, 5
-## a, b, c, d, e</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">" and "</span>))</code></pre></div>
-<pre><code>## 1, 2, 3, 4 and 5
-## a, b, c, d and e</code></pre>
+<span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>))
+<span class="co">#&gt; 1, 2, 3, 4, 5</span>
+<span class="co">#&gt; a, b, c, d, e</span>
+
+<span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">" and "</span>))
+<span class="co">#&gt; 1, 2, 3, 4 and 5</span>
+<span class="co">#&gt; a, b, c, d and e</span></code></pre></div>
 <p>Or a transformer which converts the text to the equivalent emoji.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emoji_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir, data) {
   <span class="cf">if</span> (<span class="kw">grepl</span>(<span class="st">"[*]$"</span>, code)) {
@@ -128,10 +128,10 @@ tbl &lt;-<span class="st"> "bar"</span>
 glue_ji &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
   <span class="kw">glue</span>(..., <span class="dt">.open =</span> <span class="st">":"</span>, <span class="dt">.close =</span> <span class="st">":"</span>, <span class="dt">.transformer =</span> emoji_transformer)
 }
-<span class="kw">glue_ji</span>(<span class="st">"one :heart:"</span>)</code></pre></div>
-<pre><code>## one ❤️</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glue_ji</span>(<span class="st">"many :heart*:"</span>)</code></pre></div>
-<pre><code>## many 😍😻💘❤💓💔💕💟💌♥️❣️❤️</code></pre>
+<span class="kw">glue_ji</span>(<span class="st">"one :heart:"</span>)
+<span class="co">#&gt; one ❤️</span>
+<span class="kw">glue_ji</span>(<span class="st">"many :heart*:"</span>)
+<span class="co">#&gt; many 😍😻💘❤💓💔💕💟💌♥️❣️❤️</span></code></pre></div>
 <p>Or a transformer which allows succinct sprintf format strings.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir, data) {
   m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">":.+$"</span>, code)
@@ -148,8 +148,8 @@ glue_ji &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
 glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
   <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> sprintf_transformer)
 }
-<span class="kw">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)</code></pre></div>
-<pre><code>## π = 3.14</code></pre>
+<span class="kw">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)
+<span class="co">#&gt; π = 3.14</span></code></pre></div>
 </div>
   </div>
 
