@@ -262,3 +262,26 @@ test_that("glue always returns NA_character_ if given any NA input", {
     glue("{1:3} - {x}"),
     as_glue(c("1 - foo", NA_character_, "3 - bar")))
 })
+
+test_that("glue works within functions", {
+  x <- 1
+  f <- function(msg) glue(msg, .envir = parent.frame())
+
+  expect_identical(f("{x}"), as_glue("1"))
+})
+
+test_that("scoping works within lapply (#42)", {
+  f <- function(msg) {
+    glue(msg, .envir = parent.frame())
+  }
+  expect_identical(lapply(1:2, function(x) f("{x * 2}")),
+    list(as_glue("2"), as_glue("4")))
+})
+
+test_that("glue works with lots of arguments", {
+  expect_identical(
+    glue("a", "very", "long", "test", "of", "how", "many", "unnamed",
+      "arguments", "you", "can", "have"),
+
+    as_glue("averylongtestofhowmanyunnamedargumentsyoucanhave"))
+})

@@ -1,5 +1,8 @@
 # glue 1.1.1.9000
 
+* `glue()` is now easier to use when used within helper functions such as
+  `lapply`.
+
 Fix when last expression in `glue()` is NULL.
 
 # glue 1.1.1
