@@ -253,6 +253,18 @@ test_that("glue always returns NA_character_ if given any NA input", {
     glue("{NA}"),
     as_glue(NA_character_))
 
+  expect_identical(
+    glue(NA),
+    as_glue(NA_character_))
+
+  expect_identical(
+    glue(NA, 1),
+    as_glue(NA_character_))
+
+  expect_identical(
+    glue(1, NA, 2),
+    as_glue(NA_character_))
+
   x <- c("foo", NA_character_, "bar")
   expect_identical(
     glue("{x}"),

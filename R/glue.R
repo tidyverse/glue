@@ -73,6 +73,10 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   if (any(lengths != 1)) {
     stop("All unnamed arguments must be length 1", call. = FALSE)
   }
+  if (any(is.na(unnamed_args))) {
+    return(as_glue(NA_character_))
+  }
+
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
   unnamed_args <- trim(unnamed_args)
 
