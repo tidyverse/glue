@@ -7,16 +7,6 @@ has_names <- function(x) {
   }
 }
 
-# Use an explicit for loop rather than lapply to show evaluation order matters
-eval_args <- function(args, envir, data) {
-  res <- vector("list", length(args))
-  for (i in seq_along(args)) {
-    res[[i]] <- eval2(args[[i]], envir = envir, data = data)
-  }
-  names(res) <- names(args)
-  res
-}
-
 assign_args <- function(args, envir, data) {
   res <- vector("list", length(args))
   nms <- names(args)
