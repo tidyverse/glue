@@ -10,10 +10,6 @@ SEXP trim_(SEXP x) {
   for (size_t num = 0; num < len; ++num) {
     const char* xx = Rf_translateCharUTF8(STRING_ELT(x, num));
     size_t str_len = strlen(xx);
-    if (str_len == 0) {
-      SET_STRING_ELT(out, num, R_BlankString);
-      continue;
-    }
 
     char* str = (char*)malloc(str_len + 1);
     size_t i = 0, start = 0;
