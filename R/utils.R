@@ -60,3 +60,7 @@ style_na <- function(x) {
     x # nocov
   }
 }
+
+lengths <- function(x) {
+  vapply(x, length, integer(1L))
+}
