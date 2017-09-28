@@ -1,0 +1,61 @@
+---
+title: "Colored output with crayon"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(glue)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+set.seed(42)
+```
+
+The [crayon](https://cran.r-project.org/package=crayon) package can be used in
+conjunction with glue to easily color text output. Simple place the color in
+between braces `{red}` and put a `{reset}` when you want to reset the color.
+This behavior is currently only in the [devel
+version](https://github.com/gaborcsardi/crayon) of crayon.
+
+```{r}
+library(crayon)
+glue::glue("
+  { sample.int(10, 1) } roses are {red}red{reset}
+  { sample.int(10, 1) } violets are {blue}blue{reset}
+  ")
+```
+
+You can also create new objects as combinations of colors.
+```{r}
+library(crayon)
+error <- red $ bold
+warn <- magenta $ underline
+note <- cyan
+
+subscript <- 2
+glue("{error}Error: subscript '{subscript}' out of bounds!{reset}")
+
+arg <- "y"
+glue("{warn}Warning: shorter argument '{arg}' was recycled.{reset}")
+
+dir <- 'pkg/R'
+glue("{note}Note: no such directory '{dir}'.{reset}")
+```
+
+And calling glue functions directly within `{}` works as well
+
+```{r}
+glue("
+Crayon example:
+  {
+    green(
+    'I am a green line ' %+%
+    blue$underline$bold('with a blue substring') %+%
+    ' that becomes green again!')
+  }
+  ")
+```
