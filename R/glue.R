@@ -149,6 +149,7 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
 
 #' Trim a character vector
 #'
+#' @description
 #' This trims a character vector according to the trimming rules used by glue.
 #' These follow similar rules to [Python Docstrings](https://www.python.org/dev/peps/pep-0257),
 #' with the following features.

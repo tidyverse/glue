@@ -13,8 +13,6 @@ trim(x)
 This trims a character vector according to the trimming rules used by glue.
 These follow similar rules to \href{https://www.python.org/dev/peps/pep-0257}{Python Docstrings},
 with the following features.
-}
-\details{
 \itemize{
 \item Leading and trailing whitespace from the first and last lines is removed.
 \item A uniform amount of indentation is stripped from the second line on, equal
