@@ -3,3 +3,4 @@
 .RData
 /revdep/.cache.rds
 inst/doc
+script.R
