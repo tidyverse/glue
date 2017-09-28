@@ -1,8 +1,9 @@
 $(function() {
-  $("#sidebar").stick_in_parent({offset_top: 40});
+  $("#sidebar").stick_in_parent({
+    offset_top: $("#sidebar").offset().top
+  });
   $('body').scrollspy({
-    target: '#sidebar',
-    offset: 60
+    target: '#sidebar'
   });
 
   var cur_path = paths(location.pathname);
@@ -20,7 +21,10 @@ $(function() {
       menu_anchor.closest("li.dropdown").addClass("active");
     }
   });
+
 });
+
+
 
 function paths(pathname) {
   var pieces = pathname.split("/");

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trim a character vector — trim • glue</title>
+<title>Interpolate strings with SQL escaping — glue_sql • glue</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,52 +92,81 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Trim a character vector</h1>
+    <h1>Interpolate strings with SQL escaping</h1>
     </div>
 
     
-    <p>This trims a character vector according to the trimming rules used by glue.
-These follow similar rules to <a href='https://www.python.org/dev/peps/pep-0257'>Python Docstrings</a>,
-with the following features.</p>
+    <p>SQL databases often have custom quotation syntax for identifiers and strings
+which make writing SQL queries error prone and cumbersome to do. <code>glue_sql()</code> and
+<code>glue_sql_data()</code> are analogs to <code>glue()</code> and <code><a href='glue.html'>glue_data()</a></code> which handle the
+SQL quoting.</p>
     
 
-    <pre class="usage"><span class='fu'>trim</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>glue_sql</span>(<span class='no'>...</span>, <span class='no'>.con</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>())
+
+<span class='fu'>glue_data_sql</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='no'>.con</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A character vector to trim.</p></td>
+      <th>...</th>
+      <td><p>[<code>expressions</code>] Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
+    </tr>
+    <tr>
+      <th>.con</th>
+      <td><p>[<code>DBIConnection</code>]:A DBI connection object obtained from <code><a href='http://www.rdocumentation.org/packages/DBI/topics/dbConnect'>DBI::dbConnect()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>.envir</th>
+      <td><p>[<code>environment</code>: <code>parent.frame()</code>] Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored.</p></td>
+    </tr>
+    <tr>
+      <th>.x</th>
+      <td><p>[<code>listish</code>] An environment, list or data frame used to lookup values.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <ul>
-<li><p>Leading and trailing whitespace from the first and last lines is removed.</p></li>
-<li><p>A uniform amount of indentation is stripped from the second line on, equal
-to the minimum indentation of all non-blank lines after the first.</p></li>
-<li><p>Lines can be continued across newlines by using <code>\</code>.</p></li>
-</ul>
+    <p>They automatically quote character results, quote identifiers if the glue
+expression is surrounded by backticks &#8216;`&#8217; and do not quote
+non-characters such as numbers.</p>
+<p>Returning the result with <code><a href='http://www.rdocumentation.org/packages/DBI/topics/SQL'>DBI::SQL()</a></code> will suppress quoting if desired.
+This can be useful for embedding SQL into larger queries.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>glue</span>(<span class='st'>"
-    A formatted string
-    Can have multiple lines
-      with additional indention preserved
-    "</span>)</div><div class='output co'>#&gt; A formatted string
-#&gt; Can have multiple lines
-#&gt;   with additional indention preserved</div><div class='input'>
-<span class='fu'>glue</span>(<span class='st'>"
-  \\ntrailing or leading newlines can be added explicitly\\n
-  "</span>)</div><div class='output co'>#&gt; \ntrailing or leading newlines can be added explicitly\n</div><div class='input'>
-<span class='fu'>glue</span>(<span class='st'>"
-    A formatted string \\
-    can also be on a \\
-    single line
-    "</span>)</div><div class='output co'>#&gt; A formatted string can also be on a single line</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>con</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DBI/topics/dbConnect'>dbConnect</a></span>(<span class='kw pkg'>RSQLite</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/RSQLite/topics/SQLite'>SQLite</a></span>(), <span class='st'>":memory:"</span>)
+<span class='no'>var</span> <span class='kw'>&lt;-</span> <span class='st'>"bar"</span>
+<span class='no'>tbl</span> <span class='kw'>&lt;-</span> <span class='st'>"basket"</span>
+<span class='no'>num</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
+<span class='no'>val</span> <span class='kw'>&lt;-</span> <span class='st'>"blue"</span>
+<span class='fu'>glue_sql</span>(<span class='st'>"
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.size &gt; {num}
+    AND {`tbl`}.color = {val}
+  "</span>, <span class='kw'>.con</span> <span class='kw'>=</span> <span class='no'>con</span>)</div><div class='output co'>#&gt; SELECT `bar`
+#&gt; FROM `basket`
+#&gt; WHERE `basket`.size &gt; 2
+#&gt;   AND `basket`.color = 'blue'</div><div class='input'>
+<span class='co'># If you do not want to quote a given value, use `DBI::SQL()` around it, this</span>
+<span class='co'># is one way to build up more complex queries with interchangeable sub queries</span>
+<span class='no'>sub_query</span> <span class='kw'>&lt;-</span> <span class='fu'>glue_sql</span>(<span class='st'>"
+  SELECT *
+  FROM {`tbl`}
+  "</span>, <span class='kw'>.con</span> <span class='kw'>=</span> <span class='no'>con</span>)
+
+<span class='fu'>glue_sql</span>(<span class='st'>"
+  SELECT s.{`var`}
+  FROM ({DBI::SQL(sub_query)}) AS s
+  "</span>, <span class='kw'>.con</span> <span class='kw'>=</span> <span class='no'>con</span>)</div><div class='output co'>#&gt; SELECT s.`bar`
+#&gt; FROM (SELECT *
+#&gt; FROM `basket`) AS s</div><div class='input'>
+<span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DBI/topics/dbDisconnect'>dbDisconnect</a></span>(<span class='no'>con</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

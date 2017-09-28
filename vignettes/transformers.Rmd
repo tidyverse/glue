@@ -10,7 +10,7 @@ vignette: >
 ---
 
 Transformers allow you to apply functions to the glue input and output, before
-and after evaluation. This allows you to write things like `sql_glue()`, which
+and after evaluation. This allows you to write things like `glue_sql()`, which
 automatically quotes variables for you or add a syntax for automatically
 collapsing outputs.
 
@@ -19,24 +19,7 @@ library(glue)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-```{r eval = require("DBI") && require("RSQLite")}
-sql_quote_transformer <- function(connection) {
-  function(code, envir, data) {
-    dbQuoteString(con, evaluate(code, envir, data))
-  }
-}
-
-con <- dbConnect(SQLite(), ":memory:")
-glue_sql <- function(..., .con) {
-  glue(..., .transformer = sql_quote_transformer(.con))
-}
-
-var <- "foo"
-tbl <- "bar"
-glue_sql("SELECT {var} FROM {tbl}", .con = con)
-```
-
-Or a transformer which automatically collapses any glue block ending with `*`.
+So you can define a transformer which automatically collapses any glue block ending with `*`.
 
 ```{r}
 collapse_transformer <- function(regex = "[*]$", ...) {
