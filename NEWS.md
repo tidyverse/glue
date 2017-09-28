@@ -1,5 +1,8 @@
 # glue 1.1.1.9000
 
+* `glue_sql()` and `glue_data_sql()` functions added to make constructing SQL
+  statements with glue safer and easier.
+
 * `glue()` is now easier to use when used within helper functions such as
   `lapply`.
 
