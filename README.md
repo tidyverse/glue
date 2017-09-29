@@ -131,23 +131,43 @@ Use backticks to quote identifiers, normal strings and numbers are quoted approp
 
 ``` r
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
-var <- "bar"
-tbl <- "basket"
+colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris)
+var <- "sepal_width"
+tbl <- "iris"
 num <- 2
-val <- "blue"
+val <- "setosa"
 glue_sql("
   SELECT {`var`}
   FROM {`tbl`}
-  WHERE {`tbl`}.size > {num}
-    AND {`tbl`}.color = {val}
+  WHERE {`tbl`}.sepal_length > {num}
+    AND {`tbl`}.species = {val}
   ", .con = con)
-#> SELECT `bar`
-#> FROM `basket`
-#> WHERE `basket`.size > 2
-#>   AND `basket`.color = 'blue'
+#> <SQL> SELECT `sepal_width`
+#> FROM `iris`
+#> WHERE `iris`.sepal_length > 2
+#>   AND `iris`.species = 'setosa'
 
-# If you do not want to quote a given value, use `DBI::SQL()` around it, this
-# is one way to build up more complex queries with interchangeable sub queries
+# `glue_sql()` can be used in conjuction with parameterized queries using
+# `DBI::dbBind()` to provide protection for SQL Injection attacks
+ sql <- glue_sql("
+    SELECT {`var`}
+    FROM {`tbl`}
+    WHERE {`tbl`}.sepal_length > ?
+  ", .con = con)
+query <- DBI::dbSendQuery(con, sql)
+DBI::dbBind(query, list(num))
+DBI::dbFetch(query, n = 4)
+#>   sepal_width
+#> 1         3.5
+#> 2         3.0
+#> 3         3.2
+#> 4         3.1
+DBI::dbClearResult(query)
+
+# `glue_sql()` can be used to build up more complex queries with
+# interchangeable sub queries. It returns `DBI::SQL()` objects which are
+# properly protected from quoting.
 sub_query <- glue_sql("
   SELECT *
   FROM {`tbl`}
@@ -155,13 +175,29 @@ sub_query <- glue_sql("
 
 glue_sql("
   SELECT s.{`var`}
-  FROM ({DBI::SQL(sub_query)}) AS s
+  FROM ({sub_query}) AS s
   ", .con = con)
-#> SELECT s.`bar`
+#> <SQL> SELECT s.`sepal_width`
 #> FROM (SELECT *
-#> FROM `basket`) AS s
+#> FROM `iris`) AS s
 
-DBI::dbDisconnect(con)
+# If you want to input multiple values for use in SQL IN statements put `*`
+# at the end of the value and the values will be collapsed and quoted appropriately.
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1, .con = con)
+#> <SQL> SELECT * FROM `iris` WHERE sepal_length IN (1)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1:5, .con = con)
+#> <SQL> SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = "setosa", .con = con)
+#> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa')
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = c("setosa", "versicolor"), .con = con)
+#> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')
 ```
 
 Other implementations
