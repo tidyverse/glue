@@ -20,6 +20,9 @@ evaluated in that environment and \code{.envir} is ignored.}
 
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
 }
+\value{
+A \code{DBI::SQL()} object with the given query.
+}
 \description{
 SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
@@ -31,24 +34,43 @@ They automatically quote character results, quote identifiers if the glue
 expression is surrounded by backticks \sQuote{`} and do not quote
 non-characters such as numbers.
 
-Returning the result with \code{DBI::SQL()} will suppress quoting if desired.
-This can be useful for embedding SQL into larger queries.
+Returning the result with \code{DBI::SQL()} will suppress quoting if desired for
+a given value.
+
+Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries}{parameterized queries}
+are generally the safest and most efficient way to pass user defined
+values in a query, however not every database driver supports them.
 }
 \examples{
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
-var <- "bar"
-tbl <- "basket"
+colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris)
+var <- "sepal_width"
+tbl <- "iris"
 num <- 2
-val <- "blue"
+val <- "setosa"
 glue_sql("
   SELECT {`var`}
   FROM {`tbl`}
-  WHERE {`tbl`}.size > {num}
-    AND {`tbl`}.color = {val}
+  WHERE {`tbl`}.sepal_length > {num}
+    AND {`tbl`}.species = {val}
   ", .con = con)
 
-# If you do not want to quote a given value, use `DBI::SQL()` around it, this
-# is one way to build up more complex queries with interchangeable sub queries
+# `glue_sql()` can be used in conjuction with parameterized queries using
+# `DBI::dbBind()` to provide protection for SQL Injection attacks
+ sql <- glue_sql("
+    SELECT {`var`}
+    FROM {`tbl`}
+    WHERE {`tbl`}.sepal_length > ?
+  ", .con = con)
+query <- DBI::dbSendQuery(con, sql)
+DBI::dbBind(query, list(num))
+DBI::dbFetch(query, n = 4)
+DBI::dbClearResult(query)
+
+# `glue_sql()` can be used to build up more complex queries with
+# interchangeable sub queries. It returns `DBI::SQL()` objects which are
+# properly protected from quoting.
 sub_query <- glue_sql("
   SELECT *
   FROM {`tbl`}
@@ -56,7 +78,7 @@ sub_query <- glue_sql("
 
 glue_sql("
   SELECT s.{`var`}
-  FROM ({DBI::SQL(sub_query)}) AS s
+  FROM ({sub_query}) AS s
   ", .con = con)
 
 DBI::dbDisconnect(con)

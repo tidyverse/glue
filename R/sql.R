@@ -9,25 +9,46 @@
 #' expression is surrounded by backticks \sQuote{`} and do not quote
 #' non-characters such as numbers.
 #'
-#' Returning the result with `DBI::SQL()` will suppress quoting if desired.
-#' This can be useful for embedding SQL into larger queries.
+#' Returning the result with `DBI::SQL()` will suppress quoting if desired for
+#' a given value.
+#'
+#' Note [parameterized queries](https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries)
+#' are generally the safest and most efficient way to pass user defined
+#' values in a query, however not every database driver supports them.
+#'
 #' @inheritParams glue
 #' @param .con \[`DBIConnection`]:A DBI connection object obtained from `DBI::dbConnect()`.
+#' @return A `DBI::SQL()` object with the given query.
 #' @examples
 #' con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
-#' var <- "bar"
-#' tbl <- "basket"
+#' colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
+#' DBI::dbWriteTable(con, "iris", iris)
+#' var <- "sepal_width"
+#' tbl <- "iris"
 #' num <- 2
-#' val <- "blue"
+#' val <- "setosa"
 #' glue_sql("
 #'   SELECT {`var`}
 #'   FROM {`tbl`}
-#'   WHERE {`tbl`}.size > {num}
-#'     AND {`tbl`}.color = {val}
+#'   WHERE {`tbl`}.sepal_length > {num}
+#'     AND {`tbl`}.species = {val}
 #'   ", .con = con)
 #'
-#' # If you do not want to quote a given value, use `DBI::SQL()` around it, this
-#' # is one way to build up more complex queries with interchangeable sub queries
+#' # `glue_sql()` can be used in conjuction with parameterized queries using
+#' # `DBI::dbBind()` to provide protection for SQL Injection attacks
+#'  sql <- glue_sql("
+#'     SELECT {`var`}
+#'     FROM {`tbl`}
+#'     WHERE {`tbl`}.sepal_length > ?
+#'   ", .con = con)
+#' query <- DBI::dbSendQuery(con, sql)
+#' DBI::dbBind(query, list(num))
+#' DBI::dbFetch(query, n = 4)
+#' DBI::dbClearResult(query)
+#'
+#' # `glue_sql()` can be used to build up more complex queries with
+#' # interchangeable sub queries. It returns `DBI::SQL()` objects which are
+#' # properly protected from quoting.
 #' sub_query <- glue_sql("
 #'   SELECT *
 #'   FROM {`tbl`}
@@ -35,19 +56,19 @@
 #'
 #' glue_sql("
 #'   SELECT s.{`var`}
-#'   FROM ({DBI::SQL(sub_query)}) AS s
+#'   FROM ({sub_query}) AS s
 #'   ", .con = con)
 #'
 #' DBI::dbDisconnect(con)
 #' @export
 glue_sql <- function(..., .con, .envir = parent.frame()) {
-  glue(..., .envir = .envir, .transformer = sql_quote_transformer(.con))
+  DBI::SQL(glue(..., .envir = .envir, .transformer = sql_quote_transformer(.con)))
 }
 
 #' @rdname glue_sql
 #' @export
 glue_data_sql <- function(.x, ..., .con, .envir = parent.frame()) {
-  glue_data(.x, ..., .envir = .envir, .transformer = sql_quote_transformer(.con))
+  DBI::SQL(glue_data(.x, ..., .envir = .envir, .transformer = sql_quote_transformer(.con)))
 }
 
 sql_quote_transformer <- function(connection) {

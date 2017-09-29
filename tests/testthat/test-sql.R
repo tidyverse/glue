@@ -9,22 +9,22 @@ describe("glue_sql", {
     expect_error(glue_sql("{var}"), "missing")
   })
   it("returns the string if no substitions needed", {
-    expect_identical(glue_sql("foo", .con = con), as_glue("foo"))
+    expect_identical(glue_sql("foo", .con = con), DBI::SQL("foo"))
   })
   it("quotes string values", {
     var <- "foo"
-    expect_identical(glue_sql("{var}", .con = con), as_glue("'foo'"))
+    expect_identical(glue_sql("{var}", .con = con), DBI::SQL("'foo'"))
   })
   it("quotes identifiers", {
     var <- "foo"
-    expect_identical(glue_sql("{`var`}", .con = con), as_glue("`foo`"))
+    expect_identical(glue_sql("{`var`}", .con = con), DBI::SQL("`foo`"))
   })
   it("Does not quote numbers", {
     var <- 1
-    expect_identical(glue_sql("{var}", .con = con), as_glue("1"))
+    expect_identical(glue_sql("{var}", .con = con), DBI::SQL("1"))
   })
   it("Does not quote DBI::SQL()", {
     var <- DBI::SQL("foo")
-    expect_identical(glue_sql("{var}", .con = con), as_glue("foo"))
+    expect_identical(glue_sql("{var}", .con = con), DBI::SQL("foo"))
   })
 })
