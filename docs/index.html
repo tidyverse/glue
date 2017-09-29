@@ -194,23 +194,43 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
 <a href="#glue_sql-makes-constructing-sql-statements-safe-and-easy" class="anchor"></a><code><a href="reference/glue_sql.html">glue_sql()</a></code> makes constructing SQL statements safe and easy</h5>
 <p>Use backticks to quote identifiers, normal strings and numbers are quoted appropriately for your backend.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbConnect">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RSQLite/topics/SQLite">SQLite</a></span>(), <span class="st">":memory:"</span>)
-var &lt;-<span class="st"> "bar"</span>
-tbl &lt;-<span class="st"> "basket"</span>
+<span class="kw">colnames</span>(iris) &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="kw">tolower</span>(<span class="kw">colnames</span>(iris)))
+DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbWriteTable">dbWriteTable</a></span>(con, <span class="st">"iris"</span>, iris)
+var &lt;-<span class="st"> "sepal_width"</span>
+tbl &lt;-<span class="st"> "iris"</span>
 num &lt;-<span class="st"> </span><span class="dv">2</span>
-val &lt;-<span class="st"> "blue"</span>
+val &lt;-<span class="st"> "setosa"</span>
 <span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span>
 <span class="st">  SELECT {`var`}</span>
 <span class="st">  FROM {`tbl`}</span>
-<span class="st">  WHERE {`tbl`}.size &gt; {num}</span>
-<span class="st">    AND {`tbl`}.color = {val}</span>
+<span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span>
+<span class="st">    AND {`tbl`}.species = {val}</span>
 <span class="st">  "</span>, <span class="dt">.con =</span> con)
-<span class="co">#&gt; SELECT `bar`</span>
-<span class="co">#&gt; FROM `basket`</span>
-<span class="co">#&gt; WHERE `basket`.size &gt; 2</span>
-<span class="co">#&gt;   AND `basket`.color = 'blue'</span>
+<span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span>
+<span class="co">#&gt; FROM `iris`</span>
+<span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span>
+<span class="co">#&gt;   AND `iris`.species = 'setosa'</span>
 
-<span class="co"># If you do not want to quote a given value, use `DBI::SQL()` around it, this</span>
-<span class="co"># is one way to build up more complex queries with interchangeable sub queries</span>
+<span class="co"># `glue_sql()` can be used in conjuction with parameterized queries using</span>
+<span class="co"># `DBI::dbBind()` to provide protection for SQL Injection attacks</span>
+ sql &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span>
+<span class="st">    SELECT {`var`}</span>
+<span class="st">    FROM {`tbl`}</span>
+<span class="st">    WHERE {`tbl`}.sepal_length &gt; ?</span>
+<span class="st">  "</span>, <span class="dt">.con =</span> con)
+query &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbSendQuery">dbSendQuery</a></span>(con, sql)
+DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbBind">dbBind</a></span>(query, <span class="kw">list</span>(num))
+DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbFetch">dbFetch</a></span>(query, <span class="dt">n =</span> <span class="dv">4</span>)
+<span class="co">#&gt;   sepal_width</span>
+<span class="co">#&gt; 1         3.5</span>
+<span class="co">#&gt; 2         3.0</span>
+<span class="co">#&gt; 3         3.2</span>
+<span class="co">#&gt; 4         3.1</span>
+DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbClearResult">dbClearResult</a></span>(query)
+
+<span class="co"># `glue_sql()` can be used to build up more complex queries with</span>
+<span class="co"># interchangeable sub queries. It returns `DBI::SQL()` objects which are</span>
+<span class="co"># properly protected from quoting.</span>
 sub_query &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span>
 <span class="st">  SELECT *</span>
 <span class="st">  FROM {`tbl`}</span>
@@ -218,13 +238,29 @@ sub_query &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue
 
 <span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span>
 <span class="st">  SELECT s.{`var`}</span>
-<span class="st">  FROM ({DBI::SQL(sub_query)}) AS s</span>
+<span class="st">  FROM ({sub_query}) AS s</span>
 <span class="st">  "</span>, <span class="dt">.con =</span> con)
-<span class="co">#&gt; SELECT s.`bar`</span>
+<span class="co">#&gt; &lt;SQL&gt; SELECT s.`sepal_width`</span>
 <span class="co">#&gt; FROM (SELECT *</span>
-<span class="co">#&gt; FROM `basket`) AS s</span>
+<span class="co">#&gt; FROM `iris`) AS s</span>
 
-DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbDisconnect">dbDisconnect</a></span>(con)</code></pre></div>
+<span class="co"># If you want to input multiple values for use in SQL IN statements put `*`</span>
+<span class="co"># at the end of the value and the values will be collapsed and quoted appropriately.</span>
+<span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
+  <span class="dt">vals =</span> <span class="dv">1</span>, <span class="dt">.con =</span> con)
+<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</span>
+
+<span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
+  <span class="dt">vals =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">.con =</span> con)
+<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</span>
+
+<span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
+  <span class="dt">vals =</span> <span class="st">"setosa"</span>, <span class="dt">.con =</span> con)
+<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</span>
+
+<span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
+  <span class="dt">vals =</span> <span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), <span class="dt">.con =</span> con)
+<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></code></pre></div>
 </div>
 </div>
 </div>

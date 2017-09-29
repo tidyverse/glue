@@ -98,7 +98,12 @@
     
     <p>This trims a character vector according to the trimming rules used by glue.
 These follow similar rules to <a href='https://www.python.org/dev/peps/pep-0257'>Python Docstrings</a>,
-with the following features.</p>
+with the following features.</p><ul>
+<li><p>Leading and trailing whitespace from the first and last lines is removed.</p></li>
+<li><p>A uniform amount of indentation is stripped from the second line on, equal
+to the minimum indentation of all non-blank lines after the first.</p></li>
+<li><p>Lines can be continued across newlines by using <code>\</code>.</p></li>
+</ul>
     
 
     <pre class="usage"><span class='fu'>trim</span>(<span class='no'>x</span>)</pre>
@@ -111,15 +116,6 @@ with the following features.</p>
       <td><p>A character vector to trim.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <ul>
-<li><p>Leading and trailing whitespace from the first and last lines is removed.</p></li>
-<li><p>A uniform amount of indentation is stripped from the second line on, equal
-to the minimum indentation of all non-blank lines after the first.</p></li>
-<li><p>Lines can be continued across newlines by using <code>\</code>.</p></li>
-</ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -143,9 +139,7 @@ to the minimum indentation of all non-blank lines after the first.</p></li>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
