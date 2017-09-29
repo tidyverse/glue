@@ -27,4 +27,11 @@ describe("glue_sql", {
     var <- DBI::SQL("foo")
     expect_identical(glue_sql("{var}", .con = con), DBI::SQL("foo"))
   })
+  it("collapses values if succeded by a *", {
+    expect_identical(glue_sql("{var*}", .con = con, var = 1), DBI::SQL(1))
+    expect_identical(glue_sql("{var*}", .con = con, var = 1:5), DBI::SQL("1, 2, 3, 4, 5"))
+
+    expect_identical(glue_sql("{var*}", .con = con, var = "a"), DBI::SQL("'a'"))
+    expect_identical(glue_sql("{var*}", .con = con, var = letters[1:5]), DBI::SQL("'a', 'b', 'c', 'd', 'e'"))
+  })
 })

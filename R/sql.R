@@ -16,6 +16,9 @@
 #' are generally the safest and most efficient way to pass user defined
 #' values in a query, however not every database driver supports them.
 #'
+#' If you place a `*` at the end of a glue expression the values will be
+#' collapsed with commas. This is useful for the [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp)
+#' for instance.
 #' @inheritParams glue
 #' @param .con \[`DBIConnection`]:A DBI connection object obtained from `DBI::dbConnect()`.
 #' @return A `DBI::SQL()` object with the given query.
@@ -59,6 +62,20 @@
 #'   FROM ({sub_query}) AS s
 #'   ", .con = con)
 #'
+#' # If you want to input multiple values for use in SQL IN statements put `*`
+#' # at the end of the value and the values will be collapsed and quoted appropriately.
+#' glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+#'   vals = 1, .con = con)
+#'
+#' glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+#'   vals = 1:5, .con = con)
+#'
+#' glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+#'   vals = "setosa", .con = con)
+#'
+#' glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+#'   vals = c("setosa", "versicolor"), .con = con)
+#'
 #' DBI::dbDisconnect(con)
 #' @export
 glue_sql <- function(..., .con, .envir = parent.frame()) {
@@ -73,6 +90,10 @@ glue_data_sql <- function(.x, ..., .con, .envir = parent.frame()) {
 
 sql_quote_transformer <- function(connection) {
   function(code, envir, data) {
+    should_collapse <- grepl("[*]$", code)
+    if (should_collapse) {
+      code <- sub("[*]$", "", code)
+    }
     m <- gregexpr("^`|`$", code)
     if (any(m[[1]] != -1)) {
       regmatches(code, m) <- ""
@@ -83,6 +104,9 @@ sql_quote_transformer <- function(connection) {
         res <- DBI::dbQuoteString(conn = connection, res)
       }
       res
+    }
+    if (should_collapse) {
+      res <- collapse(res, ", ")
     }
     res
   }

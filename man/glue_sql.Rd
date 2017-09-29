@@ -40,6 +40,10 @@ a given value.
 Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries}{parameterized queries}
 are generally the safest and most efficient way to pass user defined
 values in a query, however not every database driver supports them.
+
+If you place a \code{*} at the end of a glue expression the values will be
+collapsed with commas. This is useful for the \href{https://www.w3schools.com/sql/sql_in.asp}{SQL IN Operator}
+for instance.
 }
 \examples{
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -80,6 +84,20 @@ glue_sql("
   SELECT s.{`var`}
   FROM ({sub_query}) AS s
   ", .con = con)
+
+# If you want to input multiple values for use in SQL IN statements put `*`
+# at the end of the value and the values will be collapsed and quoted appropriately.
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1:5, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = "setosa", .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = c("setosa", "versicolor"), .con = con)
 
 DBI::dbDisconnect(con)
 }
