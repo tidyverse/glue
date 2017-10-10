@@ -27,3 +27,4 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/tidyverse/glue
 BugReports: https://github.com/tidyverse/glue/issues
 VignetteBuilder: knitr
+ByteCompile: true
