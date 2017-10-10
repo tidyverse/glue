@@ -35,3 +35,13 @@ describe("glue_sql", {
     expect_identical(glue_sql("{var*}", .con = con, var = letters[1:5]), DBI::SQL("'a', 'b', 'c', 'd', 'e'"))
   })
 })
+
+describe("glue_data_sql", {
+  con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+  on.exit(DBI::dbDisconnect(con))
+
+  it("collapses values if succeeded by a *", {
+    var <- "foo"
+    expect_identical(glue_data_sql(mtcars, "{head(gear)*}", .con = con), DBI::SQL("4, 4, 4, 3, 3, 3"))
+  })
+})
