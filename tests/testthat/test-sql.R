@@ -8,7 +8,7 @@ describe("glue_sql", {
     var <- "foo"
     expect_error(glue_sql("{var}"), "missing")
   })
-  it("returns the string if no substitions needed", {
+  it("returns the string if no substations needed", {
     expect_identical(glue_sql("foo", .con = con), DBI::SQL("foo"))
   })
   it("quotes string values", {
@@ -27,7 +27,7 @@ describe("glue_sql", {
     var <- DBI::SQL("foo")
     expect_identical(glue_sql("{var}", .con = con), DBI::SQL("foo"))
   })
-  it("collapses values if succeded by a *", {
+  it("collapses values if succeeded by a *", {
     expect_identical(glue_sql("{var*}", .con = con, var = 1), DBI::SQL(1))
     expect_identical(glue_sql("{var*}", .con = con, var = 1:5), DBI::SQL("1, 2, 3, 4, 5"))
 
