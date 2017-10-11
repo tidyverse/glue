@@ -101,8 +101,11 @@ age &lt;-<span class="st"> </span><span class="dv">50</span>
 anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"1991-10-12"</span>)
 <span class="kw">glue</span>(<span class="st">'My name is {name},'</span>,
   <span class="st">' my age next year is {age + 1},'</span>,
-  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)
-<span class="co">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.</span></code></pre></div>
+  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.
+</pre>
+</div>
 </div>
 <div id="named-arguments-are-used-to-assign-temporary-variables-" class="section level5">
 <h5 class="hasAnchor">
@@ -112,20 +115,26 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
   <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,
   <span class="dt">name =</span> <span class="st">"Joe"</span>,
   <span class="dt">age =</span> <span class="dv">40</span>,
-  <span class="dt">anniversary =</span> <span class="kw">as.Date</span>(<span class="st">"2001-10-12"</span>))
-<span class="co">#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</span></code></pre></div>
+  <span class="dt">anniversary =</span> <span class="kw">as.Date</span>(<span class="st">"2001-10-12"</span>))</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.
+</pre>
+</div>
 </div>
 <div id="glue_data-is-useful-with-magrittr-pipes-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#glue_data-is-useful-with-magrittr-pipes-" class="anchor"></a><code><a href="reference/glue.html">glue_data()</a></code> is useful with <a href="http://cran.r-project.org/package=magrittr">magrittr</a> pipes.</h5>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%&gt;%</span><span class="st">`</span> &lt;-<span class="st"> </span>magrittr<span class="op">::</span><span class="st">`</span><span class="dt">%&gt;%</span><span class="st">`</span>
-<span class="kw">head</span>(mtcars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/glue.html">glue_data</a></span>(<span class="st">"{rownames(.)} has {hp} hp"</span>)
-<span class="co">#&gt; Mazda RX4 has 110 hp</span>
-<span class="co">#&gt; Mazda RX4 Wag has 110 hp</span>
-<span class="co">#&gt; Datsun 710 has 93 hp</span>
-<span class="co">#&gt; Hornet 4 Drive has 110 hp</span>
-<span class="co">#&gt; Hornet Sportabout has 175 hp</span>
-<span class="co">#&gt; Valiant has 105 hp</span></code></pre></div>
+<span class="kw">head</span>(mtcars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/glue.html">glue_data</a></span>(<span class="st">"{rownames(.)} has {hp} hp"</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; Mazda RX4 has 110 hp
+#&gt; Mazda RX4 Wag has 110 hp
+#&gt; Datsun 710 has 93 hp
+#&gt; Hornet 4 Drive has 110 hp
+#&gt; Hornet Sportabout has 175 hp
+#&gt; Valiant has 105 hp
+</pre>
+</div>
 </div>
 <div id="leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed-" class="section level5">
 <h5 class="hasAnchor">
@@ -135,10 +144,13 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
 <span class="st">    A formatted string</span>
 <span class="st">    Can have multiple lines</span>
 <span class="st">      with additional indention preserved</span>
-<span class="st">    "</span>)
-<span class="co">#&gt; A formatted string</span>
-<span class="co">#&gt; Can have multiple lines</span>
-<span class="co">#&gt;   with additional indention preserved</span></code></pre></div>
+<span class="st">    "</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; A formatted string
+#&gt; Can have multiple lines
+#&gt;   with additional indention preserved
+</pre>
+</div>
 </div>
 <div id="an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline-" class="section level5">
 <h5 class="hasAnchor">
@@ -147,9 +159,12 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
 
 <span class="st">  leading or trailing newlines can be added explicitly</span>
 
-<span class="st">  "</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; leading or trailing newlines can be added explicitly</span></code></pre></div>
+<span class="st">  "</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; 
+#&gt; leading or trailing newlines can be added explicitly
+</pre>
+</div>
 </div>
 <div id="at-the-end-of-a-line-continues-it-without-a-new-line-" class="section level5">
 <h5 class="hasAnchor">
@@ -158,22 +173,31 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
 <span class="st">    A formatted string </span><span class="ch">\\</span>
 <span class="st">    can also be on a </span><span class="ch">\\</span>
 <span class="st">    single line</span>
-<span class="st">    "</span>)
-<span class="co">#&gt; A formatted string can also be on a single line</span></code></pre></div>
+<span class="st">    "</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; A formatted string can also be on a single line
+</pre>
+</div>
 </div>
 <div id="a-literal-brace-is-inserted-by-using-doubled-braces-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#a-literal-brace-is-inserted-by-using-doubled-braces-" class="anchor"></a>A literal brace is inserted by using doubled braces.</h5>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name &lt;-<span class="st"> "Fred"</span>
-<span class="kw">glue</span>(<span class="st">"My name is {name}, not {{name}}."</span>)
-<span class="co">#&gt; My name is Fred, not {name}.</span></code></pre></div>
+<span class="kw">glue</span>(<span class="st">"My name is {name}, not {{name}}."</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; My name is Fred, not {name}.
+</pre>
+</div>
 </div>
 <div id="alternative-delimiters-can-be-specified-with--open-and--close-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#alternative-delimiters-can-be-specified-with--open-and--close-" class="anchor"></a>Alternative delimiters can be specified with <code>.open</code> and <code>.close</code>.</h5>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">one &lt;-<span class="st"> "1"</span>
-<span class="kw">glue</span>(<span class="st">"The value of $e^{2</span><span class="ch">\\</span><span class="st">pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class="dt">.open =</span> <span class="st">"&lt;&lt;"</span>, <span class="dt">.close =</span> <span class="st">"&gt;&gt;"</span>)
-<span class="co">#&gt; The value of $e^{2\pi i}$ is $1$.</span></code></pre></div>
+<span class="kw">glue</span>(<span class="st">"The value of $e^{2</span><span class="ch">\\</span><span class="st">pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class="dt">.open =</span> <span class="st">"&lt;&lt;"</span>, <span class="dt">.close =</span> <span class="st">"&gt;&gt;"</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; The value of $e^{2\pi i}$ is $1$.
+</pre>
+</div>
 </div>
 <div id="all-valid-r-code-works-in-expressions-including-braces-and-escaping-" class="section level5">
 <h5 class="hasAnchor">
@@ -186,8 +210,11 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
 <span class="dt">        </span><span class="ch">\"</span><span class="dt">}</span><span class="ch">\\\"\"</span><span class="dt"> # or double quotes are ignored</span>
 <span class="dt">        </span><span class="st">`</span>foo<span class="er">}</span>\\<span class="st">``</span> <span class="co"># as are { in backticks</span>
       <span class="er">}</span>
-  <span class="er">}</span><span class="st">")</span>
-<span class="st">#&gt; foo</span></code></pre></div>
+  <span class="er">}</span><span class="st">")</span></code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; foo
+</pre>
+</div>
 </div>
 <div id="glue_sql-makes-constructing-sql-statements-safe-and-easy" class="section level5">
 <h5 class="hasAnchor">
@@ -205,12 +232,15 @@ val &lt;-<span class="st"> "setosa"</span>
 <span class="st">  FROM {`tbl`}</span>
 <span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span>
 <span class="st">    AND {`tbl`}.species = {val}</span>
-<span class="st">  "</span>, <span class="dt">.con =</span> con)
-<span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span>
-<span class="co">#&gt; FROM `iris`</span>
-<span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span>
-<span class="co">#&gt;   AND `iris`.species = 'setosa'</span>
-
+<span class="st">  "</span>, <span class="dt">.con =</span> con)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; <sql> SELECT `sepal_width`
+#&gt; FROM `iris`
+#&gt; WHERE `iris`.sepal_length &gt; 2
+#&gt;   AND `iris`.species = 'setosa'
+</sql></pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># `glue_sql()` can be used in conjuction with parameterized queries using</span>
 <span class="co"># `DBI::dbBind()` to provide protection for SQL Injection attacks</span>
  sql &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span>
@@ -220,13 +250,16 @@ val &lt;-<span class="st"> "setosa"</span>
 <span class="st">  "</span>, <span class="dt">.con =</span> con)
 query &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbSendQuery">dbSendQuery</a></span>(con, sql)
 DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbBind">dbBind</a></span>(query, <span class="kw">list</span>(num))
-DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbFetch">dbFetch</a></span>(query, <span class="dt">n =</span> <span class="dv">4</span>)
-<span class="co">#&gt;   sepal_width</span>
-<span class="co">#&gt; 1         3.5</span>
-<span class="co">#&gt; 2         3.0</span>
-<span class="co">#&gt; 3         3.2</span>
-<span class="co">#&gt; 4         3.1</span>
-DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbClearResult">dbClearResult</a></span>(query)
+DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbFetch">dbFetch</a></span>(query, <span class="dt">n =</span> <span class="dv">4</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt;   sepal_width
+#&gt; 1         3.5
+#&gt; 2         3.0
+#&gt; 3         3.2
+#&gt; 4         3.1
+</pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbClearResult">dbClearResult</a></span>(query)
 
 <span class="co"># `glue_sql()` can be used to build up more complex queries with</span>
 <span class="co"># interchangeable sub queries. It returns `DBI::SQL()` objects which are</span>
@@ -239,28 +272,43 @@ sub_query &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue
 <span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span>
 <span class="st">  SELECT s.{`var`}</span>
 <span class="st">  FROM ({sub_query}) AS s</span>
-<span class="st">  "</span>, <span class="dt">.con =</span> con)
-<span class="co">#&gt; &lt;SQL&gt; SELECT s.`sepal_width`</span>
-<span class="co">#&gt; FROM (SELECT *</span>
-<span class="co">#&gt; FROM `iris`) AS s</span>
-
+<span class="st">  "</span>, <span class="dt">.con =</span> con)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; <sql> SELECT s.`sepal_width`
+#&gt; FROM (SELECT *
+#&gt; FROM `iris`) AS s
+</sql></pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># If you want to input multiple values for use in SQL IN statements put `*`</span>
 <span class="co"># at the end of the value and the values will be collapsed and quoted appropriately.</span>
 <span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
-  <span class="dt">vals =</span> <span class="dv">1</span>, <span class="dt">.con =</span> con)
-<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</span>
-
+  <span class="dt">vals =</span> <span class="dv">1</span>, <span class="dt">.con =</span> con)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; <sql> SELECT * FROM `iris` WHERE sepal_length IN (1)
+</sql></pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
-  <span class="dt">vals =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">.con =</span> con)
-<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</span>
-
+  <span class="dt">vals =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">.con =</span> con)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; <sql> SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)
+</sql></pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
-  <span class="dt">vals =</span> <span class="st">"setosa"</span>, <span class="dt">.con =</span> con)
-<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</span>
-
+  <span class="dt">vals =</span> <span class="st">"setosa"</span>, <span class="dt">.con =</span> con)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; <sql> SELECT * FROM `iris` WHERE species IN ('setosa')
+</sql></pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
-  <span class="dt">vals =</span> <span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), <span class="dt">.con =</span> con)
-<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></code></pre></div>
+  <span class="dt">vals =</span> <span class="kw">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), <span class="dt">.con =</span> con)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; <sql> SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')
+</sql></pre>
+</div>
 </div>
 </div>
 </div>

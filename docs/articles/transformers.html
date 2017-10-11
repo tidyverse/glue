@@ -77,7 +77,7 @@
       <h1>Transformers</h1>
                         <h4 class="author">Jim Hester</h4>
             
-            <h4 class="date">2017-09-29</h4>
+            <h4 class="date">2017-10-11</h4>
           </div>
 
     
@@ -95,13 +95,19 @@
   }
 }
 
-<span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>))
-<span class="co">#&gt; 1, 2, 3, 4, 5</span>
-<span class="co">#&gt; a, b, c, d, e</span>
-
-<span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">" and "</span>))
-<span class="co">#&gt; 1, 2, 3, 4 and 5</span>
-<span class="co">#&gt; a, b, c, d and e</span></code></pre></div>
+<span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>))</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; 1, 2, 3, 4, 5
+#&gt; a, b, c, d, e
+</pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">glue</span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">" and "</span>))</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; 1, 2, 3, 4 and 5
+#&gt; a, b, c, d and e
+</pre>
+</div>
 <p>Or a transformer which converts the text to the equivalent emoji.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">emoji_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir, data) {
   <span class="cf">if</span> (<span class="kw">grepl</span>(<span class="st">"[*]$"</span>, code)) {
@@ -115,10 +121,16 @@
 glue_ji &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
   <span class="kw">glue</span>(..., <span class="dt">.open =</span> <span class="st">":"</span>, <span class="dt">.close =</span> <span class="st">":"</span>, <span class="dt">.transformer =</span> emoji_transformer)
 }
-<span class="kw">glue_ji</span>(<span class="st">"one :heart:"</span>)
-<span class="co">#&gt; one ❤️</span>
-<span class="kw">glue_ji</span>(<span class="st">"many :heart*:"</span>)
-<span class="co">#&gt; many 😍😻💘❤💓💔💕💟💌♥️❣️❤️</span></code></pre></div>
+<span class="kw">glue_ji</span>(<span class="st">"one :heart:"</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; one ❤️
+</pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glue_ji</span>(<span class="st">"many :heart*:"</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; many 😍😻💘❤💓💔💕💟💌♥️❣️❤️
+</pre>
+</div>
 <p>Or a transformer which allows succinct sprintf format strings.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir, data) {
   m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">":.+$"</span>, code)
@@ -135,8 +147,11 @@ glue_ji &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
 glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
   <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> sprintf_transformer)
 }
-<span class="kw">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)
-<span class="co">#&gt; π = 3.14</span></code></pre></div>
+<span class="kw">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; π = 3.14
+</pre>
+</div>
 </div>
   </div>
 
