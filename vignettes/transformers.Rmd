@@ -12,7 +12,9 @@ vignette: >
 Transformers allow you to apply functions to the glue input and output, before
 and after evaluation. This allows you to write things like `glue_sql()`, which
 automatically quotes variables for you or add a syntax for automatically
-collapsing outputs.
+collapsing outputs. One important consideration when writing glue wrapper
+functions with transformers is to include `.envir = parent.frame()` in the
+wrapper to ensure the evaluation environment is correct.
 
 ```{r, include = FALSE}
 library(glue)
@@ -23,11 +25,11 @@ So you can define a transformer which automatically collapses any glue block end
 
 ```{r}
 collapse_transformer <- function(regex = "[*]$", ...) {
-  function(code, envir, data) {
+  function(code, envir) {
     if (grepl(regex, code)) {
         code <- sub(regex, "", code)
     }
-    res <- evaluate(code, envir, data)
+    res <- evaluate(code, envir)
     collapse(res, ...)
   }
 }
@@ -40,7 +42,7 @@ glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", 
 Or a transformer which converts the text to the equivalent emoji.
 
 ```{r, eval = require("emo")}
-emoji_transformer <- function(code, envir, data) {
+emoji_transformer <- function(code, envir) {
   if (grepl("[*]$", code)) {
     code <- sub("[*]$", "", code)
     collapse(ji_find(code)$emoji)
@@ -49,8 +51,8 @@ emoji_transformer <- function(code, envir, data) {
   }
 }
 
-glue_ji <- function(...) {
-  glue(..., .open = ":", .close = ":", .transformer = emoji_transformer)
+glue_ji <- function(..., .envir = parent.frame()) {
+  glue(..., .open = ":", .close = ":", .envir = .envir, .transformer = emoji_transformer)
 }
 glue_ji("one :heart:")
 glue_ji("many :heart*:")
@@ -58,20 +60,20 @@ glue_ji("many :heart*:")
 
 Or a transformer which allows succinct sprintf format strings.
 ```{r}
-sprintf_transformer <- function(code, envir, data) {
+sprintf_transformer <- function(code, envir) {
   m <- regexpr(":.+$", code)
   if (m != -1) {
     format <- substring(regmatches(code, m), 2)
     regmatches(code, m) <- ""
-    res <- evaluate(code, envir, data)
+    res <- evaluate(code, envir)
     do.call(sprintf, list(glue("%{format}f"), res))
   } else {
-    evaluate(code, envir, data)
+    evaluate(code, envir)
   }
 }
 
-glue_fmt <- function(...) {
-  glue(..., .transformer = sprintf_transformer)
+glue_fmt <- function(..., .envir = parent.frame()) {
+  glue(..., .transformer = sprintf_transformer, .envir = .envir)
 }
 glue_fmt("π = {pi:.2}")
 ```

@@ -49,11 +49,12 @@
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .transformer = identity_transformer) {
 
   # Perform all evaluations in a temporary environment
-  if (is.environment(.x)) {
-    env <- new.env(parent = .x)
-    .envir <- NULL
-  } else {
+  if (is.null(.x)) {
     env <- new.env(parent = .envir)
+  } else if (is.environment(.x)) {
+    env <- new.env(parent = .x)
+  } else {
+    env <- list2env(.x, parent = .envir)
   }
 
   # Capture unevaluated arguments
@@ -61,7 +62,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   named <- has_names(dots)
 
   # Evaluate named arguments, add results to environment
-  assign_args(dots[named], envir = env, data = .x)
+  assign_args(dots[named], env)
 
   # Concatenate unnamed arguments together
   unnamed_args <- lapply(which(!named), function(x) eval(call("force", as.symbol(paste0("..", x)))))
@@ -80,11 +81,10 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
   unnamed_args <- trim(unnamed_args)
 
+  f <- function(expr) as.character(.transformer(expr, env))
+
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args,
-    function(expr) {
-      as.character(.transformer(expr, env, .x))
-    }, .open, .close)
+  res <- .Call(glue_, unnamed_args, f, .open, .close)
 
   if (any(lengths(res) == 0)) {
     return(as_glue(character(0)))

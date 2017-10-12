@@ -89,7 +89,7 @@ glue_data_sql <- function(.x, ..., .con, .envir = parent.frame()) {
 }
 
 sql_quote_transformer <- function(connection) {
-  function(code, envir, data) {
+  function(code, envir) {
     should_collapse <- grepl("[*]$", code)
     if (should_collapse) {
       code <- sub("[*]$", "", code)
@@ -97,9 +97,9 @@ sql_quote_transformer <- function(connection) {
     m <- gregexpr("^`|`$", code)
     if (any(m[[1]] != -1)) {
       regmatches(code, m) <- ""
-      res <- DBI::dbQuoteIdentifier(conn = connection, as.character(evaluate(code, envir, data)))
+      res <- DBI::dbQuoteIdentifier(conn = connection, as.character(evaluate(code, envir)))
     } else {
-      res <- evaluate(code, envir, data)
+      res <- evaluate(code, envir)
       if (is.character(res)) {
         res <- DBI::dbQuoteString(conn = connection, res)
       }

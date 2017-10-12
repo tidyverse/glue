@@ -7,19 +7,11 @@ has_names <- function(x) {
   }
 }
 
-assign_args <- function(args, envir, data) {
+assign_args <- function(args, envir) {
   res <- vector("list", length(args))
   nms <- names(args)
   for (i in seq_along(args)) {
-    assign(nms[[i]], eval2(args[[i]], envir = envir, data = data), envir = envir)
-  }
-}
-
-eval2 <- function(x, envir = parent.frame(), data = NULL) {
-  if (is.null(data)) {
-    eval(x, envir = envir)
-  } else {
-    eval(x, envir = data, enclos = envir)
+    assign(nms[[i]], eval(args[[i]], envir), envir = envir)
   }
 }
 
