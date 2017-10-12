@@ -77,3 +77,25 @@ glue_fmt <- function(..., .envir = parent.frame()) {
 }
 glue_fmt("π = {pi:.2}")
 ```
+
+Or a transformer that acts like `purrr::safely()`, which returns a value instead of an error.
+```{r}
+safely_transformer <- function(otherwise = NA) {
+  function(code, envir) {
+    tryCatch(evaluate(code, envir),
+      error = function(e) if (is.language(otherwise)) eval(otherwise) else otherwise)
+  }
+}
+
+glue_safely <- function(..., .otherwise = NA, .envir = parent.frame()) {
+  glue(..., .transformer = safely_transformer(.otherwise), .envir = .envir)
+}
+
+# Default returns missing if there is an error
+glue_safely("foo: {xyz}")
+
+# Or an empty string
+glue_safely("foo: {xyz}", .otherwise = "Error")
+
+# Or the error message
+glue_safely("foo: {xyz}", .otherwise = quote(conditionMessage(e)))
