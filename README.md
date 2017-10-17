@@ -21,6 +21,8 @@ Usage
 ##### Long strings are broken by line and concatenated together.
 
 ``` r
+library(glue)
+
 name <- "Fred"
 age <- 50
 anniversary <- as.Date("1991-10-12")
@@ -130,6 +132,8 @@ glue("{
 Use backticks to quote identifiers, normal strings and numbers are quoted appropriately for your backend.
 
 ``` r
+library(glue)
+
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
 DBI::dbWriteTable(con, "iris", iris)

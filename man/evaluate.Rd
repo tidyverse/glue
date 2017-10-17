@@ -4,7 +4,7 @@
 \alias{evaluate}
 \title{Evaluate R code}
 \usage{
-evaluate(code, envir, data)
+evaluate(code, envir)
 }
 \arguments{
 \item{code}{R code to evaluate}

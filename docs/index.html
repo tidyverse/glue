@@ -96,7 +96,9 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="long-strings-are-broken-by-line-and-concatenated-together-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#long-strings-are-broken-by-line-and-concatenated-together-" class="anchor"></a>Long strings are broken by line and concatenated together.</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name &lt;-<span class="st"> "Fred"</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(glue)
+
+name &lt;-<span class="st"> "Fred"</span>
 age &lt;-<span class="st"> </span><span class="dv">50</span>
 anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"1991-10-12"</span>)
 <span class="kw">glue</span>(<span class="st">'My name is {name},'</span>,
@@ -220,7 +222,9 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
 <h5 class="hasAnchor">
 <a href="#glue_sql-makes-constructing-sql-statements-safe-and-easy" class="anchor"></a><code><a href="reference/glue_sql.html">glue_sql()</a></code> makes constructing SQL statements safe and easy</h5>
 <p>Use backticks to quote identifiers, normal strings and numbers are quoted appropriately for your backend.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbConnect">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RSQLite/topics/SQLite">SQLite</a></span>(), <span class="st">":memory:"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(glue)
+
+con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbConnect">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RSQLite/topics/SQLite">SQLite</a></span>(), <span class="st">":memory:"</span>)
 <span class="kw">colnames</span>(iris) &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="kw">tolower</span>(<span class="kw">colnames</span>(iris)))
 DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbWriteTable">dbWriteTable</a></span>(con, <span class="st">"iris"</span>, iris)
 var &lt;-<span class="st"> "sepal_width"</span>
