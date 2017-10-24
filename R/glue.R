@@ -213,7 +213,8 @@ as_glue.glue <- function(x, ...) {
 
 #' @export
 as_glue.character <- function(x, ...) {
-  structure(x, class = c("glue", "character"))
+  class(x) <- c("glue", "character")
+  x
 }
 
 #' @export
