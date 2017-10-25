@@ -1,82 +1,63 @@
-# Setup
+# dplyr
 
-## Platform
+Version: 0.7.4
 
-|setting  |value                                       |
-|:--------|:-------------------------------------------|
-|version  |R version 3.4.0 Patched (2017-05-10 r72669) |
-|system   |x86_64, darwin15.6.0                        |
-|ui       |X11                                         |
-|language |(EN)                                        |
-|collate  |en_US.UTF-8                                 |
-|tz       |America/New_York                            |
-|date     |2017-06-12                                  |
+## Newly broken
 
-## Packages
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      2. Failure: errors for bad inputs (@test-pull.R#49) ----------------------------
+      error$message does not match "`var` must be a value between -26 and 26 (excluding zero), not NA".
+      Actual value: "<NA>"
+      
+      
+      testthat results ================================================================
+      OK: 2677 SKIPPED: 6 FAILED: 2
+      1. Failure: errors for bad inputs (@test-pull.R#44) 
+      2. Failure: errors for bad inputs (@test-pull.R#49) 
+      
+      Error: testthat unit tests failed
+      In addition: Warning message:
+      call dbDisconnect() when finished working with a connection 
+      Execution halted
+    ```
 
-|package  |*  |version    |date       |source                    |
-|:--------|:--|:----------|:----------|:-------------------------|
-|covr     |   |2.2.2      |2017-01-05 |cran (@2.2.2)             |
-|glue     |   |1.0.0.9000 |2017-06-12 |local (tidyverse/glue@NA) |
-|magrittr |   |1.5        |2014-11-22 |cran (@1.5)               |
-|testthat |   |1.0.2      |2016-04-23 |cran (@1.0.2)             |
+## In both
 
-# Check results
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 4 marked UTF-8 strings
+    ```
 
-2 packages with problems
+# tidyselect
 
-|package |version | errors| warnings| notes|
-|:-------|:-------|------:|--------:|-----:|
-|dbplyr  |1.0.0   |      1|        0|     0|
-|dplyr   |0.7.0   |      1|        0|     2|
+Version: 0.2.2
 
-## dbplyr (1.0.0)
-Maintainer: Hadley Wickham <hadley@rstudio.com>  
-Bug reports: https://github.com/tidyverse/dplyr/issues
+## Newly broken
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required and available but unsuitable version: ‘dplyr’
-
-Package suggested but not available for checking: ‘RPostgreSQL’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
-
-## dplyr (0.7.0)
-Maintainer: Hadley Wickham <hadley@rstudio.com>  
-Bug reports: https://github.com/tidyverse/dplyr/issues
-
-1 error  | 0 warnings | 2 notes
-
-```
-checking tests ... ERROR
-  Running ‘testthat.R’ [12s/12s]
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  
-  
-  testthat results ================================================================
-  OK: 2623 SKIPPED: 9 FAILED: 8
-  1. Failure: row_number(), ntile(), min_rank(), percent_rank(), dense_rank(), and cume_dist() work (@test-hybrid.R#413) 
-  2. Failure: desc is correctly handled by window functions (@test-mutate-windowed.R#9) 
-  3. Failure: desc is correctly handled by window functions (@test-mutate-windowed.R#10) 
-  4. Failure: row_number gives correct results (@test-mutate-windowed.R#17) 
-  5. Failure: rank functions deal correctly with NA (#774) (@test-mutate-windowed.R#113) 
-  6. Failure: rank functions deal correctly with NA (#774) (@test-mutate-windowed.R#120) 
-  7. Failure: rank functions deal correctly with NA (#774) (@test-mutate-windowed.R#141) 
-  8. Failure: rank functions deal correctly with NA (#774) (@test-mutate-windowed.R#148) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
-checking package dependencies ... NOTE
-Packages suggested but not available for checking: ‘dbplyr’ ‘RPostgreSQL’
-
-checking Rd cross-references ... NOTE
-Packages unavailable to check Rd xrefs: ‘dbplyr’, ‘RPostgreSQL’
-```
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      Actual value: "<NA>"
+      
+      
+      2. Failure: errors for bad inputs (@test-vars-pull.R#31) -----------------------
+      error$message does not match "`var` must be a value between -26 and 26 (excluding zero), not NA".
+      Actual value: "<NA>"
+      
+      
+      testthat results ================================================================
+      OK: 164 SKIPPED: 0 FAILED: 2
+      1. Failure: errors for bad inputs (@test-vars-pull.R#26) 
+      2. Failure: errors for bad inputs (@test-vars-pull.R#31) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
