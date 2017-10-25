@@ -1,5 +1,16 @@
 # glue 1.1.1.9000
 
+* The implementation has been tweaked to be somewhat faster in most cases.
+
+* `glue()` now has a `.transformer` argument, which allows you to use custom
+  logic on how to evaluate the code within glue blocks. See
+  `vignettes("transformers")` for more details and example transformer
+  functions.
+
+* `glue()` now returns `NA` if any of the results are `NA`.
+
+* `trim()` to use the trimming logic from glue is now exported.
+
 * `glue_sql()` and `glue_data_sql()` functions added to make constructing SQL
   statements with glue safer and easier.
 
