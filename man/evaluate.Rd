@@ -10,8 +10,6 @@ evaluate(code, envir)
 \item{code}{R code to evaluate}
 
 \item{envir}{environment to evaluate the code in}
-
-\item{data}{listish object to evaluate the code in}
 }
 \description{
 This is a simple wrapper around \code{eval(parse())} which provides a more

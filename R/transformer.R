@@ -10,7 +10,6 @@
 #' code in the glue block.
 #' @param code R code to evaluate
 #' @param envir environment to evaluate the code in
-#' @param data listish object to evaluate the code in
 #' @export
 evaluate <- function(code, envir) {
   eval(parse(text = code, keep.source = FALSE), envir)
