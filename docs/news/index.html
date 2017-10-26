@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/speed.html">Speed of glue</a>
+    </li>
+    <li>
       <a href="../articles/transformers.html">Transformers</a>
     </li>
   </ul>
@@ -101,24 +104,32 @@
 <h1 class="hasAnchor">
 <a href="#glue-1-1-1-9000" class="anchor"></a>glue 1.1.1.9000</h1>
 <ul>
+<li><p>The implementation has been tweaked to be slightly faster in most cases.</p></li>
+<li><p><code>glue()</code> now has a <code>.transformer</code> argument, which allows you to use custom logic on how to evaluate the code within glue blocks. See <code>vignettes("transformers")</code> for more details and example transformer functions.</p></li>
+<li><p><code>glue()</code> now returns <code>NA</code> if any of the results are <code>NA</code> and <code>.na</code> is <code>NULL</code>. Otherwise <code>NA</code> values are replaced by the value of <code>.na</code>.</p></li>
+<li><p><code><a href="../reference/trim.html">trim()</a></code> to use the trimming logic from glue is now exported.</p></li>
 <li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> and <code><a href="../reference/glue_sql.html">glue_data_sql()</a></code> functions added to make constructing SQL statements with glue safer and easier.</p></li>
 <li><p><code>glue()</code> is now easier to use when used within helper functions such as <code>lapply</code>.</p></li>
+<li><p>Fix when last expression in <code>glue()</code> is NULL.</p></li>
 </ul>
-<p>Fix when last expression in <code>glue()</code> is NULL.</p>
 </div>
     <div id="glue-1-1-1" class="section level1">
 <h1 class="hasAnchor">
 <a href="#glue-1-1-1" class="anchor"></a>glue 1.1.1</h1>
-<p>Another fix for PROTECT / REPROTECT found by the rchk static analyzer.</p>
+<ul>
+<li>Another fix for PROTECT / REPROTECT found by the rchk static analyzer.</li>
+</ul>
 </div>
     <div id="glue-1-1-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#glue-1-1-0" class="anchor"></a>glue 1.1.0</h1>
-<p>Fix for PROTECT errors when resizing output strings.</p>
-<p><code>glue()</code> always returns ‘UTF-8’ strings, converting inputs if in other encodings if needed.</p>
-<p><code>to()</code> and <code>to_data()</code> have been removed.</p>
-<p><code>glue()</code> and <code><a href="../reference/glue.html">glue_data()</a></code> can now take alternative delimiters to <code>{</code> and <code>}</code>. This is useful if you are writing to a format that uses a lot of braces, such as LaTeX. (#23)</p>
-<p><code><a href="../reference/collapse.html">collapse()</a></code> now returns 0 length output if given 0 length input (#28).</p>
+<ul>
+<li><p>Fix for PROTECT errors when resizing output strings.</p></li>
+<li><p><code>glue()</code> always returns ‘UTF-8’ strings, converting inputs if in other encodings if needed.</p></li>
+<li><p><code>to()</code> and <code>to_data()</code> have been removed.</p></li>
+<li><p><code>glue()</code> and <code><a href="../reference/glue.html">glue_data()</a></code> can now take alternative delimiters to <code>{</code> and <code>}</code>. This is useful if you are writing to a format that uses a lot of braces, such as LaTeX. (#23)</p></li>
+<li><p><code><a href="../reference/collapse.html">collapse()</a></code> now returns 0 length output if given 0 length input (#28).</p></li>
+</ul>
 </div>
     <div id="glue-0-0-0-9000" class="section level1">
 <h1 class="hasAnchor">

@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/speed.html">Speed of glue</a>
+    </li>
+    <li>
       <a href="../articles/transformers.html">Transformers</a>
     </li>
   </ul>
@@ -101,7 +104,7 @@ can be inserted by doubling them.</p>
     
 
     <pre class="usage"><span class='fu'>glue_data</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
-  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>)
+  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>, <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>)
 
 <span class='fu'>glue</span>(<span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>, <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>)</pre>
     
@@ -135,6 +138,12 @@ full delimiter escapes it.</p></td>
       <th>.close</th>
       <td><p>[<code>character(1)</code>: &#8216;}&#8217;] The closing delimiter. Doubling the
 full delimiter escapes it.</p></td>
+    </tr>
+    <tr>
+      <th>.na</th>
+      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;] Value to replace NA values
+with. If <code>NULL</code> missing values are propegated, that is an <code>NA</code> result will
+cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></td>
     </tr>
     <tr>
       <th>.transformer</th>
