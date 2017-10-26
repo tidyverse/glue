@@ -248,31 +248,62 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
   expect_identical(xy_out, glue("{x}{y}"))
 })
 
-test_that("glue always returns NA_character_ if given any NA input", {
+test_that("glue always returns NA_character_ if given any NA input and `.na` == NULL", {
   expect_identical(
-    glue("{NA}"),
+    glue("{NA}", .na = NULL),
     as_glue(NA_character_))
 
   expect_identical(
-    glue(NA),
+    glue(NA, .na = NULL),
     as_glue(NA_character_))
 
   expect_identical(
-    glue(NA, 1),
+    glue(NA, 1, .na = NULL),
     as_glue(NA_character_))
 
   expect_identical(
-    glue(1, NA, 2),
+    glue(1, NA, 2, .na = NULL),
     as_glue(NA_character_))
 
   x <- c("foo", NA_character_, "bar")
   expect_identical(
-    glue("{x}"),
+    glue("{x}", .na = NULL),
     as_glue(c("foo", NA_character_, "bar")))
 
   expect_identical(
-    glue("{1:3} - {x}"),
+    glue("{1:3} - {x}", .na = NULL),
     as_glue(c("1 - foo", NA_character_, "3 - bar")))
+})
+
+test_that("glue always returns .na if given any NA input and `.na` != NULL", {
+  expect_identical(
+    glue("{NA}", .na = "foo"),
+    as_glue("foo"))
+
+  expect_identical(
+    glue("{NA}", .na = "foo"),
+    as_glue("foo"))
+
+  expect_identical(
+    glue(NA, .na = "foo"),
+    as_glue("foo"))
+
+  expect_identical(
+    glue(NA, 1, .na = "foo"),
+    as_glue("foo1"))
+
+  expect_identical(
+    glue(1, NA, 2, .na = "foo"),
+    as_glue("1foo2"))
+
+  x <- c("foo", NA_character_, "bar")
+  expect_identical(
+    glue("{x}", .na = "baz"),
+    as_glue(c("foo", "baz", "bar")))
+
+  expect_identical(
+    glue("{1:3} - {x}", .na = "baz"),
+    as_glue(c("1 - foo", "2 - baz", "3 - bar")))
 })
 
 test_that("glue works within functions", {

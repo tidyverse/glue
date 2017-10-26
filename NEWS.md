@@ -1,13 +1,14 @@
 # glue 1.1.1.9000
 
-* The implementation has been tweaked to be somewhat faster in most cases.
+* The implementation has been tweaked to be slightly faster in most cases.
 
 * `glue()` now has a `.transformer` argument, which allows you to use custom
   logic on how to evaluate the code within glue blocks. See
   `vignettes("transformers")` for more details and example transformer
   functions.
 
-* `glue()` now returns `NA` if any of the results are `NA`.
+* `glue()` now returns `NA` if any of the results are `NA` and `.na` is `NULL`.
+  Otherwise `NA` values are replaced by the value of `.na`.
 
 * `trim()` to use the trimming logic from glue is now exported.
 

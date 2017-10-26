@@ -16,8 +16,7 @@ assign_args <- function(args, envir) {
 }
 
 # From tibble::recycle_columns
-recycle_columns <- function (x)
-{
+recycle_columns <- function (x) {
     if (length(x) == 0) {
         return(x)
     }

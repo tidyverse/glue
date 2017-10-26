@@ -7,7 +7,7 @@
 \title{Format and interpolate a string}
 \usage{
 glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}", .transformer = identity_transformer)
+  .close = "}", .na = "NA", .transformer = identity_transformer)
 
 glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}")
 }
@@ -27,6 +27,10 @@ full delimiter escapes it.}
 
 \item{.close}{[\code{character(1)}: \sQuote{\}}]\cr The closing delimiter. Doubling the
 full delimiter escapes it.}
+
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
+with. If \code{NULL} missing values are propegated, that is an \code{NA} result will
+cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
 \item{.transformer}{[\code{function]}\cr A function taking three parameters \code{code}, \code{envir} and
 \code{data} used to transform the output of each block before during or after

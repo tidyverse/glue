@@ -6,17 +6,20 @@
 #' @param ... \[`expressions`]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.
 #' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
 #' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
-#' evaluated from left to right. If `.x` is an environment, the expressions are
-#' evaluated in that environment and `.envir` is ignored.
+#'   evaluated from left to right. If `.x` is an environment, the expressions are
+#'   evaluated in that environment and `.envir` is ignored.
 #' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
-#' full delimiter escapes it.
+#'   full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
-#' full delimiter escapes it.
+#'   full delimiter escapes it.
 #' @param .transformer \[`function]`\cr A function taking three parameters `code`, `envir` and
-#' `data` used to transform the output of each block before during or after
-#' evaluation. For example transformers see `vignette("transformers")`.
+#'   `data` used to transform the output of each block before during or after
+#'   evaluation. For example transformers see `vignette("transformers")`.
+#' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace NA values
+#'   with. If `NULL` missing values are propegated, that is an `NA` result will
+#'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
-#' <https://www.python.org/dev/peps/pep-0257> upon which this is based.
+#'   <https://www.python.org/dev/peps/pep-0257> upon which this is based.
 #' @examples
 #' name <- "Fred"
 #' age <- 50
@@ -46,7 +49,7 @@
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
-glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .transformer = identity_transformer) {
+glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .transformer = identity_transformer) {
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
@@ -75,7 +78,11 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
     stop("All unnamed arguments must be length 1", call. = FALSE)
   }
   if (any(is.na(unnamed_args))) {
-    return(as_glue(NA_character_))
+    if (is.null(.na)) {
+      return(as_glue(NA_character_))
+    } else {
+      unnamed_args[is.na(unnamed_args)] <- .na
+    }
   }
 
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
@@ -92,11 +99,22 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
 
   res <- recycle_columns(res)
 
-  # Return NA for any rows that are NA
-  na_rows <- Reduce(`|`, lapply(res, is.na))
+  # Replace NA values as needed
+  if (!is.null(.na)) {
+    res[] <- lapply(res, function(x) {
+      x[is.na(x)] <- .na
+      x
+    })
+  } else {
+    # Return NA for any rows that are NA
+    na_rows <- Reduce(`|`, lapply(res, is.na))
+  }
 
   res <- do.call(paste0, recycle_columns(res))
-  res[na_rows] <- NA_character_
+
+  if (is.null(.na)) {
+    res[na_rows] <- NA_character_
+  }
 
   as_glue(res)
 }
