@@ -80,7 +80,7 @@
       <h1>Speed of glue</h1>
                         <h4 class="author">Jim Hester</h4>
             
-            <h4 class="date">2017-10-26</h4>
+            <h4 class="date">2017-10-27</h4>
           </div>
 
     
@@ -98,7 +98,7 @@
 <li>
 <code><a href="http://www.rdocumentation.org/packages/R.utils/topics/gstring">R.utils::gstring()</a></code>, <code>stringr::str_inperp()</code> - Provides a similar interface as glue, but using <code>${}</code> to delimit blocks to interpolate.</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/pystr/topics/pystr_format">pystr::pystr_format()</a></code>, <code><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf::rprintf()</a></code> - Provide a interfaces similar to python string formatters with variable replacement, but not arbitrary interpolation.</li>
+<code><a href="http://www.rdocumentation.org/packages/pystr/topics/pystr_format">pystr::pystr_format()</a></code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, <code><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf::rprintf()</a></code> - Provide a interfaces similar to python string formatters with variable replacement, but not arbitrary interpolation.</li>
 </ul>
 <div id="simple-concatenation" class="section level2">
 <h2 class="hasAnchor">
@@ -120,13 +120,13 @@ simple &lt;-
 <div class="output">
 <pre class="knitr r">#&gt; Unit: evaluations per second
 #&gt;          expr       min     lq       mean median     uq     max neval cld
-#&gt;       rprintf 2.883e+02   1900   1951.058   1968   2115    2248   100 a  
-#&gt;       gstring 6.382e+00   2397   2447.315   2493   2688    2854   100 a  
-#&gt;    str_interp 9.663e+01   3272   3297.847   3389   3583    3883   100 a  
-#&gt;          glue 3.594e+02   6314   6446.931   6619   7025    7936   100 a  
-#&gt;  pystr_format 6.158e+01  18670  20068.661  20040  21560   27880   100 a  
-#&gt;        paste0 1.229e+05 393000 468145.291 463100 513700  935500   100  b 
-#&gt;       sprintf 2.580e+05 416100 538725.585 465800 613500 1230000   100   c
+#&gt;       rprintf    148.00   1850   1902.831   1937   2062    2228   100 a  
+#&gt;       gstring      5.87   2339   2365.255   2491   2627    2933   100 a  
+#&gt;    str_interp     85.07   3171   3223.143   3284   3464    3993   100 a  
+#&gt;          glue    435.30   6280   6509.552   6575   6972    8138   100 a  
+#&gt;  pystr_format     58.92  18600  19349.724  19500  20850   26320   100 a  
+#&gt;        paste0 179800.00 381700 450772.453 449100 499800  978500   100  b 
+#&gt;       sprintf 212700.00 437600 579980.307 492000 612200 1767000   100   c
 </pre>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
@@ -157,16 +157,22 @@ vectorized &lt;-
 <div class="output">
 <pre class="knitr r">#&gt; Unit: milliseconds
 #&gt;     expr   min    lq     mean median    uq    max neval  cld
-#&gt;   paste0 12.81 13.24 14.12517  13.65 14.41  18.11   100 a   
-#&gt;  sprintf 16.81 17.24 18.08383  17.76 18.51  21.66   100  b  
-#&gt;     glue 19.30 21.00 25.71188  22.55 25.74 158.50   100   c 
-#&gt;  gstring 25.96 27.02 28.57572  27.96 30.14  34.33   100   c 
-#&gt;  rprintf 60.26 63.50 66.00858  65.56 67.78  79.89   100    d
+#&gt;   paste0 12.93 13.30 14.15082  13.75 14.57  18.67   100 a   
+#&gt;  sprintf 16.77 17.17 18.35378  18.03 19.21  24.51   100  b  
+#&gt;     glue 19.28 20.84 25.85976  23.16 25.42 157.00   100   c 
+#&gt;  gstring 25.73 26.33 28.31059  28.34 29.91  33.08   100   c 
+#&gt;  rprintf 60.16 64.21 67.66198  67.23 70.13  82.35   100    d
 </pre>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">plot_comparison</span>(vectorized, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+</div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>pystr has been removed from CRAN due to failure to correct installation errors.<a href="#fnref1">↩</a></p></li>
+</ol>
 </div>
 </div>
   </div>
