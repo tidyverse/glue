@@ -7,6 +7,14 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  % \VignetteDepends{R.utils
+    R.utils,
+    forcats,
+    microbenchmark,
+    pystr,
+    rprintf,
+    stringr,
+    ggplot2}
 ---
 
 Glue is advertised as
@@ -31,9 +39,11 @@ A good way to determine this is to compare it's speed of execution to some alter
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>",
   eval = as.logical(Sys.getenv("VIGNETTE_EVAL", "FALSE")),
-  cache = TRUE)
+  cache = as.logical(Sys.getenv("VIGNETTE_EVAL", "FALSE")))
 library(glue)
+```
 
+```{r setup2, include = FALSE}
 plot_comparison <- function(x, ...) {
   library(ggplot2)
   x$expr <- forcats::fct_reorder(x$expr, x$time)
