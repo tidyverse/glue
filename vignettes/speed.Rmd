@@ -33,9 +33,9 @@ knitr::opts_chunk$set(
   eval = as.logical(Sys.getenv("VIGNETTE_EVAL", "FALSE")),
   cache = TRUE)
 library(glue)
-library(ggplot2)
 
 plot_comparison <- function(x, ...) {
+  library(ggplot2)
   x$expr <- forcats::fct_reorder(x$expr, x$time)
   colors <- ifelse(levels(x$expr) == "glue", "orange", "grey")
   autoplot(x, ...) +
