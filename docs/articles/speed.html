@@ -110,7 +110,6 @@ simple &lt;-
   <span class="dt">glue =</span> glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">"foo{bar}"</span>),
   <span class="dt">gstring =</span> R.utils<span class="op">::</span><span class="kw">gstring</span>(<span class="st">"foo${bar}"</span>),
   <span class="dt">paste0 =</span> <span class="kw">paste0</span>(<span class="st">"foo"</span>, bar),
-  <span class="dt">pystr_format =</span> pystr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/pystr/topics/pystr_format">pystr_format</a></span>(<span class="st">"foo{bar}"</span>, <span class="dt">bar =</span> bar),
   <span class="dt">sprintf =</span> <span class="kw">sprintf</span>(<span class="st">"foo%s"</span>, bar),
   <span class="dt">str_interp =</span> stringr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringr/topics/str_interp">str_interp</a></span>(<span class="st">"foo${bar}"</span>),
   <span class="dt">rprintf =</span> rprintf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf</a></span>(<span class="st">"foo$bar"</span>, <span class="dt">bar =</span> bar)
@@ -119,29 +118,28 @@ simple &lt;-
 <span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)</code></pre></div>
 <div class="output">
 <pre class="knitr r">#&gt; Unit: evaluations per second
-#&gt;          expr       min     lq       mean median     uq     max neval cld
-#&gt;       rprintf 2.853e+02   1885   1916.441   1948   2075    2257   100 a  
-#&gt;       gstring 6.184e+00   2347   2426.829   2484   2656    2875   100 a  
-#&gt;    str_interp 9.813e+01   3107   3211.436   3314   3477    3861   100 a  
-#&gt;          glue 3.401e+02   6235   6402.115   6537   7036    8148   100 a  
-#&gt;  pystr_format 5.989e+01  18580  19568.940  19870  21370   26240   100 a  
-#&gt;        paste0 1.628e+05 399100 455685.347 451100 507300  915800   100  b 
-#&gt;       sprintf 2.904e+05 414300 586195.306 473800 693700 1488000   100   c
+#&gt;        expr       min     lq       mean median     uq     max neval cld
+#&gt;     rprintf 2.737e+02   1625   1758.343   1817   1929    2206   100 a  
+#&gt;     gstring 5.818e+00   2069   2225.260   2353   2478    2837   100 a  
+#&gt;  str_interp 7.899e+01   2697   2946.585   3126   3353    3688   100 a  
+#&gt;        glue 4.281e+02   5437   6030.582   6315   6755    7739   100 a  
+#&gt;      paste0 6.040e+04 324100 430471.607 433700 506200  920800   100  b 
+#&gt;     sprintf 1.647e+05 385100 500215.276 434500 534900 1247000   100   c
 </pre>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">plot_comparison</span>(simple)</code></pre></div>
 <p><img src="speed_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
-<p>While <code>glue()</code> is slower than <code>paste0</code>,<code>sprintf()</code> and <code>pystr_format()</code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
+<p>While <code>glue()</code> is slower than <code>paste0</code>,<code>sprintf()</code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
 <p><code>paste0()</code>, <code>sprintf()</code> don’t do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.</p>
-<p><code>pystr_format()</code> and <code>rprintf()</code> both do only variable interpolation, not arbitrary expressions, which was one of the explicit points of writing glue.</p>
-<p>So glue is ~2x as fast as the two functions (str_interp, gstring) which do have roughly equivalent functionality.</p>
+<p><code>rprintf()</code> does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.</p>
+<p>So glue is ~2x as fast as the two functions (<code>str_interp()</code>, <code>gstring()</code>) which do have roughly equivalent functionality.</p>
 <p>It also is still quite fast, with over 6000 evaluations per second on this machine.</p>
 </div>
 <div id="vectorized-performance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vectorized-performance" class="anchor"></a>Vectorized performance</h2>
-<p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code>paste0()</code> and <code>sprintf()</code>. NB. <code>str_interp()</code> and <code>pystr_format()</code> do not support vectorization, so were removed.</p>
+<p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code>paste0()</code> and <code>sprintf()</code>. NB. <code>str_interp()</code> does not support vectorization, so were removed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">"bar"</span>, <span class="fl">1e5</span>)
 
 vectorized &lt;-
@@ -171,7 +169,7 @@ vectorized &lt;-
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>pystr is no longer available from CRAN due to failure to correct installation errors.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>pystr is no longer available from CRAN due to failure to correct installation errors and was therefore removed from futher testing.<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
 </div>

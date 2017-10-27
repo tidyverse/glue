@@ -16,7 +16,13 @@ Suggests:
     knitr,
     rmarkdown,
     DBI,
-    RSQLite
+    RSQLite,
+    R.utils,
+    forcats,
+    microbenchmark,
+    rprintf,
+    stringr,
+    ggplot2
 Imports:
   methods
 License: MIT + file LICENSE
