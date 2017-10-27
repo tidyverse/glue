@@ -94,9 +94,9 @@
 <p>A good way to determine this is to compare it’s speed of execution to some alternatives.</p>
 <ul>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/base/topics/paste">base::paste0()</a></code>, <code>base::printf()</code> - Functions in base R implemented in C that provide variable insertion (but not interpolation).</li>
+<code><a href="http://www.rdocumentation.org/packages/base/topics/paste">base::paste0()</a></code>, <code><a href="http://www.rdocumentation.org/packages/base/topics/sprintf">base::sprintf()</a></code> - Functions in base R implemented in C that provide variable insertion (but not interpolation).</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/R.utils/topics/gstring">R.utils::gstring()</a></code>, <code>stringr::str_inperp()</code> - Provides a similar interface as glue, but using <code>${}</code> to delimit blocks to interpolate.</li>
+<code><a href="http://www.rdocumentation.org/packages/R.utils/topics/gstring">R.utils::gstring()</a></code>, <code><a href="http://www.rdocumentation.org/packages/stringr/topics/str_interp">stringr::str_interp()</a></code> - Provides a similar interface as glue, but using <code>${}</code> to delimit blocks to interpolate.</li>
 <li>
 <code><a href="http://www.rdocumentation.org/packages/pystr/topics/pystr_format">pystr::pystr_format()</a></code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, <code><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf::rprintf()</a></code> - Provide a interfaces similar to python string formatters with variable replacement, but not arbitrary interpolation.</li>
 </ul>
@@ -120,13 +120,13 @@ simple &lt;-
 <div class="output">
 <pre class="knitr r">#&gt; Unit: evaluations per second
 #&gt;          expr       min     lq       mean median     uq     max neval cld
-#&gt;       rprintf    148.00   1850   1902.831   1937   2062    2228   100 a  
-#&gt;       gstring      5.87   2339   2365.255   2491   2627    2933   100 a  
-#&gt;    str_interp     85.07   3171   3223.143   3284   3464    3993   100 a  
-#&gt;          glue    435.30   6280   6509.552   6575   6972    8138   100 a  
-#&gt;  pystr_format     58.92  18600  19349.724  19500  20850   26320   100 a  
-#&gt;        paste0 179800.00 381700 450772.453 449100 499800  978500   100  b 
-#&gt;       sprintf 212700.00 437600 579980.307 492000 612200 1767000   100   c
+#&gt;       rprintf 2.853e+02   1885   1916.441   1948   2075    2257   100 a  
+#&gt;       gstring 6.184e+00   2347   2426.829   2484   2656    2875   100 a  
+#&gt;    str_interp 9.813e+01   3107   3211.436   3314   3477    3861   100 a  
+#&gt;          glue 3.401e+02   6235   6402.115   6537   7036    8148   100 a  
+#&gt;  pystr_format 5.989e+01  18580  19568.940  19870  21370   26240   100 a  
+#&gt;        paste0 1.628e+05 399100 455685.347 451100 507300  915800   100  b 
+#&gt;       sprintf 2.904e+05 414300 586195.306 473800 693700 1488000   100   c
 </pre>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
@@ -157,11 +157,11 @@ vectorized &lt;-
 <div class="output">
 <pre class="knitr r">#&gt; Unit: milliseconds
 #&gt;     expr   min    lq     mean median    uq    max neval  cld
-#&gt;   paste0 12.93 13.30 14.15082  13.75 14.57  18.67   100 a   
-#&gt;  sprintf 16.77 17.17 18.35378  18.03 19.21  24.51   100  b  
-#&gt;     glue 19.28 20.84 25.85976  23.16 25.42 157.00   100   c 
-#&gt;  gstring 25.73 26.33 28.31059  28.34 29.91  33.08   100   c 
-#&gt;  rprintf 60.16 64.21 67.66198  67.23 70.13  82.35   100    d
+#&gt;   paste0 12.80 13.03 13.74104  13.32 13.91  19.81   100 a   
+#&gt;  sprintf 16.85 17.17 18.03911  17.48 18.39  25.08   100  b  
+#&gt;     glue 19.43 20.21 24.67036  21.35 23.95 147.90   100   c 
+#&gt;  gstring 25.64 26.18 28.68098  26.70 28.42 146.00   100   c 
+#&gt;  rprintf 60.19 61.34 65.16353  63.74 65.79 185.80   100    d
 </pre>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
@@ -171,7 +171,7 @@ vectorized &lt;-
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>pystr has been removed from CRAN due to failure to correct installation errors.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>pystr is no longer available from CRAN due to failure to correct installation errors.<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
 </div>

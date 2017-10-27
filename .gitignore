@@ -4,3 +4,4 @@
 /revdep/.cache.rds
 inst/doc
 script.R
+/docs/articles/*cache/

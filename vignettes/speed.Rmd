@@ -30,7 +30,8 @@ A good way to determine this is to compare it's speed of execution to some alter
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>",
-  eval = as.logical(Sys.getenv("VIGNETTE_EVAL", "FALSE")))
+  eval = as.logical(Sys.getenv("VIGNETTE_EVAL", "FALSE")),
+  cache = TRUE)
 library(glue)
 library(ggplot2)
 
