@@ -19,9 +19,9 @@ can confidently say it is fast.
 
 A good way to determine this is to compare it's speed of execution to some alternatives.
 
-- `base::paste0()`, `base::printf()` - Functions in base R implemented in C
+- `base::paste0()`, `base::sprintf()` - Functions in base R implemented in C
   that provide variable insertion (but not interpolation).
-- `R.utils::gstring()`, `stringr::str_inperp()` - Provides a similar interface
+- `R.utils::gstring()`, `stringr::str_interp()` - Provides a similar interface
   as glue, but using `${}` to delimit blocks to interpolate.
 - `pystr::pystr_format()`, `rprintf::rprintf()` - Provide a interfaces similar
   to python string formatters with variable replacement, but not arbitrary
