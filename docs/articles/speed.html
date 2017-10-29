@@ -80,7 +80,7 @@
       <h1>Speed of glue</h1>
                         <h4 class="author">Jim Hester</h4>
             
-            <h4 class="date">2017-10-27</h4>
+            <h4 class="date">2017-10-28</h4>
           </div>
 
     
@@ -115,21 +115,9 @@ simple &lt;-
   <span class="dt">rprintf =</span> rprintf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf</a></span>(<span class="st">"foo$bar"</span>, <span class="dt">bar =</span> bar)
 )
 
-<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; Unit: evaluations per second
-#&gt;        expr       min     lq       mean median     uq     max neval cld
-#&gt;     rprintf 2.737e+02   1625   1758.343   1817   1929    2206   100 a  
-#&gt;     gstring 5.818e+00   2069   2225.260   2353   2478    2837   100 a  
-#&gt;  str_interp 7.899e+01   2697   2946.585   3126   3353    3688   100 a  
-#&gt;        glue 4.281e+02   5437   6030.582   6315   6755    7739   100 a  
-#&gt;      paste0 6.040e+04 324100 430471.607 433700 506200  920800   100  b 
-#&gt;     sprintf 1.647e+05 385100 500215.276 434500 534900 1247000   100   c
-</pre>
-</div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)
+
 <span class="kw">plot_comparison</span>(simple)</code></pre></div>
-<p><img src="speed_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
 <p>While <code>glue()</code> is slower than <code>paste0</code>,<code>sprintf()</code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
 <p><code>paste0()</code>, <code>sprintf()</code> don’t do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.</p>
 <p><code>rprintf()</code> does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.</p>
@@ -151,20 +139,9 @@ vectorized &lt;-
   <span class="dt">rprintf =</span> rprintf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf</a></span>(<span class="st">"foo$bar"</span>, <span class="dt">bar =</span> bar)
 )
 
-<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"ms"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, vectorized)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; Unit: milliseconds
-#&gt;     expr   min    lq     mean median    uq    max neval  cld
-#&gt;   paste0 12.80 13.03 13.74104  13.32 13.91  19.81   100 a   
-#&gt;  sprintf 16.85 17.17 18.03911  17.48 18.39  25.08   100  b  
-#&gt;     glue 19.43 20.21 24.67036  21.35 23.95 147.90   100   c 
-#&gt;  gstring 25.64 26.18 28.68098  26.70 28.42 146.00   100   c 
-#&gt;  rprintf 60.19 61.34 65.16353  63.74 65.79 185.80   100    d
-</pre>
-</div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"ms"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, vectorized)
+
 <span class="kw">plot_comparison</span>(vectorized, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 </div>
 <div class="footnotes">
 <hr>
