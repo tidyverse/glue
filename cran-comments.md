@@ -1,3 +1,5 @@
+This is a re-submission. I have fixed the NOTES about https URLs.
+
 ## Test environments
 * local OS X install, R 3.3.2
 * ubuntu 12.04 (on travis-ci), R-release, R-devel
