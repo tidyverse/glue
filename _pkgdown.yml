@@ -1,2 +1,24 @@
 template:
   package: tidytemplate
+
+navbar:
+  type: default
+  left:
+  - text: Home
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Transformers
+      href: articles/transformers.html
+    - text: Speed of glue
+      href: articles/speed.html
+  - text: News
+    menu:
+      - text: "Release notes"
+      - text: "Version 1.2.0"
+        href: articles/releases/glue-1.2.0.html
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html

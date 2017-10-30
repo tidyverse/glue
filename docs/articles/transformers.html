@@ -33,10 +33,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -49,15 +46,29 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/speed.html">Speed of glue</a>
+      <a href="../articles/transformers.html">Transformers</a>
     </li>
     <li>
-      <a href="../articles/transformers.html">Transformers</a>
+      <a href="../articles/speed.html">Speed of glue</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/glue-1.2.0.html">Version 1.2.0</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/glue">
@@ -78,9 +89,7 @@
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Transformers</h1>
-                        <h4 class="author">Jim Hester</h4>
             
-            <h4 class="date">2017-10-28</h4>
           </div>
 
     
@@ -150,26 +159,8 @@ glue_ji &lt;-<span class="st"> </span><span class="cf">function</span>(..., <spa
 <h3 class="hasAnchor">
 <a href="#sprintf-transformer" class="anchor"></a>sprintf transformer</h3>
 <p>A transformer which allows succinct sprintf format strings.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {
-  m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">":.+$"</span>, code)
-  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>) {
-    format &lt;-<span class="st"> </span><span class="kw">substring</span>(<span class="kw">regmatches</span>(code, m), <span class="dv">2</span>)
-    <span class="kw">regmatches</span>(code, m) &lt;-<span class="st"> ""</span>
-    res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir)
-    <span class="kw">do.call</span>(sprintf, <span class="kw">list</span>(<span class="kw">glue</span>(<span class="st">"%{format}f"</span>), res))
-  } <span class="cf">else</span> {
-    <span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir)
-  }
-}
-
-glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>()) {
-  <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)
-}
-<span class="kw">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; π = 3.14
-</pre>
-</div>
+<p>`{r} sprintf_transformer &lt;- function(code, envir) { m &lt;- regexpr(“:.+$”, code) if (m != -1) { format &lt;- substring(regmatches(code, m), 2) regmatches(code, m) &lt;- “” res &lt;- evaluate(code, envir) do.call(sprintf, list(glue(“%{format}f”), res)) } else { evaluate(code, envir) } }</p>
+<p>glue_fmt &lt;- function(…, .envir = parent.frame()) { glue(…, .transformer = sprintf_transformer, .envir = .envir) } glue_fmt(“π = {pi:.2}”) ```</p>
 </div>
 <div id="safely-transformer" class="section level3">
 <h3 class="hasAnchor">
@@ -189,7 +180,7 @@ glue_safely &lt;-<span class="st"> </span><span class="cf">function</span>(..., 
 <span class="co"># Default returns missing if there is an error</span>
 <span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>)</code></pre></div>
 <div class="output">
-<pre class="knitr r">#&gt; <span style="background-color:#c4a000">NA</span>
+<pre class="knitr r">#&gt; foo: NA
 </pre>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">

@@ -135,7 +135,7 @@ glue_sql("
     AND {`tbl`}.species = {val}
   ", .con = con)
 
-# `glue_sql()` can be used in conjuction with parameterized queries using
+# `glue_sql()` can be used in conjunction with parameterized queries using
 # `DBI::dbBind()` to provide protection for SQL Injection attacks
  sql <- glue_sql("
     SELECT {`var`}

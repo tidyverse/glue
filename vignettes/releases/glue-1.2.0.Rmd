@@ -1,0 +1,143 @@
+---
+title: "glue 1.2.0"
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE
+)
+library(glue)
+```
+
+glue 1.2.0 is now available on CRAN. glue is designed to make it easy to
+interpolate ("glue") your data into strings.
+
+Compared to equivalents like `paste()` and `sprintf()` it is easier to write
+and less time consuming to maintain. It also has no non-base dependencies so is
+easy to include in packages.
+
+Install the latest version with:
+
+```{r, eval = FALSE}
+install.packages("glue")
+```
+
+glue has three primary functions, `glue()`, `glue_data()` and `collapse()`.
+`glue()` works in a similar way to double quotes `"` in a shell or python's
+[String Interpolation](https://www.python.org/dev/peps/pep-0498/). You surround
+the code you want evaluated by `{}` and the value of the expression is inserted
+into the string.
+
+```{r}
+name <- "Fred"
+age <- 50
+anniversary <- as.Date("1991-10-12")
+glue('
+  My name is {name}
+  my age next year is {age + 1}
+  my anniversary is {format(anniversary, "%A, %B %d, %Y")}')
+```
+
+glue is also vectorized over its inputs.
+
+```{r}
+glue('
+  {month.abb} is short for {month.name}')
+```
+
+`glue_data()` works like `glue()`, but instead of looking up it's variables
+from the calling environment it looks them up from the first argument (usually
+a data frame or tibble). This makes `glue_data()` very useful within pipe chains.
+
+```{r}
+library(magrittr)
+mtcars$model <- rownames(mtcars)
+head(mtcars) %>%
+  glue_data("The {model} has {gear} gears, {cyl} cylinders and {hp} horsepower.")
+```
+
+`collapse()` is used to combine multiple values into one. The `last` argument
+is used to change the separator for the last value.
+
+```{r}
+collapse(1:5, ", ", last = " and ")
+```
+
+## glue transformers
+
+New to glue 1.2.0 are transformer functions, which allow you to define custom
+behavior for glue functions. Such as a `collapse_transformer()` which
+automatically collapses any blocks which end with `*`.
+
+```{r}
+collapse_transformer <- function(regex = "[*]$", ...) {
+  function(code, envir) {
+    if (grepl(regex, code)) {
+        code <- sub(regex, "", code)
+    }
+    res <- evaluate(code, envir)
+    collapse(res, ...)
+  }
+}
+
+glue("
+  {1:5*}
+  {letters[1:5]*}",
+  .transformer = collapse_transformer(sep = ", ", last = " and "))
+```
+
+Or an sprintf transformer which lets you use sprintf style numeric formatting with glue.
+
+```{r}
+sprintf_transformer <- function(code, envir) {
+  m <- regexpr("%.+$", code)
+  if (m != -1) {
+    format <- regmatches(code, m)
+    regmatches(code, m) <- ""
+    res <- evaluate(code, envir)
+    do.call(sprintf, list(format, res))
+  } else {
+    evaluate(code, envir)
+  }
+}
+
+glue_fmt <- function(..., .envir = parent.frame()) {
+  glue(..., .transformer = sprintf_transformer, .envir = .envir)
+}
+glue_fmt("π = {pi%.5f}")
+```
+
+## glue_sql()
+
+Also new to glue 1.2.0 is `glue_sql()` and `glue_sql_data()`, which are helper
+functions defined with glue transformers to make it easy and safe to construct
+SQL statements.
+
+Using `glue_sql()` values are automatically quoted appropriately and variables
+can be quoted with backticks.
+
+```{r}
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris)
+var <- "sepal_width"
+tbl <- "iris"
+num <- 2
+val <- "setosa"
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length > {num}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
+```
+
+## Other changes
+
+* There are many other bug fixes and other minor improvements. You can see
+  a complete list in the [release
+  notes](https://github.com/tidyverse/glue/releases/tag/v1.2.0).
+
+A big thanks goes to all the community members who contributed, opened issues
+and used glue.

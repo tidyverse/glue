@@ -152,7 +152,7 @@ glue_sql("
 #> WHERE `iris`.sepal_length > 2
 #>   AND `iris`.species = 'setosa'
 
-# `glue_sql()` can be used in conjuction with parameterized queries using
+# `glue_sql()` can be used in conjunction with parameterized queries using
 # `DBI::dbBind()` to provide protection for SQL Injection attacks
  sql <- glue_sql("
     SELECT {`var`}

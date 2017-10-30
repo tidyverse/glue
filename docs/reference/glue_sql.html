@@ -52,10 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -68,15 +65,29 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/speed.html">Speed of glue</a>
+      <a href="../articles/transformers.html">Transformers</a>
     </li>
     <li>
-      <a href="../articles/transformers.html">Transformers</a>
+      <a href="../articles/speed.html">Speed of glue</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/glue-1.2.0.html">Version 1.2.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/glue">
@@ -105,9 +116,10 @@ which make writing SQL queries error prone and cumbersome to do. <code>glue_sql(
 SQL quoting.</p>
     
 
-    <pre class="usage"><span class='fu'>glue_sql</span>(<span class='no'>...</span>, <span class='no'>.con</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>())
+    <pre class="usage"><span class='fu'>glue_sql</span>(<span class='no'>...</span>, <span class='no'>.con</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DBI/topics/SQL'>SQL</a></span>(<span class='st'>"NULL"</span>))
 
-<span class='fu'>glue_data_sql</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='no'>.con</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>())</pre>
+<span class='fu'>glue_data_sql</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='no'>.con</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(),
+  <span class='kw'>.na</span> <span class='kw'>=</span> <span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DBI/topics/SQL'>SQL</a></span>(<span class='st'>"NULL"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -125,6 +137,12 @@ SQL quoting.</p>
       <td><p>[<code>environment</code>: <code>parent.frame()</code>] Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If <code>.x</code> is an environment, the expressions are
 evaluated in that environment and <code>.envir</code> is ignored.</p></td>
+    </tr>
+    <tr>
+      <th>.na</th>
+      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;] Value to replace NA values
+with. If <code>NULL</code> missing values are propegated, that is an <code>NA</code> result will
+cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></td>
     </tr>
     <tr>
       <th>.x</th>

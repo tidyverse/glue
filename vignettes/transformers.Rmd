@@ -1,7 +1,5 @@
 ---
 title: "Transformers"
-author: "Jim Hester"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Transformers}
@@ -84,7 +82,7 @@ glue_ji("many :heart*:")
 
 A transformer which allows succinct sprintf format strings.
 
-```{r}
+`{r}
 sprintf_transformer <- function(code, envir) {
   m <- regexpr(":.+$", code)
   if (m != -1) {

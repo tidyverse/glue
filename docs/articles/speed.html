@@ -33,10 +33,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -49,15 +46,29 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/speed.html">Speed of glue</a>
+      <a href="../articles/transformers.html">Transformers</a>
     </li>
     <li>
-      <a href="../articles/transformers.html">Transformers</a>
+      <a href="../articles/speed.html">Speed of glue</a>
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="../articles/releases/glue-1.2.0.html">Version 1.2.0</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/glue">
@@ -78,9 +89,7 @@
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Speed of glue</h1>
-                        <h4 class="author">Jim Hester</h4>
             
-            <h4 class="date">2017-10-28</h4>
           </div>
 
     
@@ -115,9 +124,21 @@ simple &lt;-
   <span class="dt">rprintf =</span> rprintf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf</a></span>(<span class="st">"foo$bar"</span>, <span class="dt">bar =</span> bar)
 )
 
-<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)
-
+<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; Unit: evaluations per second
+#&gt;        expr       min     lq       mean median     uq     max neval cld
+#&gt;     rprintf 2.750e+02   1613   1798.508   1891   1990    2249   100 a  
+#&gt;     gstring 5.935e+00   2103   2293.898   2414   2561    2871   100 a  
+#&gt;  str_interp 9.535e+01   2626   2895.694   3098   3325    3887   100 a  
+#&gt;        glue 3.941e+02   6228   6576.499   6851   7356    8557   100 a  
+#&gt;     sprintf 2.111e+05 365200 536879.026 423800 621500 1531000   100   c
+#&gt;      paste0 1.443e+05 277200 408745.373 425500 500700  747400   100  b
+</pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">plot_comparison</span>(simple)</code></pre></div>
+<p><img src="speed_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
 <p>While <code>glue()</code> is slower than <code>paste0</code>,<code>sprintf()</code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
 <p><code>paste0()</code>, <code>sprintf()</code> don’t do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.</p>
 <p><code>rprintf()</code> does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.</p>
@@ -139,9 +160,20 @@ vectorized &lt;-
   <span class="dt">rprintf =</span> rprintf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/rprintf/topics/rprintf">rprintf</a></span>(<span class="st">"foo$bar"</span>, <span class="dt">bar =</span> bar)
 )
 
-<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"ms"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, vectorized)
-
+<span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"ms"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, vectorized)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; Unit: milliseconds
+#&gt;     expr   min    lq     mean median    uq    max neval  cld
+#&gt;   paste0 12.86 13.67 14.45596  14.20 15.00  17.97   100 a   
+#&gt;     glue 14.12 15.42 17.11361  16.49 18.88  22.83   100  b  
+#&gt;  sprintf 16.80 17.91 18.92630  18.65 19.76  23.70   100  b  
+#&gt;  gstring 25.76 28.02 29.07987  28.83 30.12  34.55   100   c 
+#&gt;  rprintf 59.91 68.25 71.52097  70.21 72.87 196.90   100    d
+</pre>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">plot_comparison</span>(vectorized, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 </div>
 <div class="footnotes">
 <hr>
