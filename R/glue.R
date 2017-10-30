@@ -97,23 +97,16 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
     return(as_glue(character(0)))
   }
 
-  res <- recycle_columns(res)
-
-  # Replace NA values as needed
   if (!is.null(.na)) {
-    res[] <- lapply(res, function(x) {
-      x[is.na(x)] <- .na
-      x
-    })
+    res[] <- lapply(res, function(x) replace(x, is.na(x), .na))
   } else {
-    # Return NA for any rows that are NA
-    na_rows <- Reduce(`|`, lapply(res, is.na))
+    na_rows <- na_rows(res)
   }
 
   res <- do.call(paste0, recycle_columns(res))
 
   if (is.null(.na)) {
-    res[na_rows] <- NA_character_
+    res <- replace(res, na_rows, NA)
   }
 
   as_glue(res)

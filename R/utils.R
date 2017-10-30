@@ -24,6 +24,7 @@ recycle_columns <- function (x) {
     if (any(lengths) == 0) {
       return(character())
     }
+
     max <- max(lengths)
     bad_len <- lengths != 1L & lengths != max
     if (any(bad_len)) {
@@ -54,4 +55,9 @@ style_na <- function(x) {
 
 lengths <- function(x) {
   vapply(x, length, integer(1L))
+}
+
+
+na_rows <- function(res) {
+  Reduce(`|`, lapply(res, is.na))
 }
