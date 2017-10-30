@@ -234,5 +234,4 @@ as.character.glue <- function(x, ...) {
 }
 
 #' @importFrom methods setOldClass
-
 setOldClass(c("glue", "character"))

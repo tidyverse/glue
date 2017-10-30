@@ -78,14 +78,14 @@
 #'
 #' DBI::dbDisconnect(con)
 #' @export
-glue_sql <- function(..., .con, .envir = parent.frame()) {
-  DBI::SQL(glue(..., .envir = .envir, .transformer = sql_quote_transformer(.con)))
+glue_sql <- function(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL")) {
+  DBI::SQL(glue(..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con)))
 }
 
 #' @rdname glue_sql
 #' @export
-glue_data_sql <- function(.x, ..., .con, .envir = parent.frame()) {
-  DBI::SQL(glue_data(.x, ..., .envir = .envir, .transformer = sql_quote_transformer(.con)))
+glue_data_sql <- function(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL")) {
+  DBI::SQL(glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con)))
 }
 
 sql_quote_transformer <- function(connection) {
@@ -95,15 +95,20 @@ sql_quote_transformer <- function(connection) {
       code <- sub("[*]$", "", code)
     }
     m <- gregexpr("^`|`$", code)
-    if (any(m[[1]] != -1)) {
+    is_quoted <- any(m[[1]] != -1)
+    if (is_quoted) {
       regmatches(code, m) <- ""
       res <- DBI::dbQuoteIdentifier(conn = connection, as.character(evaluate(code, envir)))
     } else {
+      # Convert all NA's as needed
       res <- evaluate(code, envir)
-      if (is.character(res)) {
+      if (any(is.na(res))) {
+        res <- as.list(res)
+        res[is.na(res)] <- NA_character_
+      }
+      if(is.character(res)) {
         res <- DBI::dbQuoteString(conn = connection, res)
       }
-      res
     }
     if (should_collapse) {
       res <- collapse(res, ", ")

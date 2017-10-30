@@ -5,9 +5,10 @@
 \alias{glue_data_sql}
 \title{Interpolate strings with SQL escaping}
 \usage{
-glue_sql(..., .con, .envir = parent.frame())
+glue_sql(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 
-glue_data_sql(.x, ..., .con, .envir = parent.frame())
+glue_data_sql(.x, ..., .con, .envir = parent.frame(),
+  .na = DBI::SQL("NULL"))
 }
 \arguments{
 \item{...}{[\code{expressions}]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.}
@@ -17,6 +18,10 @@ glue_data_sql(.x, ..., .con, .envir = parent.frame())
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
 evaluated in that environment and \code{.envir} is ignored.}
+
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
+with. If \code{NULL} missing values are propegated, that is an \code{NA} result will
+cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
 }
