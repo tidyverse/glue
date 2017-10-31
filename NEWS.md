@@ -6,7 +6,7 @@
 
 * `glue()` now has a `.transformer` argument, which allows you to use custom
   logic on how to evaluate the code within glue blocks. See
-  `vignettes("transformers")` for more details and example transformer
+  `vignette("transformers")` for more details and example transformer
   functions.
 
 * `glue()` now returns `NA` if any of the results are `NA` and `.na` is `NULL`.
