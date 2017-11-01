@@ -22,3 +22,7 @@ navbar:
       - text: "------------------"
       - text: "Change log"
         href: news/index.html
+
+authors:
+  "Jim Hester":
+    href: http://jimhester.com

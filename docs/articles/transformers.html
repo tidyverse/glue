@@ -159,8 +159,26 @@ glue_ji &lt;-<span class="st"> </span><span class="cf">function</span>(..., <spa
 <h3 class="hasAnchor">
 <a href="#sprintf-transformer" class="anchor"></a>sprintf transformer</h3>
 <p>A transformer which allows succinct sprintf format strings.</p>
-<p>`{r} sprintf_transformer &lt;- function(code, envir) { m &lt;- regexpr(“:.+$”, code) if (m != -1) { format &lt;- substring(regmatches(code, m), 2) regmatches(code, m) &lt;- “” res &lt;- evaluate(code, envir) do.call(sprintf, list(glue(“%{format}f”), res)) } else { evaluate(code, envir) } }</p>
-<p>glue_fmt &lt;- function(…, .envir = parent.frame()) { glue(…, .transformer = sprintf_transformer, .envir = .envir) } glue_fmt(“π = {pi:.2}”) ```</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {
+  m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">":.+$"</span>, code)
+  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>) {
+    format &lt;-<span class="st"> </span><span class="kw">substring</span>(<span class="kw">regmatches</span>(code, m), <span class="dv">2</span>)
+    <span class="kw">regmatches</span>(code, m) &lt;-<span class="st"> ""</span>
+    res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir)
+    <span class="kw">do.call</span>(sprintf, <span class="kw">list</span>(<span class="kw">glue</span>(<span class="st">"%{format}f"</span>), res))
+  } <span class="cf">else</span> {
+    <span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir)
+  }
+}
+
+glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>()) {
+  <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)
+}
+<span class="kw">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)</code></pre></div>
+<div class="output">
+<pre class="knitr r">#&gt; π = 3.14
+</pre>
+</div>
 </div>
 <div id="safely-transformer" class="section level3">
 <h3 class="hasAnchor">
@@ -213,7 +231,7 @@ glue_safely &lt;-<span class="st"> </span><span class="cf">function</span>(..., 
 </div>
 
 <div class="author">
-  <p>Developed by Jim Hester.</p>
+  <p>Developed by <a href="http://jimhester.com">Jim Hester</a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
