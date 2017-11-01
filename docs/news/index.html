@@ -120,7 +120,7 @@
 <a href="#glue-1-2-0" class="anchor"></a>glue 1.2.0</h1>
 <ul>
 <li><p>The implementation has been tweaked to be slightly faster in most cases.</p></li>
-<li><p><code>glue()</code> now has a <code>.transformer</code> argument, which allows you to use custom logic on how to evaluate the code within glue blocks. See <code>vignettes("transformers")</code> for more details and example transformer functions.</p></li>
+<li><p><code>glue()</code> now has a <code>.transformer</code> argument, which allows you to use custom logic on how to evaluate the code within glue blocks. See <code><a href="../articles/transformers.html">vignette("transformers")</a></code> for more details and example transformer functions.</p></li>
 <li><p><code>glue()</code> now returns <code>NA</code> if any of the results are <code>NA</code> and <code>.na</code> is <code>NULL</code>. Otherwise <code>NA</code> values are replaced by the value of <code>.na</code>.</p></li>
 <li><p><code><a href="../reference/trim.html">trim()</a></code> to use the trimming logic from glue is now exported.</p></li>
 <li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> and <code><a href="../reference/glue_sql.html">glue_data_sql()</a></code> functions added to make constructing SQL statements with glue safer and easier.</p></li>

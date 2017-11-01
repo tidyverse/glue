@@ -1,5 +1,15 @@
 ---
-title: "glue 1.2.0"
+title: glue 1.2.0
+date: '2017-10-31'
+slug: glue-1.2.0
+author: Jim Hester
+categories: [package]
+description: >
+  glue 1.2.0 is now available on CRAN. glue is designed to make it easy to
+  interpolate ("glue") your data into strings.
+photo:
+  url: http://www.littlerock.af.mil/News/Photos/igphoto/2001697811/
+  author: Airman 1st Class Grace Nichols
 ---
 
 ```{r setup, include = FALSE}
@@ -10,12 +20,11 @@ knitr::opts_chunk$set(
 library(glue)
 ```
 
-glue 1.2.0 is now available on CRAN. glue is designed to make it easy to
-interpolate ("glue") your data into strings.
-
-Compared to equivalents like `paste()` and `sprintf()` it is easier to write
-and less time consuming to maintain. It also has no non-base dependencies so is
-easy to include in packages.
+[glue 1.2.0](http://glue.tidyverse.org) is now available on CRAN!
+[glue](http://glue.tidyverse.org) is designed to make it easy to interpolate
+("glue") your data into strings. Compared to equivalents like `paste()` and
+`sprintf()` it is easier to write and less time consuming to maintain. It also
+has no non-base dependencies so is easy to include in packages.
 
 Install the latest version with:
 
@@ -36,38 +45,41 @@ anniversary <- as.Date("1991-10-12")
 glue('
   My name is {name}
   my age next year is {age + 1}
-  my anniversary is {format(anniversary, "%A, %B %d, %Y")}')
+  my anniversary is {format(anniversary, "%A, %B %d, %Y")}
+')
 ```
 
 glue is also vectorized over its inputs.
 
 ```{r}
 glue('
-  {month.abb} is short for {month.name}')
+  {month.abb} is short for {month.name}
+')
 ```
 
-`glue_data()` works like `glue()`, but instead of looking up it's variables
+`glue_data()` works like `glue()`, but instead of looking up its variables
 from the calling environment it looks them up from the first argument (usually
 a data frame or tibble). This makes `glue_data()` very useful within pipe chains.
 
 ```{r}
 library(magrittr)
 mtcars$model <- rownames(mtcars)
-head(mtcars) %>%
-  glue_data("The {model} has {gear} gears, {cyl} cylinders and {hp} horsepower.")
+mtcars %>%
+  head %>%
+  glue_data("The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower.")
 ```
 
 `collapse()` is used to combine multiple values into one. The `last` argument
 is used to change the separator for the last value.
 
 ```{r}
-collapse(1:5, ", ", last = " and ")
+collapse(1:5, ", ", last = ", and ")
 ```
 
 ## glue transformers
 
 New to glue 1.2.0 are transformer functions, which allow you to define custom
-behavior for glue functions. Such as a `collapse_transformer()` which
+behavior for glue functions. For example a `collapse_transformer()` which
 automatically collapses any blocks which end with `*`.
 
 ```{r}
@@ -84,7 +96,7 @@ collapse_transformer <- function(regex = "[*]$", ...) {
 glue("
   {1:5*}
   {letters[1:5]*}",
-  .transformer = collapse_transformer(sep = ", ", last = " and "))
+  .transformer = collapse_transformer(sep = ", ", last = ", and "))
 ```
 
 Or an sprintf transformer which lets you use sprintf style numeric formatting with glue.
@@ -135,9 +147,23 @@ glue_sql("
 
 ## Other changes
 
-* There are many other bug fixes and other minor improvements. You can see
-  a complete list in the [release
-  notes](https://github.com/tidyverse/glue/releases/tag/v1.2.0).
+There are many other bug fixes and other minor improvements. You can see a
+complete list in the [release
+notes](https://github.com/tidyverse/glue/releases/tag/v1.2.0).
 
-A big thanks goes to all the community members who contributed, opened issues
-and used glue.
+A big thanks goes to all the community members who contributed code and opened
+issues since the last release!
+([\@artemklevtsov](https://github.com/artemklevtsov),
+[\@daroczig](https://github.com/daroczig),
+[\@DarwinAwardWinner](https://github.com/DarwinAwardWinner),
+[\@edarague](https://github.com/edarague),
+[\@hadley](https://github.com/hadley),
+[\@hughjonesd](https://github.com/hughjonesd),
+[\@jennybc](https://github.com/jennybc),
+[\@jimhester](https://github.com/jimhester),
+[\@jjchern](https://github.com/jjchern), [\@klmr](https://github.com/klmr),
+[\@krlmlr](https://github.com/krlmlr), [\@lionel-](https://github.com/lionel-),
+[\@mgirlich](https://github.com/mgirlich),
+[\@mmuurr](https://github.com/mmuurr), [\@npjc](https://github.com/npjc),
+[\@pssguy](https://github.com/pssguy), and
+[\@robinsones](https://github.com/robinsones))

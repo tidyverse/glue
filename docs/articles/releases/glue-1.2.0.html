@@ -89,14 +89,15 @@
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>glue 1.2.0</h1>
+                        <h4 class="author">Jim Hester</h4>
             
+            <h4 class="date">2017-10-31</h4>
           </div>
 
     
     
 <div class="contents">
-<p>glue 1.2.0 is now available on CRAN. glue is designed to make it easy to interpolate (“glue”) your data into strings.</p>
-<p>Compared to equivalents like <code>paste()</code> and <code>sprintf()</code> it is easier to write and less time consuming to maintain. It also has no non-base dependencies so is easy to include in packages.</p>
+<p><a href="http://glue.tidyverse.org">glue 1.2.0</a> is now available on CRAN! <a href="http://glue.tidyverse.org">glue</a> is designed to make it easy to interpolate (“glue”) your data into strings. Compared to equivalents like <code>paste()</code> and <code>sprintf()</code> it is easier to write and less time consuming to maintain. It also has no non-base dependencies so is easy to include in packages.</p>
 <p>Install the latest version with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"glue"</span>)</code></pre></div>
 <p>glue has three primary functions, <code>glue()</code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/collapse.html">collapse()</a></code>. <code>glue()</code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
@@ -106,55 +107,58 @@ anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span 
 <span class="kw">glue</span>(<span class="st">'</span>
 <span class="st">  My name is {name}</span>
 <span class="st">  my age next year is {age + 1}</span>
-<span class="st">  my anniversary is {format(anniversary, "%A, %B %d, %Y")}'</span>)</code></pre></div>
+<span class="st">  my anniversary is {format(anniversary, "%A, %B %d, %Y")}</span>
+<span class="st">'</span>)</code></pre></div>
 <div class="output">
-<pre class="knitr r">#&gt; My name is Fred
-#&gt; my age next year is 51
-#&gt; my anniversary is Saturday, October 12, 1991
+<pre class="knitr r">#&gt;   My name is Fred
+#&gt;   my age next year is 51
+#&gt;   my anniversary is Saturday, October 12, 1991
 </pre>
 </div>
 <p>glue is also vectorized over its inputs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glue</span>(<span class="st">'</span>
-<span class="st">  {month.abb} is short for {month.name}'</span>)</code></pre></div>
+<span class="st">  {month.abb} is short for {month.name}</span>
+<span class="st">'</span>)</code></pre></div>
 <div class="output">
-<pre class="knitr r">#&gt; Jan is short for January
-#&gt; Feb is short for February
-#&gt; Mar is short for March
-#&gt; Apr is short for April
-#&gt; May is short for May
-#&gt; Jun is short for June
-#&gt; Jul is short for July
-#&gt; Aug is short for August
-#&gt; Sep is short for September
-#&gt; Oct is short for October
-#&gt; Nov is short for November
-#&gt; Dec is short for December
+<pre class="knitr r">#&gt;   Jan is short for January
+#&gt;   Feb is short for February
+#&gt;   Mar is short for March
+#&gt;   Apr is short for April
+#&gt;   May is short for May
+#&gt;   Jun is short for June
+#&gt;   Jul is short for July
+#&gt;   Aug is short for August
+#&gt;   Sep is short for September
+#&gt;   Oct is short for October
+#&gt;   Nov is short for November
+#&gt;   Dec is short for December
 </pre>
 </div>
-<p><code><a href="../../reference/glue.html">glue_data()</a></code> works like <code>glue()</code>, but instead of looking up it’s variables from the calling environment it looks them up from the first argument (usually a data frame or tibble). This makes <code><a href="../../reference/glue.html">glue_data()</a></code> very useful within pipe chains.</p>
+<p><code><a href="../../reference/glue.html">glue_data()</a></code> works like <code>glue()</code>, but instead of looking up its variables from the calling environment it looks them up from the first argument (usually a data frame or tibble). This makes <code><a href="../../reference/glue.html">glue_data()</a></code> very useful within pipe chains.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 mtcars<span class="op">$</span>model &lt;-<span class="st"> </span><span class="kw">rownames</span>(mtcars)
-<span class="kw">head</span>(mtcars) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../../reference/glue.html">glue_data</a></span>(<span class="st">"The {model} has {gear} gears, {cyl} cylinders and {hp} horsepower."</span>)</code></pre></div>
+mtcars <span class="op">%&gt;%</span>
+<span class="st">  </span>head <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../../reference/glue.html">glue_data</a></span>(<span class="st">"The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower."</span>)</code></pre></div>
 <div class="output">
-<pre class="knitr r">#&gt; The Mazda RX4 has 4 gears, 6 cylinders and 110 horsepower.
-#&gt; The Mazda RX4 Wag has 4 gears, 6 cylinders and 110 horsepower.
-#&gt; The Datsun 710 has 4 gears, 4 cylinders and 93 horsepower.
-#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders and 110 horsepower.
-#&gt; The Hornet Sportabout has 3 gears, 8 cylinders and 175 horsepower.
-#&gt; The Valiant has 3 gears, 6 cylinders and 105 horsepower.
+<pre class="knitr r">#&gt; The Mazda RX4 has 4 gears, 6 cylinders, and 110 horsepower.
+#&gt; The Mazda RX4 Wag has 4 gears, 6 cylinders, and 110 horsepower.
+#&gt; The Datsun 710 has 4 gears, 4 cylinders, and 93 horsepower.
+#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders, and 110 horsepower.
+#&gt; The Hornet Sportabout has 3 gears, 8 cylinders, and 175 horsepower.
+#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.
 </pre>
 </div>
 <p><code><a href="../../reference/collapse.html">collapse()</a></code> is used to combine multiple values into one. The <code>last</code> argument is used to change the separator for the last value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">" and "</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>)</code></pre></div>
 <div class="output">
-<pre class="knitr r">#&gt; 1, 2, 3, 4 and 5
+<pre class="knitr r">#&gt; 1, 2, 3, 4, and 5
 </pre>
 </div>
 <div id="glue-transformers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue-transformers" class="anchor"></a>glue transformers</h2>
-<p>New to glue 1.2.0 are transformer functions, which allow you to define custom behavior for glue functions. Such as a <code>collapse_transformer()</code> which automatically collapses any blocks which end with <code>*</code>.</p>
+<p>New to glue 1.2.0 are transformer functions, which allow you to define custom behavior for glue functions. For example a <code>collapse_transformer()</code> which automatically collapses any blocks which end with <code>*</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">collapse_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">regex =</span> <span class="st">"[*]$"</span>, ...) {
   <span class="cf">function</span>(code, envir) {
     <span class="cf">if</span> (<span class="kw">grepl</span>(regex, code)) {
@@ -168,10 +172,10 @@ mtcars<span class="op">$</span>model &lt;-<span class="st"> </span><span class="
 <span class="kw">glue</span>(<span class="st">"</span>
 <span class="st">  {1:5*}</span>
 <span class="st">  {letters[1:5]*}"</span>,
-  <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">" and "</span>))</code></pre></div>
+  <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>))</code></pre></div>
 <div class="output">
-<pre class="knitr r">#&gt; 1, 2, 3, 4 and 5
-#&gt; a, b, c, d and e
+<pre class="knitr r">#&gt; 1, 2, 3, 4, and 5
+#&gt; a, b, c, d, and e
 </pre>
 </div>
 <p>Or an sprintf transformer which lets you use sprintf style numeric formatting with glue.</p>
@@ -225,10 +229,8 @@ val &lt;-<span class="st"> "setosa"</span>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other changes</h2>
-<ul>
-<li>There are many other bug fixes and other minor improvements. You can see a complete list in the <a href="https://github.com/tidyverse/glue/releases/tag/v1.2.0">release notes</a>.</li>
-</ul>
-<p>A big thanks goes to all the community members who contributed, opened issues and used glue.</p>
+<p>There are many other bug fixes and other minor improvements. You can see a complete list in the <a href="https://github.com/tidyverse/glue/releases/tag/v1.2.0">release notes</a>.</p>
+<p>A big thanks goes to all the community members who contributed code and opened issues since the last release! (<a href="https://github.com/artemklevtsov">@artemklevtsov</a>, <a href="https://github.com/daroczig">@daroczig</a>, <a href="https://github.com/DarwinAwardWinner">@DarwinAwardWinner</a>, <a href="https://github.com/edarague">@edarague</a>, <a href="https://github.com/hadley">@hadley</a>, <a href="https://github.com/hughjonesd">@hughjonesd</a>, <a href="https://github.com/jennybc">@jennybc</a>, <a href="https://github.com/jimhester">@jimhester</a>, <a href="https://github.com/jjchern">@jjchern</a>, <a href="https://github.com/klmr">@klmr</a>, <a href="https://github.com/krlmlr">@krlmlr</a>, <a href="https://github.com/lionel-">@lionel-</a>, <a href="https://github.com/mgirlich">@mgirlich</a>, <a href="https://github.com/mmuurr">@mmuurr</a>, <a href="https://github.com/npjc">@npjc</a>, <a href="https://github.com/pssguy">@pssguy</a>, and <a href="https://github.com/robinsones">@robinsones</a>)</p>
 </div>
 </div>
   </div>
