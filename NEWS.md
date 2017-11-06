@@ -1,5 +1,7 @@
 # glue 1.2.0.9000
 
+* Do not drop the `glue` class when subsetting (#66).
+
 # glue 1.2.0
 
 * The implementation has been tweaked to be slightly faster in most cases.

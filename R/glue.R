@@ -233,5 +233,15 @@ as.character.glue <- function(x, ...) {
   unclass(x)
 }
 
+#' @export
+`[.glue` <- function(x, i, ...) {
+  as_glue(NextMethod())
+}
+
+#' @export
+`[[.glue` <- function(x, i, ...) {
+  as_glue(NextMethod())
+}
+
 #' @importFrom methods setOldClass
 setOldClass(c("glue", "character"))

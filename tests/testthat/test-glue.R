@@ -328,3 +328,14 @@ test_that("glue works with lots of arguments", {
 
     as_glue("averylongtestofhowmanyunnamedargumentsyoucanhave"))
 })
+
+test_that("glue does not drop it's class when subsetting", {
+  expect_identical(
+    glue("foo")[1], as_glue("foo"))
+
+  expect_identical(
+    glue("foo")[[1]], as_glue("foo"))
+
+  expect_identical(
+    glue("{1:2}")[2], as_glue("2"))
+})
