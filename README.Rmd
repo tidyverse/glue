@@ -26,6 +26,10 @@ Glue strings to data in R. Small, fast, dependency free interpreted string liter
 ## Installation
 
 ```{r gh-installation, eval = FALSE}
+# Install the released version from CRAN:
+install.packages("glue")
+
+# Install the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/glue")
 ```
