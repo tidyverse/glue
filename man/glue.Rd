@@ -37,8 +37,9 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 evaluation. For example transformers see \code{vignette("transformers")}.}
 }
 \description{
-Expressions enclosed by braces will be evaluated as R code. Single braces
-can be inserted by doubling them.
+Expressions enclosed by braces will be evaluated as R code. Long strings are
+broken by line and concatenated together. Leading whitespace and blank lines
+from the first and last lines are automatically trimmed.
 }
 \examples{
 name <- "Fred"
@@ -51,7 +52,7 @@ glue('My name is {name},',
 # single braces can be inserted by doubling them
 glue("My name is {name}, not {{name}}.")
 
-# Named arguments can also be supplied
+# Named arguments can be used to assign temporary variables.
 glue('My name is {name},',
   ' my age next year is {age + 1},',
   ' my anniversary is {format(anniversary, "\%A, \%B \%d, \%Y")}.',

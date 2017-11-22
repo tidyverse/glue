@@ -1,7 +1,9 @@
 #' Format and interpolate a string
 #'
-#' Expressions enclosed by braces will be evaluated as R code. Single braces
-#' can be inserted by doubling them.
+#' Expressions enclosed by braces will be evaluated as R code. Long strings are
+#' broken by line and concatenated together. Leading whitespace and blank lines
+#' from the first and last lines are automatically trimmed.
+#'
 #' @param .x \[`listish`]\cr An environment, list or data frame used to lookup values.
 #' @param ... \[`expressions`]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.
 #' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
@@ -31,7 +33,7 @@
 #' # single braces can be inserted by doubling them
 #' glue("My name is {name}, not {{name}}.")
 #'
-#' # Named arguments can also be supplied
+#' # Named arguments can be used to assign temporary variables.
 #' glue('My name is {name},',
 #'   ' my age next year is {age + 1},',
 #'   ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
