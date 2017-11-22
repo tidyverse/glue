@@ -9,42 +9,38 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/New_York             |
-|date     |2017-10-26                   |
+|date     |2017-11-08                   |
 
 # Dependencies
 
 |package |old   |new        |Δ  |
 |:-------|:-----|:----------|:--|
-|glue    |1.1.1 |1.1.1.9000 |*  |
+|glue    |1.2.0 |1.2.0.9000 |*  |
 
 # Revdeps
 
-## Broken (0)
+## All (20)
 
-|package |version |error |warning |note |
-|:-------|:-------|:-----|:-------|:----|
-
-## All (19)
-
-|package         |version |error |warning |note |
-|:---------------|:-------|:-----|:-------|:----|
-|alphavantager   |0.1.0   |      |        |1    |
-|bigstatsr       |0.2.2   |1     |        |     |
-|blastula        |0.1     |      |        |1    |
-|configr         |0.3.1   |      |        |1    |
-|datadogr        |0.1.1   |      |        |     |
-|dbplyr          |1.1.0   |      |        |1    |
-|dplyr           |0.7.4   |      |        |1    |
-|edeaR           |0.7.1   |      |        |     |
-|googledrive     |0.1.1   |      |        |     |
-|huxtable        |1.1.0   |1     |        |1    |
-|kokudosuuchi    |0.4.0   |      |        |2    |
-|mosaic          |1.1.0   |      |        |3    |
-|processmapR     |0.2.0   |      |        |     |
-|seplyr          |0.1.5   |      |        |1    |
-|shinycssloaders |0.2.0   |      |        |     |
-|tidyr           |0.7.2   |      |        |1    |
-|tidyselect      |0.2.2   |      |        |     |
-|vdiffr          |0.2.1   |      |        |     |
-|XKCDdata        |0.1.0   |      |        |1    |
+|package                                    |version |error |warning |note |
+|:------------------------------------------|:-------|:-----|:-------|:----|
+|[alphavantager](problems.md#alphavantager) |0.1.0   |      |        |1    |
+|[bigstatsr](problems.md#bigstatsr)         |0.2.2   |1     |        |     |
+|[blastula](problems.md#blastula)           |0.1     |      |        |1    |
+|[configr](problems.md#configr)             |0.3.1   |      |        |1    |
+|datadogr                                   |0.1.1   |      |        |     |
+|[dbplyr](problems.md#dbplyr)               |1.1.0   |      |        |1    |
+|[dplyr](problems.md#dplyr)                 |0.7.4   |      |        |1    |
+|edeaR                                      |0.7.1   |      |        |     |
+|[fiery](problems.md#fiery)                 |1.1.0   |1     |        |1    |
+|googledrive                                |0.1.1   |      |        |     |
+|[huxtable](problems.md#huxtable)           |1.1.0   |1     |        |1    |
+|[kokudosuuchi](problems.md#kokudosuuchi)   |0.4.1   |      |        |2    |
+|[mosaic](problems.md#mosaic)               |1.1.0   |      |        |3    |
+|processmapR                                |0.2.0   |      |        |     |
+|[seplyr](problems.md#seplyr)               |0.1.5   |      |        |1    |
+|shinycssloaders                            |0.2.0   |      |        |     |
+|[tidyr](problems.md#tidyr)                 |0.7.2   |      |        |1    |
+|tidyselect                                 |0.2.3   |      |        |     |
+|vdiffr                                     |0.2.1   |      |        |     |
+|[XKCDdata](problems.md#xkcddata)           |0.1.0   |      |        |1    |
 

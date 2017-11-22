@@ -6,3 +6,4 @@ inst/doc
 script.R
 /docs/articles/*cache/
 /revdep/checks
+/revdep/library
