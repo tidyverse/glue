@@ -116,8 +116,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}") {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close)
+glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA",  .transformer = identity_transformer) {
+  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .transformer = .transformer)
 }
 
 #' Collapse a character vector
