@@ -2,9 +2,12 @@
 % Please edit documentation in R/transformer.R
 \name{evaluate}
 \alias{evaluate}
+\alias{identity_transformer}
 \title{Evaluate R code}
 \usage{
 evaluate(code, envir)
+
+identity_transformer(code, envir)
 }
 \arguments{
 \item{code}{R code to evaluate}
@@ -16,7 +19,8 @@ This is a simple wrapper around \code{eval(parse())} which provides a more
 consistent interface than the default functions.
 If \code{data} is \code{NULL} then the code is evaluated in the environment. If \code{data}
 is not \code{NULL} than the code is evaluated in the \code{data} object first, with
-the enclosing environment of \code{envir}.
+the enclosing environment of \code{envir}. \code{identity_transformer} is simply a
+call to evaluate.
 }
 \details{
 This function is designed to be used within transformers to evaluate the
