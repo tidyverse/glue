@@ -57,7 +57,8 @@ lengths <- function(x) {
   vapply(x, length, integer(1L))
 }
 
-
 na_rows <- function(res) {
   Reduce(`|`, lapply(res, is.na))
 }
+
+"%||%" <- function(x, y) if (is.null(x)) y else x
