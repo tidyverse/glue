@@ -2,7 +2,7 @@
 #'
 #' SQL databases often have custom quotation syntax for identifiers and strings
 #' which make writing SQL queries error prone and cumbersome to do. `glue_sql()` and
-#' `glue_sql_data()` are analogs to `glue()` and `glue_data()` which handle the
+#' `glue_data_sql()` are analogs to `glue()` and `glue_data()` which handle the
 #' SQL quoting.
 #'
 #' They automatically quote character results, quote identifiers if the glue

@@ -122,7 +122,7 @@ glue_fmt("π = {pi%.5f}")
 
 ## glue_sql()
 
-Also new to glue 1.2.0 is `glue_sql()` and `glue_sql_data()`, which are helper
+Also new to glue 1.2.0 is `glue_sql()` and `glue_data_sql()`, which are helper
 functions defined with glue transformers to make it easy and safe to construct
 SQL statements.
 
