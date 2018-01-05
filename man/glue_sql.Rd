@@ -31,7 +31,7 @@ A \code{DBI::SQL()} object with the given query.
 \description{
 SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
-\code{glue_sql_data()} are analogs to \code{glue()} and \code{glue_data()} which handle the
+\code{glue_data_sql()} are analogs to \code{glue()} and \code{glue_data()} which handle the
 SQL quoting.
 }
 \details{
