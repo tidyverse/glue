@@ -97,6 +97,7 @@ SEXP trim_(SEXP x) {
       } else if (str[j] == '\0' || str[j] == ' ' || str[j] == '\t') {
         --j;
       } else {
+        end = j + 1;
         break;
       }
     }
