@@ -18,7 +18,7 @@ test_that("trim works", {
       "test
     "))
   expect_identical("test",
-    trim("      
+    trim("
       test
       "))
   expect_identical("test",
@@ -114,4 +114,8 @@ test_that("issue#47", {
          The stuff before the bullet list
            * one bullet
          "), expected)
+  expect_identical(trim("\tabc"), "abc")
+  expect_identical(trim("\nabc"), "abc")
+  expect_identical(trim("\nabc\t"), "abc")
+  expect_identical(trim("abc\t"), "abc")
 })
