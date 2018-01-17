@@ -61,4 +61,4 @@ na_rows <- function(res) {
   Reduce(`|`, lapply(res, is.na))
 }
 
-"%||%" <- function(x, y) if (is.null(x)) y else x
+"%||%" <- function(x, y) if (is.null(x)) y else x # nocov

@@ -1,3 +1,4 @@
+# nocov start
 eng_glue <- function(options) {
   glue_options <- options[names(options) %in% names(formals(glue))]
   glue_options$.envir <- glue_options$.envir %||% knitr::knit_global()
@@ -31,3 +32,5 @@ eng_glue_sql <- function(options) {
     knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
   }
 }
+
+# nocov end

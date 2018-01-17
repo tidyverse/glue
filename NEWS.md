@@ -1,5 +1,7 @@
 # glue 1.2.0.9000
 
+* `glue_col()` and `glue_data_col()` functions to display strings with color.
+
 * Do not drop the `glue` class when subsetting (#66).
 
 # glue 1.2.0
