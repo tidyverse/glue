@@ -18,7 +18,7 @@
 #'   `data` used to transform the output of each block before during or after
 #'   evaluation. For example transformers see `vignette("transformers")`.
 #' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace NA values
-#'   with. If `NULL` missing values are propegated, that is an `NA` result will
+#'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257> upon which this is based.
