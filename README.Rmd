@@ -65,6 +65,14 @@ glue('My name is {name},',
 head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
+
+##### Or within dplyr pipelines
+```{r}
+library(dplyr)
+head(iris) %>%
+  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+```
+
 ##### Leading whitespace and blank lines from the first and last lines are automatically trimmed.
 This lets you indent the strings naturally in code.
 ```{r}

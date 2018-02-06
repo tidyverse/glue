@@ -41,9 +41,15 @@
 #'   age = 40,
 #'   anniversary = as.Date("2001-10-12"))
 #'
+#'
 #' # `glue_data()` is useful in magrittr pipes
 #' library(magrittr)
 #' mtcars %>% glue_data("{rownames(.)} has {hp} hp")
+#'
+#' # Or within dplyr pipelines
+#' library(dplyr)
+#' head(iris) %>%
+#'   mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
 #'
 #' # Alternative delimiters can also be used if needed
 #' one <- "1"

@@ -61,6 +61,11 @@ glue('My name is {name},',
   age = 40,
   anniversary = as.Date("2001-10-12"))
 
+# `glue()` can be used in a dplyr pipe to create a new variable
+library(dplyr)
+iris \%>\%
+  mutate(glued_stuff = glue("This {Species} has a petal length of {Petal.Length}"))
+
 # `glue_data()` is useful in magrittr pipes
 library(magrittr)
 mtcars \%>\% glue_data("{rownames(.)} has {hp} hp")
