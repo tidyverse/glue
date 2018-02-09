@@ -159,6 +159,7 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
       x <- paste0(substr(x, 1, width - 3), "...")
     }
   }
+  x <- enc2utf8(x)
   as_glue(x)
 }
 
