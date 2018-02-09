@@ -111,6 +111,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
     res <- replace(res, na_rows, NA)
   }
 
+  res <- enc2utf8(res)
+
   as_glue(res)
 }
 
