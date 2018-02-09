@@ -4,6 +4,8 @@
 
 * Do not drop the `glue` class when subsetting (#66).
 
+* Fix `glue()` and `collapse()` always return UTF-8 encoded strings (#81, @dpprdan)
+
 # glue 1.2.0
 
 * The implementation has been tweaked to be slightly faster in most cases.
