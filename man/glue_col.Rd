@@ -23,7 +23,7 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
 }
 \description{
-The \link{crayon} package defines a number of functions used to color terminal
+The \link[crayon:crayon]{crayon} package defines a number of functions used to color terminal
 output. \code{glue_col()} and \code{glue_data_col()} functions provide additional
 syntax to make using these functions in glue strings easier.
 

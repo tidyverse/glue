@@ -1,9 +1,9 @@
 #' Construct strings with color
 #'
 #' @description
-#' The [crayon] package defines a number of functions used to color terminal
-#' output. `glue_col()` and `glue_data_col()` functions provide additional
-#' syntax to make using these functions in glue strings easier.
+#' The [crayon][crayon::crayon] package defines a number of functions used to
+#' color terminal output. `glue_col()` and `glue_data_col()` functions provide
+#' additional syntax to make using these functions in glue strings easier.
 #'
 #' Using the following syntax will apply the function `blue` function to the text 'foo bar'.
 #'
