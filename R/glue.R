@@ -111,8 +111,6 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
     res <- replace(res, na_rows, NA)
   }
 
-  res <- enc2utf8(res)
-
   as_glue(res)
 }
 
@@ -159,7 +157,6 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
       x <- paste0(substr(x, 1, width - 3), "...")
     }
   }
-  x <- enc2utf8(x)
   as_glue(x)
 }
 
