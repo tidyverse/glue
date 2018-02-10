@@ -227,7 +227,7 @@ as_glue.glue <- function(x, ...) {
 #' @export
 as_glue.character <- function(x, ...) {
   class(x) <- c("glue", "character")
-  x
+  enc2utf8(x)
 }
 
 #' @export
