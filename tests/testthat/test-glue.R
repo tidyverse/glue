@@ -233,6 +233,8 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
 
   expect_identical(x_out, glue(x))
   expect_identical(x_out, glue("{x}"))
+  expect_equal(Encoding(glue(x)), "UTF-8")
+  expect_equal(Encoding(glue("{x}")), "UTF-8")
 
   y <- "p\u00E4o"
   Encoding(y) <- "UTF-8"
@@ -241,11 +243,17 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
 
   expect_identical(y_out, glue(y))
   expect_identical(y_out, glue("{y}"))
+  expect_equal(Encoding(glue(y)), "UTF-8")
+  expect_equal(Encoding(glue("{y}")), "UTF-8")
 
   xy_out <- as_glue(paste0(x_out, y_out))
 
   expect_identical(xy_out, glue(x, y))
   expect_identical(xy_out, glue("{x}{y}"))
+  expect_equal(Encoding(glue(x, y)), "UTF-8")
+  expect_equal(Encoding(glue("{x}{y}")), "UTF-8")
+
+  expect_equal(Encoding(collapse(x)), "UTF-8")
 })
 
 test_that("glue always returns NA_character_ if given any NA input and `.na` == NULL", {
