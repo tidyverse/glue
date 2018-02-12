@@ -22,7 +22,8 @@ Suggests:
     microbenchmark,
     rprintf,
     stringr,
-    ggplot2
+    ggplot2,
+    dplyr
 Imports:
   methods
 License: MIT + file LICENSE
