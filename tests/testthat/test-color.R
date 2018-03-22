@@ -1,9 +1,8 @@
 context("color")
 
+skip_if_not_installed("crayon")
+
 describe("glue_col", {
-  if (!require("crayon")) {
-    skip("need crayon to test color")
-  }
   it("returns the string if no substations needed", {
     expect_identical(glue_col("foo"), as_glue("foo"))
   })
