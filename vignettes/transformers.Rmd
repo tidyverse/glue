@@ -57,6 +57,28 @@ glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", "))
 glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", last = " and "))
 ```
 
+### Shell quoting transformer
+
+A transformer which automatically quotes variables for use in shell commands,
+e.g. via `system()` or `system2()`.
+
+```{r}
+shell_transformer <- function(type = c("sh", "csh", "cmd", "cmd2")) {
+  function(code, envir) shQuote(glue::evaluate(code, envir), type)
+}
+
+glue_sh <- function(..., .envir = parent.frame(), .type = c("sh", "csh", "cmd", "cmd2")) {
+  glue(..., .envir = .envir, .transformer = shell_transformer(.type))
+}
+
+filename <- "test"
+writeLines(con = filename, "hello!")
+
+command <- glue_sh("cat {filename}")
+command
+system(command)
+```
+
 ### emoji transformer
 
 A transformer which converts the text to the equivalent emoji.
