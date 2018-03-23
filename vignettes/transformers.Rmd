@@ -64,11 +64,14 @@ e.g. via `system()` or `system2()`.
 
 ```{r}
 shell_transformer <- function(type = c("sh", "csh", "cmd", "cmd2")) {
-  function(code, envir) shQuote(glue::evaluate(code, envir), match.arg(type))
+  type <- match.arg(type)
+  function(code, envir) shQuote(glue::evaluate(code, envir), type)
 }
 
 glue_sh <- function(..., .envir = parent.frame(), .type = c("sh", "csh", "cmd", "cmd2")) {
-  glue(..., .envir = .envir, .transformer = shell_transformer(match.arg(.type)))
+  .type <- match.arg(.type)
+  glue(..., .envir = .envir, .transformer = shell_transformer(.type))
+
 }
 
 filename <- "test"
