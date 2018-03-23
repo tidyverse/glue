@@ -1,5 +1,8 @@
 context("sql")
 
+skip_if_not_installed("DBI")
+skip_if_not_installed("RSQLite")
+
 describe("glue_sql", {
   con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
   on.exit(DBI::dbDisconnect(con))
