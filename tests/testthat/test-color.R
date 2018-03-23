@@ -1,6 +1,7 @@
 context("color")
 
 skip_if_not_installed("crayon")
+library(crayon)
 
 describe("glue_col", {
   it("returns the string if no substations needed", {
