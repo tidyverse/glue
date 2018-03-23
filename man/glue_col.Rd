@@ -17,15 +17,15 @@ evaluated from left to right. If \code{.x} is an environment, the expressions ar
 evaluated in that environment and \code{.envir} is ignored.}
 
 \item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
-with. If \code{NULL} missing values are propegated, that is an \code{NA} result will
+with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
 }
 \description{
-The \link[crayon:crayon]{crayon} package defines a number of functions used to color terminal
-output. \code{glue_col()} and \code{glue_data_col()} functions provide additional
-syntax to make using these functions in glue strings easier.
+The \link[crayon:crayon]{crayon} package defines a number of functions used to
+color terminal output. \code{glue_col()} and \code{glue_data_col()} functions provide
+additional syntax to make using these functions in glue strings easier.
 
 Using the following syntax will apply the function \code{blue} function to the text 'foo bar'.\preformatted{{blue foo bar}
 }

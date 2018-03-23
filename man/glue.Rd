@@ -30,7 +30,7 @@ full delimiter escapes it.}
 full delimiter escapes it.}
 
 \item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
-with. If \code{NULL} missing values are propegated, that is an \code{NA} result will
+with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
 \item{.transformer}{[\code{function]}\cr A function taking three parameters \code{code}, \code{envir} and
@@ -61,14 +61,15 @@ glue('My name is {name},',
   age = 40,
   anniversary = as.Date("2001-10-12"))
 
-# `glue()` can be used in a dplyr pipe to create a new variable
-library(dplyr)
-iris \%>\%
-  mutate(glued_stuff = glue("This {Species} has a petal length of {Petal.Length}"))
 
 # `glue_data()` is useful in magrittr pipes
 library(magrittr)
 mtcars \%>\% glue_data("{rownames(.)} has {hp} hp")
+
+# Or within dplyr pipelines
+library(dplyr)
+head(iris) \%>\%
+  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
 
 # Alternative delimiters can also be used if needed
 one <- "1"
