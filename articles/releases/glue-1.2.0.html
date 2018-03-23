@@ -26,7 +26,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../../index.html">glue</a>
+        <a class="navbar-brand" href="../../index.html"></a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -92,139 +92,121 @@
                         <h4 class="author">Jim Hester</h4>
             
             <h4 class="date">2017-10-31</h4>
-          </div>
+      
+      <small>Source: <a href="https://github.com/tidyverse/glue/blob/master/vignettes/releases/glue-1.2.0.Rmd"><code>vignettes/releases/glue-1.2.0.Rmd</code></a></small>
+
+    </div>
 
     
     
 <div class="contents">
 <p><a href="http://glue.tidyverse.org">glue 1.2.0</a> is now available on CRAN! <a href="http://glue.tidyverse.org">glue</a> is designed to make it easy to interpolate (“glue”) your data into strings. Compared to equivalents like <code>paste()</code> and <code>sprintf()</code> it is easier to write and less time consuming to maintain. It also has no non-base dependencies so is easy to include in packages.</p>
 <p>Install the latest version with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"glue"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"glue"</span>)</a></code></pre></div>
 <p>glue has three primary functions, <code>glue()</code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/collapse.html">collapse()</a></code>. <code>glue()</code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name &lt;-<span class="st"> "Fred"</span>
-age &lt;-<span class="st"> </span><span class="dv">50</span>
-anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"1991-10-12"</span>)
-<span class="kw">glue</span>(<span class="st">'</span>
-<span class="st">  My name is {name}</span>
-<span class="st">  my age next year is {age + 1}</span>
-<span class="st">  my anniversary is {format(anniversary, "%A, %B %d, %Y")}</span>
-<span class="st">'</span>)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt;   My name is Fred
-#&gt;   my age next year is 51
-#&gt;   my anniversary is Saturday, October 12, 1991
-</pre>
-</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">name &lt;-<span class="st"> "Fred"</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">age &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"1991-10-12"</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">glue</span>(<span class="st">'</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  My name is {name}</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  my age next year is {age + 1}</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  my anniversary is {format(anniversary, "%A, %B %d, %Y")}</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">'</span>)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   My name is Fred</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;   my age next year is 51</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;   my anniversary is Saturday, October 12, 1991</span></a></code></pre></div>
 <p>glue is also vectorized over its inputs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glue</span>(<span class="st">'</span>
-<span class="st">  {month.abb} is short for {month.name}</span>
-<span class="st">'</span>)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt;   Jan is short for January
-#&gt;   Feb is short for February
-#&gt;   Mar is short for March
-#&gt;   Apr is short for April
-#&gt;   May is short for May
-#&gt;   Jun is short for June
-#&gt;   Jul is short for July
-#&gt;   Aug is short for August
-#&gt;   Sep is short for September
-#&gt;   Oct is short for October
-#&gt;   Nov is short for November
-#&gt;   Dec is short for December
-</pre>
-</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">glue</span>(<span class="st">'</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  {month.abb} is short for {month.name}</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">'</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;   Jan is short for January</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;   Feb is short for February</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   Mar is short for March</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   Apr is short for April</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   May is short for May</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   Jun is short for June</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;   Jul is short for July</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;   Aug is short for August</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;   Sep is short for September</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;   Oct is short for October</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;   Nov is short for November</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   Dec is short for December</span></a></code></pre></div>
 <p><code><a href="../../reference/glue.html">glue_data()</a></code> works like <code>glue()</code>, but instead of looking up its variables from the calling environment it looks them up from the first argument (usually a data frame or tibble). This makes <code><a href="../../reference/glue.html">glue_data()</a></code> very useful within pipe chains.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-mtcars<span class="op">$</span>model &lt;-<span class="st"> </span><span class="kw">rownames</span>(mtcars)
-mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span>head <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../../reference/glue.html">glue_data</a></span>(<span class="st">"The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower."</span>)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; The Mazda RX4 has 4 gears, 6 cylinders, and 110 horsepower.
-#&gt; The Mazda RX4 Wag has 4 gears, 6 cylinders, and 110 horsepower.
-#&gt; The Datsun 710 has 4 gears, 4 cylinders, and 93 horsepower.
-#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders, and 110 horsepower.
-#&gt; The Hornet Sportabout has 3 gears, 8 cylinders, and 175 horsepower.
-#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.
-</pre>
-</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">mtcars<span class="op">$</span>model &lt;-<span class="st"> </span><span class="kw">rownames</span>(mtcars)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>head <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../../reference/glue.html">glue_data</a></span>(<span class="st">"The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower."</span>)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; The Mazda RX4 has 4 gears, 6 cylinders, and 110 horsepower.</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; The Mazda RX4 Wag has 4 gears, 6 cylinders, and 110 horsepower.</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; The Datsun 710 has 4 gears, 4 cylinders, and 93 horsepower.</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders, and 110 horsepower.</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; The Hornet Sportabout has 3 gears, 8 cylinders, and 175 horsepower.</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.</span></a></code></pre></div>
 <p><code><a href="../../reference/collapse.html">collapse()</a></code> is used to combine multiple values into one. The <code>last</code> argument is used to change the separator for the last value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; 1, 2, 3, 4, and 5
-</pre>
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; 1, 2, 3, 4, and 5</span></a></code></pre></div>
 <div id="glue-transformers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue-transformers" class="anchor"></a>glue transformers</h2>
 <p>New to glue 1.2.0 are transformer functions, which allow you to define custom behavior for glue functions. For example a <code>collapse_transformer()</code> which automatically collapses any blocks which end with <code>*</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">collapse_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">regex =</span> <span class="st">"[*]$"</span>, ...) {
-  <span class="cf">function</span>(code, envir) {
-    <span class="cf">if</span> (<span class="kw">grepl</span>(regex, code)) {
-        code &lt;-<span class="st"> </span><span class="kw">sub</span>(regex, <span class="st">""</span>, code)
-    }
-    res &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)
-    <span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(res, ...)
-  }
-}
-
-<span class="kw">glue</span>(<span class="st">"</span>
-<span class="st">  {1:5*}</span>
-<span class="st">  {letters[1:5]*}"</span>,
-  <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>))</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; 1, 2, 3, 4, and 5
-#&gt; a, b, c, d, and e
-</pre>
-</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">collapse_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">regex =</span> <span class="st">"[*]$"</span>, ...) {</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="cf">function</span>(code, envir) {</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="cf">if</span> (<span class="kw">grepl</span>(regex, code)) {</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">        code &lt;-<span class="st"> </span><span class="kw">sub</span>(regex, <span class="st">""</span>, code)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(res, ...)</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="kw">glue</span>(<span class="st">"</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="st">  {1:5*}</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">  {letters[1:5]*}"</span>,</a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">  <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>))</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 1, 2, 3, 4, and 5</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; a, b, c, d, and e</span></a></code></pre></div>
 <p>Or an sprintf transformer which lets you use sprintf style numeric formatting with glue.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {
-  m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">"%.+$"</span>, code)
-  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>) {
-    format &lt;-<span class="st"> </span><span class="kw">regmatches</span>(code, m)
-    <span class="kw">regmatches</span>(code, m) &lt;-<span class="st"> ""</span>
-    res &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)
-    <span class="kw">do.call</span>(sprintf, <span class="kw">list</span>(format, res))
-  } <span class="cf">else</span> {
-    <span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)
-  }
-}
-
-glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>()) {
-  <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)
-}
-<span class="kw">glue_fmt</span>(<span class="st">"π = {pi%.5f}"</span>)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; π = 3.14159
-</pre>
-</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">"%.+$"</span>, code)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) {</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">    format &lt;-<span class="st"> </span><span class="kw">regmatches</span>(code, m)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="kw">regmatches</span>(code, m) &lt;-<span class="st"> ""</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="kw">do.call</span>(sprintf, <span class="kw">list</span>(format, res))</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>()) {</a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)</a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="kw">glue_fmt</span>(<span class="st">"π = {pi%.5f}"</span>)</a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; π = 3.14159</span></a></code></pre></div>
 </div>
 <div id="glue_sql" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue_sql" class="anchor"></a>glue_sql()</h2>
-<p>Also new to glue 1.2.0 is <code><a href="../../reference/glue_sql.html">glue_sql()</a></code> and <code>glue_sql_data()</code>, which are helper functions defined with glue transformers to make it easy and safe to construct SQL statements.</p>
+<p>Also new to glue 1.2.0 is <code><a href="../../reference/glue_sql.html">glue_sql()</a></code> and <code><a href="../../reference/glue_sql.html">glue_data_sql()</a></code>, which are helper functions defined with glue transformers to make it easy and safe to construct SQL statements.</p>
 <p>Using <code><a href="../../reference/glue_sql.html">glue_sql()</a></code> values are automatically quoted appropriately and variables can be quoted with backticks.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbConnect">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RSQLite/topics/SQLite">SQLite</a></span>(), <span class="st">":memory:"</span>)
-<span class="kw">colnames</span>(iris) &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="kw">tolower</span>(<span class="kw">colnames</span>(iris)))
-DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbWriteTable">dbWriteTable</a></span>(con, <span class="st">"iris"</span>, iris)
-var &lt;-<span class="st"> "sepal_width"</span>
-tbl &lt;-<span class="st"> "iris"</span>
-num &lt;-<span class="st"> </span><span class="dv">2</span>
-val &lt;-<span class="st"> "setosa"</span>
-<span class="kw"><a href="../../reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span>
-<span class="st">  SELECT {`var`}</span>
-<span class="st">  FROM {`tbl`}</span>
-<span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span>
-<span class="st">    AND {`tbl`}.species = {val}</span>
-<span class="st">  "</span>, <span class="dt">.con =</span> con)</code></pre></div>
-<div class="output">
-<pre class="knitr r">#&gt; <sql> SELECT `sepal_width`
-#&gt; FROM `iris`
-#&gt; WHERE `iris`.sepal_length &gt; 2
-#&gt;   AND `iris`.species = 'setosa'
-</sql></pre>
-</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbConnect">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RSQLite/topics/SQLite">SQLite</a></span>(), <span class="st">":memory:"</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">colnames</span>(iris) &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="kw">tolower</span>(<span class="kw">colnames</span>(iris)))</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">DBI<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DBI/topics/dbWriteTable">dbWriteTable</a></span>(con, <span class="st">"iris"</span>, iris)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">var &lt;-<span class="st"> "sepal_width"</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">tbl &lt;-<span class="st"> "iris"</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">num &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">val &lt;-<span class="st"> "setosa"</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="kw"><a href="../../reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="st">  SELECT {`var`}</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="st">  FROM {`tbl`}</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="st">    AND {`tbl`}.species = {val}</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="st">  "</span>, <span class="dt">.con =</span> con)</a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; FROM `iris`</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;   AND `iris`.species = 'setosa'</span></a></code></pre></div>
 </div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -256,17 +238,15 @@ val &lt;-<span class="st"> "setosa"</span>
 
 <div class="author">
   <p>Developed by <a href="http://jimhester.com">Jim Hester</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script></footer>
 </div>
 

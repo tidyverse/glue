@@ -1,0 +1,8 @@
+pandoc: 2.0.5
+pkgdown: 0.1.0.9000
+pkgdown_sha: 5e4825875751c009444c56ce43d06324ec53e910
+articles:
+  glue-1.2.0: releases/glue-1.2.0.html
+  speed: speed.html
+  transformers: transformers.html
+

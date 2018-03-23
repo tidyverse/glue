@@ -45,7 +45,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">glue</a>
+        <a class="navbar-brand" href="../index.html">Format and interpolate a string</a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -107,58 +107,61 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Format and interpolate a string</h1>
+    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a></small>
     </div>
 
     
-    <p>Expressions enclosed by braces will be evaluated as R code. Single braces
-can be inserted by doubling them.</p>
+    <p>Expressions enclosed by braces will be evaluated as R code. Long strings are
+broken by line and concatenated together. Leading whitespace and blank lines
+from the first and last lines are automatically trimmed.</p>
     
 
     <pre class="usage"><span class='fu'>glue_data</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
   <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>, <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>)
 
-<span class='fu'>glue</span>(<span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>, <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>)</pre>
+<span class='fu'>glue</span>(<span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>, <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>,
+  <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.x</th>
-      <td><p>[<code>listish</code>] An environment, list or data frame used to lookup values.</p></td>
+      <td><p>[<code>listish</code>]<br /> An environment, list or data frame used to lookup values.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>[<code>expressions</code>] Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
+      <td><p>[<code>expressions</code>]<br /> Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
     </tr>
     <tr>
       <th>.sep</th>
-      <td><p>[<code>character(1)</code>: &#8216;""&#8217;] Separator used to separate elements.</p></td>
+      <td><p>[<code>character(1)</code>: &#8216;""&#8217;]<br /> Separator used to separate elements.</p></td>
     </tr>
     <tr>
       <th>.envir</th>
-      <td><p>[<code>environment</code>: <code>parent.frame()</code>] Environment to evaluate each expression in. Expressions are
+      <td><p>[<code>environment</code>: <code>parent.frame()</code>]<br /> Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If <code>.x</code> is an environment, the expressions are
 evaluated in that environment and <code>.envir</code> is ignored.</p></td>
     </tr>
     <tr>
       <th>.open</th>
-      <td><p>[<code>character(1)</code>: &#8216;{&#8217;] The opening delimiter. Doubling the
+      <td><p>[<code>character(1)</code>: &#8216;{&#8217;]<br /> The opening delimiter. Doubling the
 full delimiter escapes it.</p></td>
     </tr>
     <tr>
       <th>.close</th>
-      <td><p>[<code>character(1)</code>: &#8216;}&#8217;] The closing delimiter. Doubling the
+      <td><p>[<code>character(1)</code>: &#8216;}&#8217;]<br /> The closing delimiter. Doubling the
 full delimiter escapes it.</p></td>
     </tr>
     <tr>
       <th>.na</th>
-      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;] Value to replace NA values
-with. If <code>NULL</code> missing values are propegated, that is an <code>NA</code> result will
+      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;]<br /> Value to replace NA values
+with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code> result will
 cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></td>
     </tr>
     <tr>
       <th>.transformer</th>
-      <td><p>[<code>function]</code> A function taking three parameters <code>code</code>, <code>envir</code> and
+      <td><p>[<code>function]</code><br /> A function taking three parameters <code>code</code>, <code>envir</code> and
 <code>data</code> used to transform the output of each block before during or after
 evaluation. For example transformers see <code><a href='../articles/transformers.html'>vignette("transformers")</a></code>.</p></td>
     </tr>
@@ -179,16 +182,19 @@ evaluation. For example transformers see <code><a href='../articles/transformers
   <span class='st'>'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)</div><div class='output co'>#&gt; My name is Fred,my age next year is 51,my anniversary is Saturday, October 12, 1991.</div><div class='input'>
 <span class='co'># single braces can be inserted by doubling them</span>
 <span class='fu'>glue</span>(<span class='st'>"My name is {name}, not {{name}}."</span>)</div><div class='output co'>#&gt; My name is Fred, not {name}.</div><div class='input'>
-<span class='co'># Named arguments can also be supplied</span>
+<span class='co'># Named arguments can be used to assign temporary variables.</span>
 <span class='fu'>glue</span>(<span class='st'>'My name is {name},'</span>,
   <span class='st'>' my age next year is {age + 1},'</span>,
   <span class='st'>' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,
   <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Joe"</span>,
   <span class='kw'>age</span> <span class='kw'>=</span> <span class='fl'>40</span>,
   <span class='kw'>anniversary</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2001-10-12"</span>))</div><div class='output co'>#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</div><div class='input'>
+
 <span class='co'># `glue_data()` is useful in magrittr pipes</span>
-<span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>glue_data</span>(<span class='st'>"{rownames(.)} has {hp} hp"</span>)</div><div class='output co'>#&gt; Mazda RX4 has 110 hp
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='input'><span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>glue_data</span>(<span class='st'>"{rownames(.)} has {hp} hp"</span>)</div><div class='output co'>#&gt; Mazda RX4 has 110 hp
 #&gt; Mazda RX4 Wag has 110 hp
 #&gt; Datsun 710 has 93 hp
 #&gt; Hornet 4 Drive has 110 hp
@@ -220,6 +226,31 @@ evaluation. For example transformers see <code><a href='../articles/transformers
 #&gt; Ferrari Dino has 175 hp
 #&gt; Maserati Bora has 335 hp
 #&gt; Volvo 142E has 109 hp</div><div class='input'>
+<span class='co'># Or within dplyr pipelines</span>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:glue’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    collapse</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>description</span> <span class='kw'>=</span> <span class='fu'>glue</span>(<span class='st'>"This {Species} has a petal length of {Petal.Length}"</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa
+#&gt; 6          5.4         3.9          1.7         0.4  setosa
+#&gt;                             description
+#&gt; 1 This setosa has a petal length of 1.4
+#&gt; 2 This setosa has a petal length of 1.4
+#&gt; 3 This setosa has a petal length of 1.3
+#&gt; 4 This setosa has a petal length of 1.5
+#&gt; 5 This setosa has a petal length of 1.4
+#&gt; 6 This setosa has a petal length of 1.7</div><div class='input'>
 <span class='co'># Alternative delimiters can also be used if needed</span>
 <span class='no'>one</span> <span class='kw'>&lt;-</span> <span class='st'>"1"</span>
 <span class='fu'>glue</span>(<span class='st'>"The value of $e^{2\\pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"&lt;&lt;"</span>, <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"&gt;&gt;"</span>)</div><div class='output co'>#&gt; The value of $e^{2\pi i}$ is $1$.</div></pre>
@@ -244,20 +275,20 @@ evaluation. For example transformers see <code><a href='../articles/transformers
 
 <div class="author">
   <p>Developed by <a href='http://jimhester.com'>Jim Hester</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
   </body>
 </html>
+

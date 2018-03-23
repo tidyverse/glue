@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • glue</title>
+<title>Construct strings with color — glue_col • glue</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,7 +45,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html"></a>
+        <a class="navbar-brand" href="../index.html">Construct strings with color</a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -104,85 +104,80 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Construct strings with color</h1>
+    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/color.R'><code>R/color.R</code></a></small>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    
+    <p>The <a href='http://www.rdocumentation.org/packages/crayon/topics/crayon'>crayon</a> package defines a number of functions used to
+color terminal output. <code>glue_col()</code> and <code>glue_data_col()</code> functions provide
+additional syntax to make using these functions in glue strings easier.</p>
+<p>Using the following syntax will apply the function <code>blue</code> function to the text 'foo bar'.</p><pre>{blue foo bar}
+</pre>
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <p>If you want an expression to be evaluated, simply place that in a normal brace
+expression (these can be nested).</p><pre>{blue 1 + 1 = {1 + 1}}
+</pre>
+    
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="as_glue.html">as_glue()</a></code> </p>
-          </td>
-          <td><p>Coerce object to glue</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="collapse.html">collapse()</a></code> </p>
-          </td>
-          <td><p>Collapse a character vector</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="evaluate.html">evaluate()</a></code> <code><a href="evaluate.html">identity_transformer()</a></code> </p>
-          </td>
-          <td><p>Evaluate R code</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="glue.html">glue_data()</a></code> <code><a href="glue.html">glue()</a></code> </p>
-          </td>
-          <td><p>Format and interpolate a string</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="glue_col.html">glue_col()</a></code> <code><a href="glue_col.html">glue_data_col()</a></code> </p>
-          </td>
-          <td><p>Construct strings with color</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="glue_sql.html">glue_sql()</a></code> <code><a href="glue_sql.html">glue_data_sql()</a></code> </p>
-          </td>
-          <td><p>Interpolate strings with SQL escaping</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="quoting.html">single_quote()</a></code> <code><a href="quoting.html">double_quote()</a></code> <code><a href="quoting.html">backtick()</a></code> </p>
-          </td>
-          <td><p>Quoting operators</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="trim.html">trim()</a></code> </p>
-          </td>
-          <td><p>Trim a character vector</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <pre class="usage"><span class='fu'>glue_col</span>(<span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)
+
+<span class='fu'>glue_data_col</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>[<code>expressions</code>]<br /> Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
+    </tr>
+    <tr>
+      <th>.envir</th>
+      <td><p>[<code>environment</code>: <code>parent.frame()</code>]<br /> Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored.</p></td>
+    </tr>
+    <tr>
+      <th>.na</th>
+      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;]<br /> Value to replace NA values
+with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code> result will
+cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.x</th>
+      <td><p>[<code>listish</code>]<br /> An environment, list or data frame used to lookup values.</p></td>
+    </tr>
+    </table>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>crayon</span>)) {
+  <span class='fu'>glue_col</span>(<span class='st'>"{blue foo bar}"</span>)
+
+  <span class='fu'>glue_col</span>(<span class='st'>"{blue 1 + 1 = {1 + 1}}"</span>)
+
+  <span class='no'>white_on_grey</span> <span class='kw'>&lt;-</span> <span class='no'>bgBlack</span> $ <span class='no'>white</span>
+  <span class='fu'>glue_col</span>(<span class='st'>"{white_on_grey
+    Roses are {red {colors()[[552]]}}
+    Violets are {blue {colors()[[26]]}}
+    `glue_col()` can show {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
+    and {bold bold} and {underline underline} too!
+    }"</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: crayon</span></div><div class='output co'>#&gt; Roses are red
+#&gt; Violets are blue
+#&gt; `glue_col()` can show colors
+#&gt; and bold and underline too!</div></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 

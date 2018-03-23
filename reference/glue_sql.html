@@ -45,7 +45,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">glue</a>
+        <a class="navbar-brand" href="../index.html">Interpolate strings with SQL escaping</a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -107,12 +107,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Interpolate strings with SQL escaping</h1>
+    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/sql.R'><code>R/sql.R</code></a></small>
     </div>
 
     
     <p>SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. <code>glue_sql()</code> and
-<code>glue_sql_data()</code> are analogs to <code>glue()</code> and <code><a href='glue.html'>glue_data()</a></code> which handle the
+<code>glue_data_sql()</code> are analogs to <code>glue()</code> and <code><a href='glue.html'>glue_data()</a></code> which handle the
 SQL quoting.</p>
     
 
@@ -121,12 +122,12 @@ SQL quoting.</p>
 <span class='fu'>glue_data_sql</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='no'>.con</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(),
   <span class='kw'>.na</span> <span class='kw'>=</span> <span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DBI/topics/SQL'>SQL</a></span>(<span class='st'>"NULL"</span>))</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>[<code>expressions</code>] Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
+      <td><p>[<code>expressions</code>]<br /> Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
     </tr>
     <tr>
       <th>.con</th>
@@ -134,19 +135,19 @@ SQL quoting.</p>
     </tr>
     <tr>
       <th>.envir</th>
-      <td><p>[<code>environment</code>: <code>parent.frame()</code>] Environment to evaluate each expression in. Expressions are
+      <td><p>[<code>environment</code>: <code>parent.frame()</code>]<br /> Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If <code>.x</code> is an environment, the expressions are
 evaluated in that environment and <code>.envir</code> is ignored.</p></td>
     </tr>
     <tr>
       <th>.na</th>
-      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;] Value to replace NA values
-with. If <code>NULL</code> missing values are propegated, that is an <code>NA</code> result will
+      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;]<br /> Value to replace NA values
+with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code> result will
 cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></td>
     </tr>
     <tr>
       <th>.x</th>
-      <td><p>[<code>listish</code>] An environment, list or data frame used to lookup values.</p></td>
+      <td><p>[<code>listish</code>]<br /> An environment, list or data frame used to lookup values.</p></td>
     </tr>
     </table>
     
@@ -249,20 +250,20 @@ for instance.</p>
 
 <div class="author">
   <p>Developed by <a href='http://jimhester.com'>Jim Hester</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
   </body>
 </html>
+
