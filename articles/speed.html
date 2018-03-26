@@ -128,8 +128,17 @@
 <a class="sourceLine" id="cb1-11" data-line-number="11">)</a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw">plot_comparison</span>(simple)</a></code></pre></div>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; Unit: evaluations per second</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;        expr       min     lq       mean median     uq     max neval cld</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;     rprintf 1.368e+02   1909   1988.042   1993   2104    2225   100 a  </span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;     gstring 3.216e+00   2410   2398.853   2498   2644    2844   100 a  </span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  str_interp 6.033e+01   3150   3208.290   3243   3429    3784   100 a  </span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;        glue 3.421e+02   6813   7051.048   7041   7442    8968   100 a  </span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;      paste0 2.017e+05 321200 451723.788 467000 539400  923400   100  b </span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;     sprintf 2.179e+05 412500 579674.740 512600 640200 1639000   100   c</span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="kw">plot_comparison</span>(simple)</a></code></pre></div>
+<p><img src="speed_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
 <p>While <code>glue()</code> is slower than <code>paste0</code>,<code>sprintf()</code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
 <p><code>paste0()</code>, <code>sprintf()</code> don’t do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.</p>
 <p><code>rprintf()</code> does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.</p>
@@ -139,7 +148,7 @@
 <div id="vectorized-performance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vectorized-performance" class="anchor"></a>Vectorized performance</h2>
-<p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code>paste0()</code> and <code>sprintf()</code>. NB. <code>str_interp()</code> does not support vectorization, so were removed.</p>
+<p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code>paste0()</code> and <code>sprintf()</code>. NB. <code>str_interp()</code> does not support vectorization, so was removed.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">bar &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">"bar"</span>, <span class="fl">1e5</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">vectorized &lt;-</a>
@@ -152,8 +161,16 @@
 <a class="sourceLine" id="cb2-10" data-line-number="10">)</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw">print</span>(<span class="dt">unit =</span> <span class="st">"ms"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, vectorized)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="kw">plot_comparison</span>(vectorized, <span class="dt">log =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; Unit: milliseconds</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;     expr   min    lq     mean median    uq    max neval  cld</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;   paste0 12.63 13.16 14.02252  13.46 14.04  24.50   100 a   </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;     glue 14.02 14.67 16.62991  15.51 18.68  25.26   100  b  </span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;  sprintf 15.94 16.25 17.01883  16.39 16.77  21.73   100  b  </span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  gstring 26.07 26.64 28.62167  27.24 30.85  38.65   100   c </span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;  rprintf 59.16 60.69 65.15654  63.72 66.27 183.10   100    d</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="kw">plot_comparison</span>(vectorized, <span class="dt">log =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 </div>
 <div class="footnotes">
 <hr>

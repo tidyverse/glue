@@ -130,20 +130,23 @@
 <a href="#shell-quoting-transformer" class="anchor"></a>Shell quoting transformer</h3>
 <p>A transformer which automatically quotes variables for use in shell commands, e.g. via <code>system()</code> or <code>system2()</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">shell_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="cf">function</span>(code, envir) <span class="kw">shQuote</span>(glue<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/evaluate">evaluate</a></span>(code, envir), type)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">glue_sh &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>(), <span class="dt">.type =</span> <span class="kw">c</span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">glue</span>(..., <span class="dt">.envir =</span> .envir, <span class="dt">.transformer =</span> <span class="kw">shell_transformer</span>(.type))</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">filename &lt;-<span class="st"> "test"</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">writeLines</span>(<span class="dt">con =</span> filename, <span class="st">"hello!"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  type &lt;-<span class="st"> </span><span class="kw">match.arg</span>(type)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="cf">function</span>(code, envir) <span class="kw">shQuote</span>(glue<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/evaluate">evaluate</a></span>(code, envir), type)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">glue_sh &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>(), <span class="dt">.type =</span> <span class="kw">c</span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">  .type &lt;-<span class="st"> </span><span class="kw">match.arg</span>(.type)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="kw">glue</span>(..., <span class="dt">.envir =</span> .envir, <span class="dt">.transformer =</span> <span class="kw">shell_transformer</span>(.type))</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">}</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">command &lt;-<span class="st"> </span><span class="kw">glue_sh</span>(<span class="st">"cat {filename}"</span>)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">command</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; cat 'test'</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw">system</span>(command)</a></code></pre></div>
+<a class="sourceLine" id="cb2-12" data-line-number="12">filename &lt;-<span class="st"> "test"</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">writeLines</span>(<span class="dt">con =</span> filename, <span class="st">"hello!"</span>)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">command &lt;-<span class="st"> </span><span class="kw">glue_sh</span>(<span class="st">"cat {filename}"</span>)</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">command</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; cat 'test'</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw">system</span>(command)</a></code></pre></div>
 </div>
 <div id="emoji-transformer" class="section level3">
 <h3 class="hasAnchor">
