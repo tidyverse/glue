@@ -98,7 +98,7 @@ sql_quote_transformer <- function(connection) {
     is_quoted <- any(m[[1]] != -1)
     if (is_quoted) {
       regmatches(code, m) <- ""
-      res <- DBI::dbQuoteIdentifier(conn = connection, as.character(evaluate(code, envir)))
+      res <- DBI::dbQuoteIdentifier(conn = connection, evaluate(code, envir))
     } else {
       # Convert all NA's as needed
       res <- evaluate(code, envir)
