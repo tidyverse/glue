@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trim a character vector — trim • glue</title>
+<title>Construct strings with color — glue_col • glue</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -45,7 +45,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">Trim a character vector</a>
+        <a class="navbar-brand" href="../index.html">Construct strings with color</a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -109,49 +109,66 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Trim a character vector</h1>
-    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a></small>
+    <h1>Construct strings with color</h1>
+    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/color.R'><code>R/color.R</code></a></small>
     </div>
 
     
-    <p>This trims a character vector according to the trimming rules used by glue.
-These follow similar rules to <a href='https://www.python.org/dev/peps/pep-0257'>Python Docstrings</a>,
-with the following features.</p><ul>
-<li><p>Leading and trailing whitespace from the first and last lines is removed.</p></li>
-<li><p>A uniform amount of indentation is stripped from the second line on, equal
-to the minimum indentation of all non-blank lines after the first.</p></li>
-<li><p>Lines can be continued across newlines by using <code>\</code>.</p></li>
-</ul>
+    <p>The crayon package defines a number of functions used to color terminal
+output. <code>glue_col()</code> and <code>glue_data_col()</code> functions provide additional
+syntax to make using these functions in glue strings easier.</p>
+<p>Using the following syntax will apply the function <code>blue</code> function to the text 'foo bar'.</p><pre>{blue foo bar}
+</pre>
+
+    <p>If you want an expression to be evaluated, simply place that in a normal brace
+expression (these can be nested).</p><pre>{blue 1 + 1 = {1 + 1}}
+</pre>
     
 
-    <pre class="usage"><span class='fu'>trim</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>glue_col</span>(<span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)
+
+<span class='fu'>glue_data_col</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A character vector to trim.</p></td>
+      <th>...</th>
+      <td><p>[<code>expressions</code>]<br /> Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
+    </tr>
+    <tr>
+      <th>.envir</th>
+      <td><p>[<code>environment</code>: <code>parent.frame()</code>]<br /> Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored.</p></td>
+    </tr>
+    <tr>
+      <th>.na</th>
+      <td><p>[<code>character(1)</code>: &#8216;NA&#8217;]<br /> Value to replace NA values
+with. If <code>NULL</code> missing values are propegated, that is an <code>NA</code> result will
+cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.x</th>
+      <td><p>[<code>listish</code>]<br /> An environment, list or data frame used to lookup values.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>glue</span>(<span class='st'>"
-    A formatted string
-    Can have multiple lines
-      with additional indention preserved
-    "</span>)</div><div class='output co'>#&gt; A formatted string
-#&gt; Can have multiple lines
-#&gt;   with additional indention preserved</div><div class='input'>
-<span class='fu'>glue</span>(<span class='st'>"
-  \\ntrailing or leading newlines can be added explicitly\\n
-  "</span>)</div><div class='output co'>#&gt; \ntrailing or leading newlines can be added explicitly\n</div><div class='input'>
-<span class='fu'>glue</span>(<span class='st'>"
-    A formatted string \\
-    can also be on a \\
-    single line
-    "</span>)</div><div class='output co'>#&gt; A formatted string can also be on a single line</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>crayon</span>)) {
+  <span class='fu'>glue_col</span>(<span class='st'>"{blue foo bar}"</span>)
+
+  <span class='fu'>glue_col</span>(<span class='st'>"{blue 1 + 1 = {1 + 1}}"</span>)
+
+  <span class='no'>white_on_black</span> <span class='kw'>&lt;-</span> <span class='no'>bgBlack</span> $ <span class='no'>white</span>
+  <span class='fu'>glue_col</span>(<span class='st'>"{white_on_grey
+    Roses are {red {colors()[[552]]}}
+    Violets are {blue {colors()[[26]]}}
+    `glue_col()` can show {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
+    and {bold bold} and {underline underline} too!
+    }"</span>)
+}</div><div class='output co'>#&gt; <span class='error'>Error in get(fun, envir = envir, mode = "function"): object 'white_on_grey' of mode 'function' was not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

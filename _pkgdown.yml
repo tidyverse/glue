@@ -14,6 +14,8 @@ navbar:
       href: articles/transformers.html
     - text: Speed of glue
       href: articles/speed.html
+    - text: colors with crayon
+      href: articles/crayon.html
   - text: News
     menu:
       - text: "Release notes"

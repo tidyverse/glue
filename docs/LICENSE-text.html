@@ -6,22 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trim a character vector — trim • glue</title>
+<title>License • glue</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="../tidyverse.css" rel="stylesheet">
+<link href="tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- tidyverse -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script>
+<script src="pkgdown.js"></script>
 
 <!-- mathjax -->
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,17 +45,17 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">Trim a character vector</a>
+        <a class="navbar-brand" href="index.html"></a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../index.html">Home</a>
+  <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -65,13 +65,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/transformers.html">Transformers</a>
+      <a href="articles/transformers.html">Transformers</a>
     </li>
     <li>
-      <a href="../articles/speed.html">Speed of glue</a>
+      <a href="articles/speed.html">Speed of glue</a>
     </li>
     <li>
-      <a href="../articles/crayon.html">colors with crayon</a>
+      <a href="articles/crayon.html">colors with crayon</a>
     </li>
   </ul>
 </li>
@@ -84,11 +84,11 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/glue-1.2.0.html">Version 1.2.0</a>
+      <a href="articles/releases/glue-1.2.0.html">Version 1.2.0</a>
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -107,62 +107,19 @@
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Trim a character vector</h1>
-    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a></small>
+      <h1>License</h1>
     </div>
 
-    
-    <p>This trims a character vector according to the trimming rules used by glue.
-These follow similar rules to <a href='https://www.python.org/dev/peps/pep-0257'>Python Docstrings</a>,
-with the following features.</p><ul>
-<li><p>Leading and trailing whitespace from the first and last lines is removed.</p></li>
-<li><p>A uniform amount of indentation is stripped from the second line on, equal
-to the minimum indentation of all non-blank lines after the first.</p></li>
-<li><p>Lines can be continued across newlines by using <code>\</code>.</p></li>
-</ul>
-    
-
-    <pre class="usage"><span class='fu'>trim</span>(<span class='no'>x</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>A character vector to trim.</p></td>
-    </tr>
-    </table>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>glue</span>(<span class='st'>"
-    A formatted string
-    Can have multiple lines
-      with additional indention preserved
-    "</span>)</div><div class='output co'>#&gt; A formatted string
-#&gt; Can have multiple lines
-#&gt;   with additional indention preserved</div><div class='input'>
-<span class='fu'>glue</span>(<span class='st'>"
-  \\ntrailing or leading newlines can be added explicitly\\n
-  "</span>)</div><div class='output co'>#&gt; \ntrailing or leading newlines can be added explicitly\n</div><div class='input'>
-<span class='fu'>glue</span>(<span class='st'>"
-    A formatted string \\
-    can also be on a \\
-    single line
-    "</span>)</div><div class='output co'>#&gt; A formatted string can also be on a single line</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+<pre>YEAR: 2016
+COPYRIGHT HOLDER: Jim Hester
+</pre>
 
   </div>
+
 </div>
+
 
       <footer>
       <div class="tidyverse">

@@ -1,0 +1,9 @@
+pandoc: 2.0.5
+pkgdown: 0.1.0.9000
+pkgdown_sha: ~
+articles:
+  crayon: ../../../../p/glue/vignettes/crayon.html
+  glue-1.2.0: ../../../../p/glue/vignettes/releases/glue-1.2.0.html
+  speed: ../../../../p/glue/vignettes/speed.html
+  transformers: ../../../../p/glue/vignettes/transformers.html
+
