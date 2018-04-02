@@ -5,9 +5,9 @@
 \alias{glue_data_col}
 \title{Construct strings with color}
 \usage{
-glue_col(..., .envir = parent.frame(), .na = DBI::SQL("NULL"))
+glue_col(..., .envir = parent.frame(), .na = "NA")
 
-glue_data_col(.x, ..., .envir = parent.frame(), .na = DBI::SQL("NULL"))
+glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA")
 }
 \arguments{
 \item{...}{[\code{expressions}]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.}
@@ -40,7 +40,7 @@ if (require(crayon)) {
 
   glue_col("{blue 1 + 1 = {1 + 1}}")
 
-  white_on_grey <- bgBlack $ white
+  white_on_black <- bgBlack $ white
   glue_col("{white_on_grey
     Roses are {red {colors()[[552]]}}
     Violets are {blue {colors()[[26]]}}

@@ -26,7 +26,7 @@
 #'
 #'   glue_col("{blue 1 + 1 = {1 + 1}}")
 #'
-#'   white_on_grey <- bgBlack $ white
+#'   white_on_black <- bgBlack $ white
 #'   glue_col("{white_on_grey
 #'     Roses are {red {colors()[[552]]}}
 #'     Violets are {blue {colors()[[26]]}}
