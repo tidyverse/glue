@@ -169,6 +169,31 @@ test_that("glue_data evaluates in the object first, then enclosure, then parent"
   expect_identical(as_glue("3 3 3"), glue_data(env2, "{x} {y} {z}"))
 })
 
+test_that("glue_data lazily evaluates named interpolation variables", {
+  # Decoy 'x', which should not be evaluated
+  delayedAssign("x", stop("!"))
+
+  env <- new.env()
+  env$x <- "blah"
+
+  expect_identical(
+    glue_data(.x = env, "{x}{z}", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = list(x = "blah"), "{x}{z}", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = NULL, "{x}{z}", x = "blah", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = NULL, "blahblah", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+})
+
 test_that("converting glue to character", {
   expect_identical("foo bar", as.character(glue("foo bar")))
 })
