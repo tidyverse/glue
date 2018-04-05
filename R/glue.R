@@ -79,7 +79,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   unnamed_args <- lapply(which(!named), function(x) eval(call("force", as.symbol(paste0("..", x)))))
 
   lengths <- lengths(unnamed_args)
-  if (any(lengths == 0) || length(unnamed_args) < length(dots[!named])) {
+  if (any(lengths == 0) || length(unnamed_args) < sum(!named)) {
     return(as_glue(character(0)))
   }
   if (any(lengths != 1)) {

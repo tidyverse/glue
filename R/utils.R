@@ -8,10 +8,9 @@ has_names <- function(x) {
 }
 
 assign_args <- function(args, envir) {
-  res <- vector("list", length(args))
   nms <- names(args)
   for (i in seq_along(args)) {
-    assign(nms[[i]], eval(args[[i]], envir), envir = envir)
+    delayed_assign(nms[[i]], args[[i]], eval.env = envir, assign.env = envir)
   }
 }
 
@@ -62,3 +61,8 @@ na_rows <- function(res) {
 }
 
 "%||%" <- function(x, y) if (is.null(x)) y else x # nocov
+
+# A version of delayedAssign which does _not_ use substitute
+delayed_assign <- function(x, value, eval.env = parent.frame(1), assign.env = parent.frame(1)) {
+  (get(".Internal", baseenv()))(delayedAssign(x, value, eval.env, assign.env))
+}

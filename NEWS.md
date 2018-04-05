@@ -1,5 +1,8 @@
 # glue 1.2.0.9000
 
+* Glue now evaluates unnamed arguments lazily with `delayedAssign()`, so there
+  is no performance cost if an argument is not used. (#83, @egnha).
+
 * `glue_col()` and `glue_data_col()` functions to display strings with color.
 
 * Do not drop the `glue` class when subsetting (#66).
