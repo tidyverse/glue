@@ -73,7 +73,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   named <- has_names(dots)
 
   # Capture named arguments as promises, in order
-  env <- bind_ordered_promises(dots[named], parent)
+  env <- bind_promises(dots[named], parent)
 
   # Concatenate unnamed arguments together
   unnamed_args <- lapply(which(!named), function(x) eval(call("force", as.symbol(paste0("..", x)))))

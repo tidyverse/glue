@@ -7,14 +7,18 @@ has_names <- function(x) {
   }
 }
 
-bind_ordered_promises <- function(args, parent) {
-  env_assign <- parent
-  for (nm in names(args)) {
-    env_eval <- env_assign
-    env_assign <- new.env(parent = env_assign)
-    eval(bquote(delayedAssign(nm, .(args[[nm]]), env_eval, env_assign)))
-  }
-  env_assign
+bind_promises <- function(args, parent) {
+  promises <- as_promises(args)
+
+  # Must rechain parent environment, rather than creating the promise-making
+  # function in 'parent', because 'parent' need not have 'base' as ancestor.
+  parent.env(promises) <- parent
+
+  promises
+}
+
+as_promises <- function(args) {
+  eval(call("function", as.pairlist(args), quote(environment())))()
 }
 
 # From tibble::recycle_columns
