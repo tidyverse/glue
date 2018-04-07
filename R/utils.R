@@ -7,12 +7,20 @@ has_names <- function(x) {
   }
 }
 
-assign_args <- function(args, envir) {
-  res <- vector("list", length(args))
-  nms <- names(args)
-  for (i in seq_along(args)) {
-    assign(nms[[i]], eval(args[[i]], envir), envir = envir)
-  }
+bind_promises <- function(exprs, parent) {
+  env <- env_init <- new.env(parent = baseenv())
+  for (i in seq_along(exprs))
+    env <- as_promise(.subset(exprs, i), env)
+  # Must rechain initial parent environment, rather than creating the
+  # promise-making function in 'parent', because 'parent' need not have 'base'
+  # as ancestor.
+  parent.env(env_init) <- parent
+  env
+}
+
+as_promise <- function(expr, env) {
+  promise <- call("function", as.pairlist(expr), quote(environment()))
+  eval(as.call(c(promise, expr)), env)
 }
 
 # From tibble::recycle_columns

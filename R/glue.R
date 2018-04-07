@@ -61,25 +61,25 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
-    env <- new.env(parent = .envir)
+    parent <- .envir
   } else if (is.environment(.x)) {
-    env <- new.env(parent = .x)
+    parent <- .x
   } else {
-    env <- list2env(.x, parent = .envir)
+    parent <- list2env(.x, parent = .envir)
   }
 
   # Capture unevaluated arguments
   dots <- eval(substitute(alist(...)))
   named <- has_names(dots)
 
-  # Evaluate named arguments, add results to environment
-  assign_args(dots[named], env)
+  # Capture named arguments as promises, in order
+  env <- bind_promises(dots[named], parent)
 
   # Concatenate unnamed arguments together
   unnamed_args <- lapply(which(!named), function(x) eval(call("force", as.symbol(paste0("..", x)))))
 
   lengths <- lengths(unnamed_args)
-  if (any(lengths == 0) || length(unnamed_args) < length(dots[!named])) {
+  if (any(lengths == 0) || length(unnamed_args) < sum(!named)) {
     return(as_glue(character(0)))
   }
   if (any(lengths != 1)) {

@@ -169,6 +169,56 @@ test_that("glue_data evaluates in the object first, then enclosure, then parent"
   expect_identical(as_glue("3 3 3"), glue_data(env2, "{x} {y} {z}"))
 })
 
+test_that("glue_data lazily evaluates named interpolation variables, in order", {
+  # Decoy 'x', which should not be evaluated
+  delayedAssign("x", stop("This 'x' shouldn't have been referenced"))
+
+  env <- new.env()
+  env$x <- "blah"
+
+  expect_identical(
+    glue_data(.x = env, "{x}{z}", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = env, "{x}{z}", z = x, y = stop("!")),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = list(x = "blah"), "{x}{z}", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = list(x = "blah"), "{x}{z}", z = x, y = stop("!")),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = list(x = "blah"), "{x}{z}", x = x, y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = list(x = "blah"), "{x}{z}", z = x, y = stop("!"), x = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = NULL, "{x}{z}", x = "blah", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  # Lazy scoping is ordered from left to right
+  expect_error(
+    glue_data(.x = NULL, "{y}{z}", z = y, y = "blah"),
+    "object 'y' not found"
+  )
+  expect_identical(
+    glue_data(.x = NULL, "blahblah", y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+  expect_identical(
+    glue_data(.x = NULL, "blahblah", x = x, y = stop("!"), z = x),
+    as_glue("blahblah")
+  )
+})
+
 test_that("converting glue to character", {
   expect_identical("foo bar", as.character(glue("foo bar")))
 })
