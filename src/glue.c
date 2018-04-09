@@ -3,7 +3,7 @@
 #include <string.h>
 
 SEXP set(SEXP x, int i, SEXP val) {
-  size_t len = Rf_length(x);
+  R_xlen_t len = Rf_xlength(x);
   if (i >= len) {
     len *= 2;
     x = Rf_lengthgets(x, len);
@@ -12,11 +12,11 @@ SEXP set(SEXP x, int i, SEXP val) {
   return x;
 }
 
-SEXP resize(SEXP out, size_t n) {
-  if (n == Rf_length(out)) {
+SEXP resize(SEXP out, R_xlen_t n) {
+  if (n == Rf_xlength(out)) {
     return out;
   }
-  return Rf_lengthgets(out, n);
+  return Rf_xlengthgets(out, n);
 }
 
 SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
