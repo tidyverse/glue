@@ -1,5 +1,13 @@
 # glue 1.2.0.9000
 
+## Breaking changes
+
+* The `evaluate()` function has been removed. Changes elsewhere in glue made
+  the implementation trivial so it was removed for clarities sake. Previous
+  uses can be replaced by `eval(parse(text = text), envir)`.
+
+## Bugfixes and minor changes
+
 * Glue now evaluates unnamed arguments lazily with `delayedAssign()`, so there
   is no performance cost if an argument is not used. (#83, @egnha).
 

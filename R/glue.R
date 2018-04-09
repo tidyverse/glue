@@ -20,6 +20,8 @@
 #' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace NA values
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
+#' @param .trim \[logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
+#'   template with `trim()` or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257> upon which this is based.
 #' @examples
@@ -57,7 +59,9 @@
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
-glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .transformer = identity_transformer) {
+glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
+  .open = "{", .close = "}", .na = "NA", .transformer = identity_transformer,
+  .trim = TRUE) {
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
@@ -94,7 +98,9 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(), .open = "{", 
   }
 
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
-  unnamed_args <- trim(unnamed_args)
+  if (isTRUE(.trim)) {
+    unnamed_args <- trim(unnamed_args)
+  }
 
   f <- function(expr) as.character(.transformer(expr, env))
 

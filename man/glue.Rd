@@ -7,7 +7,8 @@
 \title{Format and interpolate a string}
 \usage{
 glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}", .na = "NA", .transformer = identity_transformer)
+  .close = "}", .na = "NA", .transformer = identity_transformer,
+  .trim = TRUE)
 
 glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}",
   .na = "NA", .transformer = identity_transformer)
@@ -36,6 +37,8 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 \item{.transformer}{[\code{function]}\cr A function taking three parameters \code{code}, \code{envir} and
 \code{data} used to transform the output of each block before during or after
 evaluation. For example transformers see \code{vignette("transformers")}.}
+
+\item{.trim}{[logical(1)\code{: \sQuote{TRUE}]\cr Whether to trim the input template with}trim()` or not.}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Long strings are

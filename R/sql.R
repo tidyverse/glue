@@ -89,19 +89,21 @@ glue_data_sql <- function(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL
 }
 
 sql_quote_transformer <- function(connection) {
-  function(code, envir) {
-    should_collapse <- grepl("[*]$", code)
+  function(text, envir) {
+    should_collapse <- grepl("[*]$", text)
     if (should_collapse) {
-      code <- sub("[*]$", "", code)
+      text <- sub("[*]$", "", text)
     }
-    m <- gregexpr("^`|`$", code)
+    m <- gregexpr("^`|`$", text)
     is_quoted <- any(m[[1]] != -1)
     if (is_quoted) {
-      regmatches(code, m) <- ""
-      res <- DBI::dbQuoteIdentifier(conn = connection, evaluate(code, envir))
+      regmatches(text, m) <- ""
+      res <- eval(parse(text = text, keep.source = FALSE), envir)
+      res <- DBI::dbQuoteIdentifier(conn = connection, res)
     } else {
+      res <- eval(parse(text = text, keep.source = FALSE), envir)
+
       # Convert all NA's as needed
-      res <- evaluate(code, envir)
       if (any(is.na(res))) {
         res <- as.list(res)
         res[is.na(res)] <- NA_character_
