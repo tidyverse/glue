@@ -52,7 +52,7 @@ color_transformer <- function(code, envir) {
     return(eval(res, envir = envir))
   }
 
-  code <- collapse(code, "\n")
+  code <- glue_collapse(code, "\n")
   m <- regexpr("(?s)^([[:alnum:]_]+)[[:space:]]+(.+)", code, perl = TRUE)
   has_match <- m != -1
   if (!has_match) {

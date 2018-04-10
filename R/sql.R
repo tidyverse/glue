@@ -113,7 +113,7 @@ sql_quote_transformer <- function(connection) {
       }
     }
     if (should_collapse) {
-      res <- collapse(res, ", ")
+      res <- glue_collapse(res, ", ")
     }
     res
   }

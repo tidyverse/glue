@@ -20,7 +20,7 @@
 #' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace NA values
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
-#' @param .trim \[logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
+#' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with `trim()` or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257> upon which this is based.
@@ -141,15 +141,15 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' 2 items.
 #' @inheritParams base::paste
 #' @examples
-#' collapse(glue("{1:10}"))
+#' glue_collapse(glue("{1:10}"))
 #'
 #' # Wide values can be truncated
-#' collapse(glue("{1:10}"), width = 5)
+#' glue_collapse(glue("{1:10}"), width = 5)
 #'
-#' collapse(1:4, ",", last = " and ")
+#' glue_collapse(1:4, ",", last = " and ")
 #' #> 1, 2, 3 and 4
 #' @export
-collapse <- function(x, sep = "", width = Inf, last = "") {
+glue_collapse <- function(x, sep = "", width = Inf, last = "") {
   if (length(x) == 0) {
     return(as_glue(character()))
   }
@@ -158,8 +158,8 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
   }
 
   if (nzchar(last) && length(x) > 1) {
-    res <- collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
-    return(collapse(paste0(res, last, x[length(x)]), width = width))
+    res <- glue_collapse(x[seq(1, length(x) - 1)], sep = sep, width = Inf)
+    return(glue_collapse(paste0(res, last, x[length(x)]), width = width))
   }
   x <- paste0(x, collapse = sep)
   if (width < Inf) {
@@ -170,6 +170,13 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
     }
   }
   as_glue(x)
+}
+
+#' @rdname glue-deprecated
+#' @export
+collapse <- function(x, sep = "", width = Inf, last = "") {
+  .Deprecated("glue_collapse", package = "glue")
+  glue_collapse(x, sep, width, last)
 }
 
 #' Trim a character vector
@@ -259,3 +266,12 @@ as.character.glue <- function(x, ...) {
 
 #' @importFrom methods setOldClass
 setOldClass(c("glue", "character"))
+
+
+#' Deprecated Functions
+#'
+#' These functions are Deprecated in this release of glue, they will be removed
+#' in a future version.
+#' @name glue-deprecated
+#' @keywords internal
+NULL

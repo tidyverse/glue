@@ -48,7 +48,7 @@ collapse_transformer <- function(regex = "[*]$", ...) {
         text <- sub(regex, "", text)
     }
     res <- eval(parse(text = text, keep.source = FALSE), envir)
-    collapse(res, ...)
+    glue_collapse(res, ...)
   }
 }
 
@@ -93,7 +93,7 @@ A transformer which converts the text to the equivalent emoji.
 emoji_transformer <- function(text, envir) {
   if (grepl("[*]$", text)) {
     text <- sub("[*]$", "", text)
-    collapse(ji_find(text)$emoji)
+    glue_collapse(ji_find(text)$emoji)
   } else {
     ji(text)
   }

@@ -290,7 +290,7 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
   expect_equal(Encoding(glue(x, y)), "UTF-8")
   expect_equal(Encoding(glue("{x}{y}")), "UTF-8")
 
-  expect_equal(Encoding(collapse(x)), "UTF-8")
+  expect_equal(Encoding(glue_collapse(x)), "UTF-8")
 })
 
 test_that("glue always returns NA_character_ if given any NA input and `.na` == NULL", {

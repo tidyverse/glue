@@ -6,6 +6,9 @@
   the implementation trivial so it was removed for clarities sake. Previous
   uses can be replaced by `eval(parse(text = text), envir)`.
 
+* `collpase()` has been renamed to `glue_collpase()` to avoid namespace
+  collisions with `dplyr::collapse()`.
+
 ## Bugfixes and minor changes
 
 * Glue now evaluates unnamed arguments lazily with `delayedAssign()`, so there
