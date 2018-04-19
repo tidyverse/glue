@@ -7,11 +7,15 @@ has_names <- function(x) {
   }
 }
 
-assign_args <- function(args, envir) {
+bind_args <- function(args, parent) {
+  env_assign <- parent
   nms <- names(args)
   for (i in seq_along(args)) {
-    delayed_assign(nms[[i]], args[[i]], eval.env = envir, assign.env = envir)
+    env_eval <- env_assign
+    env_assign <- new.env(parent = env_eval)
+    delayed_assign(nms[[i]], args[[i]], eval.env = env_eval, assign.env = env_assign)
   }
+  env_assign
 }
 
 # From tibble::recycle_columns

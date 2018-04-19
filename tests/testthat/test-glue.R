@@ -384,3 +384,20 @@ test_that("glue does not drop it's class when subsetting", {
   expect_identical(
     glue("{1:2}")[2], as_glue("2"))
 })
+
+test_that("interpolation variables can have same names as their values (#89)", {
+  name <- "Joe"
+  age <- 40
+  anniversary <- as.Date("2001-10-12")
+  expect_identical(
+    glue(
+      'Name: {name};',
+      ' age: {age + 1};',
+      ' anniversary: {format(anniversary, "%A, %B %d, %Y")}.',
+      name = name,
+      age = age,
+      anniversary = anniversary
+    ),
+    as_glue("Name: Joe; age: 41; anniversary: Friday, October 12, 2001.")
+  )
+})
