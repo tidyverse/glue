@@ -259,7 +259,7 @@ using identical
   - [rprintf](https://cran.r-project.org/package=rprintf)
 
 String templating is closely related to string interpolation, although
-not exactly he same concept. Some packages implementing string
+not exactly the same concept. Some packages implementing string
 templating in R include.
 
   - [whisker](https://cran.r-project.org/package=whisker)
