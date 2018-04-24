@@ -13,6 +13,9 @@
 
 * Glue now evaluates unnamed arguments lazily with `delayedAssign()`, so there
   is no performance cost if an argument is not used. (#83, @egnha).
+  
+* Fixed a bug where names in the assigned expression of an interpolation
+  variable would conflict with the name of the variable itself (#89, @egnha).
 
 * `glue_col()` and `glue_data_col()` functions to display strings with color.
 
