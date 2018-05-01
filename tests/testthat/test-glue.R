@@ -384,3 +384,10 @@ test_that("glue does not drop it's class when subsetting", {
   expect_identical(
     glue("{1:2}")[2], as_glue("2"))
 })
+
+test_that("interpolation variables can have same names as their values (#89)", {
+  x <- 1
+  expect_identical(
+    glue("{x}", x = x + 1),
+    as_glue("2"))
+})
