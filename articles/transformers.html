@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -86,21 +86,21 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Transformers</h1>
             
       
-      <small>Source: <a href="https://github.com/tidyverse/glue/blob/master/vignettes/transformers.Rmd"><code>vignettes/transformers.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/master/vignettes/transformers.Rmd"><code>vignettes/transformers.Rmd</code></a></small>
+      <div class="hidden name"><code>transformers.Rmd</code></div>
 
     </div>
 
     
     
-<div class="contents">
 <p>Transformers allow you to apply functions to the glue input and output, before and after evaluation. This allows you to write things like <code><a href="../reference/glue_sql.html">glue_sql()</a></code>, which automatically quotes variables for you or add a syntax for automatically collapsing outputs.</p>
-<p>The transformer functions simply take two arguments <code>code</code> and <code>envir</code>, where <code>code</code> is the unparsed string inside the glue block and <code>envir</code> is the environment to execute the code in. Most transformers will then call <code><a href="../reference/evaluate.html">glue::evaluate()</a></code>, which takes <code>code</code> and <code>envir</code> and parses and evaluates the code.</p>
-<p>You can then supply the transformer function to glue with the <code>.transformer</code> argument. In this way users can define manipulate the code before parsing and change the output after evaluation.</p>
+<p>The transformer functions simply take two arguments <code>text</code> and <code>envir</code>, where <code>text</code> is the unparsed string inside the glue block and <code>envir</code> is the execution environment. Most transformers will then call <code>eval(parse(text, keep.source = FALSE), envir)</code> which parses and evaluates the code.</p>
+<p>You can then supply the transformer function to glue with the <code>.transformer</code> argument. In this way users can define manipulate the text before parsing and change the output after evaluation.</p>
 <p>It is often useful to write a <code>glue()</code> wrapper function which supplies a <code>.transformer</code> to <code>glue()</code> or <code><a href="../reference/glue.html">glue_data()</a></code> and potentially has additional arguments. One important consideration when doing this is to include <code>.envir = parent.frame()</code> in the wrapper to ensure the evaluation environment is correct.</p>
 <p>Some examples implementations of potentially useful transformers follow. The aim right now is not to include most of these custom functions within the <code>glue</code> package. Rather users are encouraged to create custom functions using transformers to fit their individual needs.</p>
 <div id="collapse-transformer" class="section level3">
@@ -108,12 +108,12 @@
 <a href="#collapse-transformer" class="anchor"></a>collapse transformer</h3>
 <p>A transformer which automatically collapses any glue block ending with <code>*</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">collapse_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">regex =</span> <span class="st">"[*]$"</span>, ...) {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="cf">function</span>(code, envir) {</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="cf">if</span> (<span class="kw">grepl</span>(regex, code)) {</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">        code &lt;-<span class="st"> </span><span class="kw">sub</span>(regex, <span class="st">""</span>, code)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="cf">function</span>(text, envir) {</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="cf">if</span> (<span class="kw">grepl</span>(regex, text)) {</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">        text &lt;-<span class="st"> </span><span class="kw">sub</span>(regex, <span class="st">""</span>, text)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="kw"><a href="../reference/collapse.html">collapse</a></span>(res, ...)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="kw"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(res, ...)</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8">  }</a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">}</a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"></a>
@@ -131,33 +131,36 @@
 <p>A transformer which automatically quotes variables for use in shell commands, e.g. via <code>system()</code> or <code>system2()</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">shell_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">type =</span> <span class="kw">c</span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  type &lt;-<span class="st"> </span><span class="kw">match.arg</span>(type)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="cf">function</span>(code, envir) <span class="kw">shQuote</span>(glue<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/evaluate">evaluate</a></span>(code, envir), type)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">glue_sh &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>(), <span class="dt">.type =</span> <span class="kw">c</span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  .type &lt;-<span class="st"> </span><span class="kw">match.arg</span>(.type)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="kw">glue</span>(..., <span class="dt">.envir =</span> .envir, <span class="dt">.transformer =</span> <span class="kw">shell_transformer</span>(.type))</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">filename &lt;-<span class="st"> "test"</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">writeLines</span>(<span class="dt">con =</span> filename, <span class="st">"hello!"</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="cf">function</span>(text, envir) {</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    res &lt;-<span class="st"> </span><span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">shQuote</span>(res)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  }</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">glue_sh &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw">parent.frame</span>(), <span class="dt">.type =</span> <span class="kw">c</span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">  .type &lt;-<span class="st"> </span><span class="kw">match.arg</span>(.type)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">  <span class="kw">glue</span>(..., <span class="dt">.envir =</span> .envir, <span class="dt">.transformer =</span> <span class="kw">shell_transformer</span>(.type))</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">}</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">command &lt;-<span class="st"> </span><span class="kw">glue_sh</span>(<span class="st">"cat {filename}"</span>)</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">command</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; cat 'test'</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw">system</span>(command)</a></code></pre></div>
+<a class="sourceLine" id="cb2-15" data-line-number="15">filename &lt;-<span class="st"> "test"</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="kw">writeLines</span>(<span class="dt">con =</span> filename, <span class="st">"hello!"</span>)</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">command &lt;-<span class="st"> </span><span class="kw">glue_sh</span>(<span class="st">"cat {filename}"</span>)</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">command</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; cat 'test'</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="kw">system</span>(command)</a></code></pre></div>
 </div>
 <div id="emoji-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#emoji-transformer" class="anchor"></a>emoji transformer</h3>
 <p>A transformer which converts the text to the equivalent emoji.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">emoji_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">grepl</span>(<span class="st">"[*]$"</span>, code)) {</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    code &lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">"[*]$"</span>, <span class="st">""</span>, code)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw"><a href="../reference/collapse.html">collapse</a></span>(<span class="kw">ji_find</span>(code)<span class="op">$</span>emoji)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">emoji_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(text, envir) {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">grepl</span>(<span class="st">"[*]$"</span>, text)) {</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    text &lt;-<span class="st"> </span><span class="kw">sub</span>(<span class="st">"[*]$"</span>, <span class="st">""</span>, text)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(<span class="kw">ji_find</span>(text)<span class="op">$</span>emoji)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="kw">ji</span>(code)</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="kw">ji</span>(text)</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">  }</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">}</a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"></a>
@@ -173,15 +176,15 @@
 <h3 class="hasAnchor">
 <a href="#sprintf-transformer" class="anchor"></a>sprintf transformer</h3>
 <p>A transformer which allows succinct sprintf format strings.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">":.+$"</span>, code)</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(text, envir) {</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">":.+$"</span>, text)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) {</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">    format &lt;-<span class="st"> </span><span class="kw">substring</span>(<span class="kw">regmatches</span>(code, m), <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw">regmatches</span>(code, m) &lt;-<span class="st"> ""</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    format &lt;-<span class="st"> </span><span class="kw">substring</span>(<span class="kw">regmatches</span>(text, m), <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw">regmatches</span>(text, m) &lt;-<span class="st"> ""</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="kw">do.call</span>(sprintf, <span class="kw">list</span>(<span class="kw">glue</span>(<span class="st">"%{format}f"</span>), res))</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir)</a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">  }</a>
 <a class="sourceLine" id="cb4-11" data-line-number="11">}</a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"></a>
@@ -196,29 +199,29 @@
 <a href="#safely-transformer" class="anchor"></a>safely transformer</h3>
 <p>A transformer that acts like <code><a href="http://www.rdocumentation.org/packages/purrr/topics/safely">purrr::safely()</a></code>, which returns a value instead of an error.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">safely_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">otherwise =</span> <span class="ot">NA</span>) {</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="cf">function</span>(code, envir) {</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">tryCatch</span>(<span class="kw"><a href="../reference/evaluate.html">evaluate</a></span>(code, envir),</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">      <span class="dt">error =</span> <span class="cf">function</span>(e) <span class="cf">if</span> (<span class="kw">is.language</span>(otherwise)) <span class="kw">eval</span>(otherwise) <span class="cf">else</span> otherwise)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">  }</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">glue_safely &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.otherwise =</span> <span class="ot">NA</span>, <span class="dt">.envir =</span> <span class="kw">parent.frame</span>()) {</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">  <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> <span class="kw">safely_transformer</span>(.otherwise), <span class="dt">.envir =</span> .envir)</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co"># Default returns missing if there is an error</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>)</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; foo: NA</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co"># Or an empty string</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="dt">.otherwise =</span> <span class="st">"Error"</span>)</a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; foo: Error</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co"># Or output the error message in red</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="kw">library</span>(crayon)</a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="dt">.otherwise =</span> <span class="kw">quote</span>(<span class="kw">glue</span>(<span class="st">"{red}Error: {conditionMessage(e)}{reset}"</span>)))</a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; foo: Error: object 'xyz' not found</span></a></code></pre></div>
-</div>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="cf">function</span>(text, envir) {</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">tryCatch</span>(</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">      <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir),</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">      <span class="dt">error =</span> <span class="cf">function</span>(e) <span class="cf">if</span> (<span class="kw">is.language</span>(otherwise)) <span class="kw">eval</span>(otherwise) <span class="cf">else</span> otherwise)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">  }</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">glue_safely &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.otherwise =</span> <span class="ot">NA</span>, <span class="dt">.envir =</span> <span class="kw">parent.frame</span>()) {</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">  <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> <span class="kw">safely_transformer</span>(.otherwise), <span class="dt">.envir =</span> .envir)</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co"># Default returns missing if there is an error</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>)</a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; foo: NA</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co"># Or an empty string</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="dt">.otherwise =</span> <span class="st">"Error"</span>)</a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; foo: Error</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co"># Or output the error message in red</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="kw">library</span>(crayon)</a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="dt">.otherwise =</span> <span class="kw">quote</span>(<span class="kw">glue</span>(<span class="st">"{red}Error: {conditionMessage(e)}{reset}"</span>)))</a>
+<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; foo: Error: object 'xyz' not found</span></a></code></pre></div>
 </div>
   </div>
 
@@ -245,6 +248,8 @@
  gtag('config', 'UA-115082821-1');
 </script></footer>
 </div>
+
+  
 
   </body>
 </html>

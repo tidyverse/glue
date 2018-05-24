@@ -103,13 +103,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Construct strings with color</h1>
-    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/color.R'><code>R/color.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/glue/blob/master/R/color.R'><code>R/color.R</code></a></small>
+    <div class="hidden name"><code>glue_col.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The <a href='http://www.rdocumentation.org/packages/crayon/topics/crayon'>crayon</a> package defines a number of functions used to
 color terminal output. <code>glue_col()</code> and <code>glue_data_col()</code> functions provide
@@ -121,6 +123,7 @@ additional syntax to make using these functions in glue strings easier.</p>
 expression (these can be nested).</p><pre>{blue 1 + 1 = {1 + 1}}
 </pre>
     
+    </div>
 
     <pre class="usage"><span class='fu'>glue_col</span>(<span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)
 
@@ -201,6 +204,8 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
 </script>
       </footer>
    </div>
+
+  
 
   </body>
 </html>

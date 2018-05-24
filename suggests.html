@@ -6,22 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evaluate R code — evaluate • glue</title>
+<title>NA • glue</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="../tidyverse.css" rel="stylesheet">
+<link href="tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- tidyverse -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script>
+<script src="pkgdown.js"></script>
 
 <!-- mathjax -->
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,17 +45,17 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">Evaluate R code</a>
+        <a class="navbar-brand" href="index.html"></a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../index.html">Home</a>
+  <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -65,10 +65,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/transformers.html">Transformers</a>
+      <a href="articles/transformers.html">Transformers</a>
     </li>
     <li>
-      <a href="../articles/speed.html">Speed of glue</a>
+      <a href="articles/speed.html">Speed of glue</a>
     </li>
   </ul>
 </li>
@@ -81,11 +81,11 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/glue-1.2.0.html">Version 1.2.0</a>
+      <a href="articles/releases/glue-1.2.0.html">Version 1.2.0</a>
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -103,56 +103,41 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9 contents">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Evaluate R code</h1>
-    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/transformer.R'><code>R/transformer.R</code></a></small>
+      <h1>NA</h1>
     </div>
 
-    
-    <p>This is a simple wrapper around <code>eval(parse())</code> which provides a more
-consistent interface than the default functions.
-If <code>data</code> is <code>NULL</code> then the code is evaluated in the environment. If <code>data</code>
-is not <code>NULL</code> than the code is evaluated in the <code>data</code> object first, with
-the enclosing environment of <code>envir</code>. <code>identity_transformer</code> is simply a
-call to evaluate.</p>
-    
 
-    <pre class="usage"><span class='fu'>evaluate</span>(<span class='no'>code</span>, <span class='no'>envir</span>)
+<p>Things to mention in talk</p>
+<ul>
+<li>trimming</li>
+<li>length stability
+<ul>
+<li>tidy recycling</li>
+</ul>
+</li>
+<li>NAs
+<ul>
+<li>Default display, .na option</li>
+</ul>
+</li>
+<li>fast
+<ul>
+<li>speed of writing</li>
+<li>speed of reading</li>
+<li>speed of execution</li>
+</ul>
+</li>
+<li>Don’t show transformer code, example usage instead</li>
+</ul>
 
-<span class='fu'>identity_transformer</span>(<span class='no'>code</span>, <span class='no'>envir</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>code</th>
-      <td><p>R code to evaluate</p></td>
-    </tr>
-    <tr>
-      <th>envir</th>
-      <td><p>environment to evaluate the code in</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This function is designed to be used within transformers to evaluate the
-code in the glue block.</p>
-    
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-          </ul>
 
-  </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -174,6 +159,8 @@ code in the glue block.</p>
 </script>
       </footer>
    </div>
+
+  
 
   </body>
 </html>

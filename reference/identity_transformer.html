@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Collapse a character vector — collapse • glue</title>
+<title>Parse and Evaluate R code — identity_transformer • glue</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -45,7 +45,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">Collapse a character vector</a>
+        <a class="navbar-brand" href="../index.html">Parse and Evaluate R code</a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -103,57 +103,50 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Collapse a character vector</h1>
-    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a></small>
+    <h1>Parse and Evaluate R code</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/glue/blob/master/R/transformer.R'><code>R/transformer.R</code></a></small>
+    <div class="hidden name"><code>identity_transformer.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Collapses a character vector of any length into a length 1 vector.</p>
+    <p>This is a simple wrapper around <code>eval(parse())</code>, used as the default
+transformer.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>collapse</span>(<span class='no'>x</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>last</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>identity_transformer</span>(<span class='no'>text</span>, <span class='no'>envir</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>The character vector to collapse.</p></td>
+      <th>text</th>
+      <td><p>Text (typically) R code to parse and evaluate.</p></td>
     </tr>
     <tr>
-      <th>sep</th>
-      <td><p>a character string to separate the terms.  Not
-    <code>NA_character_</code>.</p></td>
-    </tr>
-    <tr>
-      <th>width</th>
-      <td><p>The maximum string width before truncating with <code>...</code>.</p></td>
-    </tr>
-    <tr>
-      <th>last</th>
-      <td><p>String used to separate the last two items if <code>x</code> has at least
-2 items.</p></td>
+      <th>envir</th>
+      <td><p>environment to evaluate the code in</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>collapse</span>(<span class='fu'>glue</span>(<span class='st'>"{1:10}"</span>))</div><div class='output co'>#&gt; 12345678910</div><div class='input'>
-<span class='co'># Wide values can be truncated</span>
-<span class='fu'>collapse</span>(<span class='fu'>glue</span>(<span class='st'>"{1:10}"</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; 12...</div><div class='input'>
-<span class='fu'>collapse</span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='st'>","</span>, <span class='kw'>last</span> <span class='kw'>=</span> <span class='st'>" and "</span>)</div><div class='output co'>#&gt; 1,2,3 and 4</div><div class='input'>#> 1, 2, 3 and 4
-</div></pre>
+    <div class='dont-index'><p><code><a href='../articles/transformers.html'>vignette("transformers", "glue")</a></code> for documentation on creating
+custom glue transformers and some common use cases.</p></div>
+    
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>
@@ -178,6 +171,8 @@
 </script>
       </footer>
    </div>
+
+  
 
   </body>
 </html>

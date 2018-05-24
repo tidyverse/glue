@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -86,24 +86,24 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>glue 1.2.0</h1>
                         <h4 class="author">Jim Hester</h4>
             
             <h4 class="date">2017-10-31</h4>
       
-      <small>Source: <a href="https://github.com/tidyverse/glue/blob/master/vignettes/releases/glue-1.2.0.Rmd"><code>vignettes/releases/glue-1.2.0.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/master/vignettes/releases/glue-1.2.0.Rmd"><code>vignettes/releases/glue-1.2.0.Rmd</code></a></small>
+      <div class="hidden name"><code>glue-1.2.0.Rmd</code></div>
 
     </div>
 
     
     
-<div class="contents">
 <p><a href="http://glue.tidyverse.org">glue 1.2.0</a> is now available on CRAN! <a href="http://glue.tidyverse.org">glue</a> is designed to make it easy to interpolate (“glue”) your data into strings. Compared to equivalents like <code>paste()</code> and <code>sprintf()</code> it is easier to write and less time consuming to maintain. It also has no non-base dependencies so is easy to include in packages.</p>
 <p>Install the latest version with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"glue"</span>)</a></code></pre></div>
-<p>glue has three primary functions, <code>glue()</code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/collapse.html">collapse()</a></code>. <code>glue()</code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
+<p>glue has three primary functions, <code>glue()</code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/glue-deprecated.html">collapse()</a></code>. <code>glue()</code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">name &lt;-<span class="st"> "Fred"</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">age &lt;-<span class="st"> </span><span class="dv">50</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"1991-10-12"</span>)</a>
@@ -143,9 +143,12 @@
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders, and 110 horsepower.</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; The Hornet Sportabout has 3 gears, 8 cylinders, and 175 horsepower.</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.</span></a></code></pre></div>
-<p><code><a href="../../reference/collapse.html">collapse()</a></code> is used to combine multiple values into one. The <code>last</code> argument is used to change the separator for the last value.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; 1, 2, 3, 4, and 5</span></a></code></pre></div>
+<p><code><a href="../../reference/glue-deprecated.html">collapse()</a></code> is used to combine multiple values into one. The <code>last</code> argument is used to change the separator for the last value.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../../reference/glue-deprecated.html">collapse</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; Warning: 'collapse' is deprecated.</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Use 'glue_collapse' instead.</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; 1, 2, 3, 4, and 5</span></a></code></pre></div>
 <div id="glue-transformers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue-transformers" class="anchor"></a>glue transformers</h2>
@@ -155,8 +158,8 @@
 <a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="cf">if</span> (<span class="kw">grepl</span>(regex, code)) {</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">        code &lt;-<span class="st"> </span><span class="kw">sub</span>(regex, <span class="st">""</span>, code)</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw"><a href="../../reference/collapse.html">collapse</a></span>(res, ...)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> code), <span class="dt">envir =</span> envir)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw"><a href="../../reference/glue-deprecated.html">collapse</a></span>(res, ...)</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8">  }</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">}</a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"></a>
@@ -164,18 +167,25 @@
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="st">  {1:5*}</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">  {letters[1:5]*}"</span>,</a>
 <a class="sourceLine" id="cb6-14" data-line-number="14">  <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>))</a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 1, 2, 3, 4, and 5</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; a, b, c, d, and e</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; Warning: 'collapse' is deprecated.</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; Use 'glue_collapse' instead.</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; Warning: 'collapse' is deprecated.</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; Use 'glue_collapse' instead.</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; 1, 2, 3, 4, and 5</span></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; a, b, c, d, and e</span></a></code></pre></div>
 <p>Or an sprintf transformer which lets you use sprintf style numeric formatting with glue.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">  m &lt;-<span class="st"> </span><span class="kw">regexpr</span>(<span class="st">"%.+$"</span>, code)</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) {</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">    format &lt;-<span class="st"> </span><span class="kw">regmatches</span>(code, m)</a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="kw">regmatches</span>(code, m) &lt;-<span class="st"> ""</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">    res &lt;-<span class="st"> </span><span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> code), <span class="dt">envir =</span> envir)</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="kw">do.call</span>(sprintf, <span class="kw">list</span>(format, res))</a>
 <a class="sourceLine" id="cb7-8" data-line-number="8">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="kw"><a href="../../reference/evaluate.html">evaluate</a></span>(code, envir)</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> code), <span class="dt">envir =</span> envir)</a>
 <a class="sourceLine" id="cb7-10" data-line-number="10">  }</a>
 <a class="sourceLine" id="cb7-11" data-line-number="11">}</a>
 <a class="sourceLine" id="cb7-12" data-line-number="12"></a>
@@ -214,7 +224,6 @@
 <p>There are many other bug fixes and other minor improvements. You can see a complete list in the <a href="https://github.com/tidyverse/glue/releases/tag/v1.2.0">release notes</a>.</p>
 <p>A big thanks goes to all the community members who contributed code and opened issues since the last release! (<a href="https://github.com/artemklevtsov">@artemklevtsov</a>, <a href="https://github.com/daroczig">@daroczig</a>, <a href="https://github.com/DarwinAwardWinner">@DarwinAwardWinner</a>, <a href="https://github.com/edarague">@edarague</a>, <a href="https://github.com/hadley">@hadley</a>, <a href="https://github.com/hughjonesd">@hughjonesd</a>, <a href="https://github.com/jennybc">@jennybc</a>, <a href="https://github.com/jimhester">@jimhester</a>, <a href="https://github.com/jjchern">@jjchern</a>, <a href="https://github.com/klmr">@klmr</a>, <a href="https://github.com/krlmlr">@krlmlr</a>, <a href="https://github.com/lionel-">@lionel-</a>, <a href="https://github.com/mgirlich">@mgirlich</a>, <a href="https://github.com/mmuurr">@mmuurr</a>, <a href="https://github.com/npjc">@npjc</a>, <a href="https://github.com/pssguy">@pssguy</a>, and <a href="https://github.com/robinsones">@robinsones</a>)</p>
 </div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -249,6 +258,8 @@
  gtag('config', 'UA-115082821-1');
 </script></footer>
 </div>
+
+  
 
   </body>
 </html>

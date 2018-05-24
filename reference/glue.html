@@ -103,21 +103,25 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Format and interpolate a string</h1>
-    <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a></small>
+    <div class="hidden name"><code>glue.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Expressions enclosed by braces will be evaluated as R code. Long strings are
 broken by line and concatenated together. Leading whitespace and blank lines
 from the first and last lines are automatically trimmed.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>glue_data</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
-  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>, <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>)
+  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>, <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>,
+  <span class='kw'>.trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>glue</span>(<span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>, <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>,
   <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>)</pre>
@@ -165,12 +169,17 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
 <code>data</code> used to transform the output of each block before during or after
 evaluation. For example transformers see <code><a href='../articles/transformers.html'>vignette("transformers")</a></code>.</p></td>
     </tr>
+    <tr>
+      <th>.trim</th>
+      <td><p>[<code>logical(1)</code>: &#8216;TRUE&#8217;]<br /> Whether to trim the input
+template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='https://www.python.org/dev/peps/pep-0498/'>https://www.python.org/dev/peps/pep-0498/</a> and
-<a href='https://www.python.org/dev/peps/pep-0257'>https://www.python.org/dev/peps/pep-0257</a> upon which this is based.</p>
+    <div class='dont-index'><p><a href='https://www.python.org/dev/peps/pep-0498/'>https://www.python.org/dev/peps/pep-0498/</a> and
+<a href='https://www.python.org/dev/peps/pep-0257'>https://www.python.org/dev/peps/pep-0257</a> upon which this is based.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -288,6 +297,8 @@ evaluation. For example transformers see <code><a href='../articles/transformers
 </script>
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -103,24 +103,36 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="contents">
     <div id="glue-1-2-0-9000" class="section level1">
 <h1 class="page-header">
 <a href="#glue-1-2-0-9000" class="anchor"></a>glue 1.2.0.9000<small> Unreleased </small>
 </h1>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
+<li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for clarities sake. Previous uses can be replaced by <code>eval(parse(text = text), envir)</code>.</p></li>
+<li><p><code>collpase()</code> has been renamed to <code>glue_collpase()</code> to avoid namespace collisions with <code><a href="http://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
+</ul>
+</div>
+<div id="bugfixes-and-minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bugfixes-and-minor-changes" class="anchor"></a>Bugfixes and minor changes</h2>
+<ul>
+<li><p>Glue now evaluates unnamed arguments lazily with <code>delayedAssign()</code>, so there is no performance cost if an argument is not used. (<a href='https://github.com/tidyverse/glue/issues/83'>#83</a>, <a href='http://github.com/egnha'>@egnha</a>).</p></li>
+<li><p>Fixed a bug where names in the assigned expression of an interpolation variable would conflict with the name of the variable itself (<a href='https://github.com/tidyverse/glue/issues/89'>#89</a>, <a href='http://github.com/egnha'>@egnha</a>).</p></li>
 <li><p><code><a href="../reference/glue_col.html">glue_col()</a></code> and <code><a href="../reference/glue_col.html">glue_data_col()</a></code> functions to display strings with color.</p></li>
 <li><p>Do not drop the <code>glue</code> class when subsetting (<a href='https://github.com/tidyverse/glue/issues/66'>#66</a>).</p></li>
-<li><p>Fix <code>glue()</code> and <code><a href="../reference/collapse.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='http://github.com/dpprdan'>@dpprdan</a>)</p></li>
+<li><p>Fix <code>glue()</code> and <code><a href="../reference/glue-deprecated.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='http://github.com/dpprdan'>@dpprdan</a>)</p></li>
 </ul>
+</div>
 </div>
     <div id="glue-1-2-0" class="section level1">
 <h1 class="page-header">
@@ -153,7 +165,7 @@
 <li><p><code>glue()</code> always returns ‘UTF-8’ strings, converting inputs if in other encodings if needed.</p></li>
 <li><p><code>to()</code> and <code>to_data()</code> have been removed.</p></li>
 <li><p><code>glue()</code> and <code><a href="../reference/glue.html">glue_data()</a></code> can now take alternative delimiters to <code>{</code> and <code>}</code>. This is useful if you are writing to a format that uses a lot of braces, such as LaTeX. (<a href='https://github.com/tidyverse/glue/issues/23'>#23</a>)</p></li>
-<li><p><code><a href="../reference/collapse.html">collapse()</a></code> now returns 0 length output if given 0 length input (<a href='https://github.com/tidyverse/glue/issues/28'>#28</a>).</p></li>
+<li><p><code><a href="../reference/glue-deprecated.html">collapse()</a></code> now returns 0 length output if given 0 length input (<a href='https://github.com/tidyverse/glue/issues/28'>#28</a>).</p></li>
 </ul>
 </div>
     <div id="glue-0-0-0-9000" class="section level1">
@@ -165,7 +177,6 @@
 <li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
 </ul>
 </div>
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -203,6 +214,8 @@
 </script>
       </footer>
    </div>
+
+  
 
   </body>
 </html>
