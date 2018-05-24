@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# glue
+# glue <img src="man/figures/logo.png" align="right" />
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
 [![Travis-CI Build
@@ -75,6 +75,9 @@ library(dplyr)
 #> The following object is masked from 'package:glue':
 #> 
 #>     collapse
+#> The following object is masked from '.env':
+#> 
+#>     id
 #> The following objects are masked from 'package:stats':
 #> 
 #>     filter, lag
