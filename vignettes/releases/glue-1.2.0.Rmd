@@ -88,7 +88,7 @@ collapse_transformer <- function(regex = "[*]$", ...) {
     if (grepl(regex, code)) {
         code <- sub(regex, "", code)
     }
-    res <- evaluate(code, envir)
+    res <- eval(parse(text = code), envir = envir)
     collapse(res, ...)
   }
 }
@@ -107,10 +107,10 @@ sprintf_transformer <- function(code, envir) {
   if (m != -1) {
     format <- regmatches(code, m)
     regmatches(code, m) <- ""
-    res <- evaluate(code, envir)
+    res <- eval(parse(text = code), envir = envir)
     do.call(sprintf, list(format, res))
   } else {
-    evaluate(code, envir)
+    eval(parse(text = code), envir = envir)
   }
 }
 
