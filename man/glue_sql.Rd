@@ -36,8 +36,8 @@ SQL quoting.
 }
 \details{
 They automatically quote character results, quote identifiers if the glue
-expression is surrounded by backticks \sQuote{`} and do not quote
-non-characters such as numbers.
+expression is surrounded by backticks \sQuote{\code{} and do not quote non-characters such as numbers. If numeric data is stored in a character column (which should be quoted) pass the data to}glue_sql()` as a
+character.
 
 Returning the result with \code{DBI::SQL()} will suppress quoting if desired for
 a given value.
@@ -62,6 +62,15 @@ glue_sql("
   SELECT {`var`}
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length > {num}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
+
+# If sepal_length is store on the database as a character explicitly convert
+# the data to character to quote appropriately.
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length > {as.character(num)}
     AND {`tbl`}.species = {val}
   ", .con = con)
 
