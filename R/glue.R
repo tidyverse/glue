@@ -172,12 +172,14 @@ glue_collapse <- function(x, sep = "", width = Inf, last = "") {
   as_glue(x)
 }
 
+# nocov start
 #' @rdname glue-deprecated
 #' @export
 collapse <- function(x, sep = "", width = Inf, last = "") {
   .Deprecated("glue_collapse", package = "glue")
   glue_collapse(x, sep, width, last)
 }
+# nocov end
 
 #' Trim a character vector
 #'
