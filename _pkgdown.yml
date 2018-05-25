@@ -26,3 +26,6 @@ navbar:
 authors:
   "Jim Hester":
     href: http://jimhester.com
+
+home:
+  strip_header: true
