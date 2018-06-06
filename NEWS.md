@@ -9,6 +9,11 @@
 * `collapse()` has been renamed to `glue_collapse()` to avoid namespace
   collisions with `dplyr::collapse()`.
 
+## Features
+
+* `compare.glue()` was added, to make it easier to use glue objects in
+  `testthat::expect_equal()` statements.
+
 ## Bugfixes and minor changes
 
 * Glue now evaluates unnamed arguments lazily with `delayedAssign()`, so there
