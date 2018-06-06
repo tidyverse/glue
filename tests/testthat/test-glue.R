@@ -1,7 +1,7 @@
 context("glue")
 
 test_that("inputs are concatenated, interpolated variables recycled", {
-  expect_identical(as_glue(c("testastring1", "testastring2")), glue("test", "a", "string", "{1:2}"))
+  expect_equal(glue("test", "a", "string", "{1:2}"), c("testastring1", "testastring2"))
 })
 test_that("glue errors if the expression fails", {
   expect_error(glue("{NoTfOuNd}"), "object .* not found")
@@ -12,79 +12,80 @@ test_that("glue errors if invalid format", {
 })
 
 test_that("glue returns length 1 string from length 1 input", {
-  expect_identical(as_glue(""), glue(""))
+  expect_equal(glue(""), "")
 })
 
 test_that("glue works with single expressions", {
   foo <- "foo"
-  expect_identical(as_glue(foo), glue("{foo}"))
+  expect_equal(glue("{foo}"), foo)
 
   foo <- 1L
-  expect_identical(as_glue(foo), glue("{foo}"))
+  expect_identical(glue("{foo}"), as_glue(foo))
 
   foo <- as.raw(1)
-  expect_identical(as_glue(foo), glue("{foo}"))
+  expect_identical(glue("{foo}"), as_glue(foo))
 
   foo <- TRUE
-  expect_identical(as_glue(foo), glue("{foo}"))
+  expect_identical(glue("{foo}"), as_glue(foo))
 
   foo <- as.Date("2016-01-01")
-  expect_identical(as_glue(foo), glue("{foo}"))
+  expect_identical(glue("{foo}"), as_glue(foo))
 })
 
 test_that("glue works with repeated expressions", {
   foo <- "foo"
-  expect_identical(as_glue(paste(foo, foo)), glue("{foo} {foo}"))
+  expect_equal(glue("{foo} {foo}"), paste(foo, foo))
 
   foo <- 1L
-  expect_identical(as_glue(paste(as.character(foo), as.character(foo))), glue("{foo} {foo}"))
+  expect_equal(glue("{foo} {foo}"), paste(as.character(foo), as.character(foo)))
 
   foo <- as.raw(1)
-  expect_identical(as_glue(paste(as.character(foo), as.character(foo))), glue("{foo} {foo}"))
+  expect_equal(glue("{foo} {foo}"), paste(as.character(foo), as.character(foo)))
 
   foo <- TRUE
-  expect_identical(as_glue(paste(as.character(foo), as.character(foo))), glue("{foo} {foo}"))
+  expect_equal(glue("{foo} {foo}"), paste(as.character(foo), as.character(foo)))
 
   foo <- as.Date("2016-01-01")
-  expect_identical(as_glue(paste(as.character(foo), as.character(foo))), glue("{foo} {foo}"))
+  expect_equal(glue("{foo} {foo}"), paste(as.character(foo), as.character(foo)))
 })
 
 test_that("glue works with multiple expressions", {
   foo <- "foo"
   bar <- "bar"
-  expect_identical(as_glue(paste(foo, bar)), glue("{foo} {bar}"))
+  expect_equal(glue("{foo} {bar}"), paste(foo, bar))
 
   foo <- 1L
   bar <- 2L
-  expect_identical(as_glue(paste(as.character(foo), as.character(bar))), glue("{foo} {bar}"))
+  expect_equal(glue("{foo} {bar}"), paste(as.character(foo), as.character(bar)))
 
   foo <- as.raw(1)
   bar <- as.raw(2)
-  expect_identical(as_glue(paste(as.character(foo), as.character(bar))), glue("{foo} {bar}"))
+  expect_equal(glue("{foo} {bar}"), paste(as.character(foo), as.character(bar)))
 
   foo <- TRUE
   bar <- FALSE
-  expect_identical(as_glue(paste(as.character(foo), as.character(bar))), glue("{foo} {bar}"))
+  expect_equal(glue("{foo} {bar}"), paste(as.character(foo), as.character(bar)))
 
   foo <- as.Date("2016-01-01")
   bar <- as.Date("2016-01-02")
-  expect_identical(as_glue(paste(as.character(foo), as.character(bar))), glue("{foo} {bar}"))
+  expect_equal(glue("{foo} {bar}"), paste(as.character(foo), as.character(bar)))
 })
 
 test_that("glue with doubled braces are converted glue single braces", {
-  expect_identical(as_glue("{foo}"), glue("{{foo}}"))
+  expect_equal(glue("{{foo}}"), "{foo}")
 })
 
 test_that("glue works with complex expressions", {
   `foo}\`` <- "foo"
 
-  expect_identical(as_glue(`foo}\``), glue("{
+  expect_equal(glue("{
       {
         '}\\'' # { and } in comments, single quotes
         \"}\\\"\" # or double quotes are ignored
         `foo}\\`` # as are { in backticks
       }
-  }"))
+  }"),
+  `foo}\``)
 })
 
 test_that("glue works with large outputs", {
@@ -92,12 +93,12 @@ test_that("glue works with large outputs", {
   foo <- paste(rep(letters, 40), collapse = "")
 
   # re-allocation on result
-  expect_identical(as_glue(foo), glue("{foo}"))
+  expect_equal(glue("{foo}"), foo)
 
   # re-allocation on input
   bar <- paste(rep(letters, 40), collapse = "")
   additional <- " some more text that requires an allocation"
-  expect_identical(as_glue(paste0(bar, additional)), glue("{bar}", additional))
+  expect_equal(glue("{bar}", additional), paste0(bar, additional))
 })
 
 test_that("glue works with named arguments", {
@@ -109,12 +110,12 @@ test_that("glue works with named arguments", {
     age = 40,
     . = "'.'")
 
-  expect_identical(
-    as_glue("My name is Joe, my age next year is 41, a dot is a '.'"),
-    res
+  expect_equal(
+    res,
+    "My name is Joe, my age next year is 41, a dot is a '.'"
   )
 
-  expect_identical("Fred", name)
+  expect_identical(name, "Fred")
 })
 
 test_that("glue evaluates arguments in the expected environment", {
@@ -124,11 +125,11 @@ test_that("glue evaluates arguments in the expected environment", {
     glue("x: {x}, x+1: {y}", y = x + 1, .envir = parent.frame())
   }
 
-  expect_identical(as_glue("x: 2, x+1: 3"), fun())
+  expect_equal(fun(), "x: 2, x+1: 3")
 })
 
 test_that("glue assigns arguments in the environment", {
-  expect_identical(as_glue("1"), glue::glue("{b}", a = 1, b = a))
+  expect_equal(glue("{b}", a = 1, b = a), "1")
 })
 
 test_that("error if non length 1 inputs", {
@@ -140,8 +141,8 @@ test_that("error if not simple recycling", {
 })
 
 test_that("recycle_columns returns if zero length input", {
-  expect_identical(list(), recycle_columns(list()))
-  expect_identical(character(), recycle_columns(list(character())))
+  expect_identical(recycle_columns(list()), list())
+  expect_identical(recycle_columns(list(character())), character())
 })
 
 test_that("glue_data evaluates in the object first, then enclosure, then parent", {
@@ -154,11 +155,11 @@ test_that("glue_data evaluates in the object first, then enclosure, then parent"
   }
 
   # The function environment
-  expect_identical(as_glue("3 2 1"), fun())
+  expect_equal(fun(), "3 2 1")
 
   # This environment
   env <- environment()
-  expect_identical(as_glue("3 1 1"), fun(env))
+  expect_equal(fun(env), "3 1 1")
 
   # A new environment
   env2 <- new.env(parent = emptyenv())
@@ -166,7 +167,7 @@ test_that("glue_data evaluates in the object first, then enclosure, then parent"
   env2$y <- 3
   env2$z <- 3
 
-  expect_identical(as_glue("3 3 3"), glue_data(env2, "{x} {y} {z}"))
+  expect_equal(glue_data(env2, "{x} {y} {z}"), "3 3 3")
 })
 
 test_that("glue_data lazily evaluates named interpolation variables, in order", {
@@ -176,42 +177,42 @@ test_that("glue_data lazily evaluates named interpolation variables, in order", 
   env <- new.env()
   env$x <- "blah"
 
-  expect_identical(
+  expect_equal(
     glue_data(.x = env, "{x}{z}", y = stop("!"), z = x),
-    as_glue("blahblah")
+    "blahblah"
   )
-  expect_identical(
+  expect_equal(
     glue_data(.x = env, "{x}{z}", z = x, y = stop("!")),
-    as_glue("blahblah")
+    "blahblah"
   )
-  expect_identical(
+  expect_equal(
     glue_data(.x = list(x = "blah"), "{x}{z}", y = stop("!"), z = x),
-    as_glue("blahblah")
+    "blahblah"
   )
-  expect_identical(
+  expect_equal(
     glue_data(.x = list(x = "blah"), "{x}{z}", z = x, y = stop("!")),
-    as_glue("blahblah")
+    "blahblah"
   )
-  expect_identical(
+  expect_equal(
     glue_data(.x = NULL, "{x}{z}", x = "blah", y = stop("!"), z = x),
-    as_glue("blahblah")
+    "blahblah"
   )
-  expect_identical(
+  expect_equal(
     glue_data(.x = NULL, "blahblah", y = stop("!"), z = x),
-    as_glue("blahblah")
+    "blahblah"
   )
-  expect_identical(
+  expect_equal(
     glue_data(.x = NULL, "blahblah", x = x, y = stop("!"), z = x),
-    as_glue("blahblah")
+    "blahblah"
   )
 })
 
 test_that("converting glue to character", {
-  expect_identical("foo bar", as.character(glue("foo bar")))
+  expect_identical(as.character(glue("foo bar")), "foo bar")
 })
 
 test_that("converting glue to glue", {
-  expect_identical(as_glue("foo bar"), as_glue(glue("foo bar")))
+  expect_equal(glue("foo bar"), "foo bar")
 })
 
 test_that("printing glue identical to cat()", {
@@ -219,47 +220,46 @@ test_that("printing glue identical to cat()", {
 })
 
 test_that("length 0 inputs produce length 0 outputs", {
-  expect_identical(as_glue(character(0)), glue("foo", character(0)))
-  expect_identical(as_glue(character(0)), glue("foo", NULL))
-  expect_identical(as_glue(character(0)), glue("foo", NULL, "bar"))
+  expect_equal(glue("foo", character(0)), character(0))
+  expect_equal(glue("foo", NULL), character(0))
+  expect_equal(glue("foo", NULL, "bar"), character(0))
 
-  expect_identical(as_glue(character(0)), glue("foo", "{character(0)}"))
-  expect_identical(as_glue(character(0)), glue("foo {character(0)}"))
+  expect_equal(glue("foo", "{character(0)}"), character(0))
+  expect_equal(glue("foo {character(0)}"), character(0))
 })
 
 test_that("values are trimmed before evaluation", {
 
   x <- " a1\n b2\n c3"
 
-  expect_identical(
-as_glue(
-"A
- a1
- b2
- c3
-B"),
+  expect_equal(
 glue("
   A
   {x}
   B
-  "))
+  "),
+"A
+ a1
+ b2
+ c3
+B")
 })
 
 test_that("glue works with alternative delimiters", {
-  expect_identical(as_glue("{1}"), glue("{1}", .open = "", .close = ""))
-  expect_identical(as_glue("{{}}"), glue("{{}}", .open = "", .close = ""))
+  expect_equal(glue("{1}", .open = "", .close = ""), "{1}")
+  expect_equal(glue("{{}}", .open = "", .close = ""), "{{}}")
 
-  expect_identical(as_glue("1"), glue("<<1>>", .open = "<<", .close = ">>"))
-  expect_identical(as_glue("<<>>"), glue("<<<<>>>>", .open = "<<", .close = ">>"))
+  expect_equal(glue("<<1>>", .open = "<<", .close = ">>"), "1")
+  expect_equal(glue("<<<<>>>>", .open = "<<", .close = ">>"), "<<>>")
 
-  expect_identical(as_glue("1"), glue("{{1}}", .open = "{{", .close = "}}"))
-  expect_identical(as_glue("1"), glue("{{ {{1}} }}", .open = "{{", .close = "}}"))
-  expect_identical(as_glue("1"), glue("{{ {{{1}}} }}", .open = "{{", .close = "}}"))
-  expect_identical(as_glue("1"), glue("{{ {{{{1}}}} }}", .open = "{{", .close = "}}"))
+  expect_equal(glue("{{1}}", .open = "{{", .close = "}}"), "1")
+  expect_equal(glue("{{ {{1}} }}", .open = "{{", .close = "}}"), "1")
+  expect_equal(glue("{{ {{{1}}} }}", .open = "{{", .close = "}}"), "1")
+  expect_equal(glue("{{ {{{{1}}}} }}", .open = "{{", .close = "}}"), "1")
 
-  expect_identical(as_glue("a"), glue("[letters[[1]]]", .open = "[", .close = "]"))
+  expect_equal(glue("[letters[[1]]]", .open = "[", .close = "]"), "a")
 
-  expect_identical(as_glue("a"), glue("[[ letters[[1]] ]]", .open = "[[", .close = "]]"))
+  expect_equal(glue("[[ letters[[1]] ]]", .open = "[[", .close = "]]"), "a")
 })
 
 test_that("glue always returns UTF-8 encoded strings regardless of input encodings", {
@@ -268,8 +268,8 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
 
   x_out <- as_glue(enc2utf8(x))
 
-  expect_identical(x_out, glue(x))
-  expect_identical(x_out, glue("{x}"))
+  expect_identical(glue(x), x_out)
+  expect_identical(glue("{x}"), x_out)
   expect_equal(Encoding(glue(x)), "UTF-8")
   expect_equal(Encoding(glue("{x}")), "UTF-8")
 
@@ -278,15 +278,15 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
 
   y_out <- as_glue(enc2utf8(y))
 
-  expect_identical(y_out, glue(y))
-  expect_identical(y_out, glue("{y}"))
+  expect_identical(glue(y), y_out)
+  expect_identical(glue("{y}"), y_out)
   expect_equal(Encoding(glue(y)), "UTF-8")
   expect_equal(Encoding(glue("{y}")), "UTF-8")
 
   xy_out <- as_glue(paste0(x_out, y_out))
 
-  expect_identical(xy_out, glue(x, y))
-  expect_identical(xy_out, glue("{x}{y}"))
+  expect_identical(glue(x, y), xy_out)
+  expect_identical(glue("{x}{y}"), xy_out)
   expect_equal(Encoding(glue(x, y)), "UTF-8")
   expect_equal(Encoding(glue("{x}{y}")), "UTF-8")
 
@@ -294,68 +294,68 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
 })
 
 test_that("glue always returns NA_character_ if given any NA input and `.na` == NULL", {
-  expect_identical(
+  expect_equal(
     glue("{NA}", .na = NULL),
-    as_glue(NA_character_))
+    NA_character_)
 
-  expect_identical(
+  expect_equal(
     glue(NA, .na = NULL),
-    as_glue(NA_character_))
+    NA_character_)
 
-  expect_identical(
+  expect_equal(
     glue(NA, 1, .na = NULL),
-    as_glue(NA_character_))
+    NA_character_)
 
-  expect_identical(
+  expect_equal(
     glue(1, NA, 2, .na = NULL),
-    as_glue(NA_character_))
+    NA_character_)
 
   x <- c("foo", NA_character_, "bar")
-  expect_identical(
+  expect_equal(
     glue("{x}", .na = NULL),
-    as_glue(c("foo", NA_character_, "bar")))
+    c("foo", NA_character_, "bar"))
 
-  expect_identical(
+  expect_equal(
     glue("{1:3} - {x}", .na = NULL),
-    as_glue(c("1 - foo", NA_character_, "3 - bar")))
+    c("1 - foo", NA_character_, "3 - bar"))
 })
 
 test_that("glue always returns .na if given any NA input and `.na` != NULL", {
-  expect_identical(
+  expect_equal(
     glue("{NA}", .na = "foo"),
-    as_glue("foo"))
+    "foo")
 
-  expect_identical(
+  expect_equal(
     glue("{NA}", .na = "foo"),
-    as_glue("foo"))
+    "foo")
 
-  expect_identical(
+  expect_equal(
     glue(NA, .na = "foo"),
-    as_glue("foo"))
+    "foo")
 
-  expect_identical(
+  expect_equal(
     glue(NA, 1, .na = "foo"),
-    as_glue("foo1"))
+    "foo1")
 
-  expect_identical(
+  expect_equal(
     glue(1, NA, 2, .na = "foo"),
-    as_glue("1foo2"))
+    "1foo2")
 
   x <- c("foo", NA_character_, "bar")
-  expect_identical(
+  expect_equal(
     glue("{x}", .na = "baz"),
-    as_glue(c("foo", "baz", "bar")))
+    c("foo", "baz", "bar"))
 
-  expect_identical(
+  expect_equal(
     glue("{1:3} - {x}", .na = "baz"),
-    as_glue(c("1 - foo", "2 - baz", "3 - bar")))
+    c("1 - foo", "2 - baz", "3 - bar"))
 })
 
 test_that("glue works within functions", {
   x <- 1
   f <- function(msg) glue(msg, .envir = parent.frame())
 
-  expect_identical(f("{x}"), as_glue("1"))
+  expect_equal(f("{x}"), "1")
 })
 
 test_that("scoping works within lapply (#42)", {
@@ -367,27 +367,23 @@ test_that("scoping works within lapply (#42)", {
 })
 
 test_that("glue works with lots of arguments", {
-  expect_identical(
+  expect_equal(
     glue("a", "very", "long", "test", "of", "how", "many", "unnamed",
       "arguments", "you", "can", "have"),
-
-    as_glue("averylongtestofhowmanyunnamedargumentsyoucanhave"))
+    "averylongtestofhowmanyunnamedargumentsyoucanhave")
 })
 
 test_that("glue does not drop it's class when subsetting", {
-  expect_identical(
-    glue("foo")[1], as_glue("foo"))
+  expect_equal(glue("foo")[1], "foo")
 
-  expect_identical(
-    glue("foo")[[1]], as_glue("foo"))
+  expect_equal(glue("foo")[[1]], "foo")
 
-  expect_identical(
-    glue("{1:2}")[2], as_glue("2"))
+  expect_equal(glue("{1:2}")[2], "2")
 })
 
 test_that("interpolation variables can have same names as their values (#89)", {
   x <- 1
-  expect_identical(
+  expect_equal(
     glue("{x}", x = x + 1),
-    as_glue("2"))
+    "2")
 })

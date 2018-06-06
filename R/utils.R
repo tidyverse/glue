@@ -70,3 +70,11 @@ na_rows <- function(res) {
 delayed_assign <- function(x, value, eval.env = parent.frame(1), assign.env = parent.frame(1)) {
   (get(".Internal", baseenv()))(delayedAssign(x, value, eval.env, assign.env))
 }
+
+## @export
+compare.glue <- function(x, y) {
+  if (identical(class(y), "character")) {
+    class(x) <- NULL
+  }
+  NextMethod("compare")
+}
