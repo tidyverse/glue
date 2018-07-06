@@ -1,3 +1,16 @@
+# abjutils
+
+Version: 0.2.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘httr’ ‘progress’
+      All declared Imports should be used.
+    ```
+
 # alphavantager
 
 Version: 0.1.0
@@ -10,49 +23,138 @@ Version: 0.1.0
       All declared Imports should be used.
     ```
 
-# bigstatsr
+# annovarR
 
-Version: 0.2.2
+Version: 1.0.0
 
 ## In both
 
-*   checking tests ...
+*   checking installed package size ... NOTE
     ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      'dimnames' applied to non-array
-      1: sparseSVM::sparseSVM(X2, y.factor, alpha = alpha, lambda.min = lambda.min, penalty.factor = m) at testthat/test-spSVM.R:32
-      
-      2. Error: equality with sparseSVM with only half the data (@test-spSVM.R#68) ---
-      'dimnames' applied to non-array
-      1: sparseSVM::sparseSVM(X2[ind, ], y.factor[ind], alpha = alpha, lambda.min = lambda.min, 
-             penalty.factor = m) at testthat/test-spSVM.R:68
-      
-      testthat results ================================================================
-      OK: 1629 SKIPPED: 0 FAILED: 2
-      1. Error: equality with sparseSVM with all data (@test-spSVM.R#32) 
-      2. Error: equality with sparseSVM with only half the data (@test-spSVM.R#68) 
-      
-      Error: testthat unit tests failed
-      Execution halted
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        extdata   4.6Mb
     ```
 
-# blastula
+# anomalize
 
-Version: 0.1
+Version: 0.1.1
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.5Mb
+      sub-directories of 1Mb or more:
+        help   4.7Mb
+    ```
+
+# available
+
+Version: 1.0.0
+
+## Newly broken
+
+*   checking examples ... WARNING
+    ```
+    Found the following significant warnings:
+    
+      Warning: 'glue::collapse' is deprecated.
+    Deprecated functions may be defunct as soon as of the next release of
+    R.
+    See ?Deprecated.
+    ```
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘rJava’
+    Namespace in Imports field not imported from: ‘purrr’
+      All declared Imports should be used.
+    ```
+
+# bcmaps
+
+Version: 0.17.1
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘bcmaps.rdata’
+    ```
+
+# blastula
+
+Version: 0.2.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘purrr’ ‘rlang’ ‘tibble’
+      All declared Imports should be used.
+    ```
+
+# blorr
+
+Version: 0.1.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘descriptr’
+      All declared Imports should be used.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘lmtest’
+    ```
+
+# bsplus
+
+Version: 0.1.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘methods’
+      All declared Imports should be used.
+    ```
+
+# bupaR
+
+Version: 0.4.1
+
+## In both
+
+*   checking whether package ‘bupaR’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘eventdataR’ was built under R version 3.4.4
+    See ‘.../revdep/checks.noindex/bupaR/new/bupaR.Rcheck/00install.out’ for details.
+    ```
+
+# CDECRetrieve
+
+Version: 0.1.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘lazyeval’ ‘purrr’ ‘roxygen2’
       All declared Imports should be used.
     ```
 
 # configr
 
-Version: 0.3.1
+Version: 0.3.3
 
 ## In both
 
@@ -63,7 +165,7 @@ Version: 0.3.1
 
 # dbplyr
 
-Version: 1.1.0
+Version: 1.2.1
 
 ## In both
 
@@ -73,15 +175,66 @@ Version: 1.1.0
       All declared Imports should be used.
     ```
 
-# dplyr
+# DiagrammeR
 
-Version: 0.7.4
+Version: 1.0.0
 
 ## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.1Mb
+      sub-directories of 1Mb or more:
+        R             2.2Mb
+        htmlwidgets   3.0Mb
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 1 marked UTF-8 string
+    ```
+
+# dplyr
+
+Version: 0.7.6
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.1Mb
+      sub-directories of 1Mb or more:
+        libs   2.6Mb
+    ```
 
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 4 marked UTF-8 strings
+    ```
+
+# dynutils
+
+Version: 0.1.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘Rcpp’
+      All declared Imports should be used.
+    ```
+
+# febr
+
+Version: 1.0-0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘cellranger’ ‘knitr’
+      All declared Imports should be used.
     ```
 
 # fiery
@@ -90,78 +243,46 @@ Version: 1.1.0
 
 ## In both
 
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             onWSOpen = private$websocket_logic)) at .../revdep/checks/fiery/new/fiery.Rcheck/00_pkg_src/fiery/R/Fire.R:498
-      8: stop("Failed to create server")
-      
-      testthat results ================================================================
-      OK: 236 SKIPPED: 0 FAILED: 7
-      1. Error: life cycle events get fired (@test-Fire.R#168) 
-      2. Error: errors in start and resume gets caught (@test-Fire.R#288) 
-      3. Error: futures can be added and called (@test-Fire.R#317) 
-      4. Error: ignite is blocked during run (@test-Fire.R#404) 
-      5. Error: external triggers are fired (@test-Fire.R#424) 
-      6. Error: showcase opens a browser (@test-Fire.R#453) 
-      7. Error: is_running works (@test-Fire.R#529) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 *   checking dependencies in R code ... NOTE
     ```
     Namespace in Imports field not imported from: ‘desc’
       All declared Imports should be used.
     ```
 
-# huxtable
+# ggstatsplot
 
-Version: 1.1.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             message = handle_message))
-      4: withCallingHandlers(withVisible(code), warning = handle_warning, message = handle_message)
-      5: withVisible(code)
-      6: rmarkdown::render("table-tester-2.Rmd", quiet = TRUE, output_format = "pdf_document")
-      7: convert(output_file, run_citeproc)
-      8: pandoc_convert(utf8_input, pandoc_to, output_format$pandoc$from, output, citeproc, 
-             output_format$pandoc$args, !quiet)
-      9: stop("pandoc document conversion failed with error ", result, call. = FALSE)
-      
-      testthat results ================================================================
-      OK: 290 SKIPPED: 48 FAILED: 1
-      1. Error: table-tester-2.Rmd renders without errors in LaTeX (@test-with-pandoc.R#27) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘xtable’
-    ```
-
-# kokudosuuchi
-
-Version: 0.4.1
+Version: 0.0.4
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘stringi’
+    Namespaces in Imports field not imported from:
+      ‘MBESS’ ‘apaTables’
       All declared Imports should be used.
     ```
+
+# googledrive
+
+Version: 0.1.1
+
+## Newly broken
+
+*   checking examples ... WARNING
+    ```
+    Found the following significant warnings:
+    
+      Warning: 'collapse' is deprecated.
+    Deprecated functions may be defunct as soon as of the next release of
+    R.
+    See ?Deprecated.
+    ```
+
+# kokudosuuchi
+
+Version: 0.4.2
+
+## In both
 
 *   checking data for non-ASCII characters ... NOTE
     ```
@@ -170,9 +291,49 @@ Version: 0.4.1
 
 # mosaic
 
-Version: 1.1.0
+Version: 1.3.0
 
 ## In both
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘mosaic-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: cdist
+    > ### Title: Central portion of a distribution
+    > ### Aliases: cdist xcgamma xct xcchisq xcf xcbinom xcpois xcgeom xcnbinom
+    > ###   xcbeta
+    > 
+    > ### ** Examples
+    > 
+    > cdist( "norm", .95)
+    Error in find_subclass("Geom", geom, parent.frame()) : 
+      could not find function "find_subclass"
+    Calls: cdist ... plot_multi_dist -> do.call -> <Anonymous> -> do.call -> <Anonymous>
+    Execution halted
+    ```
+
+*   checking whether package ‘mosaic’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘dplyr’ was built under R version 3.4.4
+      Warning: package ‘ggformula’ was built under R version 3.4.4
+      Warning: package ‘ggplot2’ was built under R version 3.4.4
+      Warning: package ‘mosaicData’ was built under R version 3.4.4
+      Warning: package ‘Matrix’ was built under R version 3.4.4
+    See ‘.../revdep/checks.noindex/mosaic/new/mosaic.Rcheck/00install.out’ for details.
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 43-45 (ggformula-lattice.Rmd) 
+    Error: processing vignette 'ggformula-lattice.Rmd' failed with diagnostics:
+    could not find function "find_subclass"
+    Execution halted
+    ```
 
 *   checking package dependencies ... NOTE
     ```
@@ -181,10 +342,10 @@ Version: 1.1.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.0Mb
+      installed size is  5.5Mb
       sub-directories of 1Mb or more:
         R     3.1Mb
-        doc   2.3Mb
+        doc   1.9Mb
     ```
 
 *   checking Rd cross-references ... NOTE
@@ -192,21 +353,170 @@ Version: 1.1.0
     Package unavailable to check Rd xrefs: ‘cubature’
     ```
 
-# seplyr
+# processmapR
 
-Version: 0.1.5
+Version: 0.3.2
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘datasets’
+    Namespace in Imports field not imported from: ‘viridis’
       All declared Imports should be used.
+    ```
+
+# radiant.data
+
+Version: 0.9.5
+
+## Newly broken
+
+*   checking examples ... WARNING
+    ```
+    Found the following significant warnings:
+    
+      Warning: 'glue::collapse' is deprecated.
+      Warning: 'glue::collapse' is deprecated.
+      Warning: 'glue::collapse' is deprecated.
+      Warning: 'glue::collapse' is deprecated.
+    Deprecated functions may be defunct as soon as of the next release of
+    R.
+    See ?Deprecated.
+    ```
+
+## In both
+
+*   checking whether package ‘radiant.data’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘ggplot2’ was built under R version 3.4.4
+      Warning: package ‘lubridate’ was built under R version 3.4.4
+      Warning: package ‘tidyr’ was built under R version 3.4.4
+      Warning: package ‘dplyr’ was built under R version 3.4.4
+    See ‘.../revdep/checks.noindex/radiant.data/new/radiant.data.Rcheck/00install.out’ for details.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘curl’ ‘writexl’
+      All declared Imports should be used.
+    ```
+
+# rfbCNPJ
+
+Version: 0.1.1
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 27 marked UTF-8 strings
+    ```
+
+# riingo
+
+Version: 0.1.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘rlang’
+      All declared Imports should be used.
+    ```
+
+# sperrorest
+
+Version: 2.1.5
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘RSAGA’
+    ```
+
+# stringr
+
+Version: 1.3.1
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 3 marked UTF-8 strings
+    ```
+
+# textclean
+
+Version: 0.9.2
+
+## Newly broken
+
+*   checking examples ... WARNING
+    ```
+    Found the following significant warnings:
+    
+      Warning: 'collapse' is deprecated.
+      Warning: 'collapse' is deprecated.
+      Warning: 'collapse' is deprecated.
+      Warning: 'collapse' is deprecated.
+      Warning: 'collapse' is deprecated.
+      Warning: 'collapse' is deprecated.
+    Deprecated functions may be defunct as soon as of the next release of
+    R.
+    See ?Deprecated.
+    ```
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘lexicon’
+      All declared Imports should be used.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘gsubfn’
+    ```
+
+# tibbletime
+
+Version: 0.1.1
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    
+        filter
+    
+    Warning: package 'dplyr' was built under R version 3.4.4
+    
+    Attaching package: 'dplyr'
+    
+    The following objects are masked from 'package:stats':
+    
+        filter, lag
+    
+    The following objects are masked from 'package:base':
+    
+        intersect, setdiff, setequal, union
+    
+    --smart/-S has been removed.  Use +smart or -smart extension instead.
+    For example: pandoc -f markdown+smart -t markdown-smart.
+    Try pandoc --help for more information.
+    Error: processing vignette 'TT-01-time-based-filtering.Rmd' failed with diagnostics:
+    pandoc document conversion failed with error 2
+    Execution halted
     ```
 
 # tidyr
 
-Version: 0.7.2
+Version: 0.8.1
 
 ## In both
 
