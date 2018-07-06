@@ -291,6 +291,14 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
   expect_equal(Encoding(glue("{x}{y}")), "UTF-8")
 
   expect_equal(Encoding(glue_collapse(x)), "UTF-8")
+
+  skip_on_os(c("mac", "linux", "solaris"))
+  withr::with_locale(c(LC_CTYPE = "Chinese (Simplified)_China.936"), {
+    z <- "{format(as.Date(\"2018-01-04\"), \"%Y\U5E74\")}"
+    z_out <- glue(z)
+    expect_equal(Encoding(z_out), "UTF-8")
+    expect_equal(z_out, "2018\U5E74")
+  })
 })
 
 test_that("glue always returns NA_character_ if given any NA input and `.na` == NULL", {

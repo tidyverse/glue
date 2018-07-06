@@ -138,7 +138,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
       if (delim_level == 0) {
         // Result of the current glue statement
         SEXP expr = PROTECT(Rf_ScalarString(
-            Rf_mkCharLen(&xx[start], (i - close_len) + 1 - start)));
+            Rf_mkCharLenCE(&xx[start], (i - close_len) + 1 - start, CE_UTF8)));
         SEXP call = PROTECT(Rf_lang2(f, expr));
         SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
 
