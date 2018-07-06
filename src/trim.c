@@ -7,7 +7,8 @@ SEXP trim_(SEXP x) {
   size_t len = LENGTH(x);
 
   SEXP out = PROTECT(Rf_allocVector(STRSXP, len));
-  for (size_t num = 0; num < len; ++num) {
+  size_t num;
+  for (num = 0; num < len; ++num) {
     const char* xx = Rf_translateCharUTF8(STRING_ELT(x, num));
     size_t str_len = strlen(xx);
 

@@ -53,7 +53,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   size_t start = 0;
   states state = text;
   states prev_state = text;
-  for (size_t i = 0; i < str_len; ++i) {
+  size_t i = 0;
+  for (i = 0; i < str_len; ++i) {
     switch (state) {
     case text: {
       if (strncmp(&xx[i], open, open_len) == 0) {
@@ -136,13 +137,13 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
         };
       }
       if (delim_level == 0) {
-        // Result of the current glue statement
+        /* Result of the current glue statement */
         SEXP expr = PROTECT(Rf_ScalarString(
             Rf_mkCharLenCE(&xx[start], (i - close_len) + 1 - start, CE_UTF8)));
         SEXP call = PROTECT(Rf_lang2(f, expr));
         SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
 
-        // text in between last glue statement
+        /* text in between last glue statement */
         if (j > 0) {
           str[j] = '\0';
           SEXP str_ = PROTECT(Rf_ScalarString(Rf_mkCharLenCE(str, j, CE_UTF8)));
@@ -152,7 +153,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
 
         REPROTECT(out = set(out, k++, result), out_idx);
 
-        // Clear the string buffer
+        /* Clear the string buffer */
         memset(str, 0, j);
         j = 0;
         UNPROTECT(3);
