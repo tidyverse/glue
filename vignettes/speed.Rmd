@@ -43,6 +43,7 @@ library(glue)
 ```{r setup2, include = FALSE}
 plot_comparison <- function(x, ...) {
   library(ggplot2)
+  library(microbenchmark)
   x$expr <- forcats::fct_reorder(x$expr, x$time)
   colors <- ifelse(levels(x$expr) == "glue", "orange", "grey")
   autoplot(x, ...) +
@@ -53,7 +54,7 @@ plot_comparison <- function(x, ...) {
 
 ## Simple concatenation
 
-```{r}
+```{r, message = FALSE}
 bar <- "baz"
 
 simple <-
@@ -94,7 +95,7 @@ For instance the vectorized form of the previous benchmark is able to generate
 `paste0()` and `sprintf()`. NB. `str_interp()` does not support
 vectorization, so were removed.
 
-```{r}
+```{r, message = FALSE}
 bar <- rep("bar", 1e5)
 
 vectorized <-
