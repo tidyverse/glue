@@ -200,10 +200,8 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
   <span class='kw'>anniversary</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2001-10-12"</span>))</div><div class='output co'>#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</div><div class='input'>
 
 <span class='co'># `glue_data()` is useful in magrittr pipes</span>
-<span class='fu'>library</span>(<span class='no'>magrittr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='input'><span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>glue_data</span>(<span class='st'>"{rownames(.)} has {hp} hp"</span>)</div><div class='output co'>#&gt; Mazda RX4 has 110 hp
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)
+<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>glue_data</span>(<span class='st'>"{rownames(.)} has {hp} hp"</span>)</div><div class='output co'>#&gt; Mazda RX4 has 110 hp
 #&gt; Mazda RX4 Wag has 110 hp
 #&gt; Datsun 710 has 93 hp
 #&gt; Hornet 4 Drive has 110 hp
@@ -236,12 +234,10 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 #&gt; Maserati Bora has 335 hp
 #&gt; Volvo 142E has 109 hp</div><div class='input'>
 <span class='co'># Or within dplyr pipelines</span>
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘dplyr’ was built under R version 3.4.4</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:glue’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    collapse</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'>    collapse</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>

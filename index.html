@@ -118,7 +118,7 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3">name &lt;-<span class="st"> "Fred"</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">age &lt;-<span class="st"> </span><span class="dv">50</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">anniversary &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">"1991-10-12"</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name},'</span>,</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">'My name is {name},'</span>,</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="st">' my age next year is {age + 1},'</span>,</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.</span></a></code></pre></div>
@@ -126,7 +126,7 @@
 <div id="named-arguments-are-used-to-assign-temporary-variables-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#named-arguments-are-used-to-assign-temporary-variables-" class="anchor"></a>Named arguments are used to assign temporary variables.</h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name},'</span>,</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">'My name is {name},'</span>,</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="st">' my age next year is {age + 1},'</span>,</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">name =</span> <span class="st">"Joe"</span>,</a>
@@ -150,39 +150,40 @@
 <h5 class="hasAnchor">
 <a href="#or-within-dplyr-pipelines" class="anchor"></a>Or within dplyr pipelines</h5>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; The following object is masked from 'package:glue':</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;     collapse</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;     filter, lag</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw">head</span>(iris) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">description =</span> <span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"This {Species} has a petal length of {Petal.Length}"</span>))</a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; 2          4.9         3.0          1.4         0.2  setosa</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 3          4.7         3.2          1.3         0.2  setosa</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; 4          4.6         3.1          1.5         0.2  setosa</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; 5          5.0         3.6          1.4         0.2  setosa</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 6          5.4         3.9          1.7         0.4  setosa</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt;                             description</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; 1 This setosa has a petal length of 1.4</span></a>
-<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; 2 This setosa has a petal length of 1.4</span></a>
-<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt; 3 This setosa has a petal length of 1.3</span></a>
-<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt; 4 This setosa has a petal length of 1.5</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; 5 This setosa has a petal length of 1.4</span></a>
-<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; Warning: package 'dplyr' was built under R version 3.4.4</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; The following object is masked from 'package:glue':</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;     collapse</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;     filter, lag</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="kw">head</span>(iris) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">description =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"This {Species} has a petal length of {Petal.Length}"</span>))</a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 2          4.9         3.0          1.4         0.2  setosa</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; 3          4.7         3.2          1.3         0.2  setosa</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; 4          4.6         3.1          1.5         0.2  setosa</span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; 5          5.0         3.6          1.4         0.2  setosa</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 6          5.4         3.9          1.7         0.4  setosa</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt;                             description</span></a>
+<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; 1 This setosa has a petal length of 1.4</span></a>
+<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt; 2 This setosa has a petal length of 1.4</span></a>
+<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt; 3 This setosa has a petal length of 1.3</span></a>
+<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; 4 This setosa has a petal length of 1.5</span></a>
+<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; 5 This setosa has a petal length of 1.4</span></a>
+<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></a></code></pre></div>
 </div>
 <div id="leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed-" class="anchor"></a>Leading whitespace and blank lines from the first and last lines are automatically trimmed.</h5>
 <p>This lets you indent the strings naturally in code.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    A formatted string</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">    Can have multiple lines</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">      with additional indention preserved</span></a>
@@ -194,7 +195,7 @@
 <div id="an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline-" class="anchor"></a>An additional newline can be used if you want a leading or trailing newline.</h5>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  leading or trailing newlines can be added explicitly</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"></a>
@@ -205,7 +206,7 @@
 <div id="at-the-end-of-a-line-continues-it-without-a-new-line-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#at-the-end-of-a-line-continues-it-without-a-new-line-" class="anchor"></a><code>\\</code> at the end of a line continues it without a new line.</h5>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">    A formatted string </span><span class="ch">\\</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    can also be on a </span><span class="ch">\\</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    single line</span></a>
@@ -216,14 +217,14 @@
 <h5 class="hasAnchor">
 <a href="#a-literal-brace-is-inserted-by-using-doubled-braces-" class="anchor"></a>A literal brace is inserted by using doubled braces.</h5>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">name &lt;-<span class="st"> "Fred"</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"My name is {name}, not {{name}}."</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"My name is {name}, not {{name}}."</span>)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; My name is Fred, not {name}.</span></a></code></pre></div>
 </div>
 <div id="alternative-delimiters-can-be-specified-with--open-and--close-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#alternative-delimiters-can-be-specified-with--open-and--close-" class="anchor"></a>Alternative delimiters can be specified with <code>.open</code> and <code>.close</code>.</h5>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">one &lt;-<span class="st"> "1"</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"The value of $e^{2</span><span class="ch">\\</span><span class="st">pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class="dt">.open =</span> <span class="st">"&lt;&lt;"</span>, <span class="dt">.close =</span> <span class="st">"&gt;&gt;"</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/glue/topics/glue">glue</a></span>(<span class="st">"The value of $e^{2</span><span class="ch">\\</span><span class="st">pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class="dt">.open =</span> <span class="st">"&lt;&lt;"</span>, <span class="dt">.close =</span> <span class="st">"&gt;&gt;"</span>)</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; The value of $e^{2\pi i}$ is $1$.</span></a></code></pre></div>
 </div>
 <div id="all-valid-r-code-works-in-expressions-including-braces-and-escaping-" class="section level5">
