@@ -25,7 +25,8 @@ Suggests:
     rprintf,
     stringr,
     ggplot2,
-    dplyr
+    dplyr,
+    withr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
