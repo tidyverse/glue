@@ -395,3 +395,7 @@ test_that("interpolation variables can have same names as their values (#89)", {
     glue("{x}", x = x + 1),
     "2")
 })
+
+test_that("as_glue works", {
+  expect_identical(as_glue(as_glue("x")), as_glue("x"))
+})
