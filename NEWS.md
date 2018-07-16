@@ -1,4 +1,4 @@
-# glue 1.2.0.9000
+# glue 1.3.0
 
 ## Breaking changes
 
@@ -14,15 +14,16 @@
 * `compare.glue()` was added, to make it easier to use glue objects in
   `testthat::expect_equal()` statements.
 
+* `glue_col()` and `glue_data_col()` functions added to display strings with
+  color.
+
 ## Bugfixes and minor changes
 
 * Glue now evaluates unnamed arguments lazily with `delayedAssign()`, so there
   is no performance cost if an argument is not used. (#83, @egnha).
-  
+
 * Fixed a bug where names in the assigned expression of an interpolation
   variable would conflict with the name of the variable itself (#89, @egnha).
-
-* `glue_col()` and `glue_data_col()` functions to display strings with color.
 
 * Do not drop the `glue` class when subsetting (#66).
 
