@@ -36,7 +36,7 @@ A good way to determine this is to compare it's speed of execution to some alter
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>",
   eval = as.logical(Sys.getenv("EVAL_VIGNETTES", "FALSE")),
-  cache = TRUE)
+  cache = FALSE)
 library(glue)
 ```
 
