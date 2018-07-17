@@ -113,4 +113,4 @@ plot_comparison(vectorized, log = FALSE)
 ```
 
 [^1]: pystr is no longer available from CRAN due to failure to correct
-installation errors and was therefore removed from futher testing.
+installation errors and was therefore removed from further testing.
