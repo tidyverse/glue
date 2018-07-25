@@ -68,7 +68,7 @@ na_rows <- function(res) {
 
 # A version of delayedAssign which does _not_ use substitute
 delayed_assign <- function(x, value, eval.env = parent.frame(1), assign.env = parent.frame(1)) {
-  (get(".Internal", baseenv()))(delayedAssign(x, value, eval.env, assign.env))
+  do.call(delayedAssign, list(x, value, eval.env, assign.env))
 }
 
 ## @export
