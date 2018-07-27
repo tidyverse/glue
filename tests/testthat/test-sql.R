@@ -23,13 +23,13 @@ describe("glue_sql", {
     expect_identical(glue_sql("{`var`}", .con = con), DBI::SQL("`foo`"))
   })
   it("quotes Id identifiers", {
-    var <- DBI::Id(schema = "foo", table = "bar", columm = "baz")
+    var <- DBI::Id(schema = "foo", table = "bar", column = "baz")
     expect_identical(glue_sql("{`var`}", .con = con), DBI::SQL("`foo`.`bar`.`baz`"))
   })
   it("quotes lists of Id identifiers", {
     var <- c(
-      DBI::Id(schema = "foo", table = "bar", columm = "baz"),
-      DBI::Id(schema = "foo", table = "bar", columm = "baz2")
+      DBI::Id(schema = "foo", table = "bar", column = "baz"),
+      DBI::Id(schema = "foo", table = "bar", column = "baz2")
     )
     expect_identical(glue_sql("{`var`*}", .con = con), DBI::SQL("`foo`.`bar`.`baz`, `foo`.`bar`.`baz2`"))
   })
