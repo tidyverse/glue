@@ -22,6 +22,17 @@ describe("glue_sql", {
     var <- "foo"
     expect_identical(glue_sql("{`var`}", .con = con), DBI::SQL("`foo`"))
   })
+  it("quotes Id identifiers", {
+    var <- DBI::Id(schema = "foo", table = "bar", columm = "baz")
+    expect_identical(glue_sql("{`var`}", .con = con), DBI::SQL("`foo`.`bar`.`baz`"))
+  })
+  it("quotes lists of Id identifiers", {
+    var <- c(
+      DBI::Id(schema = "foo", table = "bar", columm = "baz"),
+      DBI::Id(schema = "foo", table = "bar", columm = "baz2")
+    )
+    expect_identical(glue_sql("{`var`*}", .con = con), DBI::SQL("`foo`.`bar`.`baz`, `foo`.`bar`.`baz2`"))
+  })
   it("Does not quote numbers", {
     var <- 1
     expect_identical(glue_sql("{var}", .con = con), DBI::SQL("1"))

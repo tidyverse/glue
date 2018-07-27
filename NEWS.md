@@ -1,3 +1,5 @@
+* `glue_sql()` now supports unquoting lists of Id objects.
+
 # glue 1.3.0
 
 ## Breaking changes

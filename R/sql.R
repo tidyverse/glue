@@ -48,6 +48,7 @@
 #'     AND {`tbl`}.species = {val}
 #'   ", .con = con)
 #'
+#' 
 #' # `glue_sql()` can be used in conjuction with parameterized queries using
 #' # `DBI::dbBind()` to provide protection for SQL Injection attacks
 #'  sql <- glue_sql("
@@ -110,7 +111,14 @@ sql_quote_transformer <- function(connection) {
     if (is_quoted) {
       regmatches(text, m) <- ""
       res <- eval(parse(text = text, keep.source = FALSE), envir)
-      res <- DBI::dbQuoteIdentifier(conn = connection, res)
+
+      if (length(res) == 1) {
+        res <- DBI::dbQuoteIdentifier(conn = connection, res)
+      } else {
+
+        # Support lists as well
+        res[] <- lapply(res, DBI::dbQuoteIdentifier, conn = connection)
+      }
     } else {
       res <- eval(parse(text = text, keep.source = FALSE), envir)
 
