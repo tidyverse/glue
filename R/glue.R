@@ -146,7 +146,7 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' # Wide values can be truncated
 #' glue_collapse(glue("{1:10}"), width = 5)
 #'
-#' glue_collapse(1:4, ",", last = " and ")
+#' glue_collapse(1:4, ", ", last = " and ")
 #' #> 1, 2, 3 and 4
 #' @export
 glue_collapse <- function(x, sep = "", width = Inf, last = "") {
