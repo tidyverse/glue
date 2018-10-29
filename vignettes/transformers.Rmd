@@ -14,7 +14,7 @@ collapsing outputs.
 
 The transformer functions simply take two arguments `text` and `envir`, where
 `text` is the unparsed string inside the glue block and `envir` is the
-execution environment. Most transformers will then call `eval(parse(text,
+execution environment. Most transformers will then call `eval(parse(text = text,
 keep.source = FALSE), envir)` which parses and evaluates the code.
 
 You can then supply the transformer function to glue with the `.transformer`
