@@ -1,5 +1,10 @@
+url: https://glue.tidyverse.org
+
 template:
   package: tidytemplate
+
+development:
+  mode: auto
 
 navbar:
   type: default
