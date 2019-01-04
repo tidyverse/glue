@@ -8,6 +8,7 @@ matrix:
   include:
   - r: devel
   - r: release
+    env: EVAL_VIGNETTES=true
     after_success: Rscript -e 'covr::codecov()'
     before_cache: Rscript -e 'remotes::install_cran("pkgdown")' -e 'remotes::install_github("tidyverse/tidytemplate")' -e 'remotes::install_github("hadley/emo")'
     deploy:
