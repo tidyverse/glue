@@ -1,0 +1,11 @@
+pandoc: '2.2'
+pkgdown: 1.3.0
+pkgdown_sha: ~
+articles:
+  glue-1.2.0: releases/glue-1.2.0.html
+  speed: speed.html
+  transformers: transformers.html
+urls:
+  reference: https://glue.tidyverse.org/reference
+  article: https://glue.tidyverse.org/articles
+
