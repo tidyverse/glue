@@ -110,9 +110,10 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     if(is.function(x)) {
 
       message <- paste0(
-        "The object `",
+        "glue can not interpolate functions into strings.\n",
+        "* object `",
         expr,
-        "` is a function; glue can not interpolate it into a string."
+        "` is a function."
       )
 
       stop(message, call. = FALSE)
