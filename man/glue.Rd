@@ -3,15 +3,14 @@
 \name{glue}
 \alias{glue}
 \alias{glue_data}
-\alias{glue}
 \title{Format and interpolate a string}
 \usage{
 glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
   .close = "}", .na = "NA", .transformer = identity_transformer,
   .trim = TRUE)
 
-glue(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}",
-  .na = "NA", .transformer = identity_transformer)
+glue(..., .sep = "", .envir = parent.frame(), .open = "{",
+  .close = "}", .na = "NA", .transformer = identity_transformer)
 }
 \arguments{
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
