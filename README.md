@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# glue <img src="man/figures/logo.png" align="right" />
+# glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
 [![Travis-CI Build
@@ -11,8 +11,19 @@ Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](http
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/glue)
 
-Glue strings to data in R. Small, fast, dependency free interpreted
-string literals.
+## Overview
+
+Glue offers interpreted string literals that are small, fast, and
+dependency-free. Glue does this by embedding R expressions in curly
+braces which are then evaluated and inserted into the argument string.
+For example,
+
+``` r
+age <- 20
+glue('I will soon be {age + 1}.")
+```
+
+yields “I will soon be 21.”
 
 ## Installation
 
@@ -75,9 +86,6 @@ library(dplyr)
 #> The following object is masked from 'package:glue':
 #> 
 #>     collapse
-#> The following object is masked from '.env':
-#> 
-#>     id
 #> The following objects are masked from 'package:stats':
 #> 
 #>     filter, lag
