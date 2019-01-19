@@ -119,11 +119,11 @@
 <p><a href="http://glue.tidyverse.org">glue 1.2.0</a> is now available on CRAN! <a href="http://glue.tidyverse.org">glue</a> is designed to make it easy to interpolate (“glue”) your data into strings. Compared to equivalents like <code><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf()</a></code> it is easier to write and less time consuming to maintain. It also has no non-base dependencies so is easy to include in packages.</p>
 <p>Install the latest version with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"glue"</span>)</a></code></pre></div>
-<p>glue has three primary functions, <code>glue()</code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/glue-deprecated.html">collapse()</a></code>. <code>glue()</code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
+<p>glue has three primary functions, <code><a href="../../reference/glue.html">glue()</a></code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/glue-deprecated.html">collapse()</a></code>. <code><a href="../../reference/glue.html">glue()</a></code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">name &lt;-<span class="st"> "Fred"</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">age &lt;-<span class="st"> </span><span class="dv">50</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">anniversary &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.Date">as.Date</a></span>(<span class="st">"1991-10-12"</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">glue</span>(<span class="st">'</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="../../reference/glue.html">glue</a></span>(<span class="st">'</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  My name is {name}</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  my age next year is {age + 1}</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  my anniversary is {format(anniversary, "%A, %B %d, %Y")}</span></a>
@@ -132,7 +132,7 @@
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;   my age next year is 51</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;   my anniversary is Saturday, October 12, 1991</span></a></code></pre></div>
 <p>glue is also vectorized over its inputs.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">glue</span>(<span class="st">'</span></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../../reference/glue.html">glue</a></span>(<span class="st">'</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  {month.abb} is short for {month.name}</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">'</span>)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;   Jan is short for January</span></a>
@@ -147,7 +147,7 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;   Oct is short for October</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;   Nov is short for November</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   Dec is short for December</span></a></code></pre></div>
-<p><code><a href="../../reference/glue.html">glue_data()</a></code> works like <code>glue()</code>, but instead of looking up its variables from the calling environment it looks them up from the first argument (usually a data frame or tibble). This makes <code><a href="../../reference/glue.html">glue_data()</a></code> very useful within pipe chains.</p>
+<p><code><a href="../../reference/glue.html">glue_data()</a></code> works like <code><a href="../../reference/glue.html">glue()</a></code>, but instead of looking up its variables from the calling environment it looks them up from the first argument (usually a data frame or tibble). This makes <code><a href="../../reference/glue.html">glue_data()</a></code> very useful within pipe chains.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magrittr)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">mtcars<span class="op">$</span>model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(mtcars)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">mtcars <span class="op">%&gt;%</span></a>
@@ -179,7 +179,7 @@
 <a class="sourceLine" id="cb6-8" data-line-number="8">  }</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">}</a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="kw">glue</span>(<span class="st">"</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="kw"><a href="../../reference/glue.html">glue</a></span>(<span class="st">"</span></a>
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="st">  {1:5*}</span></a>
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">  {letters[1:5]*}"</span>,</a>
 <a class="sourceLine" id="cb6-14" data-line-number="14">  <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>))</a>
@@ -206,7 +206,7 @@
 <a class="sourceLine" id="cb7-11" data-line-number="11">}</a>
 <a class="sourceLine" id="cb7-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb7-13" data-line-number="13">glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sys.parent">parent.frame</a></span>()) {</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="kw">glue</span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)</a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">  <span class="kw"><a href="../../reference/glue.html">glue</a></span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)</a>
 <a class="sourceLine" id="cb7-15" data-line-number="15">}</a>
 <a class="sourceLine" id="cb7-16" data-line-number="16"><span class="kw">glue_fmt</span>(<span class="st">"π = {pi%.5f}"</span>)</a>
 <a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; π = 3.14159</span></a></code></pre></div>
