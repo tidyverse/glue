@@ -102,6 +102,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     unnamed_args <- trim(unnamed_args)
   }
 
+  # throws an informative error message
+  # if we try to "glue" a function into a string
   as.char <- function(x, expr) {
 
     # if x is a function, throw error
