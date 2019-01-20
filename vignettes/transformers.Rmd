@@ -154,5 +154,5 @@ glue_safely("foo: {xyz}", .otherwise = "Error")
 
 # Or output the error message in red
 library(crayon)
-# glue_safely("foo: {xyz}", .otherwise = quote(glue("{red}Error: {conditionMessage(e)}{reset}")))
+glue_safely("foo: {xyz}", .otherwise = quote(glue("{red}Error: {conditionMessage(e)}{reset}")))
 ```

@@ -106,20 +106,24 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   # if we try to "glue" a function into a string
   as.char <- function(x, expr) {
 
-    # if x is a function, throw error
-    if(is.function(x)) {
+    tryCatch(
+      as.character(x),
+      error = function(e) {
+        # if x is a function, throw custom error
+        if(is.function(x)) {
 
-      message <- paste0(
-        "glue can not interpolate functions into strings.\n",
-        "* object `",
-        expr,
-        "` is a function."
-      )
+          message <- paste0(
+            "glue can not interpolate functions into strings.\n",
+            "* object '",
+            expr,
+            "' is a function."
+          )
 
-      stop(message, call. = FALSE)
-    }
+          stop(message, call. = FALSE)
+        }
+      }
+    )
 
-    as.character(x)
   }
 
   f <- function(expr){
