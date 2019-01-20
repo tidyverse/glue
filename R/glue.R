@@ -102,18 +102,18 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     unnamed_args <- trim(unnamed_args)
   }
 
-  # throws an informative error message
-  # if we try to "glue" a function into a string
-  as.char <- function(x, expr) {
+  f <- function(expr){
+    eval_func <- .transformer(expr, env)
 
+    # crayon functions *can* be used, so we use tryCatch()
+    # to give as.character() a chance to work
     tryCatch(
-      as.character(x),
+      as.character(eval_func),
       error = function(e) {
-        # if x is a function, throw custom error
-        if(is.function(x)) {
-
+        # if eval_func is a function, provide informative error-message
+        if (is.function(eval_func)) {
           message <- paste0(
-            "glue can not interpolate functions into strings.\n",
+            "glue cannot interpolate functions into strings.\n",
             "* object '",
             expr,
             "' is a function."
@@ -121,14 +121,11 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
           stop(message, call. = FALSE)
         }
+
+        # default stop
+        stop(e)
       }
     )
-
-  }
-
-  f <- function(expr){
-    eval_func <- .transformer(expr, env)
-    as.char(eval_func, expr)
   }
 
   # Parse any glue strings
