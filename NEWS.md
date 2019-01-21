@@ -21,6 +21,9 @@
 
 ## Bugfixes and minor changes
 
+* Glue now throws an informative error message when it cannot interpolate a
+  function into a string (#114, @haleyjeppson & @ijlyttle).
+
 * Glue now evaluates unnamed arguments lazily with `delayedAssign()`, so there
   is no performance cost if an argument is not used. (#83, @egnha).
 
