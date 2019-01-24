@@ -32,7 +32,6 @@ library(glue)
 name <- "Fred"
 glue('My name is {name}.')
 #> My name is Fred.
-#> My name is Fred.
 ```
 
 ##### Long strings are broken by line and concatenated together.
