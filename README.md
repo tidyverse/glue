@@ -27,11 +27,19 @@ devtools::install_github("tidyverse/glue")
 
 ## Usage
 
-##### Long strings are broken by line and concatenated together.
+##### Variables can be passed directly into strings.
 
 ``` r
 library(glue)
 
+name <- "Fred"
+glue('My name is {name}.')
+#> My name is Fred.
+```
+
+##### Long strings are broken by line and concatenated together.
+
+``` r
 name <- "Fred"
 age <- 50
 anniversary <- as.Date("1991-10-12")
