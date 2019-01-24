@@ -44,7 +44,6 @@ devtools::install_github("tidyverse/glue")
 library(glue)	
 name <- "Fred"
 glue('My name is {name}.')
-#> My name is Fred.
 ```
 
 ##### Long strings are broken by line and concatenated together.
