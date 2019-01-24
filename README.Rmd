@@ -24,12 +24,7 @@ library(glue)
 
 ## Overview
 
-Glue offers interpreted string literals that are small, fast, and dependency-free.  Glue does this by embedding  R expressions in curly braces which are then evaluated and inserted into the argument string. For example,
-```{r overview example, eval = FALSE}
-age <- 20
-glue('I will soon be {age + 1}.")
-```
-yields "I will soon be 21."
+Glue offers interpreted string literals that are small, fast, and dependency-free.  Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string. 
 
 ## Installation
 
@@ -44,6 +39,14 @@ devtools::install_github("tidyverse/glue")
 
 ## Usage
 
+##### Variables can be passed directly into strings.
+```{r}
+library(glue)	
+name <- "Fred"
+glue('My name is {name}.')
+#> My name is Fred.
+```
+
 ##### Long strings are broken by line and concatenated together.
 ```{r}
 library(glue)
@@ -57,7 +60,6 @@ glue('My name is {name},',
 ```
 
 ##### Named arguments are used to assign temporary variables.
-
 ```{r}
 glue('My name is {name},',
   ' my age next year is {age + 1},',
@@ -73,12 +75,11 @@ glue('My name is {name},',
 head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
-
 ##### Or within dplyr pipelines
 ```{r}
 library(dplyr)
 head(iris) %>%
-  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+  mutate(description = glue("This {species} has a petal length of {petal_length}"))
 ```
 
 ##### Leading whitespace and blank lines from the first and last lines are automatically trimmed.

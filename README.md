@@ -8,14 +8,7 @@ glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="
 Overview
 --------
 
-Glue offers interpreted string literals that are small, fast, and dependency-free. Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string. For example,
-
-``` r
-age <- 20
-glue('I will soon be {age + 1}.")
-```
-
-yields "I will soon be 21."
+Glue offers interpreted string literals that are small, fast, and dependency-free. Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string.
 
 Installation
 ------------
@@ -31,6 +24,16 @@ devtools::install_github("tidyverse/glue")
 
 Usage
 -----
+
+##### Variables can be passed directly into strings.
+
+``` r
+library(glue)   
+name <- "Fred"
+glue('My name is {name}.')
+#> My name is Fred.
+#> My name is Fred.
+```
 
 ##### Long strings are broken by line and concatenated together.
 
@@ -76,8 +79,8 @@ head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ``` r
 library(dplyr)
 head(iris) %>%
-  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
-#>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  mutate(description = glue("This {species} has a petal length of {petal_length}"))
+#>   sepal_length sepal_width petal_length petal_width species
 #> 1          5.1         3.5          1.4         0.2  setosa
 #> 2          4.9         3.0          1.4         0.2  setosa
 #> 3          4.7         3.2          1.3         0.2  setosa
