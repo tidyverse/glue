@@ -56,6 +56,11 @@ describe("glue_sql", {
     var <- list(NA, NA_character_, NA_real_, NA_integer_)
     expect_identical(glue_sql("x = {var}", .con = con, .na = NULL), rep(DBI::SQL(NA), 4))
   })
+
+  it("should return NA for missing values quote strings", {
+    var <- c("C", NA)
+    expect_identical(glue_sql("x = {var}", .con = con), DBI::SQL(c("x = 'C'", "x = NULL")))
+  })
 })
 
 describe("glue_data_sql", {

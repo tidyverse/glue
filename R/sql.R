@@ -129,7 +129,6 @@ sql_quote_transformer <- function(connection) {
 
       # Convert all NA's as needed
       if (any(is.na(res))) {
-        res <- as.list(res)
         res[is.na(res)] <- NA_character_
       }
       if(is.character(res)) {
