@@ -292,7 +292,7 @@ as.character.glue <- function(x, ...) {
 
 #' @export
 `+.glue` <- function(e1, e2) {
-  glue(e1, e2)
+  glue(e1, e2, .envir = parent.frame())
 }
 
 #' @importFrom methods setOldClass
