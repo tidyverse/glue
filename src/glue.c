@@ -177,6 +177,9 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
 
   free(str);
 
+  out = resize(out, k);
+
   UNPROTECT(1);
-  return resize(out, k);
+
+  return out;
 }
