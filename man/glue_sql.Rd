@@ -114,5 +114,10 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
   vals = c("setosa", "versicolor"), .con = con)
 
-DBI::dbDisconnect(con)
+# If you need to reference a table in a different schema use `DBI::Id()` to
+# construct the identifiers.
+cols <- c("Sepal.Width", "Sepal.Length", "Species")
+col_ids <- lapply(cols, function(x) DBI::Id(table="iris", column = x))
+values <- c(1, 2, 'Setosa')
+glue_sql("INSERT ({values*}) INTO ({`col_ids`*})", .con=con)
 }
