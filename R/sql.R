@@ -48,7 +48,7 @@
 #'     AND {`tbl`}.species = {val}
 #'   ", .con = con)
 #'
-#' 
+#'
 #' # `glue_sql()` can be used in conjuction with parameterized queries using
 #' # `DBI::dbBind()` to provide protection for SQL Injection attacks
 #'  sql <- glue_sql("
@@ -87,6 +87,19 @@
 #'
 #' glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 #'   vals = c("setosa", "versicolor"), .con = con)
+#'
+#' # If you want to refer to different columns in different tables,
+#' # in an INSERT INTO statement such as `species`.`table`,
+#' # you need to use `DBI::Id()` to build the table/column
+#' # references, and then use `DBI::dbQuoteIdentifier` to put them
+#' # in the proper quote format. Then you can use glue_sql():
+#' #
+#' cols <- c("Sepal.Width", "Sepal.Length", "Species")
+#' col_ids <- lapply(cols, function(x){DBI::Id(table="iris", column=x)})
+#' col_quotes <- lapply(col_ids, DBI::dbQuoteIdentifier, conn=con)
+#'
+#' values <- c(1, 2, 'Setosa')
+#' glue_sql("INSERT ({values*}) INTO ({col_quotes*})", .con=con)
 #'
 #' DBI::dbDisconnect(con)
 #' @export
