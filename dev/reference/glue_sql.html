@@ -276,7 +276,12 @@ for instance.</p>
   <span class='kw'>vals</span> <span class='kw'>=</span> <span class='st'>"setosa"</span>, <span class='kw'>.con</span> <span class='kw'>=</span> <span class='no'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</div><div class='input'>
 <span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
   <span class='kw'>vals</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span>), <span class='kw'>.con</span> <span class='kw'>=</span> <span class='no'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</div><div class='input'>
-<span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DBI/topics/dbDisconnect'>dbDisconnect</a></span>(<span class='no'>con</span>)</div></pre>
+<span class='co'># If you need to reference a table in a different schema use `DBI::Id()` to</span>
+<span class='co'># construct the identifiers.</span>
+<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Sepal.Width"</span>, <span class='st'>"Sepal.Length"</span>, <span class='st'>"Species"</span>)
+<span class='no'>col_ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>cols</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DBI/topics/Id'>Id</a></span>(<span class='kw'>table</span><span class='kw'>=</span><span class='st'>"iris"</span>, <span class='kw'>column</span> <span class='kw'>=</span> <span class='no'>x</span>))
+<span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='st'>'Setosa'</span>)
+<span class='fu'>glue_sql</span>(<span class='st'>"INSERT ({values*}) INTO ({`col_ids`*})"</span>, <span class='kw'>.con</span><span class='kw'>=</span><span class='no'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; INSERT ('1', '2', 'Setosa') INTO (`iris`.`Sepal.Width`, `iris`.`Sepal.Length`, `iris`.`Species`)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
