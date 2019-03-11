@@ -235,7 +235,7 @@ collapse <- function(x, sep = "", width = Inf, last = "") {
 
 #' @useDynLib glue trim_
 trim <- function(x) {
-  has_newline <- function(x) grepl("\\n", x)
+  has_newline <- function(x) any(grepl("\\n", x))
   if (length(x) == 0 || !has_newline(x)) {
     return(x)
   }
