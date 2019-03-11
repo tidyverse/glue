@@ -127,10 +127,16 @@ sql_quote_transformer <- function(connection) {
     } else {
       res <- eval(parse(text = text, keep.source = FALSE), envir)
 
+      # convert objects to characters
+      if (is.object(res) && !inherits(res, "SQL")) {
+        res <- as.character(res)
+      }
+
       # Convert all NA's as needed
       if (any(is.na(res))) {
         res[is.na(res)] <- NA_character_
       }
+
       if(is.character(res)) {
         res <- DBI::dbQuoteString(conn = connection, res)
       }

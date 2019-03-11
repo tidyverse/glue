@@ -1,6 +1,8 @@
 * `glue_sql()` now supports unquoting lists of Id objects.
 
-* `glue_sql()` now quotes characters with NAs appropriately (#115)
+* `glue_sql()` now quotes characters with NAs appropriately (#115).
+
+* `glue_sql()` now quotes Dates appropriately (#98).
 
 # glue 1.3.0
 

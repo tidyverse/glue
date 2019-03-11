@@ -61,6 +61,11 @@ describe("glue_sql", {
     var <- c("C", NA)
     expect_identical(glue_sql("x = {var}", .con = con), DBI::SQL(c("x = 'C'", "x = NULL")))
   })
+
+  it("should return a quoted date for Dates", {
+    var <- as.Date("2019-01-01")
+    expect_identical(glue_sql("x = {var}", .con = con), DBI::SQL("x = '2019-01-01'"))
+  })
 })
 
 describe("glue_data_sql", {
