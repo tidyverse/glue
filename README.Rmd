@@ -75,10 +75,10 @@ head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
 ##### Or within dplyr pipelines
-```{r}
+```{r, message = FALSE}
 library(dplyr)
 head(iris) %>%
-  mutate(description = glue("This {species} has a petal length of {petal_length}"))
+  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
 ```
 
 ##### Leading whitespace and blank lines from the first and last lines are automatically trimmed.

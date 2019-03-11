@@ -1,17 +1,23 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
-==========================================================================================================
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue) [![Travis-CI Build Status](https://travis-ci.org/tidyverse/glue.svg?branch=master)](https://travis-ci.org/tidyverse/glue) [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](https://codecov.io/github/tidyverse/glue?branch=master) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/glue)
+# glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
-Overview
---------
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
+[![Travis-CI Build
+Status](https://travis-ci.org/tidyverse/glue.svg?branch=master)](https://travis-ci.org/tidyverse/glue)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](https://codecov.io/github/tidyverse/glue?branch=master)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/glue)
 
-Glue offers interpreted string literals that are small, fast, and dependency-free. Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string.
+## Overview
 
-Installation
-------------
+Glue offers interpreted string literals that are small, fast, and
+dependency-free. Glue does this by embedding R expressions in curly
+braces which are then evaluated and inserted into the argument string.
+
+## Installation
 
 ``` r
 # Install the released version from CRAN:
@@ -22,8 +28,7 @@ install.packages("glue")
 devtools::install_github("tidyverse/glue")
 ```
 
-Usage
------
+## Usage
 
 ##### Variables can be passed directly into strings.
 
@@ -78,8 +83,8 @@ head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ``` r
 library(dplyr)
 head(iris) %>%
-  mutate(description = glue("This {species} has a petal length of {petal_length}"))
-#>   sepal_length sepal_width petal_length petal_width species
+  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+#>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #> 1          5.1         3.5          1.4         0.2  setosa
 #> 2          4.9         3.0          1.4         0.2  setosa
 #> 3          4.7         3.2          1.3         0.2  setosa
@@ -167,7 +172,8 @@ glue("{
 
 ##### `glue_sql()` makes constructing SQL statements safe and easy
 
-Use backticks to quote identifiers, normal strings and numbers are quoted appropriately for your backend.
+Use backticks to quote identifiers, normal strings and numbers are
+quoted appropriately for your backend.
 
 ``` r
 library(glue)
@@ -242,17 +248,20 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 #> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')
 ```
 
-Other implementations
-=====================
+# Other implementations
 
-Some other implementations of string interpolation in R (although not using identical syntax).
+Some other implementations of string interpolation in R (although not
+using identical
+    syntax).
 
--   [stringr::str\_interp](http://stringr.tidyverse.org/reference/str_interp.html)
--   [pystr::pystr\_format](https://cran.r-project.org/package=pystr)
--   [R.utils::gstring](https://cran.r-project.org/package=R.utils)
--   [rprintf](https://cran.r-project.org/package=rprintf)
+  - [stringr::str\_interp](http://stringr.tidyverse.org/reference/str_interp.html)
+  - [pystr::pystr\_format](https://cran.r-project.org/package=pystr)
+  - [R.utils::gstring](https://cran.r-project.org/package=R.utils)
+  - [rprintf](https://cran.r-project.org/package=rprintf)
 
-String templating is closely related to string interpolation, although not exactly the same concept. Some packages implementing string templating in R include.
+String templating is closely related to string interpolation, although
+not exactly the same concept. Some packages implementing string
+templating in R include.
 
--   [whisker](https://cran.r-project.org/package=whisker)
--   [brew](https://cran.r-project.org/package=brew)
+  - [whisker](https://cran.r-project.org/package=whisker)
+  - [brew](https://cran.r-project.org/package=brew)
