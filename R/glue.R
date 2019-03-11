@@ -290,6 +290,11 @@ as.character.glue <- function(x, ...) {
   as_glue(NextMethod())
 }
 
+#' @export
+`+.glue` <- function(e1, e2) {
+  glue(e1, e2)
+}
+
 #' @importFrom methods setOldClass
 setOldClass(c("glue", "character"))
 

@@ -41,7 +41,7 @@ devtools::install_github("tidyverse/glue")
 
 ##### Variables can be passed directly into strings.
 ```{r}
-library(glue)	
+library(glue)
 name <- "Fred"
 glue('My name is {name}.')
 ```
@@ -193,6 +193,14 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 
 glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
   vals = c("setosa", "versicolor"), .con = con)
+```
+
+##### Optionally combine strings with `+`
+
+```{r}
+x <- 1
+y <- 3
+glue("x + y") + " = {x + y}"
 ```
 
 # Other implementations

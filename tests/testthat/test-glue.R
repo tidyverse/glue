@@ -404,6 +404,14 @@ test_that("throws informative error if interpolating a function", {
   expect_error(glue("{cat}"), "is a function")
 
   # some crayon functions are OK, make sure this still works
-  skip_if_not_installed("crayon")
-  expect_is(glue("{red}red{reset}"), "glue")
+  if (require("crayon")) {
+    expect_is(glue("{red}red{reset}"), "glue")
+  }
+})
+
+test_that("+ method for glue works", {
+  expect_identical(glue("foo") + "bar", as_glue("foobar"))
+
+  x <- 1
+  expect_identical(glue("x = ") + "{x}", glue("x = {x}"))
 })
