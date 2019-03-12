@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -28,6 +28,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+
 
 <meta property="og:title" content="Changelog" />
 
@@ -72,7 +74,7 @@
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
         </div>
       </div>
     </div>
@@ -138,6 +140,32 @@
       <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="glue-1-3-1" class="section level1">
+<h1 class="page-header">
+<a href="#glue-1-3-1" class="anchor"></a>glue 1.3.1<small> Unreleased </small>
+</h1>
+<div id="features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h2>
+<ul>
+<li>
+<code><a href="../reference/glue.html">glue()</a></code> now has a <code>+</code> method to combine strings.</li>
+</ul>
+</div>
+<div id="bugfixes-and-minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bugfixes-and-minor-changes" class="anchor"></a>Bugfixes and minor changes</h2>
+<ul>
+<li>
+<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now supports unquoting lists of Id objects.</li>
+<li>
+<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now quotes characters with NAs appropriately (<a href='https://github.com/tidyverse/glue/issues/115'>#115</a>).</li>
+<li>
+<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now quotes Dates appropriately (<a href='https://github.com/tidyverse/glue/issues/98'>#98</a>).</li>
+<li>A potential protection error reported by rchk was fixed.</li>
+</ul>
+</div>
+</div>
     <div id="glue-1-3-0" class="section level1">
 <h1 class="page-header">
 <a href="#glue-1-3-0" class="anchor"></a>glue 1.3.0<small> 2018-07-17 </small>
@@ -147,25 +175,26 @@
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for clarities sake. Previous uses can be replaced by <code><a href="https://www.rdocumentation.org/packages/base/topics/eval">eval(parse(text = text), envir)</a></code>.</p></li>
-<li><p><code><a href="../reference/glue-deprecated.html">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="http://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
+<li><p><code><a href="../reference/glue-deprecated.html">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
 </ul>
 </div>
-<div id="features" class="section level2">
+<div id="features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h2>
+<a href="#features-1" class="anchor"></a>Features</h2>
 <ul>
 <li><p><code>compare.glue()</code> was added, to make it easier to use glue objects in <code><a href="https://www.rdocumentation.org/packages/testthat/topics/equality-expectations">testthat::expect_equal()</a></code> statements.</p></li>
 <li><p><code><a href="../reference/glue_col.html">glue_col()</a></code> and <code><a href="../reference/glue_col.html">glue_data_col()</a></code> functions added to display strings with color.</p></li>
 </ul>
 </div>
-<div id="bugfixes-and-minor-changes" class="section level2">
+<div id="bugfixes-and-minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bugfixes-and-minor-changes" class="anchor"></a>Bugfixes and minor changes</h2>
+<a href="#bugfixes-and-minor-changes-1" class="anchor"></a>Bugfixes and minor changes</h2>
 <ul>
+<li><p>Glue now throws an informative error message when it cannot interpolate a function into a string (<a href='https://github.com/tidyverse/glue/issues/114'>#114</a>, <a href='https://github.com/haleyjeppson'>@haleyjeppson</a> &amp; <a href='https://github.com/ijlyttle'>@ijlyttle</a>).</p></li>
 <li><p>Glue now evaluates unnamed arguments lazily with <code><a href="https://www.rdocumentation.org/packages/base/topics/delayedAssign">delayedAssign()</a></code>, so there is no performance cost if an argument is not used. (<a href='https://github.com/tidyverse/glue/issues/83'>#83</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
 <li><p>Fixed a bug where names in the assigned expression of an interpolation variable would conflict with the name of the variable itself (<a href='https://github.com/tidyverse/glue/issues/89'>#89</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
 <li><p>Do not drop the <code>glue</code> class when subsetting (<a href='https://github.com/tidyverse/glue/issues/66'>#66</a>).</p></li>
-<li><p>Fix <code>glue()</code> and <code><a href="../reference/glue-deprecated.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='https://github.com/dpprdan'>@dpprdan</a>)</p></li>
+<li><p>Fix <code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/glue-deprecated.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='https://github.com/dpprdan'>@dpprdan</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -175,12 +204,12 @@
 </h1>
 <ul>
 <li><p>The implementation has been tweaked to be slightly faster in most cases.</p></li>
-<li><p><code>glue()</code> now has a <code>.transformer</code> argument, which allows you to use custom logic on how to evaluate the code within glue blocks. See <code><a href="../articles/transformers.html">vignette("transformers")</a></code> for more details and example transformer functions.</p></li>
-<li><p><code>glue()</code> now returns <code>NA</code> if any of the results are <code>NA</code> and <code>.na</code> is <code>NULL</code>. Otherwise <code>NA</code> values are replaced by the value of <code>.na</code>.</p></li>
+<li><p><code><a href="../reference/glue.html">glue()</a></code> now has a <code>.transformer</code> argument, which allows you to use custom logic on how to evaluate the code within glue blocks. See <code><a href="../articles/transformers.html">vignette("transformers")</a></code> for more details and example transformer functions.</p></li>
+<li><p><code><a href="../reference/glue.html">glue()</a></code> now returns <code>NA</code> if any of the results are <code>NA</code> and <code>.na</code> is <code>NULL</code>. Otherwise <code>NA</code> values are replaced by the value of <code>.na</code>.</p></li>
 <li><p><code><a href="../reference/trim.html">trim()</a></code> to use the trimming logic from glue is now exported.</p></li>
 <li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> and <code><a href="../reference/glue_sql.html">glue_data_sql()</a></code> functions added to make constructing SQL statements with glue safer and easier.</p></li>
-<li><p><code>glue()</code> is now easier to use when used within helper functions such as <code>lapply</code>.</p></li>
-<li><p>Fix when last expression in <code>glue()</code> is NULL.</p></li>
+<li><p><code><a href="../reference/glue.html">glue()</a></code> is now easier to use when used within helper functions such as <code>lapply</code>.</p></li>
+<li><p>Fix when last expression in <code><a href="../reference/glue.html">glue()</a></code> is NULL.</p></li>
 </ul>
 </div>
     <div id="glue-1-1-1" class="section level1">
@@ -197,9 +226,9 @@
 </h1>
 <ul>
 <li><p>Fix for PROTECT errors when resizing output strings.</p></li>
-<li><p><code>glue()</code> always returns ‘UTF-8’ strings, converting inputs if in other encodings if needed.</p></li>
+<li><p><code><a href="../reference/glue.html">glue()</a></code> always returns ‘UTF-8’ strings, converting inputs if in other encodings if needed.</p></li>
 <li><p><code>to()</code> and <code>to_data()</code> have been removed.</p></li>
-<li><p><code>glue()</code> and <code><a href="../reference/glue.html">glue_data()</a></code> can now take alternative delimiters to <code>{</code> and <code>}</code>. This is useful if you are writing to a format that uses a lot of braces, such as LaTeX. (<a href='https://github.com/tidyverse/glue/issues/23'>#23</a>)</p></li>
+<li><p><code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/glue.html">glue_data()</a></code> can now take alternative delimiters to <code>{</code> and <code>}</code>. This is useful if you are writing to a format that uses a lot of braces, such as LaTeX. (<a href='https://github.com/tidyverse/glue/issues/23'>#23</a>)</p></li>
 <li><p><code><a href="../reference/glue-deprecated.html">collapse()</a></code> now returns 0 length output if given 0 length input (<a href='https://github.com/tidyverse/glue/issues/28'>#28</a>).</p></li>
 </ul>
 </div>
@@ -208,7 +237,7 @@
 <a href="#glue-0-0-0-9000" class="anchor"></a>glue 0.0.0.9000<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>Fix <code>glue()</code> to admit <code>.</code> as an embedded expression in a string (<a href='https://github.com/tidyverse/glue/issues/15'>#15</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
+<li><p>Fix <code><a href="../reference/glue.html">glue()</a></code> to admit <code>.</code> as an embedded expression in a string (<a href='https://github.com/tidyverse/glue/issues/15'>#15</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
 <li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
 </ul>
 </div>
@@ -218,6 +247,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#glue-1-3-1">1.3.1</a></li>
         <li><a href="#glue-1-3-0">1.3.0</a></li>
         <li><a href="#glue-1-2-0">1.2.0</a></li>
         <li><a href="#glue-1-1-1">1.1.1</a></li>
