@@ -3,6 +3,7 @@
 ## Features
 
 * `glue()` now has a `+` method to combine strings.
+* `glue_sql()` now collapses zero-length vector into `DBI::SQL("NULL")` (#134 @shrektan).
 
 ## Bugfixes and minor changes
 
