@@ -1,5 +1,8 @@
 # glue (development version)
 
+* `single_quote()` `double_quote()` and `backtick()` all return `NA` for `NA`
+  inputs (#135).
+
 # glue 1.3.1
 
 ## Features

@@ -9,17 +9,17 @@
 #' x <- 1:5
 #' glue('Values of x: {glue_collapse(backtick(x), sep = ", ", last = " and ")}')
 single_quote <- function(x) {
-  encodeString(x, quote = "'")
+  encodeString(x, quote = "'", na.encode = FALSE)
 }
 
 #' @rdname quoting
 #' @export
 double_quote <- function(x) {
-  encodeString(x, quote = '"')
+  encodeString(x, quote = '"', na.encode = FALSE)
 }
 
 #' @rdname quoting
 #' @export
 backtick <- function(x) {
-  encodeString(x, quote = "`")
+  encodeString(x, quote = "`", na.encode = FALSE)
 }
