@@ -262,6 +262,15 @@ test_that("glue works with alternative delimiters", {
   expect_equal(glue("[[ letters[[1]] ]]", .open = "[[", .close = "]]"), "a")
 })
 
+test_that("you can disable trimming in glue and glue_data", {
+
+  expect_equal(glue("\nfoo\n"), "foo")
+  expect_equal(glue("\nfoo\n", .trim = FALSE), "\nfoo\n")
+
+  expect_equal(glue_data(list(), "\nfoo\n"), "foo")
+  expect_equal(glue_data(list(), "\nfoo\n", .trim = FALSE), "\nfoo\n")
+})
+
 test_that("glue always returns UTF-8 encoded strings regardless of input encodings", {
   x <- "fa\xE7ile"
   Encoding(x) <- "latin1"

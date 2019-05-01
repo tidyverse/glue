@@ -10,7 +10,8 @@ glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
   .trim = TRUE)
 
 glue(..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}", .na = "NA", .transformer = identity_transformer)
+  .close = "}", .na = "NA", .transformer = identity_transformer,
+  .trim = TRUE)
 }
 \arguments{
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}

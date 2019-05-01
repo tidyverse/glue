@@ -1,5 +1,7 @@
 # glue (development version)
 
+* `glue()` gains the `.trim` argument, like `glue_data()`.
+
 * `single_quote()` `double_quote()` and `backtick()` all return `NA` for `NA`
   inputs (#135).
 
