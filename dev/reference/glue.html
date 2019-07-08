@@ -233,7 +233,11 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
   <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Joe"</span>,
   <span class='kw'>age</span> <span class='kw'>=</span> <span class='fl'>40</span>,
   <span class='kw'>anniversary</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>"2001-10-12"</span>))</div><div class='output co'>#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</div><div class='input'>
-
+<span class='co'># `glue()` can also be used in user defined functions</span>
+<span class='no'>intro</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>name</span>, <span class='no'>profession</span>, <span class='no'>country</span>){
+  <span class='fu'>glue</span>(<span class='st'>"My name is {name}, a {profession}, from {country}"</span>)
+}
+<span class='fu'>intro</span>(<span class='st'>"Shelmith"</span>,<span class='st'>"Senior Data Analyst"</span>,<span class='st'>"Kenya"</span>)</div><div class='output co'>#&gt; My name is Shelmith, a Senior Data Analyst, from Kenya</div><div class='input'><span class='fu'>intro</span>(<span class='st'>"Cate"</span>,<span class='st'>"Data Scientist"</span>,<span class='st'>"Kenya"</span>)</div><div class='output co'>#&gt; My name is Cate, a Data Scientist, from Kenya</div><div class='input'>
 <span class='co'># `glue_data()` is useful in magrittr pipes</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>magrittr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
