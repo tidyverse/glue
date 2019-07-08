@@ -43,6 +43,12 @@
 #'   age = 40,
 #'   anniversary = as.Date("2001-10-12"))
 #'
+#' # `glue()` can also be used in user defined functions
+#' intro <- function(name, profession, country){
+#'   glue("My name is {name}, a {profession}, from {country}")
+#' }
+#' intro("Shelmith","Senior Data Analyst","Kenya")
+#' intro("Cate","Data Scientist","Kenya")
 #'
 #' # `glue_data()` is useful in magrittr pipes
 #' library(magrittr)
