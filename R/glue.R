@@ -47,8 +47,8 @@
 #' intro <- function(name, profession, country){
 #'   glue("My name is {name}, a {profession}, from {country}")
 #' }
-#' intro("Shelmith","Senior Data Analyst","Kenya")
-#' intro("Cate","Data Scientist","Kenya")
+#' intro("Shelmith", "Senior Data Analyst", "Kenya")
+#' intro("Cate", "Data Scientist", "Kenya")
 #'
 #' # `glue_data()` is useful in magrittr pipes
 #' library(magrittr)
