@@ -33,8 +33,11 @@ aim right now is not to include most of these custom functions within the
 transformers to fit their individual needs.
 
 ```{r, include = FALSE}
-library(glue)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r}
+library(glue)
 ```
 
 ### collapse transformer
