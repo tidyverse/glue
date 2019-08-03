@@ -159,3 +159,39 @@ glue_safely("foo: {xyz}", .otherwise = "Error")
 library(crayon)
 glue_safely("foo: {xyz}", .otherwise = quote(glue("{red}Error: {conditionMessage(e)}{reset}")))
 ```
+
+### "Variables and Values" transformer
+
+A transformer that expands input of the form `{var_name=}` into `var_name = var_value`, i.e. a shorthand for exposing variable names with their values. This is inspired by an [f-strings feature coming in Python 3.8](https://docs.python.org/3.8/whatsnew/3.8.html#f-strings-now-support-for-quick-and-easy-debugging). It's actually more general: you can use it with an expression input such as `{expr=}`.
+
+```{r}
+vv_transformer <- function(text, envir) {
+  regex <- "=$"
+  if (!grepl(regex, text)) {
+    return(glue(eval(parse(text = text, keep.source = FALSE), envir = envir)))
+  }
+  
+  text <- sub(regex, "", text)
+  res <- eval(parse(text = text, keep.source = FALSE), envir = envir)
+  n <- length(res)
+  res <- glue_collapse(res, sep = ", ")
+  if (n > 1) {
+    res <- c("[", res, "]")
+  }
+  glue_collapse(c(text, " = ", res))
+}
+```
+
+```{r}
+set.seed(1234)
+description <- "some random"
+numbers <- sample(100, 4)
+average <- mean(numbers)
+sum <- sum(numbers)
+
+glue("For {description} {numbers=}, {average=}, {sum=}.", .transformer = vv_transformer)
+
+a <- 3
+b <- 5.6
+glue("{a=}\n{b=}\n{a * 9 + b * 2=}", .transformer = vv_transformer)
+```
