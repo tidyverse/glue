@@ -18,7 +18,7 @@ execution environment. Most transformers will then call `eval(parse(text = text,
 keep.source = FALSE), envir)` which parses and evaluates the code.
 
 You can then supply the transformer function to glue with the `.transformer`
-argument. In this way users can define manipulate the text before parsing and
+argument. In this way users can manipulate the text before parsing and
 change the output after evaluation.
 
 It is often useful to write a `glue()` wrapper function which supplies a
@@ -27,9 +27,9 @@ arguments. One important consideration when doing this is to include
 `.envir = parent.frame()` in the wrapper to ensure the evaluation environment
 is correct.
 
-Some examples implementations of potentially useful transformers follow. The
+Some example implementations of potentially useful transformers follow. The
 aim right now is not to include most of these custom functions within the
-`glue` package. Rather users are encouraged to create custom functions using
+`glue` package. Rather, users are encouraged to create custom functions using
 transformers to fit their individual needs.
 
 ```{r, include = FALSE}
