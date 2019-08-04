@@ -168,11 +168,11 @@ A transformer that expands input of the form `{var_name=}` into `var_name = var_
 vv_transformer <- function(text, envir) {
   regex <- "=$"
   if (!grepl(regex, text)) {
-    return(identity_transformer(text,envir))
+    return(identity_transformer(text, envir))
   }
-  
+
   text <- sub(regex, "", text)
-  res <- identity_transformer(text,envir)
+  res <- identity_transformer(text, envir)
   n <- length(res)
   res <- glue_collapse(res, sep = ", ")
   if (n > 1) {
