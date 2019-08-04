@@ -47,12 +47,16 @@ A transformer which automatically collapses any glue block ending with `*`.
 ```{r}
 collapse_transformer <- function(regex = "[*]$", ...) {
   function(text, envir) {
-    if (!grepl(regex, text)) {
-      return(eval(parse(text = text, keep.source = FALSE), envir = envir))
+    collapse <- grepl(regex, text)
+    if (collapse) {
+      text <- sub(regex, "", text)
     }
-    text <- sub(regex, "", text)
-    res <- eval(parse(text = text, keep.source = FALSE), envir)
-    glue_collapse(res, ...)
+    res <- identity_transformer(text, envir)
+    if (collapse) {
+      glue_collapse(res, ...)  
+    } else {
+      res
+    }
   }
 }
 
