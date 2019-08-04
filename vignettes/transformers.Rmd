@@ -47,9 +47,10 @@ A transformer which automatically collapses any glue block ending with `*`.
 ```{r}
 collapse_transformer <- function(regex = "[*]$", ...) {
   function(text, envir) {
-    if (grepl(regex, text)) {
-        text <- sub(regex, "", text)
+    if (!grepl(regex, text)) {
+      return(eval(parse(text = text, keep.source = FALSE), envir = envir))
     }
+    text <- sub(regex, "", text)
     res <- eval(parse(text = text, keep.source = FALSE), envir)
     glue_collapse(res, ...)
   }
@@ -58,6 +59,9 @@ collapse_transformer <- function(regex = "[*]$", ...) {
 glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", "))
 
 glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", last = " and "))
+
+x <- c("one", "two")
+glue("{x}: {1:5*}", .transformer = collapse_transformer(sep = ", "))
 ```
 
 ### Shell quoting transformer
