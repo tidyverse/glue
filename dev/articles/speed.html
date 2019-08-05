@@ -145,13 +145,13 @@
 <a class="sourceLine" id="cb1-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; Unit: evaluations per second</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;        expr       min     lq   mean median     uq     max neval</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;     rprintf    271.60   1766   1811   1810   1915    2158   100</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;     gstring     17.99   2052   2137   2168   2293    2679   100</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  str_interp    685.80   2768   3073   3071   3301    4103   100</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;        glue   1115.00   5420   6161   5988   6794   10550   100</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;      paste0  92990.00 234500 409600 411100 529400  810400   100</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;     sprintf 113500.00 328600 568800 470100 627400 1460000   100</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;        expr      min     lq   mean median     uq     max neval</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;     rprintf   265.50   1816   1892   1906   1992    2270   100</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;     gstring    17.79   2100   2155   2166   2303    2646   100</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  str_interp   830.60   2859   3114   3091   3387    4064   100</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;        glue  1128.00   5735   6433   6103   6995   10530   100</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;      paste0 98130.00 252900 428200 442700 519100  836100   100</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;     sprintf 55080.00 337700 520600 483600 570100 1353000   100</span></a>
 <a class="sourceLine" id="cb1-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb1-23" data-line-number="23"><span class="kw">plot_comparison</span>(simple)</a></code></pre></div>
 <p><img src="speed_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
@@ -179,11 +179,11 @@
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="dt">unit =</span> <span class="st">"ms"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, vectorized)</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; Unit: milliseconds</span></a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;     expr   min    lq  mean median    uq   max neval</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  sprintf 14.53 14.68 15.16  14.98 15.19 20.86   100</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;   paste0 16.39 17.17 17.61  17.49 17.88 21.07   100</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;     glue 20.91 21.71 22.54  22.32 22.96 28.09   100</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  gstring 34.72 35.62 36.42  36.16 36.69 42.93   100</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;  rprintf 55.52 56.22 57.23  56.98 57.55 63.52   100</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  sprintf 14.64 14.80 15.12  14.93 15.17 19.17   100</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;   paste0 16.38 16.92 17.47  17.38 17.71 21.90   100</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;     glue 20.90 21.58 22.53  22.03 22.97 29.59   100</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  gstring 34.55 35.36 35.90  35.69 36.24 39.58   100</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;  rprintf 55.62 56.36 57.29  56.70 57.73 62.17   100</span></a>
 <a class="sourceLine" id="cb2-20" data-line-number="20"></a>
 <a class="sourceLine" id="cb2-21" data-line-number="21"><span class="kw">plot_comparison</span>(vectorized, <span class="dt">log =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
