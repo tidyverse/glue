@@ -75,7 +75,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   } else if (is.environment(.x)) {
     parent_env <- .x
   } else {
-    parent_env <- list2env(.x, parent = .envir)
+    parent_env <- list2env(as.list(.x), parent = .envir)
   }
 
   # Capture unevaluated arguments

@@ -1,5 +1,7 @@
 # glue (development version)
 
+* `glue_data()` now implicitly coerces `.x` to a list.
+
 * `glue()` gains the `.trim` argument, like `glue_data()`.
 
 * `single_quote()` `double_quote()` and `backtick()` all return `NA` for `NA`
