@@ -218,3 +218,7 @@ include.
 
 - [whisker](https://cran.r-project.org/package=whisker)
 - [brew](https://cran.r-project.org/package=brew)
+
+## Code of Conduct
+
+Please note that the glue project is released with a [Contributor Code of Conduct](https://glue.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
