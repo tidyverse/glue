@@ -7,8 +7,7 @@
 \usage{
 glue_sql(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 
-glue_data_sql(.x, ..., .con, .envir = parent.frame(),
-  .na = DBI::SQL("NULL"))
+glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 }
 \arguments{
 \item{...}{[\code{expressions}]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.}
@@ -36,7 +35,9 @@ SQL quoting.
 }
 \details{
 They automatically quote character results, quote identifiers if the glue
-expression is surrounded by backticks \sQuote{\code{} and do not quote non-characters such as numbers. If numeric data is stored in a character column (which should be quoted) pass the data to }glue_sql()` as a
+expression is surrounded by backticks '\verb{`}' and do not quote
+non-characters such as numbers. If numeric data is stored in a character
+column (which should be quoted) pass the data to \code{glue_sql()} as a
 character.
 
 Returning the result with \code{DBI::SQL()} will suppress quoting if desired for
@@ -46,14 +47,15 @@ Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterize
 are generally the safest and most efficient way to pass user defined
 values in a query, however not every database driver supports them.
 
-If you place a \code{*} at the end of a glue expression the values will be
+If you place a \verb{*} at the end of a glue expression the values will be
 collapsed with commas. This is useful for the \href{https://www.w3schools.com/sql/sql_in.asp}{SQL IN Operator}
 for instance.
 }
 \examples{
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
-colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
-DBI::dbWriteTable(con, "iris", iris)
+iris2 <- iris
+colnames(iris2) <- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris2)
 var <- "sepal_width"
 tbl <- "iris"
 num <- 2
@@ -114,10 +116,36 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
   vals = c("setosa", "versicolor"), .con = con)
 
-# If you need to reference a table in a different schema use `DBI::Id()` to
-# construct the identifiers.
-cols <- c("Sepal.Width", "Sepal.Length", "Species")
-col_ids <- lapply(cols, function(x) DBI::Id(table="iris", column = x))
-values <- c(1, 2, 'Setosa')
-glue_sql("INSERT ({values*}) INTO ({`col_ids`*})", .con=con)
+# If you need to reference a variables from multiple tables use `DBI::Id()`.
+# Here we create a new table of nicknames, join the two tables together and
+# select columns from both tables. Using `DBI::Id()` and the special
+# `glue_sql()` syntax ensures all the table and column identifiers are quoted
+# appropriately.
+
+iris_db <- "iris"
+nicknames_db <- "nicknames"
+
+nicknames <- data.frame(
+  species = c("setosa", "versicolor", "virginica"),
+  nickname = c("Beachhead Iris", "Harlequin Blueflag", "Virginia Iris"),
+  stringsAsFactors = FALSE
+)
+
+DBI::dbWriteTable(con, nicknames_db, nicknames)
+
+cols <- list(
+  DBI::Id(table = iris_db, column = "sepal_length"),
+  DBI::Id(table = iris_db, column = "sepal_width"),
+  DBI::Id(table = nicknames_db, column = "nickname")
+)
+
+iris_species <- DBI::Id(table = iris_db, column = "species")
+nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
+
+query <- glue_sql("SELECT {`cols`*} FROM {`iris_db`} JOIN {`nicknames_db`} ON {`iris_species`}={`nicknames_species`}", .con = con)
+query
+
+DBI::dbGetQuery(con, query, n = 5)
+
+DBI::dbDisconnect(con)
 }

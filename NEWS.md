@@ -1,5 +1,8 @@
 # glue (development version)
 
+* `glue_sql()` now quotes lists of values appropriate to their type, rather
+  than coercing all values to characters (#153)
+
 * `glue_data()` now implicitly coerces `.x` to a list.
 
 * `glue()` gains the `.trim` argument, like `glue_data()`.
