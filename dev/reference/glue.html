@@ -60,7 +60,15 @@ from the first and last lines are automatically trimmed." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -155,13 +163,28 @@ broken by line and concatenated together. Leading whitespace and blank lines
 from the first and last lines are automatically trimmed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>glue_data</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
-  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>, <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>,
-  <span class='kw'>.trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>glue_data</span>(
+  <span class='no'>.x</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
+  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>,
+  <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>,
+  <span class='kw'>.trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>glue</span>(<span class='no'>...</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
-  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>, <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>,
-  <span class='kw'>.trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>glue</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
+  <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
+  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>,
+  <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
+  <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>,
+  <span class='kw'>.trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,12 +209,12 @@ evaluated in that environment and <code>.envir</code> is ignored.</p></td>
     </tr>
     <tr>
       <th>.open</th>
-      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>: &#8216;{&#8217;]<br /> The opening delimiter. Doubling the
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>: &#8216;\{&#8217;]<br /> The opening delimiter. Doubling the
 full delimiter escapes it.</p></td>
     </tr>
     <tr>
       <th>.close</th>
-      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>: &#8216;}&#8217;]<br /> The closing delimiter. Doubling the
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>: &#8216;\}&#8217;]<br /> The closing delimiter. Doubling the
 full delimiter escapes it.</p></td>
     </tr>
     <tr>

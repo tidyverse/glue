@@ -57,7 +57,15 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -150,6 +158,7 @@
 <a href="#glue-development-version" class="anchor"></a>glue (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> now quotes lists of values appropriate to their type, rather than coercing all values to characters (<a href='https://github.com/tidyverse/glue/issues/153'>#153</a>)</p></li>
 <li><p><code><a href="../reference/glue.html">glue_data()</a></code> now implicitly coerces <code>.x</code> to a list.</p></li>
 <li><p><code><a href="../reference/glue.html">glue()</a></code> gains the <code>.trim</code> argument, like <code><a href="../reference/glue.html">glue_data()</a></code>.</p></li>
 <li><p><code><a href="../reference/quoting.html">single_quote()</a></code> <code><a href="../reference/quoting.html">double_quote()</a></code> and <code><a href="../reference/quoting.html">backtick()</a></code> all return <code>NA</code> for <code>NA</code> inputs (<a href='https://github.com/tidyverse/glue/issues/135'>#135</a>).</p></li>
