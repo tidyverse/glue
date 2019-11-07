@@ -17,7 +17,7 @@ with the following features.
 \item Leading and trailing whitespace from the first and last lines is removed.
 \item A uniform amount of indentation is stripped from the second line on, equal
 to the minimum indentation of all non-blank lines after the first.
-\item Lines can be continued across newlines by using \code{\\}.
+\item Lines can be continued across newlines by using \verb{\\\\}.
 }
 }
 \examples{

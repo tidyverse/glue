@@ -5,13 +5,28 @@
 \alias{glue_data}
 \title{Format and interpolate a string}
 \usage{
-glue_data(.x, ..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}", .na = "NA", .transformer = identity_transformer,
-  .trim = TRUE)
+glue_data(
+  .x,
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .transformer = identity_transformer,
+  .trim = TRUE
+)
 
-glue(..., .sep = "", .envir = parent.frame(), .open = "{",
-  .close = "}", .na = "NA", .transformer = identity_transformer,
-  .trim = TRUE)
+glue(
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .transformer = identity_transformer,
+  .trim = TRUE
+)
 }
 \arguments{
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
@@ -24,17 +39,17 @@ glue(..., .sep = "", .envir = parent.frame(), .open = "{",
 evaluated from left to right. If \code{.x} is an environment, the expressions are
 evaluated in that environment and \code{.envir} is ignored.}
 
-\item{.open}{[\code{character(1)}: \sQuote{\{}]\cr The opening delimiter. Doubling the
+\item{.open}{[\code{character(1)}: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
 full delimiter escapes it.}
 
-\item{.close}{[\code{character(1)}: \sQuote{\}}]\cr The closing delimiter. Doubling the
+\item{.close}{[\code{character(1)}: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 full delimiter escapes it.}
 
 \item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
-\item{.transformer}{[\code{function]}\cr A function taking three parameters \code{code}, \code{envir} and
+\item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
 \code{data} used to transform the output of each block before during or after
 evaluation. For example transformers see \code{vignette("transformers")}.}
 

@@ -10,7 +10,7 @@ glue_collapse(x, sep = "", width = Inf, last = "")
 \item{x}{The character vector to collapse.}
 
 \item{sep}{a character string to separate the terms.  Not
-    \code{\link{NA_character_}}.}
+    \code{\link[base]{NA_character_}}.}
 
 \item{width}{The maximum string width before truncating with \code{...}.}
 
