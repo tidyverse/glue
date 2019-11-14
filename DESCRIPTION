@@ -32,7 +32,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.99.9001
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/tidyverse/glue
+URL: https://github.com/tidyverse/glue, https://glue.tidyverse.org/
 BugReports: https://github.com/tidyverse/glue/issues
 VignetteBuilder: knitr
 ByteCompile: true
