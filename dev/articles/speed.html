@@ -143,7 +143,7 @@
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">simple &lt;-</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">  </span>microbenchmark<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="dt">glue =</span> glue<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/glue/man/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="dt">glue =</span> glue<span class="op">::</span><span class="kw"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="dt">gstring =</span> R.utils<span class="op">::</span><span class="kw">gstring</span>(<span class="st">"foo${bar}"</span>),</a>
 <a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="dt">paste0 =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"foo"</span>, bar),</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="dt">sprintf =</span> <span class="kw"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"foo%s"</span>, bar),</a>
@@ -153,13 +153,13 @@
 <a class="sourceLine" id="cb1-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">unit =</span> <span class="st">"eps"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, simple)</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; Unit: evaluations per second</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;        expr      min     lq   mean median     uq     max neval</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;     rprintf   214.50   1693   1762   1794   1886    2133   100</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;     gstring    17.76   1992   2070   2111   2182    2491   100</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  str_interp   765.60   2653   2899   2900   3155    3834   100</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;        glue   142.90   4939   5733   5697   6430   10490   100</span></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;      paste0 79920.00 250300 392700 400900 505700  809100   100</span></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;     sprintf 73880.00 338400 574400 514500 638200 1471000   100</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;        expr       min     lq   mean median     uq     max neval</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;     rprintf    175.30   1753   1815   1833   1951    2185   100</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;     gstring     18.81   2018   2161   2175   2313    2727   100</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  str_interp    816.50   2753   3048   2990   3342    3966   100</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;        glue    884.80   5244   6049   5806   6864    9235   100</span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;      paste0  94300.00 240400 418100 421200 533300  843200   100</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;     sprintf 152100.00 323900 527100 456000 592800 1410000   100</span></a>
 <a class="sourceLine" id="cb1-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb1-23" data-line-number="23"><span class="kw">plot_comparison</span>(simple)</a></code></pre></div>
 <p><img src="speed_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
@@ -177,7 +177,7 @@
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">vectorized &lt;-</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span>microbenchmark<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="dt">glue =</span> glue<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/glue/man/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="dt">glue =</span> glue<span class="op">::</span><span class="kw"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="dt">gstring =</span> R.utils<span class="op">::</span><span class="kw">gstring</span>(<span class="st">"foo${bar}"</span>),</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="dt">paste0 =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"foo"</span>, bar),</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="dt">sprintf =</span> <span class="kw"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"foo%s"</span>, bar),</a>
@@ -187,11 +187,11 @@
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">unit =</span> <span class="st">"ms"</span>, <span class="dt">order =</span> <span class="st">"median"</span>, <span class="dt">signif =</span> <span class="dv">4</span>, vectorized)</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; Unit: milliseconds</span></a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;     expr   min    lq  mean median    uq   max neval</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  sprintf 14.57 14.68 14.93  14.78 15.13 16.14   100</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;   paste0 16.37 16.51 16.90  16.60 17.01 22.91   100</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;     glue 20.49 20.84 21.30  21.04 21.34 26.25   100</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  gstring 34.36 34.79 35.24  34.98 35.32 39.83   100</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;  rprintf 55.78 56.52 57.76  56.93 57.65 66.93   100</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  sprintf 14.44 14.56 14.81  14.68 14.98 18.39   100</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;   paste0 16.33 16.45 16.64  16.53 16.70 20.92   100</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;     glue 20.58 20.98 21.67  21.13 21.61 26.32   100</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  gstring 34.61 34.84 35.39  35.15 35.47 41.41   100</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;  rprintf 55.64 56.21 56.92  56.53 57.00 61.36   100</span></a>
 <a class="sourceLine" id="cb2-20" data-line-number="20"></a>
 <a class="sourceLine" id="cb2-21" data-line-number="21"><span class="kw">plot_comparison</span>(vectorized, <span class="dt">log =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
