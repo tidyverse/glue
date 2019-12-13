@@ -29,6 +29,11 @@ describe("glue_col", {
     expect_identical(glue_col("{red This is a {green serious} problem}"),
       as_glue(red("This is a " %+% green("serious") %+% " problem")))
   })
+  it("works with single quotes, double quotes, graves", {
+    expect_identical(glue_col("{blue foo's}"), as_glue(blue("foo's")))
+    expect_identical(glue_col("{blue foo\"s}"), as_glue(blue("foo\"s")))
+    expect_identical(glue_col("{blue foo`s}"), as_glue(blue("foo`s")))
+  })
 
   it("errors if there is invalid syntax or fun is not found", {
     expect_error(glue_col("{_}"), "unexpected input")
