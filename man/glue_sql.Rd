@@ -47,7 +47,7 @@ Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterize
 are generally the safest and most efficient way to pass user defined
 values in a query, however not every database driver supports them.
 
-If you place a \verb{*} at the end of a glue expression the values will be
+If you place a \code{*} at the end of a glue expression the values will be
 collapsed with commas. This is useful for the \href{https://www.w3schools.com/sql/sql_in.asp}{SQL IN Operator}
 for instance.
 }

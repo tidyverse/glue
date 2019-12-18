@@ -1,5 +1,7 @@
 # glue (development version)
 
+* Fix a LTO type mismatch warning (#146)
+
 * `glue_sql()` now quotes lists of values appropriate to their type, rather
   than coercing all values to characters (#153)
 
