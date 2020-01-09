@@ -136,4 +136,14 @@ test_that("lines containing only indentation are handled properly", {
          \tc"),
     " \ta\nb\n \t\n \tc"
   )
+  # A line shorter than min_indent that contains only indentation should not be
+  # trimmed, removed, or prepended to the next line.
+  expect_identical(
+    trim("
+       \ta
+       \tb
+      \t
+       \tc"),
+    "a\nb\n      \t\nc"
+  )
 })
