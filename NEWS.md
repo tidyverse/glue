@@ -12,6 +12,8 @@
 * `single_quote()` `double_quote()` and `backtick()` all return `NA` for `NA`
   inputs (#135).
 
+* Improve `trim()`'s handling of lines containing only indentation (#162)
+
 # glue 1.3.1
 
 ## Features
