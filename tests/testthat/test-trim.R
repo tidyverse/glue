@@ -146,4 +146,13 @@ test_that("lines containing only indentation are handled properly", {
        \tc"),
     "a\nb\n      \t\nc"
   )
+  # Ensure empty intermedite lines are handled properly
+  expect_identical(
+    trim("
+       \ta
+       \tb
+
+       \tc"),
+    "a\nb\n\nc"
+  )
 })
