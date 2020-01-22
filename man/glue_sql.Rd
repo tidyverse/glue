@@ -10,7 +10,9 @@ glue_sql(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 }
 \arguments{
-\item{...}{[\code{expressions}]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.}
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.}
 
 \item{.con}{[\code{DBIConnection}]:A DBI connection object obtained from \code{DBI::dbConnect()}.}
 
