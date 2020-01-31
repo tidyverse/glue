@@ -15,3 +15,6 @@
 ^_pkgdown\.yml$
 ^\.github$
 ^LICENSE\.md$
+^\.github/workflows/R-CMD-check\.yaml$
+^\.github/workflows/pkgdown\.yaml$
+^\.github/workflows/pr-commands\.yaml$
