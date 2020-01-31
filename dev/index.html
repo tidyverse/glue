@@ -115,7 +115,7 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="glue" class="section level1">
+<div id="glue-" class="section level1">
 
 
 <div id="overview" class="section level2">
@@ -126,226 +126,226 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Install the released version from CRAN:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"glue"</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Install the development version from GitHub:</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"tidyverse/glue"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Install the released version from CRAN:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"glue"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Install the development version from GitHub:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"tidyverse/glue"</span>)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div id="variables-can-be-passed-directly-into-strings-" class="section level5">
+<div id="variables-can-be-passed-directly-into-strings" class="section level5">
 <h5 class="hasAnchor">
-<a href="#variables-can-be-passed-directly-into-strings-" class="anchor"></a>Variables can be passed directly into strings.</h5>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(glue)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">name &lt;-<span class="st"> "Fred"</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name}.'</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; My name is Fred.</span></a></code></pre></div>
+<a href="#variables-can-be-passed-directly-into-strings" class="anchor"></a>Variables can be passed directly into strings.</h5>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(glue)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>name &lt;-<span class="st"> "Fred"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name}.'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; My name is Fred.</span></span></code></pre></div>
 </div>
-<div id="long-strings-are-broken-by-line-and-concatenated-together-" class="section level5">
+<div id="long-strings-are-broken-by-line-and-concatenated-together" class="section level5">
 <h5 class="hasAnchor">
-<a href="#long-strings-are-broken-by-line-and-concatenated-together-" class="anchor"></a>Long strings are broken by line and concatenated together.</h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(glue)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">name &lt;-<span class="st"> "Fred"</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">age &lt;-<span class="st"> </span><span class="dv">50</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">anniversary &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="st">"1991-10-12"</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name},'</span>,</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="st">' my age next year is {age + 1},'</span>,</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.</span></a></code></pre></div>
+<a href="#long-strings-are-broken-by-line-and-concatenated-together" class="anchor"></a>Long strings are broken by line and concatenated together.</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(glue)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>name &lt;-<span class="st"> "Fred"</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>age &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>anniversary &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="st">"1991-10-12"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name},'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="st">' my age next year is {age + 1},'</span>,</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.</span></span></code></pre></div>
 </div>
-<div id="named-arguments-are-used-to-assign-temporary-variables-" class="section level5">
+<div id="named-arguments-are-used-to-assign-temporary-variables" class="section level5">
 <h5 class="hasAnchor">
-<a href="#named-arguments-are-used-to-assign-temporary-variables-" class="anchor"></a>Named arguments are used to assign temporary variables.</h5>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name},'</span>,</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="st">' my age next year is {age + 1},'</span>,</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">name =</span> <span class="st">"Joe"</span>,</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  <span class="dt">age =</span> <span class="dv">40</span>,</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="dt">anniversary =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="st">"2001-10-12"</span>))</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</span></a></code></pre></div>
+<a href="#named-arguments-are-used-to-assign-temporary-variables" class="anchor"></a>Named arguments are used to assign temporary variables.</h5>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">'My name is {name},'</span>,</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="st">' my age next year is {age + 1},'</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">name =</span> <span class="st">"Joe"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="dt">age =</span> <span class="dv">40</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="dt">anniversary =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="st">"2001-10-12"</span>))</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</span></span></code></pre></div>
 </div>
-<div id="glue_data-is-useful-with-magrittr-pipes-" class="section level5">
+<div id="glue_data-is-useful-with-magrittr-pipes" class="section level5">
 <h5 class="hasAnchor">
-<a href="#glue_data-is-useful-with-magrittr-pipes-" class="anchor"></a><code>glue_data()</code> is useful with <a href="https://cran.r-project.org/package=magrittr">magrittr</a> pipes.</h5>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="st">`</span><span class="dt">%&gt;%</span><span class="st">`</span> &lt;-<span class="st"> </span>magrittr<span class="op">::</span><span class="st">`</span><span class="dt">%&gt;%</span><span class="st">`</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(mtcars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/glue.html">glue_data</a></span>(<span class="st">"{rownames(.)} has {hp} hp"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Mazda RX4 has 110 hp</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; Mazda RX4 Wag has 110 hp</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Datsun 710 has 93 hp</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; Hornet 4 Drive has 110 hp</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; Hornet Sportabout has 175 hp</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; Valiant has 105 hp</span></a></code></pre></div>
+<a href="#glue_data-is-useful-with-magrittr-pipes" class="anchor"></a><code>glue_data()</code> is useful with <a href="https://cran.r-project.org/package=magrittr">magrittr</a> pipes.</h5>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="st">`</span><span class="dt">%&gt;%</span><span class="st">`</span> &lt;-<span class="st"> </span>magrittr<span class="op">::</span><span class="st">`</span><span class="dt">%&gt;%</span><span class="st">`</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(mtcars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/glue.html">glue_data</a></span>(<span class="st">"{rownames(.)} has {hp} hp"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; Mazda RX4 has 110 hp</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; Mazda RX4 Wag has 110 hp</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; Datsun 710 has 93 hp</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; Hornet 4 Drive has 110 hp</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; Hornet Sportabout has 175 hp</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; Valiant has 105 hp</span></span></code></pre></div>
 </div>
 <div id="or-within-dplyr-pipelines" class="section level5">
 <h5 class="hasAnchor">
 <a href="#or-within-dplyr-pipelines" class="anchor"></a>Or within dplyr pipelines</h5>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(iris) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">description =</span> <span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"This {Species} has a petal length of {Petal.Length}"</span>))</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; 2          4.9         3.0          1.4         0.2  setosa</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; 3          4.7         3.2          1.3         0.2  setosa</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; 4          4.6         3.1          1.5         0.2  setosa</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 5          5.0         3.6          1.4         0.2  setosa</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 6          5.4         3.9          1.7         0.4  setosa</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;                             description</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 1 This setosa has a petal length of 1.4</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 2 This setosa has a petal length of 1.4</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; 3 This setosa has a petal length of 1.3</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 4 This setosa has a petal length of 1.5</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; 5 This setosa has a petal length of 1.4</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(iris) <span class="op">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">description =</span> <span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"This {Species} has a petal length of {Petal.Length}"</span>))</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; 2          4.9         3.0          1.4         0.2  setosa</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; 3          4.7         3.2          1.3         0.2  setosa</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 4          4.6         3.1          1.5         0.2  setosa</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; 5          5.0         3.6          1.4         0.2  setosa</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; 6          5.4         3.9          1.7         0.4  setosa</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;                             description</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; 1 This setosa has a petal length of 1.4</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; 2 This setosa has a petal length of 1.4</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; 3 This setosa has a petal length of 1.3</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; 4 This setosa has a petal length of 1.5</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; 5 This setosa has a petal length of 1.4</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></span></code></pre></div>
 </div>
-<div id="leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed-" class="section level5">
+<div id="leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed" class="section level5">
 <h5 class="hasAnchor">
-<a href="#leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed-" class="anchor"></a>Leading whitespace and blank lines from the first and last lines are automatically trimmed.</h5>
+<a href="#leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed" class="anchor"></a>Leading whitespace and blank lines from the first and last lines are automatically trimmed.</h5>
 <p>This lets you indent the strings naturally in code.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">    A formatted string</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">    Can have multiple lines</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">      with additional indention preserved</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">    "</span>)</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; A formatted string</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; Can have multiple lines</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;   with additional indention preserved</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">    A formatted string</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">    Can have multiple lines</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">      with additional indention preserved</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">    "</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; A formatted string</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; Can have multiple lines</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;   with additional indention preserved</span></span></code></pre></div>
 </div>
-<div id="an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline-" class="section level5">
+<div id="an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline" class="section level5">
 <h5 class="hasAnchor">
-<a href="#an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline-" class="anchor"></a>An additional newline can be used if you want a leading or trailing newline.</h5>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  leading or trailing newlines can be added explicitly</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  "</span>)</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; leading or trailing newlines can be added explicitly</span></a></code></pre></div>
+<a href="#an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline" class="anchor"></a>An additional newline can be used if you want a leading or trailing newline.</h5>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  leading or trailing newlines can be added explicitly</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  "</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; </span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; leading or trailing newlines can be added explicitly</span></span></code></pre></div>
 </div>
-<div id="at-the-end-of-a-line-continues-it-without-a-new-line-" class="section level5">
+<div id="-at-the-end-of-a-line-continues-it-without-a-new-line" class="section level5">
 <h5 class="hasAnchor">
-<a href="#at-the-end-of-a-line-continues-it-without-a-new-line-" class="anchor"></a><code>\\</code> at the end of a line continues it without a new line.</h5>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">    A formatted string </span><span class="ch">\\</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">    can also be on a </span><span class="ch">\\</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">    single line</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">    "</span>)</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; A formatted string can also be on a single line</span></a></code></pre></div>
+<a href="#-at-the-end-of-a-line-continues-it-without-a-new-line" class="anchor"></a><code>\\</code> at the end of a line continues it without a new line.</h5>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">    A formatted string </span><span class="ch">\\</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">    can also be on a </span><span class="ch">\\</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">    single line</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">    "</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; A formatted string can also be on a single line</span></span></code></pre></div>
 </div>
-<div id="a-literal-brace-is-inserted-by-using-doubled-braces-" class="section level5">
+<div id="a-literal-brace-is-inserted-by-using-doubled-braces" class="section level5">
 <h5 class="hasAnchor">
-<a href="#a-literal-brace-is-inserted-by-using-doubled-braces-" class="anchor"></a>A literal brace is inserted by using doubled braces.</h5>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">name &lt;-<span class="st"> "Fred"</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"My name is {name}, not {{name}}."</span>)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; My name is Fred, not {name}.</span></a></code></pre></div>
+<a href="#a-literal-brace-is-inserted-by-using-doubled-braces" class="anchor"></a>A literal brace is inserted by using doubled braces.</h5>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>name &lt;-<span class="st"> "Fred"</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"My name is {name}, not {{name}}."</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; My name is Fred, not {name}.</span></span></code></pre></div>
 </div>
-<div id="alternative-delimiters-can-be-specified-with--open-and--close-" class="section level5">
+<div id="alternative-delimiters-can-be-specified-with-open-and-close" class="section level5">
 <h5 class="hasAnchor">
-<a href="#alternative-delimiters-can-be-specified-with--open-and--close-" class="anchor"></a>Alternative delimiters can be specified with <code>.open</code> and <code>.close</code>.</h5>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">one &lt;-<span class="st"> "1"</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"The value of $e^{2</span><span class="ch">\\</span><span class="st">pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class="dt">.open =</span> <span class="st">"&lt;&lt;"</span>, <span class="dt">.close =</span> <span class="st">"&gt;&gt;"</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; The value of $e^{2\pi i}$ is $1$.</span></a></code></pre></div>
+<a href="#alternative-delimiters-can-be-specified-with-open-and-close" class="anchor"></a>Alternative delimiters can be specified with <code>.open</code> and <code>.close</code>.</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>one &lt;-<span class="st"> "1"</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"The value of $e^{2</span><span class="ch">\\</span><span class="st">pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class="dt">.open =</span> <span class="st">"&lt;&lt;"</span>, <span class="dt">.close =</span> <span class="st">"&gt;&gt;"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt; The value of $e^{2\pi i}$ is $1$.</span></span></code></pre></div>
 </div>
-<div id="all-valid-r-code-works-in-expressions-including-braces-and-escaping-" class="section level5">
+<div id="all-valid-r-code-works-in-expressions-including-braces-and-escaping" class="section level5">
 <h5 class="hasAnchor">
-<a href="#all-valid-r-code-works-in-expressions-including-braces-and-escaping-" class="anchor"></a>All valid R code works in expressions, including braces and escaping.</h5>
+<a href="#all-valid-r-code-works-in-expressions-including-braces-and-escaping" class="anchor"></a>All valid R code works in expressions, including braces and escaping.</h5>
 <p>Backslashes do need to be doubled just like in all R strings.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">  <span class="st">`</span><span class="dt">foo}\</span><span class="st">``</span><span class="dt"> &lt;- "foo"</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="dt">glue("{</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="dt">      {</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="dt">        '}</span><span class="ch">\\</span><span class="dt">'' # { and } in comments, single quotes</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="dt">        </span><span class="ch">\"</span><span class="dt">}</span><span class="ch">\\\"\"</span><span class="dt"> # or double quotes are ignored</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="dt">        </span><span class="st">`</span>foo<span class="er">}</span>\\<span class="st">``</span> <span class="co"># as are { in backticks</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">      <span class="er">}</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">  <span class="er">}</span><span class="st">")</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">#&gt; foo</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>  <span class="st">`</span><span class="dt">foo}\</span><span class="st">``</span><span class="dt"> &lt;- "foo"</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="dt">glue("{</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="dt">      {</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="dt">        '}</span><span class="ch">\\</span><span class="dt">'' # { and } in comments, single quotes</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="dt">        </span><span class="ch">\"</span><span class="dt">}</span><span class="ch">\\\"\"</span><span class="dt"> # or double quotes are ignored</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="dt">        </span><span class="st">`</span>foo<span class="er">}</span>\\<span class="st">``</span> <span class="co"># as are { in backticks</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>      <span class="er">}</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="er">}</span><span class="st">")</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="st">#&gt; foo</span></span></code></pre></div>
 </div>
 <div id="glue_sql-makes-constructing-sql-statements-safe-and-easy" class="section level5">
 <h5 class="hasAnchor">
 <a href="#glue_sql-makes-constructing-sql-statements-safe-and-easy" class="anchor"></a><code>glue_sql()</code> makes constructing SQL statements safe and easy</h5>
 <p>Use backticks to quote identifiers, normal strings and numbers are quoted appropriately for your backend.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(glue)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span>(), <span class="st">":memory:"</span>)</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(iris) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="kw"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(iris)))</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span>(con, <span class="st">"iris"</span>, iris)</a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">var &lt;-<span class="st"> "sepal_width"</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7">tbl &lt;-<span class="st"> "iris"</span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8">num &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9">val &lt;-<span class="st"> "setosa"</span></a>
-<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="st">  SELECT {`var`}</span></a>
-<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="st">  FROM {`tbl`}</span></a>
-<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span></a>
-<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="st">    AND {`tbl`}.species = {val}</span></a>
-<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="st">  "</span>, <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span></a>
-<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; FROM `iris`</span></a>
-<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span></a>
-<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt;   AND `iris`.species = 'setosa'</span></a>
-<a class="sourceLine" id="cb13-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co"># `glue_sql()` can be used in conjunction with parameterized queries using</span></a>
-<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co"># `DBI::dbBind()` to provide protection for SQL Injection attacks</span></a>
-<a class="sourceLine" id="cb13-23" data-line-number="23"> sql &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="st">    SELECT {`var`}</span></a>
-<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="st">    FROM {`tbl`}</span></a>
-<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="st">    WHERE {`tbl`}.sepal_length &gt; ?</span></a>
-<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="st">  "</span>, <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-28" data-line-number="28">query &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html">dbSendQuery</a></span>(con, sql)</a>
-<a class="sourceLine" id="cb13-29" data-line-number="29">DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbBind.html">dbBind</a></span>(query, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(num))</a>
-<a class="sourceLine" id="cb13-30" data-line-number="30">DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbFetch.html">dbFetch</a></span>(query, <span class="dt">n =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb13-31" data-line-number="31"><span class="co">#&gt;   sepal_width</span></a>
-<a class="sourceLine" id="cb13-32" data-line-number="32"><span class="co">#&gt; 1         3.5</span></a>
-<a class="sourceLine" id="cb13-33" data-line-number="33"><span class="co">#&gt; 2         3.0</span></a>
-<a class="sourceLine" id="cb13-34" data-line-number="34"><span class="co">#&gt; 3         3.2</span></a>
-<a class="sourceLine" id="cb13-35" data-line-number="35"><span class="co">#&gt; 4         3.1</span></a>
-<a class="sourceLine" id="cb13-36" data-line-number="36">DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbClearResult.html">dbClearResult</a></span>(query)</a>
-<a class="sourceLine" id="cb13-37" data-line-number="37"></a>
-<a class="sourceLine" id="cb13-38" data-line-number="38"><span class="co"># `glue_sql()` can be used to build up more complex queries with</span></a>
-<a class="sourceLine" id="cb13-39" data-line-number="39"><span class="co"># interchangeable sub queries. It returns `DBI::SQL()` objects which are</span></a>
-<a class="sourceLine" id="cb13-40" data-line-number="40"><span class="co"># properly protected from quoting.</span></a>
-<a class="sourceLine" id="cb13-41" data-line-number="41">sub_query &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb13-42" data-line-number="42"><span class="st">  SELECT *</span></a>
-<a class="sourceLine" id="cb13-43" data-line-number="43"><span class="st">  FROM {`tbl`}</span></a>
-<a class="sourceLine" id="cb13-44" data-line-number="44"><span class="st">  "</span>, <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-45" data-line-number="45"></a>
-<a class="sourceLine" id="cb13-46" data-line-number="46"><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb13-47" data-line-number="47"><span class="st">  SELECT s.{`var`}</span></a>
-<a class="sourceLine" id="cb13-48" data-line-number="48"><span class="st">  FROM ({sub_query}) AS s</span></a>
-<a class="sourceLine" id="cb13-49" data-line-number="49"><span class="st">  "</span>, <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-50" data-line-number="50"><span class="co">#&gt; &lt;SQL&gt; SELECT s.`sepal_width`</span></a>
-<a class="sourceLine" id="cb13-51" data-line-number="51"><span class="co">#&gt; FROM (SELECT *</span></a>
-<a class="sourceLine" id="cb13-52" data-line-number="52"><span class="co">#&gt; FROM `iris`) AS s</span></a>
-<a class="sourceLine" id="cb13-53" data-line-number="53"></a>
-<a class="sourceLine" id="cb13-54" data-line-number="54"><span class="co"># If you want to input multiple values for use in SQL IN statements put `*`</span></a>
-<a class="sourceLine" id="cb13-55" data-line-number="55"><span class="co"># at the end of the value and the values will be collapsed and quoted appropriately.</span></a>
-<a class="sourceLine" id="cb13-56" data-line-number="56"><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</a>
-<a class="sourceLine" id="cb13-57" data-line-number="57">  <span class="dt">vals =</span> <span class="dv">1</span>, <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-58" data-line-number="58"><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</span></a>
-<a class="sourceLine" id="cb13-59" data-line-number="59"></a>
-<a class="sourceLine" id="cb13-60" data-line-number="60"><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</a>
-<a class="sourceLine" id="cb13-61" data-line-number="61">  <span class="dt">vals =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-62" data-line-number="62"><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</span></a>
-<a class="sourceLine" id="cb13-63" data-line-number="63"></a>
-<a class="sourceLine" id="cb13-64" data-line-number="64"><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</a>
-<a class="sourceLine" id="cb13-65" data-line-number="65">  <span class="dt">vals =</span> <span class="st">"setosa"</span>, <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-66" data-line-number="66"><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</span></a>
-<a class="sourceLine" id="cb13-67" data-line-number="67"></a>
-<a class="sourceLine" id="cb13-68" data-line-number="68"><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</a>
-<a class="sourceLine" id="cb13-69" data-line-number="69">  <span class="dt">vals =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), <span class="dt">.con =</span> con)</a>
-<a class="sourceLine" id="cb13-70" data-line-number="70"><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(glue)</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(iris) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="kw"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(iris)))</span>
+<span id="cb13-5"><a href="#cb13-5"></a>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span>(con, <span class="st">"iris"</span>, iris)</span>
+<span id="cb13-6"><a href="#cb13-6"></a>var &lt;-<span class="st"> "sepal_width"</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>tbl &lt;-<span class="st"> "iris"</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>num &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>val &lt;-<span class="st"> "setosa"</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="st">  SELECT {`var`}</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="st">  FROM {`tbl`}</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="st">    AND {`tbl`}.species = {val}</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="st">  "</span>, <span class="dt">.con =</span> con)</span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; FROM `iris`</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt;   AND `iris`.species = 'setosa'</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a></span>
+<span id="cb13-21"><a href="#cb13-21"></a><span class="co"># `glue_sql()` can be used in conjunction with parameterized queries using</span></span>
+<span id="cb13-22"><a href="#cb13-22"></a><span class="co"># `DBI::dbBind()` to provide protection for SQL Injection attacks</span></span>
+<span id="cb13-23"><a href="#cb13-23"></a> sql &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></span>
+<span id="cb13-24"><a href="#cb13-24"></a><span class="st">    SELECT {`var`}</span></span>
+<span id="cb13-25"><a href="#cb13-25"></a><span class="st">    FROM {`tbl`}</span></span>
+<span id="cb13-26"><a href="#cb13-26"></a><span class="st">    WHERE {`tbl`}.sepal_length &gt; ?</span></span>
+<span id="cb13-27"><a href="#cb13-27"></a><span class="st">  "</span>, <span class="dt">.con =</span> con)</span>
+<span id="cb13-28"><a href="#cb13-28"></a>query &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html">dbSendQuery</a></span>(con, sql)</span>
+<span id="cb13-29"><a href="#cb13-29"></a>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbBind.html">dbBind</a></span>(query, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(num))</span>
+<span id="cb13-30"><a href="#cb13-30"></a>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbFetch.html">dbFetch</a></span>(query, <span class="dt">n =</span> <span class="dv">4</span>)</span>
+<span id="cb13-31"><a href="#cb13-31"></a><span class="co">#&gt;   sepal_width</span></span>
+<span id="cb13-32"><a href="#cb13-32"></a><span class="co">#&gt; 1         3.5</span></span>
+<span id="cb13-33"><a href="#cb13-33"></a><span class="co">#&gt; 2         3.0</span></span>
+<span id="cb13-34"><a href="#cb13-34"></a><span class="co">#&gt; 3         3.2</span></span>
+<span id="cb13-35"><a href="#cb13-35"></a><span class="co">#&gt; 4         3.1</span></span>
+<span id="cb13-36"><a href="#cb13-36"></a>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbClearResult.html">dbClearResult</a></span>(query)</span>
+<span id="cb13-37"><a href="#cb13-37"></a></span>
+<span id="cb13-38"><a href="#cb13-38"></a><span class="co"># `glue_sql()` can be used to build up more complex queries with</span></span>
+<span id="cb13-39"><a href="#cb13-39"></a><span class="co"># interchangeable sub queries. It returns `DBI::SQL()` objects which are</span></span>
+<span id="cb13-40"><a href="#cb13-40"></a><span class="co"># properly protected from quoting.</span></span>
+<span id="cb13-41"><a href="#cb13-41"></a>sub_query &lt;-<span class="st"> </span><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></span>
+<span id="cb13-42"><a href="#cb13-42"></a><span class="st">  SELECT *</span></span>
+<span id="cb13-43"><a href="#cb13-43"></a><span class="st">  FROM {`tbl`}</span></span>
+<span id="cb13-44"><a href="#cb13-44"></a><span class="st">  "</span>, <span class="dt">.con =</span> con)</span>
+<span id="cb13-45"><a href="#cb13-45"></a></span>
+<span id="cb13-46"><a href="#cb13-46"></a><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></span>
+<span id="cb13-47"><a href="#cb13-47"></a><span class="st">  SELECT s.{`var`}</span></span>
+<span id="cb13-48"><a href="#cb13-48"></a><span class="st">  FROM ({sub_query}) AS s</span></span>
+<span id="cb13-49"><a href="#cb13-49"></a><span class="st">  "</span>, <span class="dt">.con =</span> con)</span>
+<span id="cb13-50"><a href="#cb13-50"></a><span class="co">#&gt; &lt;SQL&gt; SELECT s.`sepal_width`</span></span>
+<span id="cb13-51"><a href="#cb13-51"></a><span class="co">#&gt; FROM (SELECT *</span></span>
+<span id="cb13-52"><a href="#cb13-52"></a><span class="co">#&gt; FROM `iris`) AS s</span></span>
+<span id="cb13-53"><a href="#cb13-53"></a></span>
+<span id="cb13-54"><a href="#cb13-54"></a><span class="co"># If you want to input multiple values for use in SQL IN statements put `*`</span></span>
+<span id="cb13-55"><a href="#cb13-55"></a><span class="co"># at the end of the value and the values will be collapsed and quoted appropriately.</span></span>
+<span id="cb13-56"><a href="#cb13-56"></a><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</span>
+<span id="cb13-57"><a href="#cb13-57"></a>  <span class="dt">vals =</span> <span class="dv">1</span>, <span class="dt">.con =</span> con)</span>
+<span id="cb13-58"><a href="#cb13-58"></a><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</span></span>
+<span id="cb13-59"><a href="#cb13-59"></a></span>
+<span id="cb13-60"><a href="#cb13-60"></a><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</span>
+<span id="cb13-61"><a href="#cb13-61"></a>  <span class="dt">vals =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">.con =</span> con)</span>
+<span id="cb13-62"><a href="#cb13-62"></a><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</span></span>
+<span id="cb13-63"><a href="#cb13-63"></a></span>
+<span id="cb13-64"><a href="#cb13-64"></a><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</span>
+<span id="cb13-65"><a href="#cb13-65"></a>  <span class="dt">vals =</span> <span class="st">"setosa"</span>, <span class="dt">.con =</span> con)</span>
+<span id="cb13-66"><a href="#cb13-66"></a><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</span></span>
+<span id="cb13-67"><a href="#cb13-67"></a></span>
+<span id="cb13-68"><a href="#cb13-68"></a><span class="kw"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</span>
+<span id="cb13-69"><a href="#cb13-69"></a>  <span class="dt">vals =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), <span class="dt">.con =</span> con)</span>
+<span id="cb13-70"><a href="#cb13-70"></a><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></span></code></pre></div>
 </div>
-<div id="optionally-combine-strings-with" class="section level5">
+<div id="optionally-combine-strings-with-" class="section level5">
 <h5 class="hasAnchor">
-<a href="#optionally-combine-strings-with" class="anchor"></a>Optionally combine strings with <code>+</code>
+<a href="#optionally-combine-strings-with-" class="anchor"></a>Optionally combine strings with <code>+</code>
 </h5>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"x + y"</span>) <span class="op">+</span><span class="st"> " = {x + y}"</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; x + y = 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>y &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="kw"><a href="reference/glue.html">glue</a></span>(<span class="st">"x + y"</span>) <span class="op">+</span><span class="st"> " = {x + y}"</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; x + y = 4</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -364,6 +364,11 @@
 <li><a href="https://cran.r-project.org/package=whisker">whisker</a></li>
 <li><a href="https://cran.r-project.org/package=brew">brew</a></li>
 </ul>
+<div id="code-of-conduct" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<p>Please note that the glue project is released with a <a href="https://glue.tidyverse.org/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
 </div>
 
   </div>
@@ -406,9 +411,8 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=glue"><img src="https://www.r-pkg.org/badges/version/glue" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://travis-ci.org/tidyverse/glue"><img src="https://travis-ci.org/tidyverse/glue.svg?branch=master" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://github.com/tidyverse/glue"><img src="https://github.com/tidyverse/glue/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/github/tidyverse/glue?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg" alt="Coverage Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/tidyverse/glue"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 </ul>
 </div>
 </div>
