@@ -4,12 +4,10 @@
 # glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
-[![Travis-CI Build
-Status](https://travis-ci.org/tidyverse/glue.svg?branch=master)](https://travis-ci.org/tidyverse/glue)
+[![R build
+status](https://github.com/tidyverse/glue/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/glue)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](https://codecov.io/github/tidyverse/glue?branch=master)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/glue)
 
 ## Overview
 
@@ -274,3 +272,9 @@ templating in R include.
 
   - [whisker](https://cran.r-project.org/package=whisker)
   - [brew](https://cran.r-project.org/package=brew)
+
+## Code of Conduct
+
+Please note that the glue project is released with a [Contributor Code
+of Conduct](https://glue.tidyverse.org/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
