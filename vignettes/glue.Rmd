@@ -1,0 +1,135 @@
+---
+title: "Getting started with glue"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get started with glue}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      comment = "#>",
+                      messages = FALSE,
+                      warning = FALSE)
+
+library(glue)
+```
+
+The `glue` package contains functions for glueing together character strings and R code.
+
+```{r eval = FALSE}
+# Install the released version of the glue package from CRAN:
+install.packages("glue")
+
+# Load the glue package
+library(glue)
+```
+
+
+## Glueing character strings
+
+`glue()` can be used to glue together character strings, such as text: 
+```{r}
+glue("glueing", "some", "text", "together")
+```
+
+The default for `glue()` is glueing with _no_ separator&mdash; you can provide a separator with the `.sep` argument:
+```{r}
+glue("glueing", "some", "text", "together", .sep = " ")
+glue("glueing", "some", "text", "together", .sep = ".")
+```
+
+You can optionally combine strings with `+`:
+```{r}
+glue("glueing") + " some" + " text" + " together"
+```
+
+
+## Glueing & formatting
+
+Leading whitespace and blank lines from the first and last lines are automatically trimmed with `glue()`, letting you indent the strings naturally in code:
+```{r}
+glue("
+    A formatted string
+    Can have multiple lines
+      with additional indention preserved
+    ")
+```
+
+An additional newline can be used if you want a leading or trailing newline.
+```{r}
+glue("
+
+  leading or trailing newlines can be added explicitly
+
+  ")
+```
+
+`\\` at the end of a line continues it without a new line:
+```{r}
+glue("
+    A formatted string \\
+    can also be on a \\
+    single line
+    ")
+```
+
+
+You can add colour to your strings with `glue_col()`:
+```{r}
+library(crayon)
+
+glue_col("{blue glueing blue text together}")
+glue_col("This ", "{red text}", " is not", " {blue blue}")
+
+```
+
+
+## Glueing character strings _with_ R code
+
+Glue evaluates R code provided in curly braces and glues the result together with character strings.
+
+Variables can be passed directly into strings:
+```{r}
+name <- "glue"
+glue('We are learning how to use the {name} R package.')
+```
+
+R expressions can be passed into strings:
+```{r}
+release_date <- as.Date("2017-06-13")
+glue('The first version of the glue package was released on a {format(release_date, "%A")}.')
+```
+
+
+## Glue with a data frame
+
+`glue_data()` can be used to work with a list or data frame:
+```{r message=FALSE}
+library(dplyr)
+
+glue_data(head(starwars), "{name} is from the planet {homeworld}.")
+```
+
+## Glueing with `dplyr` & `ggplot2`
+
+`glue()` can be used with `dplyr` & `ggplot2` pipelines:
+```{r, message = FALSE,fig.width=7}
+library(dplyr)
+library(ggplot2)
+
+starwars %>%
+  mutate(new_x_label = glue("{name} ({species})")) %>% 
+  filter(height > 200) %>% 
+  ggplot(aes(new_x_label, height)) +
+  geom_col() +
+  coord_flip()
+```
+
+
+
+## Additional Vignettes
+
+ - [Speed of glue](https://glue.tidyverse.org/articles/speed.html) 
+ - [Transformers](https://glue.tidyverse.org/articles/transformers.html)
