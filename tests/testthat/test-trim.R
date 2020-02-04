@@ -115,3 +115,25 @@ test_that("issue#47", {
            * one bullet
          "), expected)
 })
+
+test_that("lines containing only indentation are handled properly", {
+  # Tabs and spaces are considered indentation. The following examples look
+  # funny because I'm using a tab escape as the last indentation character to
+  # prevent RStudio from removing trailing whitespace on save.
+  expect_identical(
+    trim("
+         \ta
+         \tb
+         \t
+         \tc"),
+    "a\nb\n\nc"
+  )
+  expect_identical(
+    trim("
+         \ta
+       \tb
+         \t
+         \tc"),
+    " \ta\nb\n \t\n \tc"
+  )
+})

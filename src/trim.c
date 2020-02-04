@@ -84,6 +84,7 @@ SEXP trim_(SEXP x) {
           i += min_indent;
         }
         new_line = false;
+        continue;
       }
       str[j++] = xx[i++];
     }
