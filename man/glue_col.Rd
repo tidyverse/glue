@@ -10,7 +10,9 @@ glue_col(..., .envir = parent.frame(), .na = "NA")
 glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA")
 }
 \arguments{
-\item{...}{[\code{expressions}]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.}
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
@@ -27,7 +29,7 @@ The \link[crayon:crayon]{crayon} package defines a number of functions used to
 color terminal output. \code{glue_col()} and \code{glue_data_col()} functions provide
 additional syntax to make using these functions in glue strings easier.
 
-Using the following syntax will apply the function \code{blue} function to the text 'foo bar'.\preformatted{\{blue foo bar\}
+Using the following syntax will apply the function \code{crayon::blue()} to the text 'foo bar'.\preformatted{\{blue foo bar\}
 }
 
 If you want an expression to be evaluated, simply place that in a normal brace

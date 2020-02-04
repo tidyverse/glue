@@ -31,7 +31,9 @@ glue(
 \arguments{
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
 
-\item{...}{[\code{expressions}]\cr Expressions string(s) to format, multiple inputs are concatenated together before formatting.}
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.}
 
 \item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
 
