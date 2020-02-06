@@ -52,6 +52,14 @@ vec_cast.glue <- function(x, to, ...) {
   }
 }
 #' @export
+vec_cast.glue.glue <- function(x, to, ...) {
+  if (is_bare_glue(x)) {
+    x
+  } else {
+    vctrs::vec_default_cast(x, to, ...)
+  }
+}
+#' @export
 vec_cast.glue.character <- function(x, to, ...) {
   if (is_bare(x)) {
     as_glue(x)
