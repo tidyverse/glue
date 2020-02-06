@@ -2,6 +2,15 @@
 .onLoad <- function(...) {
   register_s3_method("testthat", "compare", "glue")
 
+  # Register on package load because vctrs depends on glue and will
+  # not be fully loaded when glue is loaded
+  on_package_load("vctrs", {
+    register_s3_method("vctrs", "vec_ptype2", "glue")
+    register_s3_method("vctrs", "vec_ptype2.character", "glue")
+    register_s3_method("vctrs", "vec_cast", "glue")
+    register_s3_method("vctrs", "vec_cast.character", "glue")
+  })
+
   invisible()
 }
 
@@ -27,6 +36,15 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
       registerS3method(generic, class, fun, envir = asNamespace(pkg))
     }
   )
+}
+
+on_package_load <- function(pkg, expr) {
+  if (isNamespaceLoaded(pkg)) {
+    expr
+  } else {
+    thunk <- function(...) expr
+    setHook(packageEvent(pkg, "onLoad"), thunk)
+  }
 }
 
 #nocov end

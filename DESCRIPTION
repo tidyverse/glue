@@ -26,7 +26,8 @@ Suggests:
     stringr,
     ggplot2,
     dplyr,
-    withr
+    withr,
+    vctrs (>= 0.2.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

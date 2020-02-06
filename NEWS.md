@@ -1,5 +1,9 @@
 # glue (development version)
 
+* glue now implements vctrs methods. This ensures that vectors of glue
+  strings are compatible with tidyverse packages like tidyr
+  (r-lib/tidyselect#170, tidyverse/tidyr#773, @lionel-).
+
 * Fix a LTO type mismatch warning (#146)
 
 * `glue_sql()` now quotes lists of values appropriate to their type, rather
