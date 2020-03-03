@@ -8,21 +8,31 @@
 
 <title>Construct strings with color — glue_col • glue</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,39 +42,41 @@
 
 
 <meta property="og:title" content="Construct strings with color — glue_col" />
-
 <meta property="og:description" content="The crayon package defines a number of functions used to
 color terminal output. glue_col() and glue_data_col() functions provide
 additional syntax to make using these functions in glue strings easier.
-Using the following syntax will apply the function blue function to the text 'foo bar'.{blue foo bar}
-" />
+Using the following syntax will apply the function crayon::blue() to the text 'foo bar'.{blue foo bar}
 
-<meta property="og:description" content="If you want an expression to be evaluated, simply place that in a normal brace
+
+If you want an expression to be evaluated, simply place that in a normal brace
 expression (these can be nested).{blue 1 + 1 = {1 + 1}}
-" />
 
+" />
 <meta property="og:image" content="https://glue.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -84,7 +96,7 @@ expression (these can be nested).{blue 1 + 1 = {1 + 1}}
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
         </div>
       </div>
     </div>
@@ -130,7 +142,7 @@ expression (these can be nested).{blue 1 + 1 = {1 + 1}}
 </li>
         <li>
   <a href="https://github.com/tidyverse/glue">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,6 +153,7 @@ expression (these can be nested).{blue 1 + 1 = {1 + 1}}
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -152,39 +165,40 @@ expression (these can be nested).{blue 1 + 1 = {1 + 1}}
     </div>
 
     <div class="ref-description">
-    
-    <p>The <a href='https://www.rdocumentation.org/packages/crayon/topics/crayon'>crayon</a> package defines a number of functions used to
+    <p>The <a href='https://rdrr.io/pkg/crayon/man/crayon.html'>crayon</a> package defines a number of functions used to
 color terminal output. <code>glue_col()</code> and <code>glue_data_col()</code> functions provide
 additional syntax to make using these functions in glue strings easier.</p>
-<p>Using the following syntax will apply the function <code>blue</code> function to the text 'foo bar'.</p><pre>{blue foo bar}
+<p>Using the following syntax will apply the function <code><a href='https://rdrr.io/pkg/crayon/man/crayon.html'>crayon::blue()</a></code> to the text 'foo bar'.</p><pre>{blue foo bar}
 </pre>
 
-    <p>If you want an expression to be evaluated, simply place that in a normal brace
+<p>If you want an expression to be evaluated, simply place that in a normal brace
 expression (these can be nested).</p><pre>{blue 1 + 1 = {1 + 1}}
 </pre>
-    
+
     </div>
 
-    <pre class="usage"><span class='fu'>glue_col</span>(<span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)
+    <pre class="usage"><span class='fu'>glue_col</span>(<span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)
 
-<span class='fu'>glue_data_col</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)</pre>
-    
+<span class='fu'>glue_data_col</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>[<code>expressions</code>]<br /> Expressions string(s) to format, multiple inputs are concatenated together before formatting.</p></td>
+      <td><p>[<code>expressions</code>]<br /> Unnamed arguments are taken to be expressions
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.</p></td>
     </tr>
     <tr>
       <th>.envir</th>
-      <td><p>[<code>environment</code>: <code><a href='https://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame()</a></code>]<br /> Environment to evaluate each expression in. Expressions are
+      <td><p>[<code>environment</code>: <code><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame()</a></code>]<br /> Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If <code>.x</code> is an environment, the expressions are
 evaluated in that environment and <code>.envir</code> is ignored.</p></td>
     </tr>
     <tr>
       <th>.na</th>
-      <td><p>[<code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>: &#8216;NA&#8217;]<br /> Value to replace NA values
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>: &#8216;NA&#8217;]<br /> Value to replace NA values
 with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code> result will
 cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></td>
     </tr>
@@ -193,10 +207,10 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
       <td><p>[<code>listish</code>]<br /> An environment, list or data frame used to lookup values.</p></td>
     </tr>
     </table>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>crayon</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>crayon</span>)) {
   <span class='fu'>glue_col</span>(<span class='st'>"{blue foo bar}"</span>)
 
   <span class='fu'>glue_col</span>(<span class='st'>"{blue 1 + 1 = {1 + 1}}"</span>)
@@ -208,21 +222,21 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
     `glue_col()` can show {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
     and {bold bold} and {underline underline} too!
     }"</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: crayon</span></div><div class='output co'>#&gt; Roses are red
-#&gt; Violets are blue
-#&gt; `glue_col()` can show colors
-#&gt; and bold and underline too!</div></pre>
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: crayon</span></div><div class='output co'>#&gt; <span style='color: #BBBBBB;background-color: #000000;'>Roses are </span><span style='color: #BB0000;background-color: #000000;'>red</span><span style='color: #BBBBBB;background-color: #000000;'>
+#&gt; Violets are </span><span style='color: #0000BB;background-color: #000000;'>blue</span><span style='color: #BBBBBB;background-color: #000000;'>
+#&gt; `glue_col()` can show </span><span style='color: #BB0000;background-color: #000000;'>c</span><span style='color: #BBBB00;background-color: #000000;'>o</span><span style='color: #00BB00;background-color: #000000;'>l</span><span style='color: #00BBBB;background-color: #000000;'>o</span><span style='color: #0000BB;background-color: #000000;'>r</span><span style='color: #BB00BB;background-color: #000000;'>s</span><span style='color: #BBBBBB;background-color: #000000;'>
+#&gt; and </span><span style='color: #BBBBBB;background-color: #000000;font-weight: bold;'>bold</span><span style='color: #BBBBBB;background-color: #000000;'> and </span><span style='color: #BBBBBB;background-color: #000000;text-decoration: underline;'>underline</span><span style='color: #BBBBBB;background-color: #000000;'> too!</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -235,11 +249,14 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
