@@ -1,8 +1,8 @@
-This release fixes a reported rchk error.
+This release fixes the reported LTO error.
 
 ## Test environments
-* local OS X install, R 3.5.1
-* ubuntu 14.04 (on travis-ci), R-release, R-devel
+* local OS X install, R 3.6.1
+* ubuntu 16.04 (on GitHub Actions), R-release, R-devel
 * Rhub
 
 ## R CMD check results
