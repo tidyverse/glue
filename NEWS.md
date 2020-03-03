@@ -1,4 +1,4 @@
-# glue (development version)
+# glue 1.3.2
 
 * glue now implements vctrs methods. This ensures that vectors of glue
   strings are compatible with tidyverse packages like tidyr
