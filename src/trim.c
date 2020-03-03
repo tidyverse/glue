@@ -1,7 +1,12 @@
 #include "Rinternals.h"
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h> // for strlen()
+#include <string.h> // for strlen(), strchr(), strncpy()
+
+const char* skip(const char* s, const char* delim) {
+  while (strchr(delim, s[0])) s++;
+  return s;
+}
 
 SEXP trim_(SEXP x) {
   size_t len = LENGTH(x);
@@ -80,8 +85,21 @@ SEXP trim_(SEXP x) {
         i += 2;
         continue;
       } else if (new_line) {
-        if (i + min_indent < str_len && (xx[i] == ' ' || xx[i] == '\t')) {
-          i += min_indent;
+        const char* after = skip(xx + i, "\t ");
+        const size_t skipped = after - (xx + i);
+        /*
+         * if the line consists only of tabs and spaces, and if the line is
+         * shorter than min_indent, copy the entire line and proceed to the
+         * next
+         */
+        if (after[0] == '\n' && skipped < min_indent) {
+          strncpy(str + j, xx + i, skipped);
+          i += skipped;
+          j += skipped;
+        } else {
+          if (i + min_indent < str_len && (xx[i] == ' ' || xx[i] == '\t')) {
+            i += min_indent;
+          }
         }
         new_line = false;
         continue;
