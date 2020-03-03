@@ -144,7 +144,13 @@ cols <- list(
 iris_species <- DBI::Id(table = iris_db, column = "species")
 nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
 
-query <- glue_sql("SELECT {`cols`*} FROM {`iris_db`} JOIN {`nicknames_db`} ON {`iris_species`}={`nicknames_species`}", .con = con)
+query <- glue_sql("
+  SELECT {`cols`*}
+  FROM {`iris_db`}
+  JOIN {`nicknames_db`}
+  ON {`iris_species`}={`nicknames_species`}",
+  .con = con
+)
 query
 
 DBI::dbGetQuery(con, query, n = 5)

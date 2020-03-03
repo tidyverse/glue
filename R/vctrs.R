@@ -20,6 +20,8 @@ vec_ptype2.glue <- function(x, y, ...) {
     vctrs::vec_default_ptype2(x, y, ...)
   }
 }
+
+#' @method vec_ptype2.glue character
 #' @export
 vec_ptype2.glue.character <- function(x, y, ...) {
   if (is_bare(y)) {
@@ -28,6 +30,8 @@ vec_ptype2.glue.character <- function(x, y, ...) {
     vctrs::vec_default_ptype2(x, y, ...)
   }
 }
+
+#' @method vec_ptype2.glue default
 #' @export
 vec_ptype2.glue.default <- function(x, y, ...) {
   vctrs::vec_default_ptype2(x, y, ...)
@@ -42,6 +46,7 @@ vec_ptype2.character.glue <- function(x, y, ...) {
   }
 }
 
+# Method registered in .onLoad()
 #' @rdname glue-vctrs
 #' @export
 vec_cast.glue <- function(x, to, ...) {
@@ -51,6 +56,8 @@ vec_cast.glue <- function(x, to, ...) {
     vctrs::vec_default_cast(x, to, ...)
   }
 }
+
+#' @method vec_cast.glue glue
 #' @export
 vec_cast.glue.glue <- function(x, to, ...) {
   if (is_bare_glue(x)) {
@@ -59,6 +66,8 @@ vec_cast.glue.glue <- function(x, to, ...) {
     vctrs::vec_default_cast(x, to, ...)
   }
 }
+
+#' @method vec_cast.glue character
 #' @export
 vec_cast.glue.character <- function(x, to, ...) {
   if (is_bare(x)) {
@@ -67,6 +76,8 @@ vec_cast.glue.character <- function(x, to, ...) {
     vctrs::vec_default_cast(x, to, ...)
   }
 }
+
+#' @method vec_cast.glue default
 #' @export
 vec_cast.glue.default <- function(x, to, ...) {
   vctrs::vec_default_cast(x, to, ...)
