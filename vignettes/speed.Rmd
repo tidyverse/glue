@@ -18,7 +18,7 @@ Glue is advertised as
 
 > Fast, dependency free string literals
 
-So what do we mean when we say that glue is fast. This does not mean glue is
+So what do we mean when we say that glue is fast? This does not mean glue is
 the fastest thing to use in all cases, however for the features it provides we
 can confidently say it is fast.
 
@@ -75,14 +75,14 @@ plot_comparison(simple)
 While `glue()` is slower than `paste0`,`sprintf()` it is
 twice as fast as `str_interp()` and `gstring()`, and on par with `rprintf()`.
 
-`paste0()`, `sprintf()` don't do string interpolation and will likely always be
+Although `paste0()`, `sprintf()` don't do string interpolation and will likely always be
 significantly faster than glue, glue was never meant to be a direct replacement
 for them.
 
 `rprintf()` does only variable interpolation, not arbitrary expressions, which
 was one of the explicit goals of writing glue.
 
-So glue is ~2x as fast as the two functions (`str_interp()`, `gstring()`) which do have
+So glue is ~2x as fast as the two functions (`str_interp()`, `gstring()`), which do have
 roughly equivalent functionality.
 
 It also is still quite fast, with over 6000 evaluations per second on this machine.
@@ -92,8 +92,8 @@ It also is still quite fast, with over 6000 evaluations per second on this machi
 Taking advantage of glue's vectorization is the best way to avoid performance.
 For instance the vectorized form of the previous benchmark is able to generate
 100,000 strings in only 22ms with performance much closer to that of
-`paste0()` and `sprintf()`. NB. `str_interp()` does not support
-vectorization, so were removed.
+`paste0()` and `sprintf()`. NB: `str_interp()` does not support
+vectorization, and so was removed.
 
 ```{r, message = FALSE}
 bar <- rep("bar", 1e5)
