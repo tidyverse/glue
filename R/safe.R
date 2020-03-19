@@ -5,6 +5,8 @@
 #' [get()] they do not execute any R code. This makes them suitable when used
 #' with untrusted input, such as inputs in a shiny application, where using the
 #' normal functions would allow an attacker to execute arbitrary code.
+#' @inheritParams glue
+#' @inheritParams glue
 #' @export
 #' @example
 #' "1 + 1" <- 5
