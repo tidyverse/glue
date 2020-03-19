@@ -158,6 +158,7 @@
 <a href="#glue-development-version" class="anchor"></a>glue (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code>.envir = NULL</code> is now supported and is equivalent to passing <code>.envir = emptyenv()</code> (<a href='https://github.com/tidyverse/glue/issues/140'>#140</a>)</p></li>
 <li><p>New <code><a href="../reference/glue_safe.html">glue_safe()</a></code> and <code><a href="../reference/glue_safe.html">glue_data_safe()</a></code> functions, safer versions of <code><a href="../reference/glue.html">glue()</a></code> that do not execute code, only look up values (using <code><a href="https://rdrr.io/r/base/get.html">get()</a></code>). These alternatives are useful for things like shiny applications where you do not have control of the input for your glue expressions. (<a href='https://github.com/tidyverse/glue/issues/140'>#140</a>)</p></li>
 <li><p>Fixed memory access issue and memory leaks found by valgrind.</p></li>
 </ul>

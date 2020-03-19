@@ -207,7 +207,7 @@ Named arguments are taken to be temporary variables available for substitution.<
       <th>.envir</th>
       <td><p>[<code>environment</code>: <code><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame()</a></code>]<br /> Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If <code>.x</code> is an environment, the expressions are
-evaluated in that environment and <code>.envir</code> is ignored.</p></td>
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed it is equivalent to <code><a href='https://rdrr.io/r/base/environment.html'>emptyenv()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.open</th>
