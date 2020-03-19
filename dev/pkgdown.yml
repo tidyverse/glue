@@ -1,10 +1,11 @@
 pandoc: 2.7.3
 pkgdown: 1.4.1.9000
-pkgdown_sha: 732fb5b9ccc0ef87a73dfd0772ae661a4039b2a8
+pkgdown_sha: d5e60a7232ee5f414f2a1de2aca5bf44054e7a08
 articles:
   glue-1.2.0: releases/glue-1.2.0.html
   speed: speed.html
   transformers: transformers.html
+last_built: 2020-03-19T16:04Z
 urls:
   reference: https://glue.tidyverse.org/reference
   article: https://glue.tidyverse.org/articles
