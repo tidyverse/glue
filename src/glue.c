@@ -172,6 +172,7 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   }
 
   if (state == delim) {
+    free(str);
     Rf_error("Expecting '%s'", close);
   }
 
