@@ -171,12 +171,33 @@ normal functions would allow an attacker to execute arbitrary code.</p>
 
 <span class='fu'>glue_data_safe</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>[<code>expressions</code>]<br /> Unnamed arguments are taken to be expressions
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.</p></td>
+    </tr>
+    <tr>
+      <th>.envir</th>
+      <td><p>[<code>environment</code>: <code><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame()</a></code>]<br /> Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed it is equivalent to <code><a href='https://rdrr.io/r/base/environment.html'>emptyenv()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>.x</th>
+      <td><p>[<code>listish</code>]<br /> An environment, list or data frame used to lookup values.</p></td>
+    </tr>
+    </table>
 
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
     </ul>
 
   </div>
