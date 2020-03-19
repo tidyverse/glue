@@ -18,7 +18,7 @@ Named arguments are taken to be temporary variables available for substitution.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
-evaluated in that environment and \code{.envir} is ignored.}
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
 \item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will

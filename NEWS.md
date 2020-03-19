@@ -1,5 +1,7 @@
 # glue (development version)
 
+* `.envir = NULL` is now supported and is equivalent to passing `.envir = emptyenv()` (#140)
+
 * New `glue_safe()` and `glue_data_safe()` functions, safer versions of
   `glue()` that do not execute code, only look up values (using `get()`). These
   alternatives are useful for things like shiny applications where you do not

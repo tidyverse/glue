@@ -11,7 +11,7 @@
 #' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
 #' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
 #'   evaluated from left to right. If `.x` is an environment, the expressions are
-#'   evaluated in that environment and `.envir` is ignored.
+#'   evaluated in that environment and `.envir` is ignored. If `NULL` is passed it is equivalent to [emptyenv()].
 #' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
 #'   full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
@@ -70,6 +70,10 @@
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .transformer = identity_transformer,
   .trim = TRUE) {
+
+  if (is.null(.envir)) {
+    .envir <- emptyenv()
+  }
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
