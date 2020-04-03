@@ -1,3 +1,5 @@
+# glue (development version)
+
 # glue 1.4.0
 
 * `.envir = NULL` is now supported and is equivalent to passing `.envir = emptyenv()` (#140)
