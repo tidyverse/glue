@@ -34,7 +34,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../../index.html">glue</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.0.9000</span>
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>glue 1.2.0</h1>
+      <h1 data-toc-skip>glue 1.2.0</h1>
                         <h4 class="author">Jim Hester</h4>
             
             <h4 class="date">2017-10-31</h4>
@@ -127,121 +127,121 @@
     
 <p><a href="http://glue.tidyverse.org">glue 1.2.0</a> is now available on CRAN! <a href="http://glue.tidyverse.org">glue</a> is designed to make it easy to interpolate (“glue”) your data into strings. Compared to equivalents like <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> it is easier to write and less time consuming to maintain. It also has no non-base dependencies so is easy to include in packages.</p>
 <p>Install the latest version with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"glue"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"glue"</span>)</pre></body></html></div>
 <p>glue has three primary functions, <code><a href="../../reference/glue.html">glue()</a></code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/glue-deprecated.html">collapse()</a></code>. <code><a href="../../reference/glue.html">glue()</a></code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>name &lt;-<span class="st"> "Fred"</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>age &lt;-<span class="st"> </span><span class="dv">50</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>anniversary &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="st">"1991-10-12"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw"><a href="../../reference/glue.html">glue</a></span>(<span class="st">'</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  My name is {name}</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="st">  my age next year is {age + 1}</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="st">  my anniversary is {format(anniversary, "%A, %B %d, %Y")}</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="st">'</span>)</span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt;   My name is Fred</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;   my age next year is 51</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;   my anniversary is Saturday, October 12, 1991</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">name</span> <span class="kw">&lt;-</span> <span class="st">"Fred"</span>
+<span class="no">age</span> <span class="kw">&lt;-</span> <span class="fl">50</span>
+<span class="no">anniversary</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="st">"1991-10-12"</span>)
+<span class="fu"><a href="../../reference/glue.html">glue</a></span>(<span class="st">'
+  My name is {name}
+  my age next year is {age + 1}
+  my anniversary is {format(anniversary, "%A, %B %d, %Y")}
+'</span>)
+<span class="co">#&gt;   My name is Fred</span>
+<span class="co">#&gt;   my age next year is 51</span>
+<span class="co">#&gt;   my anniversary is Saturday, October 12, 1991</span></pre></body></html></div>
 <p>glue is also vectorized over its inputs.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="../../reference/glue.html">glue</a></span>(<span class="st">'</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  {month.abb} is short for {month.name}</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="st">'</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;   Jan is short for January</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;   Feb is short for February</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;   Mar is short for March</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;   Apr is short for April</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;   May is short for May</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;   Jun is short for June</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;   Jul is short for July</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;   Aug is short for August</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;   Sep is short for September</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;   Oct is short for October</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;   Nov is short for November</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;   Dec is short for December</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../../reference/glue.html">glue</a></span>(<span class="st">'
+  {month.abb} is short for {month.name}
+'</span>)
+<span class="co">#&gt;   Jan is short for January</span>
+<span class="co">#&gt;   Feb is short for February</span>
+<span class="co">#&gt;   Mar is short for March</span>
+<span class="co">#&gt;   Apr is short for April</span>
+<span class="co">#&gt;   May is short for May</span>
+<span class="co">#&gt;   Jun is short for June</span>
+<span class="co">#&gt;   Jul is short for July</span>
+<span class="co">#&gt;   Aug is short for August</span>
+<span class="co">#&gt;   Sep is short for September</span>
+<span class="co">#&gt;   Oct is short for October</span>
+<span class="co">#&gt;   Nov is short for November</span>
+<span class="co">#&gt;   Dec is short for December</span></pre></body></html></div>
 <p><code><a href="../../reference/glue.html">glue_data()</a></code> works like <code><a href="../../reference/glue.html">glue()</a></code>, but instead of looking up its variables from the calling environment it looks them up from the first argument (usually a data frame or tibble). This makes <code><a href="../../reference/glue.html">glue_data()</a></code> very useful within pipe chains.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(magrittr)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>mtcars<span class="op">$</span>model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(mtcars)</span>
-<span id="cb4-3"><a href="#cb4-3"></a>mtcars <span class="op">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span>head <span class="op">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw"><a href="../../reference/glue.html">glue_data</a></span>(<span class="st">"The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower."</span>)</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; The Mazda RX4 has 4 gears, 6 cylinders, and 110 horsepower.</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; The Mazda RX4 Wag has 4 gears, 6 cylinders, and 110 horsepower.</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; The Datsun 710 has 4 gears, 4 cylinders, and 93 horsepower.</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders, and 110 horsepower.</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; The Hornet Sportabout has 3 gears, 8 cylinders, and 175 horsepower.</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<span class="no">mtcars</span>$<span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">mtcars</span>)
+<span class="no">mtcars</span> <span class="kw">%&gt;%</span>
+  <span class="no">head</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../../reference/glue.html">glue_data</a></span>(<span class="st">"The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower."</span>)
+<span class="co">#&gt; The Mazda RX4 has 4 gears, 6 cylinders, and 110 horsepower.</span>
+<span class="co">#&gt; The Mazda RX4 Wag has 4 gears, 6 cylinders, and 110 horsepower.</span>
+<span class="co">#&gt; The Datsun 710 has 4 gears, 4 cylinders, and 93 horsepower.</span>
+<span class="co">#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders, and 110 horsepower.</span>
+<span class="co">#&gt; The Hornet Sportabout has 3 gears, 8 cylinders, and 175 horsepower.</span>
+<span class="co">#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.</span></pre></body></html></div>
 <p><code><a href="../../reference/glue-deprecated.html">collapse()</a></code> is used to combine multiple values into one. The <code>last</code> argument is used to change the separator for the last value.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../../reference/glue-deprecated.html">collapse</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; Warning: 'collapse' is deprecated.</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; Use 'glue_collapse' instead.</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; 1, 2, 3, 4, and 5</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../../reference/glue-deprecated.html">collapse</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, <span class="st">", "</span>, <span class="kw">last</span> <span class="kw">=</span> <span class="st">", and "</span>)
+<span class="co">#&gt; Warning: 'collapse' is deprecated.</span>
+<span class="co">#&gt; Use 'glue_collapse' instead.</span>
+<span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span>
+<span class="co">#&gt; 1, 2, 3, 4, and 5</span></pre></body></html></div>
 <div id="glue-transformers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue-transformers" class="anchor"></a>glue transformers</h2>
 <p>New to glue 1.2.0 are transformer functions, which allow you to define custom behavior for glue functions. For example a <code>collapse_transformer()</code> which automatically collapses any blocks which end with <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>collapse_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">regex =</span> <span class="st">"[*]$"</span>, ...) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="cf">function</span>(code, envir) {</span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(regex, code)) {</span>
-<span id="cb6-4"><a href="#cb6-4"></a>        code &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(regex, <span class="st">""</span>, code)</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    }</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="dt">text =</span> code), <span class="dt">envir =</span> envir)</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    <span class="kw"><a href="../../reference/glue-deprecated.html">collapse</a></span>(res, ...)</span>
-<span id="cb6-8"><a href="#cb6-8"></a>  }</span>
-<span id="cb6-9"><a href="#cb6-9"></a>}</span>
-<span id="cb6-10"><a href="#cb6-10"></a></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="kw"><a href="../../reference/glue.html">glue</a></span>(<span class="st">"</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="st">  {1:5*}</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="st">  {letters[1:5]*}"</span>,</span>
-<span id="cb6-14"><a href="#cb6-14"></a>  <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">", and "</span>))</span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; Warning: 'collapse' is deprecated.</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; Use 'glue_collapse' instead.</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt; Warning: 'collapse' is deprecated.</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt; Use 'glue_collapse' instead.</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; 1, 2, 3, 4, and 5</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; a, b, c, d, and e</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">collapse_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">regex</span> <span class="kw">=</span> <span class="st">"[*]$"</span>, <span class="no">...</span>) {
+  <span class="kw">function</span>(<span class="no">code</span>, <span class="no">envir</span>) {
+    <span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="no">regex</span>, <span class="no">code</span>)) {
+        <span class="no">code</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="no">regex</span>, <span class="st">""</span>, <span class="no">code</span>)
+    }
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="no">code</span>), <span class="kw">envir</span> <span class="kw">=</span> <span class="no">envir</span>)
+    <span class="fu"><a href="../../reference/glue-deprecated.html">collapse</a></span>(<span class="no">res</span>, <span class="no">...</span>)
+  }
+}
+
+<span class="fu"><a href="../../reference/glue.html">glue</a></span>(<span class="st">"
+  {1:5*}
+  {letters[1:5]*}"</span>,
+  <span class="kw">.transformer</span> <span class="kw">=</span> <span class="fu">collapse_transformer</span>(<span class="kw">sep</span> <span class="kw">=</span> <span class="st">", "</span>, <span class="kw">last</span> <span class="kw">=</span> <span class="st">", and "</span>))
+<span class="co">#&gt; Warning: 'collapse' is deprecated.</span>
+<span class="co">#&gt; Use 'glue_collapse' instead.</span>
+<span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span>
+
+<span class="co">#&gt; Warning: 'collapse' is deprecated.</span>
+<span class="co">#&gt; Use 'glue_collapse' instead.</span>
+<span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span>
+<span class="co">#&gt; 1, 2, 3, 4, and 5</span>
+<span class="co">#&gt; a, b, c, d, and e</span></pre></body></html></div>
 <p>Or an sprintf transformer which lets you use sprintf style numeric formatting with glue.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(code, envir) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  m &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">regexpr</a></span>(<span class="st">"%.+$"</span>, code)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) {</span>
-<span id="cb7-4"><a href="#cb7-4"></a>    format &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(code, m)</span>
-<span id="cb7-5"><a href="#cb7-5"></a>    <span class="kw"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(code, m) &lt;-<span class="st"> ""</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>    res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="dt">text =</span> code), <span class="dt">envir =</span> envir)</span>
-<span id="cb7-7"><a href="#cb7-7"></a>    <span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(sprintf, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(format, res))</span>
-<span id="cb7-8"><a href="#cb7-8"></a>  } <span class="cf">else</span> {</span>
-<span id="cb7-9"><a href="#cb7-9"></a>    <span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="dt">text =</span> code), <span class="dt">envir =</span> envir)</span>
-<span id="cb7-10"><a href="#cb7-10"></a>  }</span>
-<span id="cb7-11"><a href="#cb7-11"></a>}</span>
-<span id="cb7-12"><a href="#cb7-12"></a></span>
-<span id="cb7-13"><a href="#cb7-13"></a>glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {</span>
-<span id="cb7-14"><a href="#cb7-14"></a>  <span class="kw"><a href="../../reference/glue.html">glue</a></span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)</span>
-<span id="cb7-15"><a href="#cb7-15"></a>}</span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="kw">glue_fmt</span>(<span class="st">"π = {pi%.5f}"</span>)</span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; π = 3.14159</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">sprintf_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">code</span>, <span class="no">envir</span>) {
+  <span class="no">m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">regexpr</a></span>(<span class="st">"%.+$"</span>, <span class="no">code</span>)
+  <span class="kw">if</span> (<span class="no">m</span> <span class="kw">!=</span> -<span class="fl">1</span>) {
+    <span class="no">format</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(<span class="no">code</span>, <span class="no">m</span>)
+    <span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(<span class="no">code</span>, <span class="no">m</span>) <span class="kw">&lt;-</span> <span class="st">""</span>
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="no">code</span>), <span class="kw">envir</span> <span class="kw">=</span> <span class="no">envir</span>)
+    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="no">sprintf</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">format</span>, <span class="no">res</span>))
+  } <span class="kw">else</span> {
+    <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="no">code</span>), <span class="kw">envir</span> <span class="kw">=</span> <span class="no">envir</span>)
+  }
+}
+
+<span class="no">glue_fmt</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">...</span>, <span class="no">.envir</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {
+  <span class="fu"><a href="../../reference/glue.html">glue</a></span>(<span class="no">...</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="no">sprintf_transformer</span>, <span class="kw">.envir</span> <span class="kw">=</span> <span class="no">.envir</span>)
+}
+<span class="fu">glue_fmt</span>(<span class="st">"π = {pi%.5f}"</span>)
+<span class="co">#&gt; π = 3.14159</span></pre></body></html></div>
 </div>
 <div id="glue_sql" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue_sql" class="anchor"></a>glue_sql()</h2>
 <p>Also new to glue 1.2.0 is <code><a href="../../reference/glue_sql.html">glue_sql()</a></code> and <code><a href="../../reference/glue_sql.html">glue_data_sql()</a></code>, which are helper functions defined with glue transformers to make it easy and safe to construct SQL statements.</p>
 <p>Using <code><a href="../../reference/glue_sql.html">glue_sql()</a></code> values are automatically quoted appropriately and variables can be quoted with backticks.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span>(RSQLite<span class="op">::</span><span class="kw"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span>(), <span class="st">":memory:"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(iris) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="kw"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(iris)))</span>
-<span id="cb8-3"><a href="#cb8-3"></a>DBI<span class="op">::</span><span class="kw"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span>(con, <span class="st">"iris"</span>, iris)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>var &lt;-<span class="st"> "sepal_width"</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>tbl &lt;-<span class="st"> "iris"</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>num &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>val &lt;-<span class="st"> "setosa"</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="kw"><a href="../../reference/glue_sql.html">glue_sql</a></span>(<span class="st">"</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="st">  SELECT {`var`}</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="st">  FROM {`tbl`}</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="st">    AND {`tbl`}.species = {val}</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="st">  "</span>, <span class="dt">.con =</span> con)</span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; FROM `iris`</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;   AND `iris`.species = 'setosa'</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">con</span> <span class="kw">&lt;-</span> <span class="kw pkg">DBI</span><span class="kw ns">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span>(<span class="kw pkg">RSQLite</span><span class="kw ns">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span>(), <span class="st">":memory:"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">iris</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">iris</span>)))
+<span class="kw pkg">DBI</span><span class="kw ns">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span>(<span class="no">con</span>, <span class="st">"iris"</span>, <span class="no">iris</span>)
+<span class="no">var</span> <span class="kw">&lt;-</span> <span class="st">"sepal_width"</span>
+<span class="no">tbl</span> <span class="kw">&lt;-</span> <span class="st">"iris"</span>
+<span class="no">num</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
+<span class="no">val</span> <span class="kw">&lt;-</span> <span class="st">"setosa"</span>
+<span class="fu"><a href="../../reference/glue_sql.html">glue_sql</a></span>(<span class="st">"
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length &gt; {num}
+    AND {`tbl`}.species = {val}
+  "</span>, <span class="kw">.con</span> <span class="kw">=</span> <span class="no">con</span>)
+<span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span>
+<span class="co">#&gt; FROM `iris`</span>
+<span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span>
+<span class="co">#&gt;   AND `iris`.species = 'setosa'</span></pre></body></html></div>
 </div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -253,16 +253,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#glue-transformers">glue transformers</a></li>
-      <li><a href="#glue_sql">glue_sql()</a></li>
-      <li><a href="#other-changes">Other changes</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

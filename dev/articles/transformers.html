@@ -33,7 +33,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -49,7 +49,7 @@
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.0.9000</span>
         </div>
       </div>
     </div>
@@ -112,7 +112,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Transformers</h1>
+      <h1 data-toc-skip>Transformers</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/master/vignettes/transformers.Rmd"><code>vignettes/transformers.Rmd</code></a></small>
@@ -127,169 +127,169 @@
 <p>You can then supply the transformer function to glue with the <code>.transformer</code> argument. In this way users can manipulate the text before parsing and change the output after evaluation.</p>
 <p>It is often useful to write a <code><a href="../reference/glue.html">glue()</a></code> wrapper function which supplies a <code>.transformer</code> to <code><a href="../reference/glue.html">glue()</a></code> or <code><a href="../reference/glue.html">glue_data()</a></code> and potentially has additional arguments. One important consideration when doing this is to include <code>.envir = parent.frame()</code> in the wrapper to ensure the evaluation environment is correct.</p>
 <p>Some example implementations of potentially useful transformers follow. The aim right now is not to include most of these custom functions within the <code>glue</code> package. Rather, users are encouraged to create custom functions using transformers to fit their individual needs.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(glue)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">glue</span>)</pre></body></html></div>
 <div id="collapse-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#collapse-transformer" class="anchor"></a>collapse transformer</h3>
 <p>A transformer which automatically collapses any glue block ending with <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>collapse_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">regex =</span> <span class="st">"[*]$"</span>, ...) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="cf">function</span>(text, envir) {</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    collapse &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(regex, text)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    <span class="cf">if</span> (collapse) {</span>
-<span id="cb2-5"><a href="#cb2-5"></a>      text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(regex, <span class="st">""</span>, text)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    }</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/identity_transformer.html">identity_transformer</a></span>(text, envir)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="cf">if</span> (collapse) {</span>
-<span id="cb2-9"><a href="#cb2-9"></a>      <span class="kw"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(res, ...)  </span>
-<span id="cb2-10"><a href="#cb2-10"></a>    } <span class="cf">else</span> {</span>
-<span id="cb2-11"><a href="#cb2-11"></a>      res</span>
-<span id="cb2-12"><a href="#cb2-12"></a>    }</span>
-<span id="cb2-13"><a href="#cb2-13"></a>  }</span>
-<span id="cb2-14"><a href="#cb2-14"></a>}</span>
-<span id="cb2-15"><a href="#cb2-15"></a></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="kw"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>))</span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; 1, 2, 3, 4, 5</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; a, b, c, d, e</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="kw"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{1:5*}</span><span class="ch">\n</span><span class="st">{letters[1:5]*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>, <span class="dt">last =</span> <span class="st">" and "</span>))</span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; 1, 2, 3, 4 and 5</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; a, b, c, d and e</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a></span>
-<span id="cb2-24"><a href="#cb2-24"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"one"</span>, <span class="st">"two"</span>)</span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="kw"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{x}: {1:5*}"</span>, <span class="dt">.transformer =</span> <span class="kw">collapse_transformer</span>(<span class="dt">sep =</span> <span class="st">", "</span>))</span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; one: 1, 2, 3, 4, 5</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt; two: 1, 2, 3, 4, 5</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">collapse_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">regex</span> <span class="kw">=</span> <span class="st">"[*]$"</span>, <span class="no">...</span>) {
+  <span class="kw">function</span>(<span class="no">text</span>, <span class="no">envir</span>) {
+    <span class="no">collapse</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="no">regex</span>, <span class="no">text</span>)
+    <span class="kw">if</span> (<span class="no">collapse</span>) {
+      <span class="no">text</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="no">regex</span>, <span class="st">""</span>, <span class="no">text</span>)
+    }
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/identity_transformer.html">identity_transformer</a></span>(<span class="no">text</span>, <span class="no">envir</span>)
+    <span class="kw">if</span> (<span class="no">collapse</span>) {
+      <span class="fu"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(<span class="no">res</span>, <span class="no">...</span>)
+    } <span class="kw">else</span> {
+      <span class="no">res</span>
+    }
+  }
+}
+
+<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{1:5*}\n{letters[1:5]*}"</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="fu">collapse_transformer</span>(<span class="kw">sep</span> <span class="kw">=</span> <span class="st">", "</span>))
+<span class="co">#&gt; 1, 2, 3, 4, 5</span>
+<span class="co">#&gt; a, b, c, d, e</span>
+
+<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{1:5*}\n{letters[1:5]*}"</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="fu">collapse_transformer</span>(<span class="kw">sep</span> <span class="kw">=</span> <span class="st">", "</span>, <span class="kw">last</span> <span class="kw">=</span> <span class="st">" and "</span>))
+<span class="co">#&gt; 1, 2, 3, 4 and 5</span>
+<span class="co">#&gt; a, b, c, d and e</span>
+
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"one"</span>, <span class="st">"two"</span>)
+<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{x}: {1:5*}"</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="fu">collapse_transformer</span>(<span class="kw">sep</span> <span class="kw">=</span> <span class="st">", "</span>))
+<span class="co">#&gt; one: 1, 2, 3, 4, 5</span>
+<span class="co">#&gt; two: 1, 2, 3, 4, 5</span></pre></body></html></div>
 </div>
 <div id="shell-quoting-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#shell-quoting-transformer" class="anchor"></a>Shell quoting transformer</h3>
 <p>A transformer which automatically quotes variables for use in shell commands, e.g. via <code><a href="https://rdrr.io/r/base/system.html">system()</a></code> or <code><a href="https://rdrr.io/r/base/system2.html">system2()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>shell_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</span>
-<span id="cb3-2"><a href="#cb3-2"></a>  type &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/match.arg.html">match.arg</a></span>(type)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="cf">function</span>(text, envir) {</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir)</span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="kw"><a href="https://rdrr.io/r/base/shQuote.html">shQuote</a></span>(res)</span>
-<span id="cb3-6"><a href="#cb3-6"></a>  }</span>
-<span id="cb3-7"><a href="#cb3-7"></a>}</span>
-<span id="cb3-8"><a href="#cb3-8"></a></span>
-<span id="cb3-9"><a href="#cb3-9"></a>glue_sh &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>(), <span class="dt">.type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {</span>
-<span id="cb3-10"><a href="#cb3-10"></a>  .type &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/match.arg.html">match.arg</a></span>(.type)</span>
-<span id="cb3-11"><a href="#cb3-11"></a>  <span class="kw"><a href="../reference/glue.html">glue</a></span>(..., <span class="dt">.envir =</span> .envir, <span class="dt">.transformer =</span> <span class="kw">shell_transformer</span>(.type))</span>
-<span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a>}</span>
-<span id="cb3-14"><a href="#cb3-14"></a></span>
-<span id="cb3-15"><a href="#cb3-15"></a>filename &lt;-<span class="st"> "test"</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="kw"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span>(<span class="dt">con =</span> filename, <span class="st">"hello!"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17"></a></span>
-<span id="cb3-18"><a href="#cb3-18"></a>command &lt;-<span class="st"> </span><span class="kw">glue_sh</span>(<span class="st">"cat {filename}"</span>)</span>
-<span id="cb3-19"><a href="#cb3-19"></a>command</span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; cat 'test'</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="kw"><a href="https://rdrr.io/r/base/system.html">system</a></span>(command)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">shell_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {
+  <span class="no">type</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html">match.arg</a></span>(<span class="no">type</span>)
+  <span class="kw">function</span>(<span class="no">text</span>, <span class="no">envir</span>) {
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="no">text</span>, <span class="kw">keep.source</span> <span class="kw">=</span> <span class="fl">FALSE</span>), <span class="no">envir</span>)
+    <span class="fu"><a href="https://rdrr.io/r/base/shQuote.html">shQuote</a></span>(<span class="no">res</span>)
+  }
+}
+
+<span class="no">glue_sh</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">...</span>, <span class="no">.envir</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>(), <span class="no">.type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span>)) {
+  <span class="no">.type</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html">match.arg</a></span>(<span class="no">.type</span>)
+  <span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="no">...</span>, <span class="kw">.envir</span> <span class="kw">=</span> <span class="no">.envir</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="fu">shell_transformer</span>(<span class="no">.type</span>))
+
+}
+
+<span class="no">filename</span> <span class="kw">&lt;-</span> <span class="st">"test"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span>(<span class="kw">con</span> <span class="kw">=</span> <span class="no">filename</span>, <span class="st">"hello!"</span>)
+
+<span class="no">command</span> <span class="kw">&lt;-</span> <span class="fu">glue_sh</span>(<span class="st">"cat {filename}"</span>)
+<span class="no">command</span>
+<span class="co">#&gt; cat 'test'</span>
+<span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span>(<span class="no">command</span>)</pre></body></html></div>
 </div>
 <div id="emoji-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#emoji-transformer" class="anchor"></a>emoji transformer</h3>
 <p>A transformer which converts the text to the equivalent emoji.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>emoji_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(text, envir) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"[*]$"</span>, text)) {</span>
-<span id="cb4-3"><a href="#cb4-3"></a>    text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">"[*]$"</span>, <span class="st">""</span>, text)</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    <span class="kw"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(<span class="kw">ji_find</span>(text)<span class="op">$</span>emoji)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>  } <span class="cf">else</span> {</span>
-<span id="cb4-6"><a href="#cb4-6"></a>    <span class="kw">ji</span>(text)</span>
-<span id="cb4-7"><a href="#cb4-7"></a>  }</span>
-<span id="cb4-8"><a href="#cb4-8"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9"></a></span>
-<span id="cb4-10"><a href="#cb4-10"></a>glue_ji &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {</span>
-<span id="cb4-11"><a href="#cb4-11"></a>  <span class="kw"><a href="../reference/glue.html">glue</a></span>(..., <span class="dt">.open =</span> <span class="st">":"</span>, <span class="dt">.close =</span> <span class="st">":"</span>, <span class="dt">.envir =</span> .envir, <span class="dt">.transformer =</span> emoji_transformer)</span>
-<span id="cb4-12"><a href="#cb4-12"></a>}</span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="kw">glue_ji</span>(<span class="st">"one :heart:"</span>)</span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="kw">glue_ji</span>(<span class="st">"many :heart*:"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">emoji_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">text</span>, <span class="no">envir</span>) {
+  <span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"[*]$"</span>, <span class="no">text</span>)) {
+    <span class="no">text</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">"[*]$"</span>, <span class="st">""</span>, <span class="no">text</span>)
+    <span class="fu"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(<span class="fu">ji_find</span>(<span class="no">text</span>)$<span class="no">emoji</span>)
+  } <span class="kw">else</span> {
+    <span class="fu">ji</span>(<span class="no">text</span>)
+  }
+}
+
+<span class="no">glue_ji</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">...</span>, <span class="no">.envir</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {
+  <span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="no">...</span>, <span class="kw">.open</span> <span class="kw">=</span> <span class="st">":"</span>, <span class="kw">.close</span> <span class="kw">=</span> <span class="st">":"</span>, <span class="kw">.envir</span> <span class="kw">=</span> <span class="no">.envir</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="no">emoji_transformer</span>)
+}
+<span class="fu">glue_ji</span>(<span class="st">"one :heart:"</span>)
+<span class="fu">glue_ji</span>(<span class="st">"many :heart*:"</span>)</pre></body></html></div>
 </div>
 <div id="sprintf-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sprintf-transformer" class="anchor"></a>sprintf transformer</h3>
 <p>A transformer which allows succinct sprintf format strings.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>sprintf_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(text, envir) {</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  m &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">regexpr</a></span>(<span class="st">":.+$"</span>, text)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="cf">if</span> (m <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) {</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    format &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/substr.html">substring</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(text, m), <span class="dv">2</span>)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="kw"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(text, m) &lt;-<span class="st"> ""</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>    res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir)</span>
-<span id="cb5-7"><a href="#cb5-7"></a>    <span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(sprintf, <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="../reference/glue.html">glue</a></span>(<span class="st">"%{format}f"</span>), res))</span>
-<span id="cb5-8"><a href="#cb5-8"></a>  } <span class="cf">else</span> {</span>
-<span id="cb5-9"><a href="#cb5-9"></a>    <span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir)</span>
-<span id="cb5-10"><a href="#cb5-10"></a>  }</span>
-<span id="cb5-11"><a href="#cb5-11"></a>}</span>
-<span id="cb5-12"><a href="#cb5-12"></a></span>
-<span id="cb5-13"><a href="#cb5-13"></a>glue_fmt &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.envir =</span> <span class="kw"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {</span>
-<span id="cb5-14"><a href="#cb5-14"></a>  <span class="kw"><a href="../reference/glue.html">glue</a></span>(..., <span class="dt">.transformer =</span> sprintf_transformer, <span class="dt">.envir =</span> .envir)</span>
-<span id="cb5-15"><a href="#cb5-15"></a>}</span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="kw">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; π = 3.14</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">sprintf_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">text</span>, <span class="no">envir</span>) {
+  <span class="no">m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">regexpr</a></span>(<span class="st">":.+$"</span>, <span class="no">text</span>)
+  <span class="kw">if</span> (<span class="no">m</span> <span class="kw">!=</span> -<span class="fl">1</span>) {
+    <span class="no">format</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html">substring</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(<span class="no">text</span>, <span class="no">m</span>), <span class="fl">2</span>)
+    <span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(<span class="no">text</span>, <span class="no">m</span>) <span class="kw">&lt;-</span> <span class="st">""</span>
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="no">text</span>, <span class="kw">keep.source</span> <span class="kw">=</span> <span class="fl">FALSE</span>), <span class="no">envir</span>)
+    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="no">sprintf</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"%{format}f"</span>), <span class="no">res</span>))
+  } <span class="kw">else</span> {
+    <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="no">text</span>, <span class="kw">keep.source</span> <span class="kw">=</span> <span class="fl">FALSE</span>), <span class="no">envir</span>)
+  }
+}
+
+<span class="no">glue_fmt</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">...</span>, <span class="no">.envir</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {
+  <span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="no">...</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="no">sprintf_transformer</span>, <span class="kw">.envir</span> <span class="kw">=</span> <span class="no">.envir</span>)
+}
+<span class="fu">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)
+<span class="co">#&gt; π = 3.14</span></pre></body></html></div>
 </div>
 <div id="safely-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#safely-transformer" class="anchor"></a>safely transformer</h3>
 <p>A transformer that acts like <code><a href="https://purrr.tidyverse.org/reference/safely.html">purrr::safely()</a></code>, which returns a value instead of an error.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>safely_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">otherwise =</span> <span class="ot">NA</span>) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="cf">function</span>(text, envir) {</span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span>(</span>
-<span id="cb6-4"><a href="#cb6-4"></a>      <span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="dt">text =</span> text, <span class="dt">keep.source =</span> <span class="ot">FALSE</span>), envir),</span>
-<span id="cb6-5"><a href="#cb6-5"></a>      <span class="dt">error =</span> <span class="cf">function</span>(e) <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/is.language.html">is.language</a></span>(otherwise)) <span class="kw"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(otherwise) <span class="cf">else</span> otherwise)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>  }</span>
-<span id="cb6-7"><a href="#cb6-7"></a>}</span>
-<span id="cb6-8"><a href="#cb6-8"></a></span>
-<span id="cb6-9"><a href="#cb6-9"></a>glue_safely &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">.otherwise =</span> <span class="ot">NA</span>, <span class="dt">.envir =</span> <span class="kw"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {</span>
-<span id="cb6-10"><a href="#cb6-10"></a>  <span class="kw"><a href="../reference/glue.html">glue</a></span>(..., <span class="dt">.transformer =</span> <span class="kw">safely_transformer</span>(.otherwise), <span class="dt">.envir =</span> .envir)</span>
-<span id="cb6-11"><a href="#cb6-11"></a>}</span>
-<span id="cb6-12"><a href="#cb6-12"></a></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co"># Default returns missing if there is an error</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>)</span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; foo: NA</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co"># Or an empty string</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="dt">.otherwise =</span> <span class="st">"Error"</span>)</span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt; foo: Error</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co"># Or output the error message in red</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(crayon)</span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="kw">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="dt">.otherwise =</span> <span class="kw"><a href="https://rdrr.io/r/base/substitute.html">quote</a></span>(<span class="kw"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{red}Error: {conditionMessage(e)}{reset}"</span>)))</span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; foo: Error: object 'xyz' not found</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">safely_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">otherwise</span> <span class="kw">=</span> <span class="fl">NA</span>) {
+  <span class="kw">function</span>(<span class="no">text</span>, <span class="no">envir</span>) {
+    <span class="fu"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span>(
+      <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="no">text</span>, <span class="kw">keep.source</span> <span class="kw">=</span> <span class="fl">FALSE</span>), <span class="no">envir</span>),
+      <span class="kw">error</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">e</span>) <span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/is.language.html">is.language</a></span>(<span class="no">otherwise</span>)) <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="no">otherwise</span>) <span class="kw">else</span> <span class="no">otherwise</span>)
+  }
+}
+
+<span class="no">glue_safely</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">...</span>, <span class="no">.otherwise</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="no">.envir</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {
+  <span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="no">...</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="fu">safely_transformer</span>(<span class="no">.otherwise</span>), <span class="kw">.envir</span> <span class="kw">=</span> <span class="no">.envir</span>)
+}
+
+<span class="co"># Default returns missing if there is an error</span>
+<span class="fu">glue_safely</span>(<span class="st">"foo: {xyz}"</span>)
+<span class="co">#&gt; foo: NA</span>
+
+<span class="co"># Or an empty string</span>
+<span class="fu">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="kw">.otherwise</span> <span class="kw">=</span> <span class="st">"Error"</span>)
+<span class="co">#&gt; foo: Error</span>
+
+<span class="co"># Or output the error message in red</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">crayon</span>)
+<span class="fu">glue_safely</span>(<span class="st">"foo: {xyz}"</span>, <span class="kw">.otherwise</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substitute.html">quote</a></span>(<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{red}Error: {conditionMessage(e)}{reset}"</span>)))
+<span class="co">#&gt; foo: Error: object 'xyz' not found</span></pre></body></html></div>
 </div>
 <div id="variables-and-values-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#variables-and-values-transformer" class="anchor"></a>“Variables and Values” transformer</h3>
 <p>A transformer that expands input of the form <code>{var_name=}</code> into <code>var_name = var_value</code>, i.e. a shorthand for exposing variable names with their values. This is inspired by an <a href="https://docs.python.org/3.8/whatsnew/3.8.html#f-strings-now-support-for-quick-and-easy-debugging">f-strings feature coming in Python 3.8</a>. It’s actually more general: you can use it with an expression input such as <code>{expr=}</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>vv_transformer &lt;-<span class="st"> </span><span class="cf">function</span>(text, envir) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  regex &lt;-<span class="st"> "=$"</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(regex, text)) {</span>
-<span id="cb7-4"><a href="#cb7-4"></a>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw"><a href="../reference/identity_transformer.html">identity_transformer</a></span>(text, envir))</span>
-<span id="cb7-5"><a href="#cb7-5"></a>  }</span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>  text &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(regex, <span class="st">""</span>, text)</span>
-<span id="cb7-8"><a href="#cb7-8"></a>  res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/identity_transformer.html">identity_transformer</a></span>(text, envir)</span>
-<span id="cb7-9"><a href="#cb7-9"></a>  n &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(res)</span>
-<span id="cb7-10"><a href="#cb7-10"></a>  res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(res, <span class="dt">sep =</span> <span class="st">", "</span>)</span>
-<span id="cb7-11"><a href="#cb7-11"></a>  <span class="cf">if</span> (n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {</span>
-<span id="cb7-12"><a href="#cb7-12"></a>    res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"["</span>, res, <span class="st">"]"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13"></a>  }</span>
-<span id="cb7-14"><a href="#cb7-14"></a>  <span class="kw"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(text, <span class="st">" = "</span>, res))</span>
-<span id="cb7-15"><a href="#cb7-15"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1234</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>description &lt;-<span class="st"> "some random"</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>numbers &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">100</span>, <span class="dv">4</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>average &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(numbers)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>sum &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(numbers)</span>
-<span id="cb8-6"><a href="#cb8-6"></a></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="kw"><a href="../reference/glue.html">glue</a></span>(<span class="st">"For {description} {numbers=}, {average=}, {sum=}."</span>, <span class="dt">.transformer =</span> vv_transformer)</span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; For some random numbers = [28, 80, 22, 9], average = 34.75, sum = 139.</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a></span>
-<span id="cb8-10"><a href="#cb8-10"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a>b &lt;-<span class="st"> </span><span class="fl">5.6</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="kw"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{a=}</span><span class="ch">\n</span><span class="st">{b=}</span><span class="ch">\n</span><span class="st">{a * 9 + b * 2=}"</span>, <span class="dt">.transformer =</span> vv_transformer)</span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; a = 3</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; b = 5.6</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; a * 9 + b * 2 = 38.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">vv_transformer</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">text</span>, <span class="no">envir</span>) {
+  <span class="no">regex</span> <span class="kw">&lt;-</span> <span class="st">"=$"</span>
+  <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="no">regex</span>, <span class="no">text</span>)) {
+    <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="fu"><a href="../reference/identity_transformer.html">identity_transformer</a></span>(<span class="no">text</span>, <span class="no">envir</span>))
+  }
+
+  <span class="no">text</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="no">regex</span>, <span class="st">""</span>, <span class="no">text</span>)
+  <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/identity_transformer.html">identity_transformer</a></span>(<span class="no">text</span>, <span class="no">envir</span>)
+  <span class="no">n</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">res</span>)
+  <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(<span class="no">res</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">", "</span>)
+  <span class="kw">if</span> (<span class="no">n</span> <span class="kw">&gt;</span> <span class="fl">1</span>) {
+    <span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"["</span>, <span class="no">res</span>, <span class="st">"]"</span>)
+  }
+  <span class="fu"><a href="../reference/glue_collapse.html">glue_collapse</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">text</span>, <span class="st">" = "</span>, <span class="no">res</span>))
+}</pre></body></html></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1234</span>)
+<span class="no">description</span> <span class="kw">&lt;-</span> <span class="st">"some random"</span>
+<span class="no">numbers</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fl">100</span>, <span class="fl">4</span>)
+<span class="no">average</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">numbers</span>)
+<span class="no">sum</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">numbers</span>)
+
+<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"For {description} {numbers=}, {average=}, {sum=}."</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="no">vv_transformer</span>)
+<span class="co">#&gt; For some random numbers = [28, 80, 22, 9], average = 34.75, sum = 139.</span>
+
+<span class="no">a</span> <span class="kw">&lt;-</span> <span class="fl">3</span>
+<span class="no">b</span> <span class="kw">&lt;-</span> <span class="fl">5.6</span>
+<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"{a=}\n{b=}\n{a * 9 + b * 2=}"</span>, <span class="kw">.transformer</span> <span class="kw">=</span> <span class="no">vv_transformer</span>)
+<span class="co">#&gt; a = 3</span>
+<span class="co">#&gt; b = 5.6</span>
+<span class="co">#&gt; a * 9 + b * 2 = 38.2</span></pre></body></html></div>
 </div>
   </div>
 
