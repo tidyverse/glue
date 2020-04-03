@@ -73,7 +73,7 @@ SQL quoting." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -90,7 +90,7 @@ SQL quoting." />
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@ SQL quoting." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/glue">
+  <a href="https://github.com/tidyverse/glue/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -186,7 +186,7 @@ Named arguments are taken to be temporary variables available for substitution.<
       <th>.envir</th>
       <td><p>[<code>environment</code>: <code><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame()</a></code>]<br /> Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If <code>.x</code> is an environment, the expressions are
-evaluated in that environment and <code>.envir</code> is ignored.</p></td>
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed it is equivalent to <code><a href='https://rdrr.io/r/base/environment.html'>emptyenv()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.na</th>
@@ -333,15 +333,10 @@ for instance.</p>
 #&gt; 5          5.0         3.6 Beachhead Iris</div><div class='input'>
 <span class='kw pkg'>DBI</span><span class='kw ns'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span>(<span class='no'>con</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

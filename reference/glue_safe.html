@@ -6,21 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Getting help with glue • glue</title>
+<title>Safely interpolate strings — glue_safe • glue</title>
 
 <!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-<link href="tidyverse.css" rel="stylesheet">
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -35,13 +35,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
-<link href="tidyverse-2.css" rel="stylesheet">
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
+<link href="../tidyverse-2.css" rel="stylesheet">
 
 
 
-<meta property="og:title" content="Getting help with glue" />
+<meta property="og:title" content="Safely interpolate strings — glue_safe" />
+<meta property="og:description" content="glue_safe() and glue_data_safe() differ from glue() and glue_data()
+in that the safe versions only look up symbols from an environment use
+get() they do not execute any R code. This makes them suitable when used
+with untrusted input, such as inputs in a shiny application, where using the
+normal functions would allow an attacker to execute arbitrary code." />
 <meta property="og:image" content="https://glue.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -70,7 +75,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -83,7 +88,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="index.html">glue</a>
+        <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
@@ -93,10 +98,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="index.html">Home</a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -106,10 +111,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/transformers.html">Transformers</a>
+      <a href="../articles/transformers.html">Transformers</a>
     </li>
     <li>
-      <a href="articles/speed.html">Speed of glue</a>
+      <a href="../articles/speed.html">Speed of glue</a>
     </li>
   </ul>
 </li>
@@ -122,11 +127,11 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="articles/releases/glue-1.2.0.html">Version 1.2.0</a>
+      <a href="../articles/releases/glue-1.2.0.html">Version 1.2.0</a>
     </li>
     <li class="divider"></li>
     <li>
-      <a href="news/index.html">Change log</a>
+      <a href="../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -147,47 +152,54 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Getting help with glue</h1>
+    <h1>Safely interpolate strings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/glue/blob/master/R/safe.R'><code>R/safe.R</code></a></small>
+    <div class="hidden name"><code>glue_safe.Rd</code></div>
     </div>
 
-<div id="getting-help-with-glue" class="section level1">
+    <div class="ref-description">
+    <p><code>glue_safe()</code> and <code>glue_data_safe()</code> differ from <code><a href='glue.html'>glue()</a></code> and <code><a href='glue.html'>glue_data()</a></code>
+in that the safe versions only look up symbols from an environment use
+<code><a href='https://rdrr.io/r/base/get.html'>get()</a></code> they do not execute any R code. This makes them suitable when used
+with untrusted input, such as inputs in a shiny application, where using the
+normal functions would allow an attacker to execute arbitrary code.</p>
+    </div>
 
-<p>Thanks for using glue! Before filing an issue, there are a few places to explore and pieces to put together to make the process as smooth as possible.</p>
-<div id="make-a-reprex" class="section level2">
-<h2 class="hasAnchor">
-<a href="#make-a-reprex" class="anchor"></a>Make a reprex</h2>
-<p>Start by making a minimal <strong>repr</strong>oducible <strong>ex</strong>ample using the <a href="https://reprex.tidyverse.org/">reprex</a> package. If you havenât heard of or used reprex before, youâre in for a treat! Seriously, reprex will make all of your R-question-asking endeavors easier (which is a pretty insane ROI for the five to ten minutes itâll take you to learn what itâs all about). For additional reprex pointers, check out the <a href="https://www.tidyverse.org/help/">Get help!</a> section of the tidyverse site.</p>
-</div>
-<div id="where-to-ask" class="section level2">
-<h2 class="hasAnchor">
-<a href="#where-to-ask" class="anchor"></a>Where to ask?</h2>
-<p>Armed with your reprex, the next step is to figure out <a href="https://www.tidyverse.org/help/#where-to-ask">where to ask</a>.</p>
-<ul>
-<li><p>If itâs a question: start with <a href="https://community.rstudio.com/">community.rstudio.com</a>, and/or StackOverflow. There are more people there to answer questions.</p></li>
-<li><p>If itâs a bug: youâre in the right place, <a href="https://github.com/batpigandme/glue/issues/new">file an issue</a>.</p></li>
-<li><p>If youâre not sure: let the community help you figure it out! If your problem <em>is</em> a bug or a feature request, you can easily return here and report it.</p></li>
-</ul>
-<p>Before opening a new issue, be sure to <a href="https://github.com/batpigandme/glue/issues">search issues and pull requests</a> to make sure the bug hasnât been reported and/or already fixed in the development version. By default, the search will be pre-populated with <code>is:issue is:open</code>. You can <a href="https://help.github.com/articles/searching-issues-and-pull-requests/">edit the qualifiers</a> (e.g.Â <code>is:pr</code>, <code>is:closed</code>) as needed. For example, youâd simply remove <code>is:open</code> to search <em>all</em> issues in the repo, open or closed.</p>
-</div>
-<div id="what-happens-next" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-happens-next" class="anchor"></a>What happens next?</h2>
-<p>To be as efficient as possible, development of tidyverse packages tends to be very bursty, so you shouldnât worry if you donât get an immediate response. Typically we donât look at a repo until a sufficient quantity of issues accumulates, then thereâs a burst of intense activity as we focus our efforts. That makes development more efficient because it avoids expensive context switching between problems, at the cost of taking longer to get back to you. This process makes a good reprex particularly important because it might be multiple months between your initial report and when we start working on it. If we canât reproduce the bug, we canât fix it!</p>
-</div>
-</div>
+    <pre class="usage"><span class='fu'>glue_safe</span>(<span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())
+
+<span class='fu'>glue_data_safe</span>(<span class='no'>.x</span>, <span class='no'>...</span>, <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>())</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>[<code>expressions</code>]<br /> Unnamed arguments are taken to be expressions
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.</p></td>
+    </tr>
+    <tr>
+      <th>.envir</th>
+      <td><p>[<code>environment</code>: <code><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame()</a></code>]<br /> Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed it is equivalent to <code><a href='https://rdrr.io/r/base/environment.html'>emptyenv()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>.x</th>
+      <td><p>[<code>listish</code>]<br /> An environment, list or data frame used to lookup values.</p></td>
+    </tr>
+    </table>
+
 
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
-
 
 
       <footer>
