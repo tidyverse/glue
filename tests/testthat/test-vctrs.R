@@ -47,19 +47,19 @@ test_that("glue and character are coercible", {
 test_that("coercion is not inherited", {
   expect_error(
     vctrs::vec_cast(glue(), structure(character(), class = "foobar")),
-    class = "vctrs_error_incompatible_cast"
+    class = "vctrs_error_incompatible_type"
   )
   expect_error(
     vctrs::vec_cast(structure(character(), class = "foobar"), glue()),
-    class = "vctrs_error_incompatible_cast"
+    class = "vctrs_error_incompatible_type"
   )
   expect_error(
     vctrs::vec_cast(character(), structure(glue(), class = "foobar")),
-    class = "vctrs_error_incompatible_cast"
+    class = "vctrs_error_incompatible_type"
   )
   expect_error(
     vctrs::vec_cast(structure(glue(), class = "foobar"), character()),
-    class = "vctrs_error_incompatible_cast"
+    class = "vctrs_error_incompatible_type"
   )
 })
 
