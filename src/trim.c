@@ -1,3 +1,5 @@
+#define STRICT_R_HEADERS
+#define R_NO_REMAP
 #include "Rinternals.h"
 #include <stdbool.h>
 #include <stdlib.h>
