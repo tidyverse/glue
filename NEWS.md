@@ -1,5 +1,6 @@
 # glue (development version)
 
+* Internal changes for compatibility with vctrs 0.3.0 (#187).
 * `glue_sql()` now replaces missing values correctly when collapsing values (#185).
 * `glue_sql()` now always preserves the type of the column even in the presence of missing values (#130)
 
