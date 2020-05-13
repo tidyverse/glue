@@ -129,16 +129,20 @@
 #' DBI::dbDisconnect(con)
 #' @export
 glue_sql <- function(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL")) {
-  DBI::SQL(glue(..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con)))
+  DBI::SQL(glue(..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con, .na)))
 }
 
 #' @rdname glue_sql
 #' @export
 glue_data_sql <- function(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL")) {
-  DBI::SQL(glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con)))
+  DBI::SQL(glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con, .na)))
 }
 
-sql_quote_transformer <- function(connection) {
+sql_quote_transformer <- function(connection, .na) {
+  if (is.null(.na)) {
+    .na <- DBI::SQL(NA)
+  }
+
   function(text, envir) {
     should_collapse <- grepl("[*]$", text)
     if (should_collapse) {
@@ -159,26 +163,24 @@ sql_quote_transformer <- function(connection) {
       }
     } else {
       res <- eval(parse(text = text, keep.source = FALSE), envir)
+      if (inherits(res, "SQL")) {
+        return(res)
+      }
 
       # convert objects to characters
-      if (is.object(res) && !inherits(res, "SQL")) {
+      is_object <- is.object(res)
+      if (is_object) {
         res <- as.character(res)
       }
 
-      # Convert all NA's as needed
-      if (any(is.na(res))) {
-        res[is.na(res)] <- NA
+      is_na <- is.na(res)
+      if (any(is_na)) {
+        res[is_na] <- rep(list(.na), sum(is_na))
       }
 
       is_char <- vapply(res, function(x) !is.na(x) && is.character(x), logical(1))
-
-      if (any(is_char)) {
-        res[is_char] <- DBI::dbQuoteLiteral(conn = connection, unlist(res[is_char]))
-      }
-
-      if (any(!is_char)) {
-        res[!is_char] <- DBI::SQL(conn = connection, unlist(res[!is_char]))
-      }
+      res[is_char] <- lapply(res[is_char], function(x) DBI::dbQuoteLiteral(conn = connection, x))
+      res[!is_char] <- lapply(res[!is_char], function(x) DBI::SQL(conn = connection, x))
     }
     if (should_collapse) {
       res <- glue_collapse(res, ", ")

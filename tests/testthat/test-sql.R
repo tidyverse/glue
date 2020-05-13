@@ -82,6 +82,13 @@ describe("glue_sql", {
     var <- list(1, 2, "three")
     expect_identical(glue_sql("x = {var}", .con = con), DBI::SQL(c("x = 1", "x = 2", "x = 'three'")))
   })
+
+  it("should handle NA when collapsing (#185)", {
+    expect_identical(glue_sql("x IN ({c(NA, 'A')*})", .con = con), DBI::SQL(paste0("x IN (NULL, 'A')")))
+    expect_identical(glue_sql("x IN ({c(NA, 1)*})", .con = con), DBI::SQL(paste0("x IN (NULL, 1)")))
+    expect_identical(glue_sql("x IN ({c(NA, 1L)*})", .con = con), DBI::SQL(paste0("x IN (NULL, 1)")))
+    expect_identical(glue_sql("x IN ({c(NA, TRUE)*})", .con = con), DBI::SQL(paste0("x IN (NULL, TRUE)")))
+  })
 })
 
 describe("glue_data_sql", {
