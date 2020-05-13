@@ -1,4 +1,4 @@
-# glue (development version)
+# glue 1.4.1
 
 * Internal changes for compatibility with vctrs 0.3.0 (#187).
 * `glue_sql()` now replaces missing values correctly when collapsing values (#185).
