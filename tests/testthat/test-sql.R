@@ -55,9 +55,17 @@ describe("glue_sql", {
     var <- list(NA, NA_character_, NA_real_, NA_integer_)
     expect_identical(glue_sql("x = {var}", .con = con), rep(DBI::SQL("x = NULL"), 4))
   })
+
   it("should return NA for missing values and .na = NULL", {
     var <- list(NA, NA_character_, NA_real_, NA_integer_)
     expect_identical(glue_sql("x = {var}", .con = con, .na = NULL), rep(DBI::SQL(NA), 4))
+  })
+
+  it("should preserve the type of the even with missing values (#130)", {
+      expect_identical(glue_sql("x = {c(1L, NA)}", .con = con), DBI::SQL(c(paste0("x = ", c(1, "NULL")))))
+      expect_identical(glue_sql("x = {c(1, NA)}", .con = con), DBI::SQL(c(paste0("x = ", c(1, "NULL")))))
+      expect_identical(glue_sql("x = {c('1', NA)}", .con = con), DBI::SQL(c(paste0("x = ", c("'1'", "NULL")))))
+      expect_identical(glue_sql("x = {c(TRUE, NA)}", .con = con), DBI::SQL(c(paste0("x = ", c("TRUE", "NULL")))))
   })
 
   it("should return NA for missing values quote strings", {

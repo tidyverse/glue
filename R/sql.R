@@ -167,7 +167,7 @@ sql_quote_transformer <- function(connection) {
 
       # Convert all NA's as needed
       if (any(is.na(res))) {
-        res[is.na(res)] <- NA_character_
+        res[is.na(res)] <- NA
       }
 
       is_char <- vapply(res, function(x) !is.na(x) && is.character(x), logical(1))
