@@ -164,6 +164,9 @@ sql_quote_transformer <- function(connection, .na) {
     } else {
       res <- eval(parse(text = text, keep.source = FALSE), envir)
       if (inherits(res, "SQL")) {
+        if (should_collapse) {
+          res <- glue_collapse(res, ", ")
+        }
         return(res)
       }
 
