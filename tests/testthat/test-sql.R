@@ -89,6 +89,10 @@ describe("glue_sql", {
     expect_identical(glue_sql("x IN ({c(NA, 1L)*})", .con = con), DBI::SQL(paste0("x IN (NULL, 1)")))
     expect_identical(glue_sql("x IN ({c(NA, TRUE)*})", .con = con), DBI::SQL(paste0("x IN (NULL, TRUE)")))
   })
+
+  it("should handle DBI::SQL() elements correctly when collapsing (#191)", {
+    expect_identical(glue_sql("x IN ({DBI::SQL(c('a','b'))*})", .con = con), DBI::SQL(paste0("x IN (a, b)")))
+  })
 })
 
 describe("glue_data_sql", {
