@@ -1,6 +1,7 @@
 # glue (development version)
 
 * The required version of R is now 3.2 (#189)
+* `glue_sql()` now collapses `DBI::SQL()` elements correctly (#192 @shrektan)
 
 # glue 1.4.1
 
