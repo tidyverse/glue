@@ -112,6 +112,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   unnamed_args <- paste0(unnamed_args, collapse = .sep)
   if (isTRUE(.trim)) {
     unnamed_args <- trim(unnamed_args)
+  } else if(identical(.trim, "squish") {
+    unnamed_args <- stringr::str_squish(unnamed_args)
   }
 
   f <- function(expr){
