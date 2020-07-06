@@ -72,7 +72,7 @@ delayed_assign <- function(x, value, eval.env = parent.frame(1), assign.env = pa
 }
 
 ## @export
-compare.glue <- function(x, y) {
+compare.glue <- function(x, y, ...) {
   if (identical(class(y), "character")) {
     class(x) <- NULL
   }
