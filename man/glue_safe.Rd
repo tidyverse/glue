@@ -27,3 +27,13 @@ in that the safe versions only look up symbols from an environment use
 with untrusted input, such as inputs in a shiny application, where using the
 normal functions would allow an attacker to execute arbitrary code.
 }
+\examples{
+"1 + 1" <- 5
+# glue actually executes the code
+glue("{1 + 1}")
+
+# glue_safe just looks up the value
+glue_safe("{1 + 1}")
+
+rm("1 + 1")
+}

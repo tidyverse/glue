@@ -8,7 +8,7 @@
 #' @inheritParams glue
 #' @inheritParams glue
 #' @export
-#' @example
+#' @examples
 #' "1 + 1" <- 5
 #' # glue actually executes the code
 #' glue("{1 + 1}")
