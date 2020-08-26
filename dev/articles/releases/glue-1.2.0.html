@@ -141,11 +141,7 @@
   My name is {name}
   my age next year is {age + 1}
   my anniversary is {format(anniversary, "%A, %B %d, %Y")}
-'</span>lue('
-  My name is {name}
-  my age next year is {age + 1}
-  my anniversary is {format(anniversary, "%A, %B %d, %Y")}
-')
+'</span>)
 <span class="co">#&gt;   My name is Fred</span>
 <span class="co">#&gt;   my age next year is 51</span>
 <span class="co">#&gt;   my anniversary is Saturday, October 12, 1991</span>
@@ -154,9 +150,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="fu"><a href="../../reference/glue.html">glue</a></span>(<span class="st">'
   {month.abb} is short for {month.name}
-'</span>lue('
-  {month.abb} is short for {month.name}
-')
+'</span>)
 <span class="co">#&gt;   Jan is short for January</span>
 <span class="co">#&gt;   Feb is short for February</span>
 <span class="co">#&gt;   Mar is short for March</span>
@@ -209,9 +203,7 @@
 
 <span class="fu"><a href="../../reference/glue.html">glue</a></span>(<span class="st">"
   {1:5*}
-  {letters[1:5]*}"</span>
-  {1:5*}
-  {letters[1:5]*}",
+  {letters[1:5]*}"</span>,
   .transformer = <span class="fu">collapse_transformer</span>(sep = <span class="st">", "</span>, last = <span class="st">", and "</span>))
 <span class="co">#&gt; Warning: 'collapse' is deprecated.</span>
 <span class="co">#&gt; Use 'glue_collapse' instead.</span>
@@ -262,12 +254,7 @@
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length &gt; {num}
     AND {`tbl`}.species = {val}
-  "</span>e_sql("
-  SELECT {`var`}
-  FROM {`tbl`}
-  WHERE {`tbl`}.sepal_length &gt; {num}
-    AND {`tbl`}.species = {val}
-  ", .con = <span class="kw">con</span>)
+  "</span>, .con = <span class="kw">con</span>)
 <span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span>
 <span class="co">#&gt; FROM `iris`</span>
 <span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span>

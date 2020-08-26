@@ -241,12 +241,8 @@ for instance.</p>
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length &gt; {num}
     AND {`tbl`}.species = {val}
-  "</span>e_sql("
-  SELECT {`var`}
-  FROM {`tbl`}
-  WHERE {`tbl`}.sepal_length > {num}
-    AND {`tbl`}.species = {val}
-  ", .con = <span class='kw'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `sepal_width`
+  "</span>, .con = <span class='kw'>con</span>)
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `sepal_width`
 #&gt; FROM `iris`
 #&gt; WHERE `iris`.sepal_length &gt; 2
 #&gt;   AND `iris`.species = 'setosa'</div><div class='input'>
@@ -257,12 +253,8 @@ for instance.</p>
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length &gt; {as.character(num)}
     AND {`tbl`}.species = {val}
-  "</span>e_sql("
-  SELECT {`var`}
-  FROM {`tbl`}
-  WHERE {`tbl`}.sepal_length > {as.character(num)}
-    AND {`tbl`}.species = {val}
-  ", .con = <span class='kw'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `sepal_width`
+  "</span>, .con = <span class='kw'>con</span>)
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `sepal_width`
 #&gt; FROM `iris`
 #&gt; WHERE `iris`.sepal_length &gt; '2'
 #&gt;   AND `iris`.species = 'setosa'</div><div class='input'>
@@ -273,14 +265,11 @@ for instance.</p>
     SELECT {`var`}
     FROM {`tbl`}
     WHERE {`tbl`}.sepal_length &gt; ?
-  "</span>l <- glue_sql("
-    SELECT {`var`}
-    FROM {`tbl`}
-    WHERE {`tbl`}.sepal_length > ?
-  ", .con = <span class='kw'>con</span>)
+  "</span>, .con = <span class='kw'>con</span>)
 <span class='kw'>query</span> <span class='op'>&lt;-</span> <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbSendQuery.html'>dbSendQuery</a></span>(<span class='kw'>con</span>, <span class='kw'>sql</span>)
 <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbBind.html'>dbBind</a></span>(<span class='kw'>query</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>num</span>))
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbFetch.html'>dbFetch</a></span>(<span class='kw'>query</span>, n = <span class='fl'>4</span>)</div><div class='output co'>#&gt;   sepal_width
+<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbFetch.html'>dbFetch</a></span>(<span class='kw'>query</span>, n = <span class='fl'>4</span>)
+</div><div class='output co'>#&gt;   sepal_width
 #&gt; 1         3.5
 #&gt; 2         3.0
 #&gt; 3         3.2
@@ -292,30 +281,29 @@ for instance.</p>
 <span class='kw'>sub_query</span> <span class='op'>&lt;-</span> <span class='fu'>glue_sql</span>(<span class='st'>"
   SELECT *
   FROM {`tbl`}
-  "</span>_query <- glue_sql("
-  SELECT *
-  FROM {`tbl`}
-  ", .con = <span class='kw'>con</span>)
+  "</span>, .con = <span class='kw'>con</span>)
 
 <span class='fu'>glue_sql</span>(<span class='st'>"
   SELECT s.{`var`}
   FROM ({sub_query}) AS s
-  "</span>e_sql("
-  SELECT s.{`var`}
-  FROM ({sub_query}) AS s
-  ", .con = <span class='kw'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT s.`sepal_width`
+  "</span>, .con = <span class='kw'>con</span>)
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT s.`sepal_width`
 #&gt; FROM (SELECT *
 #&gt; FROM `iris`) AS s</div><div class='input'>
 <span class='co'># If you want to input multiple values for use in SQL IN statements put `*`</span>
 <span class='co'># at the end of the value and the values will be collapsed and quoted appropriately.</span>
 <span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
-  vals = <span class='fl'>1</span>, .con = <span class='kw'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</div><div class='input'>
+  vals = <span class='fl'>1</span>, .con = <span class='kw'>con</span>)
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</div><div class='input'>
 <span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
-  vals = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, .con = <span class='kw'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</div><div class='input'>
+  vals = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, .con = <span class='kw'>con</span>)
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</div><div class='input'>
 <span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
-  vals = <span class='st'>"setosa"</span>, .con = <span class='kw'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</div><div class='input'>
+  vals = <span class='st'>"setosa"</span>, .con = <span class='kw'>con</span>)
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</div><div class='input'>
 <span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
-  vals = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span>), .con = <span class='kw'>con</span>)</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</div><div class='input'>
+  vals = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span>), .con = <span class='kw'>con</span>)
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</div><div class='input'>
 <span class='co'># If you need to reference a variables from multiple tables use `DBI::Id()`.</span>
 <span class='co'># Here we create a new table of nicknames, join the two tables together and</span>
 <span class='co'># select columns from both tables. Using `DBI::Id()` and the special</span>
@@ -346,24 +334,23 @@ for instance.</p>
   SELECT {`cols`*}
   FROM {`iris_db`}
   JOIN {`nicknames_db`}
-  ON {`iris_species`}={`nicknames_species`}"</span>
-  SELECT {`cols`*}
-  FROM {`iris_db`}
-  JOIN {`nicknames_db`}
-  ON {`iris_species`}={`nicknames_species`}",
+  ON {`iris_species`}={`nicknames_species`}"</span>,
   .con = <span class='kw'>con</span>
 )
-<span class='kw'>query</span></div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `iris`.`sepal_length`, `iris`.`sepal_width`, `nicknames`.`nickname`
+<span class='kw'>query</span>
+</div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `iris`.`sepal_length`, `iris`.`sepal_width`, `nicknames`.`nickname`
 #&gt; FROM `iris`
 #&gt; JOIN `nicknames`
 #&gt; ON `iris`.`species`=`nicknames`.`species`</div><div class='input'>
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbGetQuery.html'>dbGetQuery</a></span>(<span class='kw'>con</span>, <span class='kw'>query</span>, n = <span class='fl'>5</span>)</div><div class='output co'>#&gt;   sepal_length sepal_width       nickname
+<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbGetQuery.html'>dbGetQuery</a></span>(<span class='kw'>con</span>, <span class='kw'>query</span>, n = <span class='fl'>5</span>)
+</div><div class='output co'>#&gt;   sepal_length sepal_width       nickname
 #&gt; 1          5.1         3.5 Beachhead Iris
 #&gt; 2          4.9         3.0 Beachhead Iris
 #&gt; 3          4.7         3.2 Beachhead Iris
 #&gt; 4          4.6         3.1 Beachhead Iris
 #&gt; 5          5.0         3.6 Beachhead Iris</div><div class='input'>
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span>(<span class='kw'>con</span>)</div></pre>
+<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span>(<span class='kw'>con</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

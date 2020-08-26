@@ -224,11 +224,7 @@
     A formatted string
     Can have multiple lines
       with additional indention preserved
-    "</span>"
-    A formatted string
-    Can have multiple lines
-      with additional indention preserved
-    ")
+    "</span>)
 <span class="co">#&gt; A formatted string</span>
 <span class="co">#&gt; Can have multiple lines</span>
 <span class="co">#&gt;   with additional indention preserved</span>
@@ -242,11 +238,7 @@
 
   leading or trailing newlines can be added explicitly
 
-  "</span>e("
-
-  leading or trailing newlines can be added explicitly
-
-  ")
+  "</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; leading or trailing newlines can be added explicitly</span>
 </pre></div>
@@ -259,11 +251,7 @@
     A formatted string \\
     can also be on a \\
     single line
-    "</span>"
-    A formatted string \\
-    can also be on a \\
-    single line
-    ")
+    "</span>)
 <span class="co">#&gt; A formatted string can also be on a single line</span>
 </pre></div>
 </div>
@@ -297,13 +285,7 @@
         \"}\\\"\" # or double quotes are ignored
         `foo}\\`` # as are { in backticks
       }
-  }"</span>("{
-      {
-        '}\\'' # { and } in comments, single quotes
-        \"}\\\"\" # or double quotes are ignored
-        `foo}\\`` # as are { in backticks
-      }
-  }")
+  }"</span>)
 <span class="co">#&gt; foo</span>
 </pre></div>
 </div>
@@ -326,12 +308,7 @@
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length &gt; {num}
     AND {`tbl`}.species = {val}
-  "</span>e_sql("
-  SELECT {`var`}
-  FROM {`tbl`}
-  WHERE {`tbl`}.sepal_length &gt; {num}
-    AND {`tbl`}.species = {val}
-  ", .con = <span class="kw">con</span>)
+  "</span>, .con = <span class="kw">con</span>)
 <span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span>
 <span class="co">#&gt; FROM `iris`</span>
 <span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span>
@@ -343,8 +320,7 @@
     SELECT {`var`}
     FROM {`tbl`}
     WHERE {`tbl`}.sepal_length &gt; ?
-  "</span>l  ?
-  ", .con = <span class="kw">con</span>)
+  "</span>, .con = <span class="kw">con</span>)
 <span class="kw">query</span> <span class="op">&lt;-</span> <span class="kw">DBI</span>::<span class="fu"><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html">dbSendQuery</a></span>(<span class="kw">con</span>, <span class="kw">sql</span>)
 <span class="kw">DBI</span>::<span class="fu"><a href="https://dbi.r-dbi.org/reference/dbBind.html">dbBind</a></span>(<span class="kw">query</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">num</span>))
 <span class="kw">DBI</span>::<span class="fu"><a href="https://dbi.r-dbi.org/reference/dbFetch.html">dbFetch</a></span>(<span class="kw">query</span>, n = <span class="fl">4</span>)
@@ -361,15 +337,12 @@
 <span class="kw">sub_query</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"
   SELECT *
   FROM {`tbl`}
-  "</span>_query con)
+  "</span>, .con = <span class="kw">con</span>)
 
 <span class="fu"><a href="reference/glue_sql.html">glue_sql</a></span>(<span class="st">"
   SELECT s.{`var`}
   FROM ({sub_query}) AS s
-  "</span>e_sql("
-  SELECT s.{`var`}
-  FROM ({sub_query}) AS s
-  ", .con = <span class="kw">con</span>)
+  "</span>, .con = <span class="kw">con</span>)
 <span class="co">#&gt; &lt;SQL&gt; SELECT s.`sepal_width`</span>
 <span class="co">#&gt; FROM (SELECT *</span>
 <span class="co">#&gt; FROM `iris`) AS s</span>
