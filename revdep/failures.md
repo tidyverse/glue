@@ -1,24 +1,22 @@
-# areal
+# biolink
 
 <details>
 
 * Version: 0.1.6
-* Source code: https://github.com/cran/areal
-* URL: https://github.com/slu-openGIS/areal
-* BugReports: https://github.com/slu-openGIS/areal/issues
-* Date/Publication: 2020-05-12 12:10:02 UTC
-* Number of recursive dependencies: 65
+* Source code: https://github.com/cran/biolink
+* Date/Publication: 2018-06-30 21:10:52 UTC
+* Number of recursive dependencies: 52
 
-Run `revdep_details(,"areal")` for more info
+Run `cloud_details(, "biolink")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘areal’ can be installed ... ERROR
+*   checking whether package ‘biolink’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/areal/new/areal.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/biolink/new/biolink.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -26,179 +24,124 @@ Run `revdep_details(,"areal")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘areal’ ...
-** package ‘areal’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘biolink’ ...
+** package ‘biolink’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
-** data
-*** moving datasets to lazyload DB
-** inst
 ** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘XML’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
-ERROR: lazy loading failed for package ‘areal’
-* removing ‘/tmp/workdir/areal/new/areal.Rcheck/areal’
+ERROR: lazy loading failed for package ‘biolink’
+* removing ‘/tmp/workdir/biolink/new/biolink.Rcheck/biolink’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘areal’ ...
-** package ‘areal’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘biolink’ ...
+** package ‘biolink’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
-** data
-*** moving datasets to lazyload DB
-** inst
 ** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘XML’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
-ERROR: lazy loading failed for package ‘areal’
-* removing ‘/tmp/workdir/areal/old/areal.Rcheck/areal’
+ERROR: lazy loading failed for package ‘biolink’
+* removing ‘/tmp/workdir/biolink/old/biolink.Rcheck/biolink’
 
 ```
-# bcdata
+# broom
 
 <details>
 
-* Version: 0.1.2
-* Source code: https://github.com/cran/bcdata
-* URL: https://bcgov.github.io/bcdata/, https://catalogue.data.gov.bc.ca/, https://github.com/bcgov/bcdata
-* BugReports: https://github.com/bcgov/bcdata/issues
-* Date/Publication: 2019-12-17 06:30:03 UTC
-* Number of recursive dependencies: 102
+* Version: 0.7.0
+* Source code: https://github.com/cran/broom
+* URL: https://broom.tidymodels.org/, http://github.com/tidymodels/broom
+* BugReports: http://github.com/tidymodels/broom/issues
+* Date/Publication: 2020-07-09 12:30:09 UTC
+* Number of recursive dependencies: 277
 
-Run `revdep_details(,"bcdata")` for more info
+Run `cloud_details(, "broom")` for more info
 
 </details>
 
-## In both
-
-*   checking whether package ‘bcdata’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/bcdata/new/bcdata.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘bcdata’ ...
-** package ‘bcdata’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘bcdata’
-* removing ‘/tmp/workdir/bcdata/new/bcdata.Rcheck/bcdata’
+* using log directory ‘/tmp/workdir/broom/new/broom.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘broom/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘broom’ version ‘0.7.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages suggested but not available: 'lavaan', 'psych'
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘bcdata’ ...
-** package ‘bcdata’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘bcdata’
-* removing ‘/tmp/workdir/bcdata/old/bcdata.Rcheck/bcdata’
+* using log directory ‘/tmp/workdir/broom/old/broom.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘broom/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘broom’ version ‘0.7.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages suggested but not available: 'lavaan', 'psych'
 
-```
-# biscale
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
 
-<details>
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
 
-* Version: 0.2.0
-* Source code: https://github.com/cran/biscale
-* URL: https://github.com/slu-openGIS/biscale
-* BugReports: https://github.com/slu-openGIS/biscale/issues
-* Date/Publication: 2020-05-06 05:20:03 UTC
-* Number of recursive dependencies: 80
 
-Run `revdep_details(,"biscale")` for more info
 
-</details>
 
-## In both
 
-*   checking whether package ‘biscale’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/biscale/new/biscale.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘biscale’ ...
-** package ‘biscale’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘biscale’
-* removing ‘/tmp/workdir/biscale/new/biscale.Rcheck/biscale’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘biscale’ ...
-** package ‘biscale’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘biscale’
-* removing ‘/tmp/workdir/biscale/old/biscale.Rcheck/biscale’
 
 ```
 # CB2
 
 <details>
 
-* Version: 1.3.2
+* Version: 1.3.4
 * Source code: https://github.com/cran/CB2
-* Date/Publication: 2020-05-12 04:20:02 UTC
-* Number of recursive dependencies: 96
+* Date/Publication: 2020-07-24 09:42:24 UTC
+* Number of recursive dependencies: 101
 
-Run `revdep_details(,"CB2")` for more info
+Run `cloud_details(, "CB2")` for more info
 
 </details>
 
@@ -214,7 +157,7 @@ Run `revdep_details(,"CB2")` for more info
 * using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘CB2/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘CB2’ version ‘1.3.2’
+* this is package ‘CB2’ version ‘1.3.4’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -241,7 +184,7 @@ Status: 1 ERROR
 * using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘CB2/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘CB2’ version ‘1.3.2’
+* this is package ‘CB2’ version ‘1.3.4’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -258,89 +201,18 @@ Status: 1 ERROR
 
 
 ```
-# febr
+# codebook
 
 <details>
 
-* Version: 1.1.0
-* Source code: https://github.com/cran/febr
-* URL: https://github.com/febr-team/febr-package/
-* BugReports: https://github.com/febr-team/febr-package/issues/
-* Date/Publication: 2020-03-17 17:20:02 UTC
-* Number of recursive dependencies: 60
+* Version: 0.9.2
+* Source code: https://github.com/cran/codebook
+* URL: https://github.com/rubenarslan/codebook
+* BugReports: https://github.com/rubenarslan/codebook/issues
+* Date/Publication: 2020-06-06 23:40:03 UTC
+* Number of recursive dependencies: 191
 
-Run `revdep_details(,"febr")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘febr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/febr/new/febr.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘febr’ ...
-** package ‘febr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-Error: package or namespace load failed for ‘febr’:
- .onAttach failed in attachNamespace() for 'febr', details:
-  call: NULL
-  error: package(s) needed for febr to work but not installed: sf
-Error: loading failed
-Execution halted
-ERROR: loading failed
-* removing ‘/tmp/workdir/febr/new/febr.Rcheck/febr’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘febr’ ...
-** package ‘febr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-Error: package or namespace load failed for ‘febr’:
- .onAttach failed in attachNamespace() for 'febr', details:
-  call: NULL
-  error: package(s) needed for febr to work but not installed: sf
-Error: loading failed
-Execution halted
-ERROR: loading failed
-* removing ‘/tmp/workdir/febr/old/febr.Rcheck/febr’
-
-```
-# fhidata
-
-<details>
-
-* Version: 2019.8.27
-* Source code: https://github.com/cran/fhidata
-* Date/Publication: 2019-08-29 10:40:03 UTC
-* Number of recursive dependencies: 110
-
-Run `revdep_details(,"fhidata")` for more info
+Run `cloud_details(, "codebook")` for more info
 
 </details>
 
@@ -349,17 +221,17 @@ Run `revdep_details(,"fhidata")` for more info
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/fhidata/new/fhidata.Rcheck’
+* using log directory ‘/tmp/workdir/codebook/new/codebook.Rcheck’
 * using R version 3.6.3 (2020-02-29)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘fhidata/DESCRIPTION’ ... OK
-* this is package ‘fhidata’ version ‘2019.8.27’
+* checking for file ‘codebook/DESCRIPTION’ ... OK
+* this is package ‘codebook’ version ‘0.9.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Packages suggested but not available: 'geojsonio', 'rmapshaper', 'SDMTools'
+Package suggested but not available: ‘psych’
 
 The suggested packages are required for a complete check.
 Checking can be attempted without them by setting the environment
@@ -379,17 +251,17 @@ Status: 1 ERROR
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/fhidata/old/fhidata.Rcheck’
+* using log directory ‘/tmp/workdir/codebook/old/codebook.Rcheck’
 * using R version 3.6.3 (2020-02-29)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘fhidata/DESCRIPTION’ ... OK
-* this is package ‘fhidata’ version ‘2019.8.27’
+* checking for file ‘codebook/DESCRIPTION’ ... OK
+* this is package ‘codebook’ version ‘0.9.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Packages suggested but not available: 'geojsonio', 'rmapshaper', 'SDMTools'
+Package suggested but not available: ‘psych’
 
 The suggested packages are required for a complete check.
 Checking can be attempted without them by setting the environment
@@ -406,82 +278,17 @@ Status: 1 ERROR
 
 
 ```
-# geouy
+# corx
 
 <details>
 
-* Version: 0.1.9
-* Source code: https://github.com/cran/geouy
-* BugReports: https://github.com/RichDeto/geouy/issues
-* Date/Publication: 2020-03-26 15:50:02 UTC
-* Number of recursive dependencies: 96
+* Version: 1.0.6.1
+* Source code: https://github.com/cran/corx
+* URL: https://github.com/conig/corx
+* Date/Publication: 2020-06-30 09:20:17 UTC
+* Number of recursive dependencies: 107
 
-Run `revdep_details(,"geouy")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘geouy’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/geouy/new/geouy.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘geouy’ ...
-** package ‘geouy’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘geouy’
-* removing ‘/tmp/workdir/geouy/new/geouy.Rcheck/geouy’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘geouy’ ...
-** package ‘geouy’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘geouy’
-* removing ‘/tmp/workdir/geouy/old/geouy.Rcheck/geouy’
-
-```
-# lidR
-
-<details>
-
-* Version: 2.2.5
-* Source code: https://github.com/cran/lidR
-* URL: https://github.com/Jean-Romain/lidR
-* BugReports: https://github.com/Jean-Romain/lidR/issues
-* Date/Publication: 2020-05-11 17:00:16 UTC
-* Number of recursive dependencies: 161
-
-Run `revdep_details(,"lidR")` for more info
+Run `cloud_details(, "corx")` for more info
 
 </details>
 
@@ -490,22 +297,18 @@ Run `revdep_details(,"lidR")` for more info
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/lidR/new/lidR.Rcheck’
+* using log directory ‘/tmp/workdir/corx/new/corx.Rcheck’
 * using R version 3.6.3 (2020-02-29)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘lidR/DESCRIPTION’ ... OK
+* checking for file ‘corx/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘lidR’ version ‘2.2.5’
+* this is package ‘corx’ version ‘1.0.6.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Packages suggested but not available: 'mapview', 'mapedit'
-
-The suggested packages are required for a complete check.
-Checking can be attempted without them by setting the environment
-variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+Package required but not available: ‘psych’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -521,22 +324,18 @@ Status: 1 ERROR
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/lidR/old/lidR.Rcheck’
+* using log directory ‘/tmp/workdir/corx/old/corx.Rcheck’
 * using R version 3.6.3 (2020-02-29)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘lidR/DESCRIPTION’ ... OK
+* checking for file ‘corx/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘lidR’ version ‘2.2.5’
+* this is package ‘corx’ version ‘1.0.6.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Packages suggested but not available: 'mapview', 'mapedit'
-
-The suggested packages are required for a complete check.
-Checking can be attempted without them by setting the environment
-variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+Package required but not available: ‘psych’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -549,18 +348,81 @@ Status: 1 ERROR
 
 
 ```
-# PWFSLSmoke
+# daqapo
 
 <details>
 
-* Version: 1.2.100
-* Source code: https://github.com/cran/PWFSLSmoke
-* URL: https://github.com/MazamaScience/PWFSLSmoke
-* BugReports: https://github.com/MazamaScience/PWFSLSmoke/issues
-* Date/Publication: 2019-07-18 23:10:02 UTC
-* Number of recursive dependencies: 167
+* Version: 0.3.0
+* Source code: https://github.com/cran/daqapo
+* URL: https://github.com/nielsmartin
+* BugReports: https://github.com/nielsmartin/daqapo/issues
+* Date/Publication: 2020-04-08 09:50:05 UTC
+* Number of recursive dependencies: 91
 
-Run `revdep_details(,"PWFSLSmoke")` for more info
+Run `cloud_details(, "daqapo")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘daqapo’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/daqapo/new/daqapo.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘daqapo’ ...
+** package ‘daqapo’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘XML’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘daqapo’
+* removing ‘/tmp/workdir/daqapo/new/daqapo.Rcheck/daqapo’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘daqapo’ ...
+** package ‘daqapo’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘XML’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘daqapo’
+* removing ‘/tmp/workdir/daqapo/old/daqapo.Rcheck/daqapo’
+
+```
+# dipsaus
+
+<details>
+
+* Version: 0.1.0
+* Source code: https://github.com/cran/dipsaus
+* URL: https://github.com/dipterix/dipsaus
+* BugReports: https://github.com/dipterix/dipsaus/issues
+* Date/Publication: 2020-08-12 10:00:20 UTC
+* Number of recursive dependencies: 66
+
+Run `cloud_details(, "dipsaus")` for more info
 
 </details>
 
@@ -569,18 +431,22 @@ Run `revdep_details(,"PWFSLSmoke")` for more info
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/PWFSLSmoke/new/PWFSLSmoke.Rcheck’
+* using log directory ‘/tmp/workdir/dipsaus/new/dipsaus.Rcheck’
 * using R version 3.6.3 (2020-02-29)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘PWFSLSmoke/DESCRIPTION’ ... OK
+* checking for file ‘dipsaus/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘PWFSLSmoke’ version ‘1.2.100’
+* this is package ‘dipsaus’ version ‘0.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Package required but not available: ‘MazamaSpatialUtils’
+Package suggested but not available: ‘qs’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -596,18 +462,22 @@ Status: 1 ERROR
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/PWFSLSmoke/old/PWFSLSmoke.Rcheck’
+* using log directory ‘/tmp/workdir/dipsaus/old/dipsaus.Rcheck’
 * using R version 3.6.3 (2020-02-29)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘PWFSLSmoke/DESCRIPTION’ ... OK
+* checking for file ‘dipsaus/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘PWFSLSmoke’ version ‘1.2.100’
+* this is package ‘dipsaus’ version ‘0.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Package required but not available: ‘MazamaSpatialUtils’
+Package suggested but not available: ‘qs’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -620,129 +490,380 @@ Status: 1 ERROR
 
 
 ```
-# qualmap
+# easyr
 
 <details>
 
-* Version: 0.1.1
-* Source code: https://github.com/cran/qualmap
-* URL: https://github.com/slu-openGIS/qualmap
-* BugReports: https://github.com/slu-openGIS/qualmap/issues
-* Date/Publication: 2018-09-12 15:10:14 UTC
-* Number of recursive dependencies: 102
+* Version: 0.5-0
+* Source code: https://github.com/cran/easyr
+* URL: https://github.com/oliver-wyman-actuarial/easyr
+* BugReports: https://github.com/oliver-wyman-actuarial/easyr/issues
+* Date/Publication: 2020-08-10 11:40:02 UTC
+* Number of recursive dependencies: 93
 
-Run `revdep_details(,"qualmap")` for more info
+Run `cloud_details(, "easyr")` for more info
 
 </details>
 
-## In both
-
-*   checking whether package ‘qualmap’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/qualmap/new/qualmap.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘qualmap’ ...
-** package ‘qualmap’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘qualmap’
-* removing ‘/tmp/workdir/qualmap/new/qualmap.Rcheck/qualmap’
+* using log directory ‘/tmp/workdir/easyr/new/easyr.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘easyr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘easyr’ version ‘0.5-0’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘XML’
+
+Package suggested but not available: ‘qs’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘qualmap’ ...
-** package ‘qualmap’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/sf/libs/sf.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘qualmap’
-* removing ‘/tmp/workdir/qualmap/old/qualmap.Rcheck/qualmap’
+* using log directory ‘/tmp/workdir/easyr/old/easyr.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘easyr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘easyr’ version ‘0.5-0’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘XML’
+
+Package suggested but not available: ‘qs’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# huxtable
+
+<details>
+
+* Version: 5.0.0
+* Source code: https://github.com/cran/huxtable
+* URL: https://hughjonesd.github.io/huxtable
+* BugReports: https://github.com/hughjonesd/huxtable/issues
+* Date/Publication: 2020-06-15 23:50:06 UTC
+* Number of recursive dependencies: 127
+
+Run `cloud_details(, "huxtable")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/huxtable/new/huxtable.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘huxtable/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘huxtable’ version ‘5.0.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘psych’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/huxtable/old/huxtable.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘huxtable/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘huxtable’ version ‘5.0.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘psych’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# radiant.data
+
+<details>
+
+* Version: 1.3.10
+* Source code: https://github.com/cran/radiant.data
+* URL: https://github.com/radiant-rstats/radiant.data/, https://radiant-rstats.github.io/radiant.data/, https://radiant-rstats.github.io/docs/
+* BugReports: https://github.com/radiant-rstats/radiant.data/issues
+* Date/Publication: 2020-08-07 05:20:12 UTC
+* Number of recursive dependencies: 148
+
+Run `cloud_details(, "radiant.data")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/radiant.data/new/radiant.data.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘radiant.data/DESCRIPTION’ ... OK
+* this is package ‘radiant.data’ version ‘1.3.10’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘psych’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/radiant.data/old/radiant.data.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘radiant.data/DESCRIPTION’ ... OK
+* this is package ‘radiant.data’ version ‘1.3.10’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘psych’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
 # reproducible
 
 <details>
 
-* Version: 1.0.0
+* Version: 1.2.1
 * Source code: https://github.com/cran/reproducible
 * URL: https://reproducible.predictiveecology.org, https://github.com/PredictiveEcology/reproducible
 * BugReports: https://github.com/PredictiveEcology/reproducible/issues
-* Date/Publication: 2020-02-20 17:30:02 UTC
-* Number of recursive dependencies: 122
+* Date/Publication: 2020-08-18 07:20:36 UTC
+* Number of recursive dependencies: 100
 
-Run `revdep_details(,"reproducible")` for more info
+Run `cloud_details(, "reproducible")` for more info
 
 </details>
 
-## In both
-
-*   checking whether package ‘reproducible’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/reproducible/new/reproducible.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘reproducible’ ...
-** package ‘reproducible’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘reproducible’
-* removing ‘/tmp/workdir/reproducible/new/reproducible.Rcheck/reproducible’
+* using log directory ‘/tmp/workdir/reproducible/new/reproducible.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘reproducible/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘reproducible’ version ‘1.2.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘qs’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘reproducible’ ...
-** package ‘reproducible’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in dyn.load(file, DLLpath = DLLpath, ...) : 
-  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
-  libproj.so.12: cannot open shared object file: No such file or directory
-Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
-Execution halted
-ERROR: lazy loading failed for package ‘reproducible’
-* removing ‘/tmp/workdir/reproducible/old/reproducible.Rcheck/reproducible’
+* using log directory ‘/tmp/workdir/reproducible/old/reproducible.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘reproducible/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘reproducible’ version ‘1.2.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘qs’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# tidycomm
+
+<details>
+
+* Version: 0.1.0
+* Source code: https://github.com/cran/tidycomm
+* URL: https://github.com/joon-e/tidycomm
+* BugReports: https://github.com/joon-e/tidycomm/issues
+* Date/Publication: 2019-09-22 16:30:02 UTC
+* Number of recursive dependencies: 117
+
+Run `cloud_details(, "tidycomm")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/tidycomm/new/tidycomm.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘tidycomm/DESCRIPTION’ ... OK
+* this is package ‘tidycomm’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘MBESS’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/tidycomm/old/tidycomm.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘tidycomm/DESCRIPTION’ ... OK
+* this is package ‘tidycomm’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘MBESS’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
