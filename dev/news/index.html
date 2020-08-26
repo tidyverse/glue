@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Changelog" />
@@ -90,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.1.9000</span>
         </div>
       </div>
     </div>
@@ -161,6 +165,24 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#glue-development-version" class="anchor"></a>glue (development version)<small> Unreleased </small>
 </h1>
+<ul>
+<li>The required version of R is now 3.2 (<a href='https://github.com/tidyverse/glue/issues/189'>#189</a>)</li>
+<li>
+<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now collapses <code><a href="https://dbi.r-dbi.org/reference/SQL.html">DBI::SQL()</a></code> elements correctly (<a href='https://github.com/tidyverse/glue/issues/192'>#192</a> <a href='https://github.com/shrektan'>@shrektan</a>)</li>
+<li>The internal <code>compare()</code> method gains a <code>...</code> argument, for compatibility with testthat 3.0.0</li>
+</ul>
+</div>
+    <div id="glue-141" class="section level1">
+<h1 class="page-header" data-toc-text="1.4.1">
+<a href="#glue-141" class="anchor"></a>glue 1.4.1<small> 2020-05-13 </small>
+</h1>
+<ul>
+<li>Internal changes for compatibility with vctrs 0.3.0 (<a href='https://github.com/tidyverse/glue/issues/187'>#187</a>).</li>
+<li>
+<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now replaces missing values correctly when collapsing values (<a href='https://github.com/tidyverse/glue/issues/185'>#185</a>).</li>
+<li>
+<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now always preserves the type of the column even in the presence of missing values (<a href='https://github.com/tidyverse/glue/issues/130'>#130</a>)</li>
+</ul>
 </div>
     <div id="glue-140" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.0">
@@ -223,7 +245,7 @@
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for clarities sake. Previous uses can be replaced by <code><a href="https://rdrr.io/r/base/eval.html">eval(parse(text = text), envir)</a></code>.</p></li>
-<li><p><code><a href="../reference/glue-deprecated.html">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
+<li><p><code><a href="../reference/collapse.html">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
 </ul>
 </div>
 <div id="features-1" class="section level2">
@@ -242,7 +264,7 @@
 <li><p>Glue now evaluates unnamed arguments lazily with <code><a href="https://rdrr.io/r/base/delayedAssign.html">delayedAssign()</a></code>, so there is no performance cost if an argument is not used. (<a href='https://github.com/tidyverse/glue/issues/83'>#83</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
 <li><p>Fixed a bug where names in the assigned expression of an interpolation variable would conflict with the name of the variable itself (<a href='https://github.com/tidyverse/glue/issues/89'>#89</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
 <li><p>Do not drop the <code>glue</code> class when subsetting (<a href='https://github.com/tidyverse/glue/issues/66'>#66</a>).</p></li>
-<li><p>Fix <code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/glue-deprecated.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='https://github.com/dpprdan'>@dpprdan</a>)</p></li>
+<li><p>Fix <code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/collapse.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='https://github.com/dpprdan'>@dpprdan</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -277,7 +299,7 @@
 <li><p><code><a href="../reference/glue.html">glue()</a></code> always returns ‘UTF-8’ strings, converting inputs if in other encodings if needed.</p></li>
 <li><p><code>to()</code> and <code>to_data()</code> have been removed.</p></li>
 <li><p><code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/glue.html">glue_data()</a></code> can now take alternative delimiters to <code>{</code> and <code>}</code>. This is useful if you are writing to a format that uses a lot of braces, such as LaTeX. (<a href='https://github.com/tidyverse/glue/issues/23'>#23</a>)</p></li>
-<li><p><code><a href="../reference/glue-deprecated.html">collapse()</a></code> now returns 0 length output if given 0 length input (<a href='https://github.com/tidyverse/glue/issues/28'>#28</a>).</p></li>
+<li><p><code><a href="../reference/collapse.html">collapse()</a></code> now returns 0 length output if given 0 length input (<a href='https://github.com/tidyverse/glue/issues/28'>#28</a>).</p></li>
 </ul>
 </div>
     <div id="glue-0009000" class="section level1">

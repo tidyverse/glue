@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Trim a character vector — trim" />
@@ -99,7 +103,7 @@ Lines can be continued across newlines by using \\.
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.1.9000</span>
         </div>
       </div>
     </div>
@@ -179,7 +183,7 @@ to the minimum indentation of all non-blank lines after the first.</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>trim</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>trim</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,17 +200,27 @@ to the minimum indentation of all non-blank lines after the first.</p></li>
     A formatted string
     Can have multiple lines
       with additional indention preserved
-    "</span>)</div><div class='output co'>#&gt; A formatted string
+    "</span>"
+    A formatted string
+    Can have multiple lines
+      with additional indention preserved
+    ")</div><div class='output co'>#&gt; A formatted string
 #&gt; Can have multiple lines
 #&gt;   with additional indention preserved</div><div class='input'>
 <span class='fu'><a href='glue.html'>glue</a></span>(<span class='st'>"
   \\ntrailing or leading newlines can be added explicitly\\n
-  "</span>)</div><div class='output co'>#&gt; \ntrailing or leading newlines can be added explicitly\n</div><div class='input'>
+  "</span>e("
+  \\ntrailing or leading newlines can be added explicitly\\n
+  ")</div><div class='output co'>#&gt; \ntrailing or leading newlines can be added explicitly\n</div><div class='input'>
 <span class='fu'><a href='glue.html'>glue</a></span>(<span class='st'>"
     A formatted string \\
     can also be on a \\
     single line
-    "</span>)</div><div class='output co'>#&gt; A formatted string can also be on a single line</div></pre>
+    "</span>"
+    A formatted string \\
+    can also be on a \\
+    single line
+    ")</div><div class='output co'>#&gt; A formatted string can also be on a single line</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
