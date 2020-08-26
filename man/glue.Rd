@@ -104,5 +104,5 @@ glue("The value of $e^{2\\\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
 }
 \seealso{
 \url{https://www.python.org/dev/peps/pep-0498/} and
-\url{https://www.python.org/dev/peps/pep-0257} upon which this is based.
+\url{https://www.python.org/dev/peps/pep-0257/} upon which this is based.
 }
