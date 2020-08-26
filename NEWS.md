@@ -2,6 +2,7 @@
 
 * The required version of R is now 3.2 (#189)
 * `glue_sql()` now collapses `DBI::SQL()` elements correctly (#192 @shrektan)
+* The internal `compare()` method gains a `...` argument, for compatibility with testthat 3.0.0
 
 # glue 1.4.1
 
