@@ -226,7 +226,7 @@
     <span class="kw">format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html">substring</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(<span class="kw">text</span>, <span class="kw">m</span>), <span class="fl">2</span>)
     <span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span>(<span class="kw">text</span>, <span class="kw">m</span>) <span class="op">&lt;-</span> <span class="st">""</span>
     <span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(text = <span class="kw">text</span>, keep.source = <span class="fl">FALSE</span>), <span class="kw">envir</span>)
-    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="kw">sprintf</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"%{format}f"</span>), <span class="kw">res</span>))
+    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="kw">sprintf</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"%{format}"</span>), <span class="kw">res</span>))
   } <span class="co">else</span> {
     <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(text = <span class="kw">text</span>, keep.source = <span class="fl">FALSE</span>), <span class="kw">envir</span>)
   }
@@ -235,8 +235,8 @@
 <span class="kw">glue_fmt</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">...</span>, <span class="kw">.envir</span> = <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html">parent.frame</a></span>()) {
   <span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="kw">...</span>, .transformer = <span class="kw">sprintf_transformer</span>, .envir = <span class="kw">.envir</span>)
 }
-<span class="fu">glue_fmt</span>(<span class="st">"π = {pi:.2}"</span>)
-<span class="co">#&gt; π = 3.14</span>
+<span class="fu">glue_fmt</span>(<span class="st">"π = {pi:.3f}"</span>)
+<span class="co">#&gt; π = 3.142</span>
 </pre></div>
 </div>
 <div id="safely-transformer" class="section level3">
