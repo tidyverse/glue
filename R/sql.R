@@ -2,7 +2,7 @@
 #'
 #' SQL databases often have custom quotation syntax for identifiers and strings
 #' which make writing SQL queries error prone and cumbersome to do. `glue_sql()` and
-#' `glue_data_sql()` are analogs to `glue()` and `glue_data()` which handle the
+#' `glue_data_sql()` are analogs to [glue()] and [glue_data()] which handle the
 #' SQL quoting.
 #'
 #' They automatically quote character results, quote identifiers if the glue
@@ -11,7 +11,7 @@
 #' column (which should be quoted) pass the data to `glue_sql()` as a
 #' character.
 #'
-#' Returning the result with `DBI::SQL()` will suppress quoting if desired for
+#' Returning the result with [DBI::SQL()] will suppress quoting if desired for
 #' a given value.
 #'
 #' Note [parameterized queries](https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries)
@@ -22,8 +22,8 @@
 #' collapsed with commas. This is useful for the [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp)
 #' for instance.
 #' @inheritParams glue
-#' @param .con \[`DBIConnection`]:A DBI connection object obtained from `DBI::dbConnect()`.
-#' @return A `DBI::SQL()` object with the given query.
+#' @param .con \[`DBIConnection`]:A DBI connection object obtained from [DBI::dbConnect()].
+#' @return A [DBI::SQL()] object with the given query.
 #' @examples
 #' con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 #' iris2 <- iris

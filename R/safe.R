@@ -1,6 +1,6 @@
 #' Safely interpolate strings
 #'
-#' `glue_safe()` and `glue_data_safe()` differ from `glue()` and `glue_data()`
+#' `glue_safe()` and `glue_data_safe()` differ from [glue()] and [glue_data()]
 #' in that the safe versions only look up symbols from an environment use
 #' [get()] they do not execute any R code. This makes them suitable when used
 #' with untrusted input, such as inputs in a shiny application, where using the

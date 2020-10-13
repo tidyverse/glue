@@ -5,7 +5,7 @@
 #' color terminal output. `glue_col()` and `glue_data_col()` functions provide
 #' additional syntax to make using these functions in glue strings easier.
 #'
-#' Using the following syntax will apply the function `crayon::blue()` to the text 'foo bar'.
+#' Using the following syntax will apply the function [crayon::blue()] to the text 'foo bar'.
 #'
 #' ```
 #' {blue foo bar}

@@ -23,7 +23,7 @@
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
-#'   template with `trim()` or not.
+#'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257/> upon which this is based.
 #' @examples
