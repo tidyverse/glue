@@ -185,9 +185,9 @@ expression (these can be nested).</p><pre>{blue 1 + 1 = {1 + 1}}
 
     </div>
 
-    <pre class="usage"><span class='fu'>glue_col</span>(<span class='kw'>...</span>, .envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), .na = <span class='st'>"NA"</span>)
+    <pre class="usage"><span class='fu'>glue_col</span><span class='op'>(</span><span class='va'>...</span>, .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, .na <span class='op'>=</span> <span class='st'>"NA"</span><span class='op'>)</span>
 
-<span class='fu'>glue_data_col</span>(<span class='kw'>.x</span>, <span class='kw'>...</span>, .envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), .na = <span class='st'>"NA"</span>)</pre>
+<span class='fu'>glue_data_col</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>...</span>, .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, .na <span class='op'>=</span> <span class='st'>"NA"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,19 +218,19 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://github.com/r-lib/crayon#readme'>crayon</a></span>)) {
-  <span class='fu'>glue_col</span>(<span class='st'>"{blue foo bar}"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-lib/crayon#readme'>crayon</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>glue_col</span><span class='op'>(</span><span class='st'>"{blue foo bar}"</span><span class='op'>)</span>
 
-  <span class='fu'>glue_col</span>(<span class='st'>"{blue 1 + 1 = {1 + 1}}"</span>)
+  <span class='fu'>glue_col</span><span class='op'>(</span><span class='st'>"{blue 1 + 1 = {1 + 1}}"</span><span class='op'>)</span>
 
-  <span class='kw'>white_on_grey</span> <span class='op'>&lt;-</span> <span class='kw'>bgBlack</span> <span class='op'>$</span> <span class='kw'>white</span>
-  <span class='fu'>glue_col</span>(<span class='st'>"{white_on_grey
+  <span class='va'>white_on_grey</span> <span class='op'>&lt;-</span> <span class='va'>bgBlack</span> <span class='op'>$</span> <span class='va'>white</span>
+  <span class='fu'>glue_col</span><span class='op'>(</span><span class='st'>"{white_on_grey
     Roses are {red {colors()[[552]]}}
     Violets are {blue {colors()[[26]]}}
     `glue_col()` can show {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
     and {bold bold} and {underline underline} too!
-    }"</span>)
-}
+    }"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: crayon</span></div><div class='output co'>#&gt; <span style='color: #BBBBBB;background-color: #000000;'>Roses are </span><span style='color: #BB0000;background-color: #000000;'>red</span><span style='color: #BBBBBB;background-color: #000000;'>
 #&gt; Violets are </span><span style='color: #0000BB;background-color: #000000;'>blue</span><span style='color: #BBBBBB;background-color: #000000;'>
 #&gt; `glue_col()` can show </span><span style='color: #BB0000;background-color: #000000;'>c</span><span style='color: #BBBB00;background-color: #000000;'>o</span><span style='color: #00BB00;background-color: #000000;'>l</span><span style='color: #00BBBB;background-color: #000000;'>o</span><span style='color: #0000BB;background-color: #000000;'>r</span><span style='color: #BB00BB;background-color: #000000;'>s</span><span style='color: #BBBBBB;background-color: #000000;'>

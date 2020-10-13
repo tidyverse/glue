@@ -171,28 +171,28 @@ broken by line and concatenated together. Leading whitespace and blank lines
 from the first and last lines are automatically trimmed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>glue_data</span>(
-  <span class='kw'>.x</span>,
-  <span class='kw'>...</span>,
-  .sep = <span class='st'>""</span>,
-  .envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  .open = <span class='st'>"{"</span>,
-  .close = <span class='st'>"}"</span>,
-  .na = <span class='st'>"NA"</span>,
-  .transformer = <span class='kw'>identity_transformer</span>,
-  .trim = <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>glue_data</span><span class='op'>(</span>
+  <span class='va'>.x</span>,
+  <span class='va'>...</span>,
+  .sep <span class='op'>=</span> <span class='st'>""</span>,
+  .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .open <span class='op'>=</span> <span class='st'>"{"</span>,
+  .close <span class='op'>=</span> <span class='st'>"}"</span>,
+  .na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  .transformer <span class='op'>=</span> <span class='va'>identity_transformer</span>,
+  .trim <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>glue</span>(
-  <span class='kw'>...</span>,
-  .sep = <span class='st'>""</span>,
-  .envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  .open = <span class='st'>"{"</span>,
-  .close = <span class='st'>"}"</span>,
-  .na = <span class='st'>"NA"</span>,
-  .transformer = <span class='kw'>identity_transformer</span>,
-  .trim = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>glue</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  .sep <span class='op'>=</span> <span class='st'>""</span>,
+  .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .open <span class='op'>=</span> <span class='st'>"{"</span>,
+  .close <span class='op'>=</span> <span class='st'>"}"</span>,
+  .na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  .transformer <span class='op'>=</span> <span class='va'>identity_transformer</span>,
+  .trim <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -252,34 +252,34 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 <a href='https://www.python.org/dev/peps/pep-0257/'>https://www.python.org/dev/peps/pep-0257/</a> upon which this is based.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>name</span> <span class='op'>&lt;-</span> <span class='st'>"Fred"</span>
-<span class='kw'>age</span> <span class='op'>&lt;-</span> <span class='fl'>50</span>
-<span class='kw'>anniversary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1991-10-12"</span>)
-<span class='fu'>glue</span>(<span class='st'>'My name is {name},'</span>,
+    <pre class="examples"><div class='input'><span class='va'>name</span> <span class='op'>&lt;-</span> <span class='st'>"Fred"</span>
+<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fl'>50</span>
+<span class='va'>anniversary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1991-10-12"</span><span class='op'>)</span>
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>'My name is {name},'</span>,
   <span class='st'>'my age next year is {age + 1},'</span>,
-  <span class='st'>'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)
+  <span class='st'>'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; My name is Fred,my age next year is 51,my anniversary is Saturday, October 12, 1991.</div><div class='input'>
 <span class='co'># single braces can be inserted by doubling them</span>
-<span class='fu'>glue</span>(<span class='st'>"My name is {name}, not {{name}}."</span>)
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>"My name is {name}, not {{name}}."</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; My name is Fred, not {name}.</div><div class='input'>
 <span class='co'># Named arguments can be used to assign temporary variables.</span>
-<span class='fu'>glue</span>(<span class='st'>'My name is {name},'</span>,
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>'My name is {name},'</span>,
   <span class='st'>' my age next year is {age + 1},'</span>,
   <span class='st'>' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,
-  name = <span class='st'>"Joe"</span>,
-  age = <span class='fl'>40</span>,
-  anniversary = <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2001-10-12"</span>))
+  name <span class='op'>=</span> <span class='st'>"Joe"</span>,
+  age <span class='op'>=</span> <span class='fl'>40</span>,
+  anniversary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2001-10-12"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</div><div class='input'>
 <span class='co'># `glue()` can also be used in user defined functions</span>
-<span class='kw'>intro</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>name</span>, <span class='kw'>profession</span>, <span class='kw'>country</span>){
-  <span class='fu'>glue</span>(<span class='st'>"My name is {name}, a {profession}, from {country}"</span>)
-}
-<span class='fu'>intro</span>(<span class='st'>"Shelmith"</span>, <span class='st'>"Senior Data Analyst"</span>, <span class='st'>"Kenya"</span>)
-</div><div class='output co'>#&gt; My name is Shelmith, a Senior Data Analyst, from Kenya</div><div class='input'><span class='fu'>intro</span>(<span class='st'>"Cate"</span>, <span class='st'>"Data Scientist"</span>, <span class='st'>"Kenya"</span>)
+<span class='va'>intro</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>profession</span>, <span class='va'>country</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"My name is {name}, a {profession}, from {country}"</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='fu'>intro</span><span class='op'>(</span><span class='st'>"Shelmith"</span>, <span class='st'>"Senior Data Analyst"</span>, <span class='st'>"Kenya"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; My name is Shelmith, a Senior Data Analyst, from Kenya</div><div class='input'><span class='fu'>intro</span><span class='op'>(</span><span class='st'>"Cate"</span>, <span class='st'>"Data Scientist"</span>, <span class='st'>"Kenya"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; My name is Cate, a Data Scientist, from Kenya</div><div class='input'>
 <span class='co'># `glue_data()` is useful in magrittr pipes</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>magrittr</span>)
-<span class='kw'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'>glue_data</span>(<span class='st'>"{rownames(.)} has {hp} hp"</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>magrittr</span><span class='op'>)</span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'>glue_data</span><span class='op'>(</span><span class='st'>"{rownames(.)} has {hp} hp"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Mazda RX4 has 110 hp
 #&gt; Mazda RX4 Wag has 110 hp
 #&gt; Datsun 710 has 93 hp
@@ -313,7 +313,7 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 #&gt; Maserati Bora has 335 hp
 #&gt; Volvo 142E has 109 hp</div><div class='input'>
 <span class='co'># Or within dplyr pipelines</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:glue’:</span>
 #&gt; <span class='message'></span>
@@ -321,8 +321,8 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>iris</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(description = <span class='fu'>glue</span>(<span class='st'>"This {Species} has a petal length of {Petal.Length}"</span>))
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>description <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"This {Species} has a petal length of {Petal.Length}"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1          5.1         3.5          1.4         0.2  setosa
 #&gt; 2          4.9         3.0          1.4         0.2  setosa
@@ -338,8 +338,8 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 #&gt; 5 This setosa has a petal length of 1.4
 #&gt; 6 This setosa has a petal length of 1.7</div><div class='input'>
 <span class='co'># Alternative delimiters can also be used if needed</span>
-<span class='kw'>one</span> <span class='op'>&lt;-</span> <span class='st'>"1"</span>
-<span class='fu'>glue</span>(<span class='st'>"The value of $e^{2\\pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, .open = <span class='st'>"&lt;&lt;"</span>, .close = <span class='st'>"&gt;&gt;"</span>)
+<span class='va'>one</span> <span class='op'>&lt;-</span> <span class='st'>"1"</span>
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>"The value of $e^{2\\pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, .open <span class='op'>=</span> <span class='st'>"&lt;&lt;"</span>, .close <span class='op'>=</span> <span class='st'>"&gt;&gt;"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; The value of $e^{2\pi i}$ is $1$.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -173,9 +173,9 @@ which make writing SQL queries error prone and cumbersome to do. <code>glue_sql(
 SQL quoting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>glue_sql</span>(<span class='kw'>...</span>, <span class='kw'>.con</span>, .envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), .na = <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/SQL.html'>SQL</a></span>(<span class='st'>"NULL"</span>))
+    <pre class="usage"><span class='fu'>glue_sql</span><span class='op'>(</span><span class='va'>...</span>, <span class='va'>.con</span>, .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, .na <span class='op'>=</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/SQL.html'>SQL</a></span><span class='op'>(</span><span class='st'>"NULL"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>glue_data_sql</span>(<span class='kw'>.x</span>, <span class='kw'>...</span>, <span class='kw'>.con</span>, .envir = <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(), .na = <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/SQL.html'>SQL</a></span>(<span class='st'>"NULL"</span>))</pre>
+<span class='fu'>glue_data_sql</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>...</span>, <span class='va'>.con</span>, .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, .na <span class='op'>=</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/SQL.html'>SQL</a></span><span class='op'>(</span><span class='st'>"NULL"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -228,32 +228,32 @@ collapsed with commas. This is useful for the <a href='https://www.w3schools.com
 for instance.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>con</span> <span class='op'>&lt;-</span> <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span>(<span class='kw'>RSQLite</span>::<span class='fu'><a href='https://rsqlite.r-dbi.org/reference/SQLite.html'>SQLite</a></span>(), <span class='st'>":memory:"</span>)
-<span class='kw'>iris2</span> <span class='op'>&lt;-</span> <span class='kw'>iris</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='kw'>iris2</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>"[.]"</span>, <span class='st'>"_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='kw'>iris</span>)))
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbWriteTable.html'>dbWriteTable</a></span>(<span class='kw'>con</span>, <span class='st'>"iris"</span>, <span class='kw'>iris2</span>)
-<span class='kw'>var</span> <span class='op'>&lt;-</span> <span class='st'>"sepal_width"</span>
-<span class='kw'>tbl</span> <span class='op'>&lt;-</span> <span class='st'>"iris"</span>
-<span class='kw'>num</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
-<span class='kw'>val</span> <span class='op'>&lt;-</span> <span class='st'>"setosa"</span>
-<span class='fu'>glue_sql</span>(<span class='st'>"
+    <pre class="examples"><div class='input'><span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span><span class='fu'>RSQLite</span><span class='fu'>::</span><span class='fu'><a href='https://rsqlite.r-dbi.org/reference/SQLite.html'>SQLite</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>":memory:"</span><span class='op'>)</span>
+<span class='va'>iris2</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>iris2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"[.]"</span>, <span class='st'>"_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbWriteTable.html'>dbWriteTable</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"iris"</span>, <span class='va'>iris2</span><span class='op'>)</span>
+<span class='va'>var</span> <span class='op'>&lt;-</span> <span class='st'>"sepal_width"</span>
+<span class='va'>tbl</span> <span class='op'>&lt;-</span> <span class='st'>"iris"</span>
+<span class='va'>num</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
+<span class='va'>val</span> <span class='op'>&lt;-</span> <span class='st'>"setosa"</span>
+<span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"
   SELECT {`var`}
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length &gt; {num}
     AND {`tbl`}.species = {val}
-  "</span>, .con = <span class='kw'>con</span>)
+  "</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `sepal_width`
 #&gt; FROM `iris`
 #&gt; WHERE `iris`.sepal_length &gt; 2
 #&gt;   AND `iris`.species = 'setosa'</div><div class='input'>
 <span class='co'># If sepal_length is store on the database as a character explicitly convert</span>
 <span class='co'># the data to character to quote appropriately.</span>
-<span class='fu'>glue_sql</span>(<span class='st'>"
+<span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"
   SELECT {`var`}
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length &gt; {as.character(num)}
     AND {`tbl`}.species = {val}
-  "</span>, .con = <span class='kw'>con</span>)
+  "</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `sepal_width`
 #&gt; FROM `iris`
 #&gt; WHERE `iris`.sepal_length &gt; '2'
@@ -261,48 +261,48 @@ for instance.</p>
 
 <span class='co'># `glue_sql()` can be used in conjuction with parameterized queries using</span>
 <span class='co'># `DBI::dbBind()` to provide protection for SQL Injection attacks</span>
- <span class='kw'>sql</span> <span class='op'>&lt;-</span> <span class='fu'>glue_sql</span>(<span class='st'>"
+ <span class='va'>sql</span> <span class='op'>&lt;-</span> <span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"
     SELECT {`var`}
     FROM {`tbl`}
     WHERE {`tbl`}.sepal_length &gt; ?
-  "</span>, .con = <span class='kw'>con</span>)
-<span class='kw'>query</span> <span class='op'>&lt;-</span> <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbSendQuery.html'>dbSendQuery</a></span>(<span class='kw'>con</span>, <span class='kw'>sql</span>)
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbBind.html'>dbBind</a></span>(<span class='kw'>query</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>num</span>))
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbFetch.html'>dbFetch</a></span>(<span class='kw'>query</span>, n = <span class='fl'>4</span>)
+  "</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
+<span class='va'>query</span> <span class='op'>&lt;-</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbSendQuery.html'>dbSendQuery</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='va'>sql</span><span class='op'>)</span>
+<span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbBind.html'>dbBind</a></span><span class='op'>(</span><span class='va'>query</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>num</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbFetch.html'>dbFetch</a></span><span class='op'>(</span><span class='va'>query</span>, n <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   sepal_width
 #&gt; 1         3.5
 #&gt; 2         3.0
 #&gt; 3         3.2
-#&gt; 4         3.1</div><div class='input'><span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbClearResult.html'>dbClearResult</a></span>(<span class='kw'>query</span>)
+#&gt; 4         3.1</div><div class='input'><span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbClearResult.html'>dbClearResult</a></span><span class='op'>(</span><span class='va'>query</span><span class='op'>)</span>
 
 <span class='co'># `glue_sql()` can be used to build up more complex queries with</span>
 <span class='co'># interchangeable sub queries. It returns `DBI::SQL()` objects which are</span>
 <span class='co'># properly protected from quoting.</span>
-<span class='kw'>sub_query</span> <span class='op'>&lt;-</span> <span class='fu'>glue_sql</span>(<span class='st'>"
+<span class='va'>sub_query</span> <span class='op'>&lt;-</span> <span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"
   SELECT *
   FROM {`tbl`}
-  "</span>, .con = <span class='kw'>con</span>)
+  "</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 
-<span class='fu'>glue_sql</span>(<span class='st'>"
+<span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"
   SELECT s.{`var`}
   FROM ({sub_query}) AS s
-  "</span>, .con = <span class='kw'>con</span>)
+  "</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT s.`sepal_width`
 #&gt; FROM (SELECT *
 #&gt; FROM `iris`) AS s</div><div class='input'>
 <span class='co'># If you want to input multiple values for use in SQL IN statements put `*`</span>
 <span class='co'># at the end of the value and the values will be collapsed and quoted appropriately.</span>
-<span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
-  vals = <span class='fl'>1</span>, .con = <span class='kw'>con</span>)
+<span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
+  vals <span class='op'>=</span> <span class='fl'>1</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</div><div class='input'>
-<span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
-  vals = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, .con = <span class='kw'>con</span>)
+<span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,
+  vals <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</div><div class='input'>
-<span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
-  vals = <span class='st'>"setosa"</span>, .con = <span class='kw'>con</span>)
+<span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
+  vals <span class='op'>=</span> <span class='st'>"setosa"</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</div><div class='input'>
-<span class='fu'>glue_sql</span>(<span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
-  vals = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span>), .con = <span class='kw'>con</span>)
+<span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
+  vals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span><span class='op'>)</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</div><div class='input'>
 <span class='co'># If you need to reference a variables from multiple tables use `DBI::Id()`.</span>
 <span class='co'># Here we create a new table of nicknames, join the two tables together and</span>
@@ -310,46 +310,46 @@ for instance.</p>
 <span class='co'># `glue_sql()` syntax ensures all the table and column identifiers are quoted</span>
 <span class='co'># appropriately.</span>
 
-<span class='kw'>iris_db</span> <span class='op'>&lt;-</span> <span class='st'>"iris"</span>
-<span class='kw'>nicknames_db</span> <span class='op'>&lt;-</span> <span class='st'>"nicknames"</span>
+<span class='va'>iris_db</span> <span class='op'>&lt;-</span> <span class='st'>"iris"</span>
+<span class='va'>nicknames_db</span> <span class='op'>&lt;-</span> <span class='st'>"nicknames"</span>
 
-<span class='kw'>nicknames</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  species = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span>, <span class='st'>"virginica"</span>),
-  nickname = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Beachhead Iris"</span>, <span class='st'>"Harlequin Blueflag"</span>, <span class='st'>"Virginia Iris"</span>),
-  stringsAsFactors = <span class='fl'>FALSE</span>
-)
+<span class='va'>nicknames</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  species <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span>, <span class='st'>"virginica"</span><span class='op'>)</span>,
+  nickname <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Beachhead Iris"</span>, <span class='st'>"Harlequin Blueflag"</span>, <span class='st'>"Virginia Iris"</span><span class='op'>)</span>,
+  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbWriteTable.html'>dbWriteTable</a></span>(<span class='kw'>con</span>, <span class='kw'>nicknames_db</span>, <span class='kw'>nicknames</span>)
+<span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbWriteTable.html'>dbWriteTable</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='va'>nicknames_db</span>, <span class='va'>nicknames</span><span class='op'>)</span>
 
-<span class='kw'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span>(table = <span class='kw'>iris_db</span>, column = <span class='st'>"sepal_length"</span>),
-  <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span>(table = <span class='kw'>iris_db</span>, column = <span class='st'>"sepal_width"</span>),
-  <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span>(table = <span class='kw'>nicknames_db</span>, column = <span class='st'>"nickname"</span>)
-)
+<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span><span class='op'>(</span>table <span class='op'>=</span> <span class='va'>iris_db</span>, column <span class='op'>=</span> <span class='st'>"sepal_length"</span><span class='op'>)</span>,
+  <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span><span class='op'>(</span>table <span class='op'>=</span> <span class='va'>iris_db</span>, column <span class='op'>=</span> <span class='st'>"sepal_width"</span><span class='op'>)</span>,
+  <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span><span class='op'>(</span>table <span class='op'>=</span> <span class='va'>nicknames_db</span>, column <span class='op'>=</span> <span class='st'>"nickname"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='kw'>iris_species</span> <span class='op'>&lt;-</span> <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span>(table = <span class='kw'>iris_db</span>, column = <span class='st'>"species"</span>)
-<span class='kw'>nicknames_species</span> <span class='op'>&lt;-</span> <span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span>(table = <span class='kw'>nicknames_db</span>, column = <span class='st'>"species"</span>)
+<span class='va'>iris_species</span> <span class='op'>&lt;-</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span><span class='op'>(</span>table <span class='op'>=</span> <span class='va'>iris_db</span>, column <span class='op'>=</span> <span class='st'>"species"</span><span class='op'>)</span>
+<span class='va'>nicknames_species</span> <span class='op'>&lt;-</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/Id.html'>Id</a></span><span class='op'>(</span>table <span class='op'>=</span> <span class='va'>nicknames_db</span>, column <span class='op'>=</span> <span class='st'>"species"</span><span class='op'>)</span>
 
-<span class='kw'>query</span> <span class='op'>&lt;-</span> <span class='fu'>glue_sql</span>(<span class='st'>"
+<span class='va'>query</span> <span class='op'>&lt;-</span> <span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"
   SELECT {`cols`*}
   FROM {`iris_db`}
   JOIN {`nicknames_db`}
   ON {`iris_species`}={`nicknames_species`}"</span>,
-  .con = <span class='kw'>con</span>
-)
-<span class='kw'>query</span>
+  .con <span class='op'>=</span> <span class='va'>con</span>
+<span class='op'>)</span>
+<span class='va'>query</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT `iris`.`sepal_length`, `iris`.`sepal_width`, `nicknames`.`nickname`
 #&gt; FROM `iris`
 #&gt; JOIN `nicknames`
 #&gt; ON `iris`.`species`=`nicknames`.`species`</div><div class='input'>
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbGetQuery.html'>dbGetQuery</a></span>(<span class='kw'>con</span>, <span class='kw'>query</span>, n = <span class='fl'>5</span>)
+<span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbGetQuery.html'>dbGetQuery</a></span><span class='op'>(</span><span class='va'>con</span>, <span class='va'>query</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   sepal_length sepal_width       nickname
 #&gt; 1          5.1         3.5 Beachhead Iris
 #&gt; 2          4.9         3.0 Beachhead Iris
 #&gt; 3          4.7         3.2 Beachhead Iris
 #&gt; 4          4.6         3.1 Beachhead Iris
 #&gt; 5          5.0         3.6 Beachhead Iris</div><div class='input'>
-<span class='kw'>DBI</span>::<span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span>(<span class='kw'>con</span>)
+<span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbDisconnect.html'>dbDisconnect</a></span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

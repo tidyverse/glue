@@ -142,22 +142,21 @@
 <h2 class="hasAnchor">
 <a href="#simple-concatenation" class="anchor"></a>Simple concatenation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">bar</span> <span class="op">&lt;-</span> <span class="st">"baz"</span>
+<span class="va">bar</span> <span class="op">&lt;-</span> <span class="st">"baz"</span>
 
-<span class="kw">simple</span> <span class="op">&lt;-</span>
-  <span class="kw">microbenchmark</span>::<span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
-  glue = <span class="kw">glue</span>::<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),
-  gstring = <span class="kw">R.utils</span>::<span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span>(<span class="st">"foo${bar}"</span>),
-  paste0 = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"foo"</span>, <span class="kw">bar</span>),
-  sprintf = <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"foo%s"</span>, <span class="kw">bar</span>),
-  str_interp = <span class="kw">stringr</span>::<span class="fu"><a href="https://stringr.tidyverse.org/reference/str_interp.html">str_interp</a></span>(<span class="st">"foo${bar}"</span>),
-  rprintf = <span class="kw">rprintf</span>::<span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span>(<span class="st">"foo$bar"</span>, bar = <span class="kw">bar</span>)
-)
+<span class="va">simple</span> <span class="op">&lt;-</span>
+  <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  glue <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span>,
+  gstring <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,
+  paste0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,
+  sprintf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"foo%s"</span>, <span class="va">bar</span><span class="op">)</span>,
+  str_interp <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_interp.html">str_interp</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,
+  rprintf <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span>
+<span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(unit = <span class="st">"eps"</span>, order = <span class="st">"median"</span>, signif = <span class="fl">4</span>, <span class="kw">simple</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"eps"</span>, order <span class="op">=</span> <span class="st">"median"</span>, signif <span class="op">=</span> <span class="fl">4</span>, <span class="va">simple</span><span class="op">)</span>
 
-<span class="fu">plot_comparison</span>(<span class="kw">simple</span>)
-</pre></div>
+<span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></pre></div>
 <p>While <code><a href="../reference/glue.html">glue()</a></code> is slower than <code>paste0</code>,<code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
 <p>Although <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> don’t do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.</p>
 <p><code>rprintf()</code> does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.</p>
@@ -169,21 +168,20 @@
 <a href="#vectorized-performance" class="anchor"></a>Vectorized performance</h2>
 <p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code>. NB: <code>str_interp()</code> does not support vectorization, and so was removed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"bar"</span>, <span class="fl">1e5</span>)
+<span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="fl">1e5</span><span class="op">)</span>
 
-<span class="kw">vectorized</span> <span class="op">&lt;-</span>
-  <span class="kw">microbenchmark</span>::<span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
-  glue = <span class="kw">glue</span>::<span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),
-  gstring = <span class="kw">R.utils</span>::<span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span>(<span class="st">"foo${bar}"</span>),
-  paste0 = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"foo"</span>, <span class="kw">bar</span>),
-  sprintf = <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"foo%s"</span>, <span class="kw">bar</span>),
-  rprintf = <span class="kw">rprintf</span>::<span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span>(<span class="st">"foo$bar"</span>, bar = <span class="kw">bar</span>)
-)
+<span class="va">vectorized</span> <span class="op">&lt;-</span>
+  <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  glue <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span>,
+  gstring <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,
+  paste0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,
+  sprintf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"foo%s"</span>, <span class="va">bar</span><span class="op">)</span>,
+  rprintf <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span>
+<span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(unit = <span class="st">"ms"</span>, order = <span class="st">"median"</span>, signif = <span class="fl">4</span>, <span class="kw">vectorized</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"ms"</span>, order <span class="op">=</span> <span class="st">"median"</span>, signif <span class="op">=</span> <span class="fl">4</span>, <span class="va">vectorized</span><span class="op">)</span>
 
-<span class="fu">plot_comparison</span>(<span class="kw">vectorized</span>, log = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 </div>
 <div class="footnotes">
 <hr>
