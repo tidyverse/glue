@@ -18,11 +18,19 @@
 #'
 #' rm("1 + 1")
 glue_safe <- function(..., .envir = parent.frame()) {
-  glue(..., .envir = .envir, .transformer = base::get)
+  glue(..., .envir = .envir, .transformer = get_transformer)
 }
 
 #' @rdname glue_safe
 #' @export
 glue_data_safe <- function(.x, ..., .envir = parent.frame()) {
-  glue_data(.x, ..., .envir = .envir, .transformer = base::get)
+  glue_data(.x, ..., .envir = .envir, .transformer = get_transformer)
+}
+
+get_transformer <- function(text, envir) {
+  if (!exists(text, envir = envir)) {
+    stop("object '", text, "' not found", call. = FALSE)
+  } else {
+    get(text, envir = envir)
+  }
 }
