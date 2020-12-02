@@ -128,13 +128,13 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># Install the released version from CRAN:</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install the released version from CRAN:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"glue"</span><span class="op">)</span>
 
 <span class="co"># Install the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/glue"</span><span class="op">)</span></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/glue"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -142,17 +142,17 @@
 <div id="variables-can-be-passed-directly-into-strings" class="section level5">
 <h5 class="hasAnchor">
 <a href="#variables-can-be-passed-directly-into-strings" class="anchor"></a>Variables can be passed directly into strings.</h5>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
 <span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'My name is {name}.'</span><span class="op">)</span>
-<span class="co">#&gt; My name is Fred.</span></pre></div>
+<span class="co">#&gt; My name is Fred.</span></code></pre></div>
 </div>
 <div id="long-strings-are-broken-by-line-and-concatenated-together" class="section level5">
 <h5 class="hasAnchor">
 <a href="#long-strings-are-broken-by-line-and-concatenated-together" class="anchor"></a>Long strings are broken by line and concatenated together.</h5>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
 
 <span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">50</span>
@@ -160,38 +160,38 @@
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'My name is {name},'</span>,
   <span class="st">' my age next year is {age + 1},'</span>,
   <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span><span class="op">)</span>
-<span class="co">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.</span></pre></div>
+<span class="co">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.</span></code></pre></div>
 </div>
 <div id="named-arguments-are-used-to-assign-temporary-variables" class="section level5">
 <h5 class="hasAnchor">
 <a href="#named-arguments-are-used-to-assign-temporary-variables" class="anchor"></a>Named arguments are used to assign temporary variables.</h5>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'My name is {name},'</span>,
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'My name is {name},'</span>,
   <span class="st">' my age next year is {age + 1},'</span>,
   <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,
   name <span class="op">=</span> <span class="st">"Joe"</span>,
   age <span class="op">=</span> <span class="fl">40</span>,
   anniversary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2001-10-12"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</span></pre></div>
+<span class="co">#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</span></code></pre></div>
 </div>
 <div id="glue_data-is-useful-with-magrittr-pipes" class="section level5">
 <h5 class="hasAnchor">
 <a href="#glue_data-is-useful-with-magrittr-pipes" class="anchor"></a><code>glue_data()</code> is useful with <a href="https://cran.r-project.org/package=magrittr">magrittr</a> pipes.</h5>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">`%&gt;%`</span> <span class="op">&lt;-</span> <span class="fu">magrittr</span><span class="fu">::</span><span class="va">`%&gt;%`</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`%&gt;%`</span> <span class="op">&lt;-</span> <span class="fu">magrittr</span><span class="fu">::</span><span class="va">`%&gt;%`</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/glue.html">glue_data</a></span><span class="op">(</span><span class="st">"{rownames(.)} has {hp} hp"</span><span class="op">)</span>
 <span class="co">#&gt; Mazda RX4 has 110 hp</span>
 <span class="co">#&gt; Mazda RX4 Wag has 110 hp</span>
 <span class="co">#&gt; Datsun 710 has 93 hp</span>
 <span class="co">#&gt; Hornet 4 Drive has 110 hp</span>
 <span class="co">#&gt; Hornet Sportabout has 175 hp</span>
-<span class="co">#&gt; Valiant has 105 hp</span></pre></div>
+<span class="co">#&gt; Valiant has 105 hp</span></code></pre></div>
 </div>
 <div id="or-within-dplyr-pipelines" class="section level5">
 <h5 class="hasAnchor">
 <a href="#or-within-dplyr-pipelines" class="anchor"></a>Or within dplyr pipelines</h5>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>description <span class="op">=</span> <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"This {Species} has a petal length of {Petal.Length}"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
@@ -207,67 +207,67 @@
 <span class="co">#&gt; 3 This setosa has a petal length of 1.3</span>
 <span class="co">#&gt; 4 This setosa has a petal length of 1.5</span>
 <span class="co">#&gt; 5 This setosa has a petal length of 1.4</span>
-<span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></pre></div>
+<span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></code></pre></div>
 </div>
 <div id="leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed" class="section level5">
 <h5 class="hasAnchor">
 <a href="#leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed" class="anchor"></a>Leading whitespace and blank lines from the first and last lines are automatically trimmed.</h5>
 <p>This lets you indent the strings naturally in code.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
     A formatted string
     Can have multiple lines
       with additional indention preserved
     "</span><span class="op">)</span>
 <span class="co">#&gt; A formatted string</span>
 <span class="co">#&gt; Can have multiple lines</span>
-<span class="co">#&gt;   with additional indention preserved</span></pre></div>
+<span class="co">#&gt;   with additional indention preserved</span></code></pre></div>
 </div>
 <div id="an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline" class="section level5">
 <h5 class="hasAnchor">
 <a href="#an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline" class="anchor"></a>An additional newline can be used if you want a leading or trailing newline.</h5>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
 
   leading or trailing newlines can be added explicitly
 
   "</span><span class="op">)</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; leading or trailing newlines can be added explicitly</span></pre></div>
+<span class="co">#&gt; leading or trailing newlines can be added explicitly</span></code></pre></div>
 </div>
 <div id="-at-the-end-of-a-line-continues-it-without-a-new-line" class="section level5">
 <h5 class="hasAnchor">
 <a href="#-at-the-end-of-a-line-continues-it-without-a-new-line" class="anchor"></a><code>\\</code> at the end of a line continues it without a new line.</h5>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
     A formatted string \\
     can also be on a \\
     single line
     "</span><span class="op">)</span>
-<span class="co">#&gt; A formatted string can also be on a single line</span></pre></div>
+<span class="co">#&gt; A formatted string can also be on a single line</span></code></pre></div>
 </div>
 <div id="a-literal-brace-is-inserted-by-using-doubled-braces" class="section level5">
 <h5 class="hasAnchor">
 <a href="#a-literal-brace-is-inserted-by-using-doubled-braces" class="anchor"></a>A literal brace is inserted by using doubled braces.</h5>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"My name is {name}, not {{name}}."</span><span class="op">)</span>
-<span class="co">#&gt; My name is Fred, not {name}.</span></pre></div>
+<span class="co">#&gt; My name is Fred, not {name}.</span></code></pre></div>
 </div>
 <div id="alternative-delimiters-can-be-specified-with-open-and-close" class="section level5">
 <h5 class="hasAnchor">
 <a href="#alternative-delimiters-can-be-specified-with-open-and-close" class="anchor"></a>Alternative delimiters can be specified with <code>.open</code> and <code>.close</code>.</h5>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">one</span> <span class="op">&lt;-</span> <span class="st">"1"</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">one</span> <span class="op">&lt;-</span> <span class="st">"1"</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"The value of $e^{2\\pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, .open <span class="op">=</span> <span class="st">"&lt;&lt;"</span>, .close <span class="op">=</span> <span class="st">"&gt;&gt;"</span><span class="op">)</span>
-<span class="co">#&gt; The value of $e^{2\pi i}$ is $1$.</span></pre></div>
+<span class="co">#&gt; The value of $e^{2\pi i}$ is $1$.</span></code></pre></div>
 </div>
 <div id="all-valid-r-code-works-in-expressions-including-braces-and-escaping" class="section level5">
 <h5 class="hasAnchor">
 <a href="#all-valid-r-code-works-in-expressions-including-braces-and-escaping" class="anchor"></a>All valid R code works in expressions, including braces and escaping.</h5>
 <p>Backslashes do need to be doubled just like in all R strings.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-  <span class="va">`foo}\``</span> <span class="op">&lt;-</span> <span class="st">"foo"</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R">  <span class="va">`foo}\``</span> <span class="op">&lt;-</span> <span class="st">"foo"</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{
       {
         '}\\'' # { and } in comments, single quotes
@@ -275,14 +275,14 @@
         `foo}\\`` # as are { in backticks
       }
   }"</span><span class="op">)</span>
-<span class="co">#&gt; foo</span></pre></div>
+<span class="co">#&gt; foo</span></code></pre></div>
 </div>
 <div id="glue_sql-makes-constructing-sql-statements-safe-and-easy" class="section level5">
 <h5 class="hasAnchor">
 <a href="#glue_sql-makes-constructing-sql-statements-safe-and-easy" class="anchor"></a><code>glue_sql()</code> makes constructing SQL statements safe and easy</h5>
 <p>Use backticks to quote identifiers, normal strings and numbers are quoted appropriately for your backend.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
 
 <span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -351,17 +351,17 @@
 
 <span class="fu"><a href="reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
   vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span><span class="op">)</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span>
-<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></pre></div>
+<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></code></pre></div>
 </div>
 <div id="optionally-combine-strings-with-" class="section level5">
 <h5 class="hasAnchor">
 <a href="#optionally-combine-strings-with-" class="anchor"></a>Optionally combine strings with <code>+</code>
 </h5>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">3</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"x + y"</span><span class="op">)</span> <span class="op">+</span> <span class="st">" = {x + y}"</span>
-<span class="co">#&gt; x + y = 4</span></pre></div>
+<span class="co">#&gt; x + y = 4</span></code></pre></div>
 </div>
 </div>
 </div>

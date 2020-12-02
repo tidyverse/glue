@@ -129,11 +129,11 @@
     
 <p><a href="http://glue.tidyverse.org">glue 1.2.0</a> is now available on CRAN! <a href="http://glue.tidyverse.org">glue</a> is designed to make it easy to interpolate (“glue”) your data into strings. Compared to equivalents like <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> it is easier to write and less time consuming to maintain. It also has no non-base dependencies so is easy to include in packages.</p>
 <p>Install the latest version with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"glue"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"glue"</span><span class="op">)</span></code></pre></div>
 <p>glue has three primary functions, <code><a href="../../reference/glue.html">glue()</a></code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/collapse.html">collapse()</a></code>. <code><a href="../../reference/glue.html">glue()</a></code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">50</span>
 <span class="va">anniversary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1991-10-12"</span><span class="op">)</span>
 <span class="fu"><a href="../../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'
@@ -143,10 +143,10 @@
 '</span><span class="op">)</span>
 <span class="co">#&gt;   My name is Fred</span>
 <span class="co">#&gt;   my age next year is 51</span>
-<span class="co">#&gt;   my anniversary is Saturday, October 12, 1991</span></pre></div>
+<span class="co">#&gt;   my anniversary is Saturday, October 12, 1991</span></code></pre></div>
 <p>glue is also vectorized over its inputs.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'
   {month.abb} is short for {month.name}
 '</span><span class="op">)</span>
 <span class="co">#&gt;   Jan is short for January</span>
@@ -160,10 +160,10 @@
 <span class="co">#&gt;   Sep is short for September</span>
 <span class="co">#&gt;   Oct is short for October</span>
 <span class="co">#&gt;   Nov is short for November</span>
-<span class="co">#&gt;   Dec is short for December</span></pre></div>
+<span class="co">#&gt;   Dec is short for December</span></code></pre></div>
 <p><code><a href="../../reference/glue.html">glue_data()</a></code> works like <code><a href="../../reference/glue.html">glue()</a></code>, but instead of looking up its variables from the calling environment it looks them up from the first argument (usually a data frame or tibble). This makes <code><a href="../../reference/glue.html">glue_data()</a></code> very useful within pipe chains.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">magrittr</span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
 <span class="va">mtcars</span><span class="op">$</span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
 <span class="va">mtcars</span> <span class="op">%&gt;%</span>
   <span class="va">head</span> <span class="op">%&gt;%</span>
@@ -173,20 +173,20 @@
 <span class="co">#&gt; The Datsun 710 has 4 gears, 4 cylinders, and 93 horsepower.</span>
 <span class="co">#&gt; The Hornet 4 Drive has 3 gears, 6 cylinders, and 110 horsepower.</span>
 <span class="co">#&gt; The Hornet Sportabout has 3 gears, 8 cylinders, and 175 horsepower.</span>
-<span class="co">#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.</span></pre></div>
+<span class="co">#&gt; The Valiant has 3 gears, 6 cylinders, and 105 horsepower.</span></code></pre></div>
 <p><code><a href="../../reference/collapse.html">collapse()</a></code> is used to combine multiple values into one. The <code>last</code> argument is used to change the separator for the last value.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../../reference/collapse.html">collapse</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="st">", "</span>, last <span class="op">=</span> <span class="st">", and "</span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/collapse.html">collapse</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="st">", "</span>, last <span class="op">=</span> <span class="st">", and "</span><span class="op">)</span>
 <span class="co">#&gt; Warning: 'collapse' is deprecated.</span>
 <span class="co">#&gt; Use 'glue_collapse' instead.</span>
 <span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span>
-<span class="co">#&gt; 1, 2, 3, 4, and 5</span></pre></div>
+<span class="co">#&gt; 1, 2, 3, 4, and 5</span></code></pre></div>
 <div id="glue-transformers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue-transformers" class="anchor"></a>glue transformers</h2>
 <p>New to glue 1.2.0 are transformer functions, which allow you to define custom behavior for glue functions. For example a <code>collapse_transformer()</code> which automatically collapses any blocks which end with <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">collapse_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">regex</span> <span class="op">=</span> <span class="st">"[*]$"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">collapse_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">regex</span> <span class="op">=</span> <span class="st">"[*]$"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">function</span><span class="op">(</span><span class="va">code</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="va">regex</span>, <span class="va">code</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
         <span class="va">code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="va">regex</span>, <span class="st">""</span>, <span class="va">code</span><span class="op">)</span>
@@ -208,10 +208,10 @@
 <span class="co">#&gt; Use 'glue_collapse' instead.</span>
 <span class="co">#&gt; See help("Deprecated") and help("glue-deprecated").</span>
 <span class="co">#&gt; 1, 2, 3, 4, and 5</span>
-<span class="co">#&gt; a, b, c, d, and e</span></pre></div>
+<span class="co">#&gt; a, b, c, d, and e</span></code></pre></div>
 <p>Or an sprintf transformer which lets you use sprintf style numeric formatting with glue.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">sprintf_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">code</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sprintf_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">code</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">regexpr</a></span><span class="op">(</span><span class="st">"%.+$"</span>, <span class="va">code</span><span class="op">)</span>
   <span class="kw">if</span> <span class="op">(</span><span class="va">m</span> <span class="op">!=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span><span class="op">(</span><span class="va">code</span>, <span class="va">m</span><span class="op">)</span>
@@ -227,15 +227,15 @@
   <span class="fu"><a href="../../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .transformer <span class="op">=</span> <span class="va">sprintf_transformer</span>, .envir <span class="op">=</span> <span class="va">.envir</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">glue_fmt</span><span class="op">(</span><span class="st">"π = {pi%.5f}"</span><span class="op">)</span>
-<span class="co">#&gt; π = 3.14159</span></pre></div>
+<span class="co">#&gt; π = 3.14159</span></code></pre></div>
 </div>
 <div id="glue_sql" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue_sql" class="anchor"></a>glue_sql()</h2>
 <p>Also new to glue 1.2.0 is <code><a href="../../reference/glue_sql.html">glue_sql()</a></code> and <code><a href="../../reference/glue_sql.html">glue_data_sql()</a></code>, which are helper functions defined with glue transformers to make it easy and safe to construct SQL statements.</p>
 <p>Using <code><a href="../../reference/glue_sql.html">glue_sql()</a></code> values are automatically quoted appropriately and variables can be quoted with backticks.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"iris"</span>, <span class="va">iris</span><span class="op">)</span>
 <span class="va">var</span> <span class="op">&lt;-</span> <span class="st">"sepal_width"</span>
@@ -251,7 +251,7 @@
 <span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span>
 <span class="co">#&gt; FROM `iris`</span>
 <span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span>
-<span class="co">#&gt;   AND `iris`.species = 'setosa'</span></pre></div>
+<span class="co">#&gt;   AND `iris`.species = 'setosa'</span></code></pre></div>
 </div>
 <div id="other-changes" class="section level2">
 <h2 class="hasAnchor">

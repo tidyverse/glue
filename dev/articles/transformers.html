@@ -129,14 +129,14 @@
 <p>You can then supply the transformer function to glue with the <code>.transformer</code> argument. In this way users can manipulate the text before parsing and change the output after evaluation.</p>
 <p>It is often useful to write a <code><a href="../reference/glue.html">glue()</a></code> wrapper function which supplies a <code>.transformer</code> to <code><a href="../reference/glue.html">glue()</a></code> or <code><a href="../reference/glue.html">glue_data()</a></code> and potentially has additional arguments. One important consideration when doing this is to include <code>.envir = parent.frame()</code> in the wrapper to ensure the evaluation environment is correct.</p>
 <p>Some example implementations of potentially useful transformers follow. The aim right now is not to include most of these custom functions within the <code>glue</code> package. Rather, users are encouraged to create custom functions using transformers to fit their individual needs.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></code></pre></div>
 <div id="collapse-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#collapse-transformer" class="anchor"></a>collapse transformer</h3>
 <p>A transformer which automatically collapses any glue block ending with <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">collapse_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">regex</span> <span class="op">=</span> <span class="st">"[*]$"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">collapse_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">regex</span> <span class="op">=</span> <span class="st">"[*]$"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">collapse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="va">regex</span>, <span class="va">text</span><span class="op">)</span>
     <span class="kw">if</span> <span class="op">(</span><span class="va">collapse</span><span class="op">)</span> <span class="op">{</span>
@@ -162,14 +162,14 @@
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>, <span class="st">"two"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{x}: {1:5*}"</span>, .transformer <span class="op">=</span> <span class="fu">collapse_transformer</span><span class="op">(</span>sep <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; one: 1, 2, 3, 4, 5</span>
-<span class="co">#&gt; two: 1, 2, 3, 4, 5</span></pre></div>
+<span class="co">#&gt; two: 1, 2, 3, 4, 5</span></code></pre></div>
 </div>
 <div id="shell-quoting-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#shell-quoting-transformer" class="anchor"></a>Shell quoting transformer</h3>
 <p>A transformer which automatically quotes variables for use in shell commands, e.g. via <code><a href="https://rdrr.io/r/base/system.html">system()</a></code> or <code><a href="https://rdrr.io/r/base/system2.html">system2()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">shell_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">type</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">shell_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">type</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sh"</span>, <span class="st">"csh"</span>, <span class="st">"cmd"</span>, <span class="st">"cmd2"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html">match.arg</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span>
   <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">text</span>, keep.source <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, <span class="va">envir</span><span class="op">)</span>
@@ -189,14 +189,14 @@
 <span class="va">command</span> <span class="op">&lt;-</span> <span class="fu">glue_sh</span><span class="op">(</span><span class="st">"cat {filename}"</span><span class="op">)</span>
 <span class="va">command</span>
 <span class="co">#&gt; cat 'test'</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="va">command</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="va">command</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="emoji-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#emoji-transformer" class="anchor"></a>emoji transformer</h3>
 <p>A transformer which converts the text to the equivalent emoji.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">emoji_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">emoji_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"[*]$"</span>, <span class="va">text</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">"[*]$"</span>, <span class="st">""</span>, <span class="va">text</span><span class="op">)</span>
     <span class="fu"><a href="../reference/glue_collapse.html">glue_collapse</a></span><span class="op">(</span><span class="fu">ji_find</span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">$</span><span class="va">emoji</span><span class="op">)</span>
@@ -209,14 +209,14 @@
   <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .open <span class="op">=</span> <span class="st">":"</span>, .close <span class="op">=</span> <span class="st">":"</span>, .envir <span class="op">=</span> <span class="va">.envir</span>, .transformer <span class="op">=</span> <span class="va">emoji_transformer</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">glue_ji</span><span class="op">(</span><span class="st">"one :heart:"</span><span class="op">)</span>
-<span class="fu">glue_ji</span><span class="op">(</span><span class="st">"many :heart*:"</span><span class="op">)</span></pre></div>
+<span class="fu">glue_ji</span><span class="op">(</span><span class="st">"many :heart*:"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="sprintf-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sprintf-transformer" class="anchor"></a>sprintf transformer</h3>
 <p>A transformer which allows succinct sprintf format strings.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">sprintf_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sprintf_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">regexpr</a></span><span class="op">(</span><span class="st">":.+$"</span>, <span class="va">text</span><span class="op">)</span>
   <span class="kw">if</span> <span class="op">(</span><span class="va">m</span> <span class="op">!=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html">substring</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/regmatches.html">regmatches</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">m</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
@@ -232,14 +232,14 @@
   <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .transformer <span class="op">=</span> <span class="va">sprintf_transformer</span>, .envir <span class="op">=</span> <span class="va">.envir</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">glue_fmt</span><span class="op">(</span><span class="st">"π = {pi:.3f}"</span><span class="op">)</span>
-<span class="co">#&gt; π = 3.142</span></pre></div>
+<span class="co">#&gt; π = 3.142</span></code></pre></div>
 </div>
 <div id="safely-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#safely-transformer" class="anchor"></a>safely transformer</h3>
 <p>A transformer that acts like <code><a href="https://purrr.tidyverse.org/reference/safely.html">purrr::safely()</a></code>, which returns a value instead of an error.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">safely_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">otherwise</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">safely_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">otherwise</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span>
       <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">text</span>, keep.source <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, <span class="va">envir</span><span class="op">)</span>,
@@ -262,14 +262,14 @@
 <span class="co"># Or output the error message in red</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/crayon#readme">crayon</a></span><span class="op">)</span>
 <span class="fu">glue_safely</span><span class="op">(</span><span class="st">"foo: {xyz}"</span>, .otherwise <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substitute.html">quote</a></span><span class="op">(</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{red}Error: {conditionMessage(e)}{reset}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; foo: Error: object 'xyz' not found</span></pre></div>
+<span class="co">#&gt; foo: Error: object 'xyz' not found</span></code></pre></div>
 </div>
 <div id="variables-and-values-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#variables-and-values-transformer" class="anchor"></a>“Variables and Values” transformer</h3>
 <p>A transformer that expands input of the form <code>{var_name=}</code> into <code>var_name = var_value</code>, i.e. a shorthand for exposing variable names with their values. This is inspired by an <a href="https://docs.python.org/3.8/whatsnew/3.8.html#f-strings-now-support-for-quick-and-easy-debugging">f-strings feature coming in Python 3.8</a>. It’s actually more general: you can use it with an expression input such as <code>{expr=}</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">vv_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vv_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">regex</span> <span class="op">&lt;-</span> <span class="st">"=$"</span>
   <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="va">regex</span>, <span class="va">text</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/identity_transformer.html">identity_transformer</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span><span class="op">)</span>
@@ -283,9 +283,9 @@
     <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"["</span>, <span class="va">res</span>, <span class="st">"]"</span><span class="op">)</span>
   <span class="op">}</span>
   <span class="fu"><a href="../reference/glue_collapse.html">glue_collapse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">" = "</span>, <span class="va">res</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span>
 <span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"some random"</span>
 <span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">4</span><span class="op">)</span>
 <span class="va">average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">numbers</span><span class="op">)</span>
@@ -299,7 +299,7 @@
 <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{a=}\n{b=}\n{a * 9 + b * 2=}"</span>, .transformer <span class="op">=</span> <span class="va">vv_transformer</span><span class="op">)</span>
 <span class="co">#&gt; a = 3</span>
 <span class="co">#&gt; b = 5.6</span>
-<span class="co">#&gt; a * 9 + b * 2 = 38.2</span></pre></div>
+<span class="co">#&gt; a * 9 + b * 2 = 38.2</span></code></pre></div>
 </div>
   </div>
 
