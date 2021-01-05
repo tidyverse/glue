@@ -118,7 +118,7 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
   vals = c("setosa", "versicolor"), .con = con)
 
-# If you need to reference a variables from multiple tables use `DBI::Id()`.
+# If you need to reference variables from multiple tables use `DBI::Id()`.
 # Here we create a new table of nicknames, join the two tables together and
 # select columns from both tables. Using `DBI::Id()` and the special
 # `glue_sql()` syntax ensures all the table and column identifiers are quoted
