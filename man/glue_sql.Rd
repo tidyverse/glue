@@ -14,7 +14,7 @@ glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.}
 
-\item{.con}{[\code{DBIConnection}]:A DBI connection object obtained from \code{DBI::dbConnect()}.}
+\item{.con}{[\code{DBIConnection}]:A DBI connection object obtained from \code{\link[DBI:dbConnect]{DBI::dbConnect()}}.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
@@ -27,12 +27,12 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
 }
 \value{
-A \code{DBI::SQL()} object with the given query.
+A \code{\link[DBI:SQL]{DBI::SQL()}} object with the given query.
 }
 \description{
 SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
-\code{glue_data_sql()} are analogs to \code{glue()} and \code{glue_data()} which handle the
+\code{glue_data_sql()} are analogs to \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}} which handle the
 SQL quoting.
 }
 \details{
@@ -42,7 +42,7 @@ non-characters such as numbers. If numeric data is stored in a character
 column (which should be quoted) pass the data to \code{glue_sql()} as a
 character.
 
-Returning the result with \code{DBI::SQL()} will suppress quoting if desired for
+Returning the result with \code{\link[DBI:SQL]{DBI::SQL()}} will suppress quoting if desired for
 a given value.
 
 Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries}{parameterized queries}

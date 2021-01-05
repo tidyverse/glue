@@ -56,7 +56,7 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 evaluation. For example transformers see \code{vignette("transformers")}.}
 
 \item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
-template with \code{trim()} or not.}
+template with \code{\link[=trim]{trim()}} or not.}
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Long strings are
