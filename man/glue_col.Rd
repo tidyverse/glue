@@ -29,7 +29,7 @@ The \link[crayon:crayon]{crayon} package defines a number of functions used to
 color terminal output. \code{glue_col()} and \code{glue_data_col()} functions provide
 additional syntax to make using these functions in glue strings easier.
 
-Using the following syntax will apply the function \code{crayon::blue()} to the text 'foo bar'.\preformatted{\{blue foo bar\}
+Using the following syntax will apply the function \code{\link[crayon:crayon]{crayon::blue()}} to the text 'foo bar'.\preformatted{\{blue foo bar\}
 }
 
 If you want an expression to be evaluated, simply place that in a normal brace

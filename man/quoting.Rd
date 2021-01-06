@@ -18,7 +18,7 @@ backtick(x)
 }
 \description{
 These functions make it easy to quote each individual element and are useful
-in conjunction with \code{glue_collapse()}.
+in conjunction with \code{\link[=glue_collapse]{glue_collapse()}}.
 }
 \examples{
 x <- 1:5
