@@ -144,7 +144,7 @@ SQL quoting." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/glue/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -304,7 +304,7 @@ for instance.</p>
 <span class='fu'>glue_sql</span><span class='op'>(</span><span class='st'>"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
   vals <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span><span class='op'>)</span>, .con <span class='op'>=</span> <span class='va'>con</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</div><div class='input'>
-<span class='co'># If you need to reference a variables from multiple tables use `DBI::Id()`.</span>
+<span class='co'># If you need to reference variables from multiple tables use `DBI::Id()`.</span>
 <span class='co'># Here we create a new table of nicknames, join the two tables together and</span>
 <span class='co'># select columns from both tables. Using `DBI::Id()` and the special</span>
 <span class='co'># `glue_sql()` syntax ensures all the table and column identifiers are quoted</span>
