@@ -53,13 +53,14 @@
 #' intro("Cate", "Data Scientist", "Kenya")
 #'
 #' # `glue_data()` is useful in magrittr pipes
-#' library(magrittr)
-#' mtcars %>% glue_data("{rownames(.)} has {hp} hp")
+#' if (require(magrittr)) {
+#'   mtcars %>% glue_data("{rownames(.)} has {hp} hp")
 #'
-#' # Or within dplyr pipelines
-#' library(dplyr)
-#' head(iris) %>%
-#'   mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+#'   # Or within dplyr pipelines
+#'   library(dplyr)
+#'   head(iris) %>%
+#'     mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+#' }
 #'
 #' # Alternative delimiters can also be used if needed
 #' one <- "1"

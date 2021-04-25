@@ -1,4 +1,5 @@
-library(testthat)
-library(glue)
+if (require(testthat)) {
+  library(glue)
 
-test_check("glue")
+  test_check("glue")
+}
