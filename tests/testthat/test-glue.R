@@ -368,6 +368,58 @@ test_that("glue always returns .na if given any NA input and `.na` != NULL", {
     c("1 - foo", "2 - baz", "3 - bar"))
 })
 
+test_that("glue always returns character(0) if given any NULL input and `.null` == NULL", {
+  expect_equal(
+    glue("{NULL}", .null = NULL),
+    character(0))
+
+  expect_equal(
+    glue("{}", .null = NULL),
+    character(0))
+
+  expect_equal(
+    glue(NULL, .null = NULL),
+    character(0))
+
+  expect_equal(
+    glue(NULL, 1, .null = NULL),
+    character(0))
+
+  expect_equal(
+    glue(1, NULL, 2, .null = NULL),
+    character(0))
+
+  expect_equal(
+    glue("x: ", if (FALSE) "positive", .null = NULL),
+    character(0))
+})
+
+test_that("glue always returns .null if given any NULL input and `.null` != NULL", {
+  expect_equal(
+    glue("{NULL}", .null = "foo"),
+    "foo")
+
+  expect_equal(
+    glue("{}", .null = "foo"),
+    "foo")
+
+  expect_equal(
+    glue(NULL, .null = "foo"),
+    "foo")
+
+  expect_equal(
+    glue(NULL, 1, .null = "foo"),
+    "foo1")
+
+  expect_equal(
+    glue(1, NULL, 2, .null = "foo"),
+    "1foo2")
+
+  expect_equal(
+    glue("x: ", if (FALSE) "positive", .null = "foo"),
+    "x: foo")
+})
+
 test_that("glue works within functions", {
   x <- 1
   f <- function(msg) glue(msg, .envir = parent.frame())
