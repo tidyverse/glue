@@ -108,8 +108,6 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
       eval(call("force", as.symbol(paste0("..", x)))) %||% .null
     }
   )
-  unnamed_args_is_shorter <- length(unnamed_args) < sum(!named)
-
   unnamed_args <- drop_null(unnamed_args)
 
   if (length(unnamed_args) == 0) {
@@ -118,7 +116,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   }
 
   lengths <- lengths(unnamed_args)
-  if (any(lengths == 0) || unnamed_args_is_shorter) {
+  if (any(lengths == 0)) {
     return(as_glue(character(0)))
   }
   if (any(lengths != 1)) {
