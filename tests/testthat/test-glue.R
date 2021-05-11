@@ -368,33 +368,68 @@ test_that("glue always returns .na if given any NA input and `.na` != NULL", {
     c("1 - foo", "2 - baz", "3 - bar"))
 })
 
-test_that("glue always returns character(0) if given any NULL input and `.null` == NULL", {
+test_that("glue always returns character() if given any NULL input if `.null` == character()", {
+  expect_equal(
+    glue("{NULL}", .null = character()),
+    character())
+
+  expect_equal(
+    glue("{}", .null = character()),
+    character())
+
+  expect_equal(
+    glue(NULL, .null = character()),
+    character())
+
+  expect_equal(
+    glue(NULL, 1, .null = character()),
+    character())
+
+  expect_equal(
+    glue(1, NULL, 2, .null = character()),
+    character())
+
+  expect_equal(
+    glue("x: ", if (FALSE) "positive", .null = character()),
+    character())
+
+  expect_equal(
+    glue("x: {NULL}", .null = character()),
+    character())
+})
+
+test_that("glue drops any NULL input if `.null` == NULL", {
+  # This should work like `paste0()`
   expect_equal(
     glue("{NULL}", .null = NULL),
-    character(0))
+    character())
 
   expect_equal(
     glue("{}", .null = NULL),
-    character(0))
+    character())
 
   expect_equal(
     glue(NULL, .null = NULL),
-    character(0))
+    character())
 
   expect_equal(
     glue(NULL, 1, .null = NULL),
-    character(0))
+    "1")
 
   expect_equal(
     glue(1, NULL, 2, .null = NULL),
-    character(0))
+    "12")
 
   expect_equal(
     glue("x: ", if (FALSE) "positive", .null = NULL),
-    character(0))
+    "x: ")
+
+  expect_equal(
+    glue("x: {NULL}", .null = NULL),
+    "x: ")
 })
 
-test_that("glue always returns .null if given any NULL input and `.null` != NULL", {
+test_that("glue replaces NULL input if `.null` is not NULL or character()", {
   expect_equal(
     glue("{NULL}", .null = "foo"),
     "foo")
@@ -417,6 +452,10 @@ test_that("glue always returns .null if given any NULL input and `.null` != NULL
 
   expect_equal(
     glue("x: ", if (FALSE) "positive", .null = "foo"),
+    "x: foo")
+
+  expect_equal(
+    glue("x: {NULL}", .null = "foo"),
     "x: foo")
 })
 

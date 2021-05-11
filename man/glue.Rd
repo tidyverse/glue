@@ -13,7 +13,7 @@ glue_data(
   .open = "{",
   .close = "}",
   .na = "NA",
-  .null = NULL,
+  .null = character(),
   .transformer = identity_transformer,
   .trim = TRUE
 )
@@ -25,7 +25,7 @@ glue(
   .open = "{",
   .close = "}",
   .na = "NA",
-  .null = NULL,
+  .null = character(),
   .transformer = identity_transformer,
   .trim = TRUE
 )
@@ -53,9 +53,10 @@ full delimiter escapes it.}
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
-\item{.null}{[\code{character(1)}: \sQuote{NULL}]\cr Value to replace NULL values
-with. If \code{NULL} whole output is \code{character(0)}. Otherwise the value is
-replaced by the value of \code{.null}.}
+\item{.null}{[\code{character(1)}: \sQuote{character()}]\cr Value to replace
+NULL values with. If \code{character()} whole output is \code{character()}. If
+\code{NULL} all NULL values are dropped (as in \code{paste0()}). Otherwise the
+value is replaced by the value of \code{.null}.}
 
 \item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
 \code{data} used to transform the output of each block before during or after
