@@ -17,8 +17,8 @@
 #' ```
 #' {blue 1 + 1 = {1 + 1}}
 #' ```
-#'
 #' @inheritParams glue
+#'
 #' @export
 #' @examples
 #' if (require(crayon)) {
@@ -36,6 +36,9 @@
 #' }
 glue_col <- function(..., .envir = parent.frame(), .na = "NA") {
   loadNamespace("crayon")
+  if(!"crayon" %in% (.packages())){
+    library(crayon)
+  }
   glue(..., .envir = .envir, .na = .na, .transformer = color_transformer)
 }
 
@@ -43,6 +46,9 @@ glue_col <- function(..., .envir = parent.frame(), .na = "NA") {
 #' @export
 glue_data_col <- function(.x, ..., .envir = parent.frame(), .na = "NA") {
   loadNamespace("crayon")
+  if(!"crayon" %in% (.packages())){
+    library(crayon)
+  }
   glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = color_transformer)
 }
 
