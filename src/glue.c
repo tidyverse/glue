@@ -182,6 +182,9 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   } else if (state == double_quote) {
     free(str);
     Rf_error("Unterminated quote (\")");
+  } else if (state == comment) {
+    free(str);
+    Rf_error("Unterminated comment");
   }
 
   free(str);
