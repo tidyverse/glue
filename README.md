@@ -4,7 +4,8 @@
 # glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
-[![R build status](https://github.com/tidyverse/glue/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/glue/actions)
+[![R build
+status](https://github.com/tidyverse/glue/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/glue/actions)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](https://codecov.io/github/tidyverse/glue?branch=master)
 
@@ -257,10 +258,9 @@ glue("x + y") + " = {x + y}"
 # Other implementations
 
 Some other implementations of string interpolation in R (although not
-using identical
-    syntax).
+using identical syntax).
 
-  - [stringr::str\_interp](http://stringr.tidyverse.org/reference/str_interp.html)
+  - [stringr::str\_interp](https://stringr.tidyverse.org/reference/str_interp.html)
   - [pystr::pystr\_format](https://cran.r-project.org/package=pystr)
   - [R.utils::gstring](https://cran.r-project.org/package=R.utils)
   - [rprintf](https://cran.r-project.org/package=rprintf)
