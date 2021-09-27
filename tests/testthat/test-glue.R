@@ -424,3 +424,8 @@ test_that("+ method for glue works", {
   x <- 1
   expect_identical(glue("x = ") + "{x}", glue("x = {x}"))
 })
+
+test_that("unterminated quotes are error", {
+  expect_error(glue("{this doesn\"t work}"), "Unterminated quote")
+  expect_error(glue("{this doesn't work}"), "Unterminated quote")
+})
