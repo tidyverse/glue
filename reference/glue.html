@@ -17,27 +17,35 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
 
 
 
@@ -87,9 +95,9 @@ from the first and last lines are automatically trimmed." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">glue</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
         </div>
       </div>
     </div>
@@ -135,7 +143,7 @@ from the first and last lines are automatically trimmed." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/glue/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -163,28 +171,28 @@ broken by line and concatenated together. Leading whitespace and blank lines
 from the first and last lines are automatically trimmed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>glue_data</span>(
-  <span class='no'>.x</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
-  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>,
-  <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>,
-  <span class='kw'>.trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>glue_data</span><span class='op'>(</span>
+  <span class='va'>.x</span>,
+  <span class='va'>...</span>,
+  .sep <span class='op'>=</span> <span class='st'>""</span>,
+  .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .open <span class='op'>=</span> <span class='st'>"{"</span>,
+  .close <span class='op'>=</span> <span class='st'>"}"</span>,
+  .na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  .transformer <span class='op'>=</span> <span class='va'>identity_transformer</span>,
+  .trim <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>glue</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span>(),
-  <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"{"</span>,
-  <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"}"</span>,
-  <span class='kw'>.na</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>.transformer</span> <span class='kw'>=</span> <span class='no'>identity_transformer</span>,
-  <span class='kw'>.trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>glue</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  .sep <span class='op'>=</span> <span class='st'>""</span>,
+  .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .open <span class='op'>=</span> <span class='st'>"{"</span>,
+  .close <span class='op'>=</span> <span class='st'>"}"</span>,
+  .na <span class='op'>=</span> <span class='st'>"NA"</span>,
+  .transformer <span class='op'>=</span> <span class='va'>identity_transformer</span>,
+  .trim <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -241,32 +249,38 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://www.python.org/dev/peps/pep-0498/'>https://www.python.org/dev/peps/pep-0498/</a> and
-<a href='https://www.python.org/dev/peps/pep-0257'>https://www.python.org/dev/peps/pep-0257</a> upon which this is based.</p></div>
+<a href='https://www.python.org/dev/peps/pep-0257/'>https://www.python.org/dev/peps/pep-0257/</a> upon which this is based.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>name</span> <span class='kw'>&lt;-</span> <span class='st'>"Fred"</span>
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fl'>50</span>
-<span class='no'>anniversary</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1991-10-12"</span>)
-<span class='fu'>glue</span>(<span class='st'>'My name is {name},'</span>,
+    <pre class="examples"><div class='input'><span class='va'>name</span> <span class='op'>&lt;-</span> <span class='st'>"Fred"</span>
+<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fl'>50</span>
+<span class='va'>anniversary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1991-10-12"</span><span class='op'>)</span>
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>'My name is {name},'</span>,
   <span class='st'>'my age next year is {age + 1},'</span>,
-  <span class='st'>'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>)</div><div class='output co'>#&gt; My name is Fred,my age next year is 51,my anniversary is Saturday, October 12, 1991.</div><div class='input'>
+  <span class='st'>'my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; My name is Fred,my age next year is 51,my anniversary is Saturday, October 12, 1991.</div><div class='input'>
 <span class='co'># single braces can be inserted by doubling them</span>
-<span class='fu'>glue</span>(<span class='st'>"My name is {name}, not {{name}}."</span>)</div><div class='output co'>#&gt; My name is Fred, not {name}.</div><div class='input'>
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>"My name is {name}, not {{name}}."</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; My name is Fred, not {name}.</div><div class='input'>
 <span class='co'># Named arguments can be used to assign temporary variables.</span>
-<span class='fu'>glue</span>(<span class='st'>'My name is {name},'</span>,
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>'My name is {name},'</span>,
   <span class='st'>' my age next year is {age + 1},'</span>,
   <span class='st'>' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Joe"</span>,
-  <span class='kw'>age</span> <span class='kw'>=</span> <span class='fl'>40</span>,
-  <span class='kw'>anniversary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2001-10-12"</span>))</div><div class='output co'>#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</div><div class='input'>
+  name <span class='op'>=</span> <span class='st'>"Joe"</span>,
+  age <span class='op'>=</span> <span class='fl'>40</span>,
+  anniversary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2001-10-12"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</div><div class='input'>
 <span class='co'># `glue()` can also be used in user defined functions</span>
-<span class='no'>intro</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>name</span>, <span class='no'>profession</span>, <span class='no'>country</span>){
-  <span class='fu'>glue</span>(<span class='st'>"My name is {name}, a {profession}, from {country}"</span>)
-}
-<span class='fu'>intro</span>(<span class='st'>"Shelmith"</span>, <span class='st'>"Senior Data Analyst"</span>, <span class='st'>"Kenya"</span>)</div><div class='output co'>#&gt; My name is Shelmith, a Senior Data Analyst, from Kenya</div><div class='input'><span class='fu'>intro</span>(<span class='st'>"Cate"</span>, <span class='st'>"Data Scientist"</span>, <span class='st'>"Kenya"</span>)</div><div class='output co'>#&gt; My name is Cate, a Data Scientist, from Kenya</div><div class='input'>
+<span class='va'>intro</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>profession</span>, <span class='va'>country</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"My name is {name}, a {profession}, from {country}"</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='fu'>intro</span><span class='op'>(</span><span class='st'>"Shelmith"</span>, <span class='st'>"Senior Data Analyst"</span>, <span class='st'>"Kenya"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; My name is Shelmith, a Senior Data Analyst, from Kenya</div><div class='input'><span class='fu'>intro</span><span class='op'>(</span><span class='st'>"Cate"</span>, <span class='st'>"Data Scientist"</span>, <span class='st'>"Kenya"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; My name is Cate, a Data Scientist, from Kenya</div><div class='input'>
 <span class='co'># `glue_data()` is useful in magrittr pipes</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span> <span class='fu'>glue_data</span>(<span class='st'>"{rownames(.)} has {hp} hp"</span>)</div><div class='output co'>#&gt; Mazda RX4 has 110 hp
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span>
+<span class='va'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'>glue_data</span><span class='op'>(</span><span class='st'>"{rownames(.)} has {hp} hp"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Mazda RX4 has 110 hp
 #&gt; Mazda RX4 Wag has 110 hp
 #&gt; Datsun 710 has 93 hp
 #&gt; Hornet 4 Drive has 110 hp
@@ -299,15 +313,17 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 #&gt; Maserati Bora has 335 hp
 #&gt; Volvo 142E has 109 hp</div><div class='input'>
 <span class='co'># Or within dplyr pipelines</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:glue’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    collapse</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>description</span> <span class='kw'>=</span> <span class='fu'>glue</span>(<span class='st'>"This {Species} has a petal length of {Petal.Length}"</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>description <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"This {Species} has a petal length of {Petal.Length}"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1          5.1         3.5          1.4         0.2  setosa
 #&gt; 2          4.9         3.0          1.4         0.2  setosa
 #&gt; 3          4.7         3.2          1.3         0.2  setosa
@@ -322,8 +338,9 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 #&gt; 5 This setosa has a petal length of 1.4
 #&gt; 6 This setosa has a petal length of 1.7</div><div class='input'>
 <span class='co'># Alternative delimiters can also be used if needed</span>
-<span class='no'>one</span> <span class='kw'>&lt;-</span> <span class='st'>"1"</span>
-<span class='fu'>glue</span>(<span class='st'>"The value of $e^{2\\pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, <span class='kw'>.open</span> <span class='kw'>=</span> <span class='st'>"&lt;&lt;"</span>, <span class='kw'>.close</span> <span class='kw'>=</span> <span class='st'>"&gt;&gt;"</span>)</div><div class='output co'>#&gt; The value of $e^{2\pi i}$ is $1$.</div></pre>
+<span class='va'>one</span> <span class='op'>&lt;-</span> <span class='st'>"1"</span>
+<span class='fu'>glue</span><span class='op'>(</span><span class='st'>"The value of $e^{2\\pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, .open <span class='op'>=</span> <span class='st'>"&lt;&lt;"</span>, .close <span class='op'>=</span> <span class='st'>"&gt;&gt;"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; The value of $e^{2\pi i}$ is $1$.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

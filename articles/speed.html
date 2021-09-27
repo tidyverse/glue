@@ -12,11 +12,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
+<!--optional theme--><link href="../.css" rel="stylesheet">
 <meta property="og:title" content="Speed of glue">
 <meta property="og:description" content="glue">
 <meta property="og:image" content="https://glue.tidyverse.org/logo.png">
@@ -46,9 +48,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">glue</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
         </div>
       </div>
     </div>
@@ -94,7 +96,7 @@
 </li>
         <li>
   <a href="https://github.com/tidyverse/glue/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -108,7 +110,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="speed_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Speed of glue</h1>
@@ -138,21 +140,22 @@
 <div id="simple-concatenation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simple-concatenation" class="anchor"></a>Simple concatenation</h2>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">bar</span> <span class="kw">&lt;-</span> <span class="st">"baz"</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bar</span> <span class="op">&lt;-</span> <span class="st">"baz"</span>
 
-<span class="no">simple</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">microbenchmark</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
-  <span class="kw">glue</span> <span class="kw">=</span> <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),
-  <span class="kw">gstring</span> <span class="kw">=</span> <span class="kw pkg">R.utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span>(<span class="st">"foo${bar}"</span>),
-  <span class="kw">paste0</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"foo"</span>, <span class="no">bar</span>),
-  <span class="kw">sprintf</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"foo%s"</span>, <span class="no">bar</span>),
-  <span class="kw">str_interp</span> <span class="kw">=</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_interp.html">str_interp</a></span>(<span class="st">"foo${bar}"</span>),
-  <span class="kw">rprintf</span> <span class="kw">=</span> <span class="kw pkg">rprintf</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span>(<span class="st">"foo$bar"</span>, <span class="kw">bar</span> <span class="kw">=</span> <span class="no">bar</span>)
-)
+<span class="va">simple</span> <span class="op">&lt;-</span>
+  <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  glue <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span>,
+  gstring <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,
+  paste0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,
+  sprintf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"foo%s"</span>, <span class="va">bar</span><span class="op">)</span>,
+  str_interp <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_interp.html">str_interp</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,
+  rprintf <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span>
+<span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">unit</span> <span class="kw">=</span> <span class="st">"eps"</span>, <span class="kw">order</span> <span class="kw">=</span> <span class="st">"median"</span>, <span class="kw">signif</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="no">simple</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"eps"</span>, order <span class="op">=</span> <span class="st">"median"</span>, signif <span class="op">=</span> <span class="fl">4</span>, <span class="va">simple</span><span class="op">)</span>
 
-<span class="fu">plot_comparison</span>(<span class="no">simple</span>)</pre></body></html></div>
+<span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></code></pre></div>
 <p>While <code><a href="../reference/glue.html">glue()</a></code> is slower than <code>paste0</code>,<code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
 <p>Although <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> don’t do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.</p>
 <p><code>rprintf()</code> does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.</p>
@@ -163,20 +166,21 @@
 <h2 class="hasAnchor">
 <a href="#vectorized-performance" class="anchor"></a>Vectorized performance</h2>
 <p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code>. NB: <code>str_interp()</code> does not support vectorization, and so was removed.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">bar</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"bar"</span>, <span class="fl">1e5</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="fl">1e5</span><span class="op">)</span>
 
-<span class="no">vectorized</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">microbenchmark</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
-  <span class="kw">glue</span> <span class="kw">=</span> <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span>(<span class="st">"foo{bar}"</span>),
-  <span class="kw">gstring</span> <span class="kw">=</span> <span class="kw pkg">R.utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span>(<span class="st">"foo${bar}"</span>),
-  <span class="kw">paste0</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"foo"</span>, <span class="no">bar</span>),
-  <span class="kw">sprintf</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"foo%s"</span>, <span class="no">bar</span>),
-  <span class="kw">rprintf</span> <span class="kw">=</span> <span class="kw pkg">rprintf</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span>(<span class="st">"foo$bar"</span>, <span class="kw">bar</span> <span class="kw">=</span> <span class="no">bar</span>)
-)
+<span class="va">vectorized</span> <span class="op">&lt;-</span>
+  <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  glue <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span>,
+  gstring <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/R.utils/man/gstring.html">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,
+  paste0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,
+  sprintf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"foo%s"</span>, <span class="va">bar</span><span class="op">)</span>,
+  rprintf <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span>
+<span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">unit</span> <span class="kw">=</span> <span class="st">"ms"</span>, <span class="kw">order</span> <span class="kw">=</span> <span class="st">"median"</span>, <span class="kw">signif</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="no">vectorized</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"ms"</span>, order <span class="op">=</span> <span class="st">"median"</span>, signif <span class="op">=</span> <span class="fl">4</span>, <span class="va">vectorized</span><span class="op">)</span>
 
-<span class="fu">plot_comparison</span>(<span class="no">vectorized</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="footnotes">
 <hr>
