@@ -37,3 +37,4 @@ URL: https://github.com/tidyverse/glue, https://glue.tidyverse.org/
 BugReports: https://github.com/tidyverse/glue/issues
 VignetteBuilder: knitr
 ByteCompile: true
+Config/Needs/website: tidytemplate
