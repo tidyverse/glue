@@ -11,23 +11,24 @@ Depends:
 Imports:
   methods
 Suggests: 
-    testthat,
-    covr,
-    magrittr,
-    crayon,
-    knitr,
-    rmarkdown,
     DBI,
-    RSQLite,
     R.utils,
+    RSQLite,
+    covr,
+    crayon,
+    dplyr,
     forcats,
+    ggplot2,
+    knitr,
+    magrittr,
     microbenchmark,
+    rmarkdown,
     rprintf,
     stringr,
-    ggplot2,
-    dplyr,
-    withr,
-    vctrs (>= 0.3.0)
+    testthat,
+    vctrs (>= 0.3.0),
+    waldo,
+    withr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
