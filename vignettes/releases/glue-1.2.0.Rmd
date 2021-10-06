@@ -89,7 +89,7 @@ collapse_transformer <- function(regex = "[*]$", ...) {
         code <- sub(regex, "", code)
     }
     res <- eval(parse(text = code), envir = envir)
-    collapse(res, ...)
+    glue_collapse(res, ...)
   }
 }
 
