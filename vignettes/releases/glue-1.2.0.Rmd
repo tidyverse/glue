@@ -32,7 +32,7 @@ Install the latest version with:
 install.packages("glue")
 ```
 
-glue has three primary functions, `glue()`, `glue_data()` and `collapse()`.
+glue has three primary functions, `glue()`, `glue_data()` and `glue_collapse()`.
 `glue()` works in a similar way to double quotes `"` in a shell or python's
 [String Interpolation](https://www.python.org/dev/peps/pep-0498/). You surround
 the code you want evaluated by `{}` and the value of the expression is inserted
@@ -69,11 +69,11 @@ mtcars %>%
   glue_data("The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower.")
 ```
 
-`collapse()` is used to combine multiple values into one. The `last` argument
+`glue_collapse()` is used to combine multiple values into one. The `last` argument
 is used to change the separator for the last value.
 
 ```{r}
-collapse(1:5, ", ", last = ", and ")
+glue_collapse(1:5, ", ", last = ", and ")
 ```
 
 ## glue transformers
