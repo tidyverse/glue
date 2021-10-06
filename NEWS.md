@@ -1,5 +1,6 @@
 # glue (development version)
 
+* Deprecated function `collapse()` has been removed (#213)
 * `compare_proxy.glue()` method defined so glue objects can be compared to strings in testthat 3e without errors (#212)
 * Unterminated comments in glue expression now throw an error (#227, @gaborcsardi)
 * Unterminated quotes in glue expressions now throw an error (#226, @gaborcsardi)
