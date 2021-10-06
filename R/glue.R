@@ -201,7 +201,7 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 
 #' Collapse a character vector
 #'
-#' `glue` collapses a character vector of any length into a length 1 vector.
+#' `glue_collapse()` collapses a character vector of any length into a length 1 vector.
 #' `glue_sql_collapse()` does the same but returns a `[DBI::SQL()]`
 #' object rather than a glue object.
 #'

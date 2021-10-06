@@ -21,7 +21,7 @@ glue_sql_collapse(x, sep = "", width = Inf, last = "")
 2 items.}
 }
 \description{
-\code{glue} collapses a character vector of any length into a length 1 vector.
+\code{glue_collapse()} collapses a character vector of any length into a length 1 vector.
 \code{glue_sql_collapse()} does the same but returns a \verb{[DBI::SQL()]}
 object rather than a glue object.
 }
