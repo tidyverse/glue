@@ -287,52 +287,25 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 </div><div class='output co'>#&gt; My name is Shelmith, a Senior Data Analyst, from Kenya</div><div class='input'><span class='fu'>intro</span><span class='op'>(</span><span class='st'>"Cate"</span>, <span class='st'>"Data Scientist"</span>, <span class='st'>"Kenya"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; My name is Cate, a Data Scientist, from Kenya</div><div class='input'>
 <span class='co'># `glue_data()` is useful in magrittr pipes</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+
 <span class='va'>mtcars</span> <span class='op'>%&gt;%</span> <span class='fu'>glue_data</span><span class='op'>(</span><span class='st'>"{rownames(.)} has {hp} hp"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Mazda RX4 has 110 hp
-#&gt; Mazda RX4 Wag has 110 hp
-#&gt; Datsun 710 has 93 hp
-#&gt; Hornet 4 Drive has 110 hp
-#&gt; Hornet Sportabout has 175 hp
-#&gt; Valiant has 105 hp
-#&gt; Duster 360 has 245 hp
-#&gt; Merc 240D has 62 hp
-#&gt; Merc 230 has 95 hp
-#&gt; Merc 280 has 123 hp
-#&gt; Merc 280C has 123 hp
-#&gt; Merc 450SE has 180 hp
-#&gt; Merc 450SL has 180 hp
-#&gt; Merc 450SLC has 180 hp
-#&gt; Cadillac Fleetwood has 205 hp
-#&gt; Lincoln Continental has 215 hp
-#&gt; Chrysler Imperial has 230 hp
-#&gt; Fiat 128 has 66 hp
-#&gt; Honda Civic has 52 hp
-#&gt; Toyota Corolla has 65 hp
-#&gt; Toyota Corona has 97 hp
-#&gt; Dodge Challenger has 150 hp
-#&gt; AMC Javelin has 150 hp
-#&gt; Camaro Z28 has 245 hp
-#&gt; Pontiac Firebird has 175 hp
-#&gt; Fiat X1-9 has 66 hp
-#&gt; Porsche 914-2 has 91 hp
-#&gt; Lotus Europa has 113 hp
-#&gt; Ford Pantera L has 264 hp
-#&gt; Ferrari Dino has 175 hp
-#&gt; Maserati Bora has 335 hp
-#&gt; Volvo 142E has 109 hp</div><div class='input'>
+
 <span class='co'># Or within dplyr pipelines</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>description <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"This {Species} has a petal length of {Petal.Length}"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='op'>}</span><span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:glue’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    collapse</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>description <span class='op'>=</span> <span class='fu'>glue</span><span class='op'>(</span><span class='st'>"This {Species} has a petal length of {Petal.Length}"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1          5.1         3.5          1.4         0.2  setosa
 #&gt; 2          4.9         3.0          1.4         0.2  setosa
 #&gt; 3          4.7         3.2          1.3         0.2  setosa
