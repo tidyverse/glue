@@ -1,10 +1,11 @@
 # glue (development version)
 
-# glue 1.4.2
-
 * Unterminated comments in glue expression now throw an error (#227, @gaborcsardi)
 * Unterminated quotes in glue expressions now throw an error (#226, @gaborcsardi)
 * `print.glue()` no longer prints an empty newline for 0 length inputs (#214)
+
+# glue 1.4.2
+
 * `glue_safe()` gives a slightly nicer error message
 * The required version of R is now 3.2 (#189)
 * `glue_sql()` now collapses `DBI::SQL()` elements correctly (#192 @shrektan)
