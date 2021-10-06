@@ -1,5 +1,3 @@
-context("trim")
-
 test_that("trim works", {
   expect_identical("", trim(""))
   expect_identical(character(), trim(character()))

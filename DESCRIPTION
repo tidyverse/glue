@@ -38,3 +38,4 @@ BugReports: https://github.com/tidyverse/glue/issues
 VignetteBuilder: knitr
 ByteCompile: true
 Config/Needs/website: tidyverse/tidytemplate
+Config/testthat/edition: 3

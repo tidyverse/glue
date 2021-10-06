@@ -82,3 +82,9 @@ compare.glue <- function(x, y, ...) {
   }
   NextMethod("compare")
 }
+
+## @export
+compare_proxy.glue <- function(x, path = "x") {
+  class(x) <- NULL
+  NextMethod("compare_proxy")
+}

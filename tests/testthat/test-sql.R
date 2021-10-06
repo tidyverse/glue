@@ -1,5 +1,3 @@
-context("sql")
-
 skip_if_not_installed("DBI")
 skip_if_not_installed("RSQLite")
 

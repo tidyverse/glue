@@ -1,5 +1,3 @@
-context("glue_collapse")
-
 test_that("glue_collapse works like paste(glue_collapse=)", {
   # Always return 0 length outputs for 0 length inputs.
   #expect_identical(paste(glue_collapse = "", character(0)), glue_collapse(character(0)))

@@ -1,5 +1,3 @@
-context("color")
-
 skip_if_not_installed("crayon")
 library(crayon)
 

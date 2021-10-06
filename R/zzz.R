@@ -1,6 +1,7 @@
 # nocov start
 .onLoad <- function(...) {
   register_s3_method("testthat", "compare", "glue")
+  register_s3_method("waldo", "compare_proxy", "glue")
 
   # Register on package load because vctrs depends on glue and will
   # not be fully loaded when glue is loaded

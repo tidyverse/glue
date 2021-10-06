@@ -1,5 +1,3 @@
-context("glue")
-
 test_that("inputs are concatenated, interpolated variables recycled", {
   expect_equal(glue("test", "a", "string", "{1:2}"), c("testastring1", "testastring2"))
 })
@@ -505,7 +503,7 @@ test_that("throws informative error if interpolating a function", {
 
   # some crayon functions are OK, make sure this still works
   if (require("crayon")) {
-    expect_is(glue("{red}red{reset}"), "glue")
+    expect_s3_class(glue("{red}red{reset}"), "glue")
   }
 })
 
@@ -529,5 +527,9 @@ test_that("unterminated comment", {
 })
 
 test_that("empty glue produces no output", {
+  expect_equal(capture.output(print(glue())), character())
+})
+
+test_that("glue objects can be compared to regular strings", {
   expect_equal(capture.output(print(glue())), character())
 })
