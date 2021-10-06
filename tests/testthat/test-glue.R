@@ -527,3 +527,7 @@ test_that("unterminated comment", {
 
   expect_equal(glue("pre {1 + 5 + #comment\n 4} post"), "pre 10 post")
 })
+
+test_that("empty glue produces no output", {
+  expect_equal(capture.output(print(glue())), character())
+})
