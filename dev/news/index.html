@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.4.2.9000</span>
         </div>
       </div>
     </div>
@@ -164,6 +164,19 @@
     <div id="glue-development-version" class="section level1">
 <h1 class="page-header" data-toc-text="development version">
 <a href="#glue-development-version" class="anchor"></a>glue (development version)<small> Unreleased </small>
+</h1>
+<ul>
+<li>
+<code>compare_proxy.glue()</code> method defined so glue objects can be compared to strings in testthat 3e without errors (<a href='https://github.com/tidyverse/glue/issues/212'>#212</a>)</li>
+<li>Unterminated comments in glue expression now throw an error (<a href='https://github.com/tidyverse/glue/issues/227'>#227</a>, <a href='https://github.com/gaborcsardi'>@gaborcsardi</a>)</li>
+<li>Unterminated quotes in glue expressions now throw an error (<a href='https://github.com/tidyverse/glue/issues/226'>#226</a>, <a href='https://github.com/gaborcsardi'>@gaborcsardi</a>)</li>
+<li>
+<code>print.glue()</code> no longer prints an empty newline for 0 length inputs (<a href='https://github.com/tidyverse/glue/issues/214'>#214</a>)</li>
+</ul>
+</div>
+    <div id="glue-142" class="section level1">
+<h1 class="page-header" data-toc-text="1.4.2">
+<a href="#glue-142" class="anchor"></a>glue 1.4.2<small> 2020-08-27 </small>
 </h1>
 <ul>
 <li>
