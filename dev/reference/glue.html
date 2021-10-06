@@ -180,6 +180,7 @@ from the first and last lines are automatically trimmed.</p>
   .close <span class='op'>=</span> <span class='st'>"}"</span>,
   .na <span class='op'>=</span> <span class='st'>"NA"</span>,
   .null <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .comment <span class='op'>=</span> <span class='st'>"#"</span>,
   .transformer <span class='op'>=</span> <span class='va'>identity_transformer</span>,
   .trim <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
@@ -192,6 +193,7 @@ from the first and last lines are automatically trimmed.</p>
   .close <span class='op'>=</span> <span class='st'>"}"</span>,
   .na <span class='op'>=</span> <span class='st'>"NA"</span>,
   .null <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .comment <span class='op'>=</span> <span class='st'>"#"</span>,
   .transformer <span class='op'>=</span> <span class='va'>identity_transformer</span>,
   .trim <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
@@ -241,6 +243,11 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
 NULL values with. If <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> whole output is <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code>. If
 <code>NULL</code> all NULL values are dropped (as in <code><a href='https://rdrr.io/r/base/paste.html'>paste0()</a></code>). Otherwise the
 value is replaced by the value of <code>.null</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.comment</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>: &#8216;#&#8217;]<br /> Value to use as the comment
+character.</p></td>
     </tr>
     <tr>
       <th>.transformer</th>
@@ -299,9 +306,7 @@ template with <code><a href='trim.html'>trim()</a></code> or not.</p></td>
 
 <span class='op'>}</span><span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:glue’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    collapse</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>

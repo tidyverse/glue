@@ -5,7 +5,7 @@ articles:
   releases/glue-1.2.0: glue-1.2.0.html
   speed: speed.html
   transformers: transformers.html
-last_built: 2021-10-06T13:59Z
+last_built: 2021-10-06T15:11Z
 urls:
   reference: https://glue.tidyverse.org/reference
   article: https://glue.tidyverse.org/articles

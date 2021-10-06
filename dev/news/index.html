@@ -166,6 +166,14 @@
 <a href="#glue-development-version" class="anchor"></a>glue (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>New <code><a href="../reference/glue_collapse.html">glue_sql_collapse()</a></code> function to collapse inputs and return a <code><a href="https://dbi.r-dbi.org/reference/SQL.html">DBI::SQL()</a></code> object (<a href='https://github.com/tidyverse/glue/issues/103'>#103</a>).</li>
+<li>
+<code><a href="../reference/glue.html">glue()</a></code> gains a new <code>.comment</code> argument, to control the comment character (<a href='https://github.com/tidyverse/glue/issues/193'>#193</a>).</li>
+<li>
+<code><a href="../reference/glue.html">glue()</a></code> gains a new <code>.null</code> argument, to control the value to replace <code>NULL</code> values with (<a href='https://github.com/tidyverse/glue/issues/217'>#217</a>, <a href='https://github.com/echasnovski'>@echasnovski</a>).</li>
+<li>
+<code>sql_quote_transformer()</code> is now allows whitespace after the trailing <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> (<a href='https://github.com/tidyverse/glue/issues/218'>#218</a>).</li>
+<li>Deprecated function <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collapse()</a></code> has been removed (<a href='https://github.com/tidyverse/glue/issues/213'>#213</a>)</li>
 <li>
 <code>compare_proxy.glue()</code> method defined so glue objects can be compared to strings in testthat 3e without errors (<a href='https://github.com/tidyverse/glue/issues/212'>#212</a>)</li>
 <li>Unterminated comments in glue expression now throw an error (<a href='https://github.com/tidyverse/glue/issues/227'>#227</a>, <a href='https://github.com/gaborcsardi'>@gaborcsardi</a>)</li>
@@ -260,7 +268,7 @@
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for clarities sake. Previous uses can be replaced by <code><a href="https://rdrr.io/r/base/eval.html">eval(parse(text = text), envir)</a></code>.</p></li>
-<li><p><code><a href="../reference/collapse.html">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
+<li><p><code><a href="https://dplyr.tidyverse.org/reference/compute.html">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
 </ul>
 </div>
 <div id="features-1" class="section level2">
@@ -279,7 +287,7 @@
 <li><p>Glue now evaluates unnamed arguments lazily with <code><a href="https://rdrr.io/r/base/delayedAssign.html">delayedAssign()</a></code>, so there is no performance cost if an argument is not used. (<a href='https://github.com/tidyverse/glue/issues/83'>#83</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
 <li><p>Fixed a bug where names in the assigned expression of an interpolation variable would conflict with the name of the variable itself (<a href='https://github.com/tidyverse/glue/issues/89'>#89</a>, <a href='https://github.com/egnha'>@egnha</a>).</p></li>
 <li><p>Do not drop the <code>glue</code> class when subsetting (<a href='https://github.com/tidyverse/glue/issues/66'>#66</a>).</p></li>
-<li><p>Fix <code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/collapse.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='https://github.com/dpprdan'>@dpprdan</a>)</p></li>
+<li><p>Fix <code><a href="../reference/glue.html">glue()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collapse()</a></code> always return UTF-8 encoded strings (<a href='https://github.com/tidyverse/glue/issues/81'>#81</a>, <a href='https://github.com/dpprdan'>@dpprdan</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -314,7 +322,7 @@
 <li><p><code><a href="../reference/glue.html">glue()</a></code> always returns ‘UTF-8’ strings, converting inputs if in other encodings if needed.</p></li>
 <li><p><code>to()</code> and <code>to_data()</code> have been removed.</p></li>
 <li><p><code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/glue.html">glue_data()</a></code> can now take alternative delimiters to <code>{</code> and <code>}</code>. This is useful if you are writing to a format that uses a lot of braces, such as LaTeX. (<a href='https://github.com/tidyverse/glue/issues/23'>#23</a>)</p></li>
-<li><p><code><a href="../reference/collapse.html">collapse()</a></code> now returns 0 length output if given 0 length input (<a href='https://github.com/tidyverse/glue/issues/28'>#28</a>).</p></li>
+<li><p><code><a href="https://dplyr.tidyverse.org/reference/compute.html">collapse()</a></code> now returns 0 length output if given 0 length input (<a href='https://github.com/tidyverse/glue/issues/28'>#28</a>).</p></li>
 </ul>
 </div>
     <div id="glue-0009000" class="section level1">

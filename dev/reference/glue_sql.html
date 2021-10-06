@@ -53,7 +53,7 @@
 <meta property="og:description" content="SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. glue_sql() and
 glue_data_sql() are analogs to glue() and glue_data() which handle the
-SQL quoting." />
+SQL quoting. glue_sql_collapse() can be used to collapse DBI::SQL() objects." />
 <meta property="og:image" content="https://glue.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -170,7 +170,7 @@ SQL quoting." />
     <p>SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. <code>glue_sql()</code> and
 <code>glue_data_sql()</code> are analogs to <code><a href='glue.html'>glue()</a></code> and <code><a href='glue.html'>glue_data()</a></code> which handle the
-SQL quoting.</p>
+SQL quoting. <code><a href='glue_collapse.html'>glue_sql_collapse()</a></code> can be used to collapse <code><a href='https://dbi.r-dbi.org/reference/SQL.html'>DBI::SQL()</a></code> objects.</p>
     </div>
 
     <pre class="usage"><span class='fu'>glue_sql</span><span class='op'>(</span><span class='va'>...</span>, <span class='va'>.con</span>, .envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, .na <span class='op'>=</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/SQL.html'>SQL</a></span><span class='op'>(</span><span class='st'>"NULL"</span><span class='op'>)</span><span class='op'>)</span>
@@ -226,6 +226,9 @@ values in a query, however not every database driver supports them.</p>
 <p>If you place a <code><a href='https://rdrr.io/r/base/Arithmetic.html'>*</a></code> at the end of a glue expression the values will be
 collapsed with commas. This is useful for the <a href='https://www.w3schools.com/sql/sql_in.asp'>SQL IN Operator</a>
 for instance.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='glue_collapse.html'>glue_sql_collapse()</a></code> to collapse <code><a href='https://dbi.r-dbi.org/reference/SQL.html'>DBI::SQL()</a></code> objects.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span><span class='fu'>RSQLite</span><span class='fu'>::</span><span class='fu'><a href='https://rsqlite.r-dbi.org/reference/SQLite.html'>SQLite</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>":memory:"</span><span class='op'>)</span>
