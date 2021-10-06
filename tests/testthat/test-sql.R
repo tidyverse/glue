@@ -91,6 +91,14 @@ describe("glue_sql", {
   it("should handle DBI::SQL() elements correctly when collapsing (#191)", {
     expect_identical(glue_sql("x IN ({DBI::SQL(c('a','b'))*})", .con = con), DBI::SQL(paste0("x IN (a, b)")))
   })
+
+  it("should allow whitespace after the *", {
+    x <- 1:3
+    expect_identical(
+      glue_sql(.con = con, "{x* }"),
+      DBI::SQL(paste0("1, 2, 3"))
+    )
+  })
 })
 
 describe("glue_data_sql", {

@@ -1,5 +1,6 @@
 # glue (development version)
 
+* `sql_quote_transformer()` is now allows whitespace after the trailing `*` (#218).
 * Deprecated function `collapse()` has been removed (#213)
 * `compare_proxy.glue()` method defined so glue objects can be compared to strings in testthat 3e without errors (#212)
 * Unterminated comments in glue expression now throw an error (#227, @gaborcsardi)

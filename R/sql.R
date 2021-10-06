@@ -144,9 +144,9 @@ sql_quote_transformer <- function(connection, .na) {
   }
 
   function(text, envir) {
-    should_collapse <- grepl("[*]$", text)
+    should_collapse <- grepl("[*][[:space:]]*$", text)
     if (should_collapse) {
-      text <- sub("[*]$", "", text)
+      text <- sub("[*][[:space:]]*$", "", text)
     }
     m <- gregexpr("^`|`$", text)
     is_quoted <- any(m[[1]] != -1)
