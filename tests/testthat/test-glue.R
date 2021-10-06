@@ -533,3 +533,10 @@ test_that("empty glue produces no output", {
 test_that("glue objects can be compared to regular strings", {
   expect_equal(capture.output(print(glue())), character())
 })
+
+test_that("glue can use different comment characters (#193)", {
+  expect_equal(
+    glue(.comment = "", "{foo#}", .transformer = function(x, ...) x),
+    "foo#"
+  )
+})

@@ -21,7 +21,7 @@ SEXP resize(SEXP out, R_xlen_t n) {
   return Rf_xlengthgets(out, n);
 }
 
-SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
+SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg, SEXP comment_arg) {
   typedef enum {
     text,
     escape,
@@ -42,6 +42,11 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
 
   const char* close = CHAR(STRING_ELT(close_arg, 0));
   size_t close_len = strlen(close);
+
+  char comment_char = '\0';
+  if (Rf_xlength(comment_arg) > 0) {
+    comment_char = CHAR(STRING_ELT(comment_arg, 0))[0];
+  }
 
   int delim_equal = strncmp(open, close, open_len) == 0;
 
@@ -123,20 +128,21 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
         --delim_level;
         i += close_len - 1;
       } else {
-        switch (xx[i]) {
-        case '\'':
-          state = single_quote;
-          break;
-        case '"':
-          state = double_quote;
-          break;
-        case '`':
-          state = backtick;
-          break;
-        case '#':
+        if (xx[i] == comment_char) {
           state = comment;
-          break;
-        };
+        } else {
+          switch (xx[i]) {
+          case '\'':
+            state = single_quote;
+            break;
+          case '"':
+            state = double_quote;
+            break;
+          case '`':
+            state = backtick;
+            break;
+          };
+        }
       }
       if (delim_level == 0) {
         /* Result of the current glue statement */

@@ -1,5 +1,7 @@
 # glue (development version)
 
+* `glue()` gains a new `.comment` argument, to control the comment character (#193).
+* `glue()` gains a new `.null` argument, to control the value to replace `NULL` values with (#217, @echasnovski).
 * `sql_quote_transformer()` is now allows whitespace after the trailing `*` (#218).
 * Deprecated function `collapse()` has been removed (#213)
 * `compare_proxy.glue()` method defined so glue objects can be compared to strings in testthat 3e without errors (#212)

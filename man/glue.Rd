@@ -14,6 +14,7 @@ glue_data(
   .close = "}",
   .na = "NA",
   .null = character(),
+  .comment = "#",
   .transformer = identity_transformer,
   .trim = TRUE
 )
@@ -26,6 +27,7 @@ glue(
   .close = "}",
   .na = "NA",
   .null = character(),
+  .comment = "#",
   .transformer = identity_transformer,
   .trim = TRUE
 )
@@ -57,6 +59,9 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 NULL values with. If \code{character()} whole output is \code{character()}. If
 \code{NULL} all NULL values are dropped (as in \code{paste0()}). Otherwise the
 value is replaced by the value of \code{.null}.}
+
+\item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
+character.}
 
 \item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
 \code{data} used to transform the output of each block before during or after

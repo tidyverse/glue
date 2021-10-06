@@ -26,6 +26,8 @@
 #'   NULL values with. If `character()` whole output is `character()`. If
 #'   `NULL` all NULL values are dropped (as in `paste0()`). Otherwise the
 #'   value is replaced by the value of `.null`.
+#' @param .comment \[`character(1)`: \sQuote{#}]\cr Value to use as the comment
+#'   character.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
@@ -77,7 +79,7 @@
 #' @export
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .null = character(),
-  .transformer = identity_transformer, .trim = TRUE) {
+  .comment = "#", .transformer = identity_transformer, .trim = TRUE) {
 
   if (is.null(.envir)) {
     .envir <- emptyenv()
@@ -168,7 +170,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   }
 
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args, f, .open, .close)
+  res <- .Call(glue_, unnamed_args, f, .open, .close, .comment)
 
   res <- drop_null(res)
 
@@ -193,8 +195,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .transformer = identity_transformer, .trim = TRUE) {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .transformer = .transformer, .trim = .trim)
+glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .comment = "#", .transformer = identity_transformer, .trim = TRUE) {
+  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .comment = .comment, .transformer = .transformer, .trim = .trim)
 }
 
 #' Collapse a character vector
