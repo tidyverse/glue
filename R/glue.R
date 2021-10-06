@@ -22,6 +22,10 @@
 #' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace NA values
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
+#' @param .null \[`character(1)`: \sQuote{character()}]\cr Value to replace
+#'   NULL values with. If `character()` whole output is `character()`. If
+#'   `NULL` all NULL values are dropped (as in `paste0()`). Otherwise the
+#'   value is replaced by the value of `.null`.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
@@ -68,8 +72,8 @@
 #' @name glue
 #' @export
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
-  .open = "{", .close = "}", .na = "NA", .transformer = identity_transformer,
-  .trim = TRUE) {
+  .open = "{", .close = "}", .na = "NA", .null = character(),
+  .transformer = identity_transformer, .trim = TRUE) {
 
   if (is.null(.envir)) {
     .envir <- emptyenv()
@@ -92,10 +96,27 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   env <- bind_args(dots[named], parent_env)
 
   # Concatenate unnamed arguments together
-  unnamed_args <- lapply(which(!named), function(x) eval(call("force", as.symbol(paste0("..", x)))))
+  unnamed_args <- lapply(
+    which(!named),
+    function(x) {
+      # Any evaluation to `NULL` is replaced with `.null`:
+      # - If `.null == character()` then if any output's length is 0 the
+      # whole output should be forced to be `character(0)`.
+      # - If `.null == NULL` then it is allowed and any such argument will be
+      # silently dropped.
+      # - In other cases output is treated as it was evaluated to `.null`.
+      eval(call("force", as.symbol(paste0("..", x)))) %||% .null
+    }
+  )
+  unnamed_args <- drop_null(unnamed_args)
+
+  if (length(unnamed_args) == 0) {
+    # This is equivalent to `paste0(NULL)`
+    return(as_glue(character(0)))
+  }
 
   lengths <- lengths(unnamed_args)
-  if (any(lengths == 0) || length(unnamed_args) < sum(!named)) {
+  if (any(lengths == 0)) {
     return(as_glue(character(0)))
   }
   if (any(lengths != 1)) {
@@ -115,12 +136,14 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   }
 
   f <- function(expr){
-    eval_func <- .transformer(expr, env)
+    eval_func <- .transformer(expr, env) %||% .null
 
     # crayon functions *can* be used, so we use tryCatch()
     # to give as.character() a chance to work
     tryCatch(
-      as.character(eval_func),
+      # Output can be `NULL` only if `.null` is `NULL`. Then it should be
+      # returned as is, because `as.character(NULL)` is `character()`.
+      if (is.null(eval_func)) NULL else as.character(eval_func),
       error = function(e) {
         # if eval_func is a function, provide informative error-message
         if (is.function(eval_func)) {
@@ -143,6 +166,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   # Parse any glue strings
   res <- .Call(glue_, unnamed_args, f, .open, .close)
 
+  res <- drop_null(res)
+
   if (any(lengths(res) == 0)) {
     return(as_glue(character(0)))
   }
@@ -164,8 +189,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA",  .transformer = identity_transformer, .trim = TRUE) {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .transformer = .transformer, .trim = .trim)
+glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .transformer = identity_transformer, .trim = TRUE) {
+  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .transformer = .transformer, .trim = .trim)
 }
 
 #' Collapse a character vector
