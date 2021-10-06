@@ -110,3 +110,17 @@ describe("glue_data_sql", {
     expect_identical(glue_data_sql(mtcars, "{head(gear)*}", .con = con), DBI::SQL("4, 4, 4, 3, 3, 3"))
   })
 })
+
+describe("glue_sql_collapse", {
+  it("returns an SQL object", {
+    expect_identical(
+      glue_sql_collapse(character()),
+      DBI::SQL(character())
+    )
+
+    expect_identical(
+      glue_sql_collapse(c("foo", "bar", "baz")),
+      DBI::SQL("foobarbaz")
+    )
+  })
+})

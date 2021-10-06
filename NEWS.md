@@ -1,5 +1,6 @@
 # glue (development version)
 
+* New `glue_sql_collapse()` function to collapse inputs and return a `DBI::SQL()` object (#103).
 * `glue()` gains a new `.comment` argument, to control the comment character (#193).
 * `glue()` gains a new `.null` argument, to control the value to replace `NULL` values with (#217, @echasnovski).
 * `sql_quote_transformer()` is now allows whitespace after the trailing `*` (#218).

@@ -3,7 +3,7 @@
 #' SQL databases often have custom quotation syntax for identifiers and strings
 #' which make writing SQL queries error prone and cumbersome to do. `glue_sql()` and
 #' `glue_data_sql()` are analogs to [glue()] and [glue_data()] which handle the
-#' SQL quoting.
+#' SQL quoting. `glue_sql_collapse()` can be used to collapse [DBI::SQL()] objects.
 #'
 #' They automatically quote character results, quote identifiers if the glue
 #' expression is surrounded by backticks '\verb{`}' and do not quote
@@ -22,6 +22,7 @@
 #' collapsed with commas. This is useful for the [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp)
 #' for instance.
 #' @inheritParams glue
+#' @seealso [glue_sql_collapse()] to collapse [DBI::SQL()] objects.
 #' @param .con \[`DBIConnection`]:A DBI connection object obtained from [DBI::dbConnect()].
 #' @return A [DBI::SQL()] object with the given query.
 #' @examples
@@ -136,6 +137,12 @@ glue_sql <- function(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 #' @export
 glue_data_sql <- function(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL")) {
   DBI::SQL(glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con, .na)))
+}
+
+#' @rdname glue_collapse
+#' @export
+glue_sql_collapse <- function(x, sep = "", width = Inf, last = "") {
+  DBI::SQL(glue_collapse(x, sep = sep, width = width, last = last))
 }
 
 sql_quote_transformer <- function(connection, .na) {

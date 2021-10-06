@@ -33,7 +33,7 @@ A \code{\link[DBI:SQL]{DBI::SQL()}} object with the given query.
 SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
 \code{glue_data_sql()} are analogs to \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}} which handle the
-SQL quoting.
+SQL quoting. \code{glue_sql_collapse()} can be used to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
 }
 \details{
 They automatically quote character results, quote identifiers if the glue
@@ -156,4 +156,7 @@ query
 DBI::dbGetQuery(con, query, n = 5)
 
 DBI::dbDisconnect(con)
+}
+\seealso{
+\code{\link[=glue_sql_collapse]{glue_sql_collapse()}} to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
 }
