@@ -11,13 +11,22 @@ This release fixes failures related to vctrs 0.3.0
 
 ## revdepcheck results
 
-We checked 257 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 416 reverse dependencies (413 from CRAN + 3 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 0 new problems
- * We failed to check 12 packages
+ * We saw 2 new problems
+ * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
 
+### New problems
+(This reports the first line of each new failure)
+
+* crosstable - this seems like a false positive to me
+
+* isoreader - PR sent to fix this issue https://github.com/isoverse/isoreader/pull/171
+
 ### Failed to check
 
-* numform - https://github.com/trinker/numform/pull/28
+* apisensr (NA)
+* CB2      (NA)
+* multinma (NA)
