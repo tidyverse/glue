@@ -245,7 +245,7 @@ glue_collapse <- function(x, sep = "", width = Inf, last = "") {
 #' Trim a character vector
 #'
 #' This trims a character vector according to the trimming rules used by glue.
-#' These follow similar rules to [Python Docstrings](https://www.python.org/dev/peps/pep-0257),
+#' These follow similar rules to [Python Docstrings](https://www.python.org/dev/peps/pep-0257/),
 #' with the following features.
 #' - Leading and trailing whitespace from the first and last lines is removed.
 #' - A uniform amount of indentation is stripped from the second line on, equal
