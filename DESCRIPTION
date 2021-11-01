@@ -1,42 +1,49 @@
 Package: glue
 Title: Interpreted String Literals
 Version: 1.5.0
-Authors@R: person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre"))
+Authors@R:c(
+    person("Jim", "Hester", , "jim.hester@rstudio.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2739-7082")),
+    person("RStudio", role = c("cph", "fnd"))
+  )
 Description: An implementation of interpreted string literals, inspired by
-  Python's Literal String Interpolation <https://www.python.org/dev/peps/pep-0498/> and Docstrings
-  <https://www.python.org/dev/peps/pep-0257/> and Julia's Triple-Quoted String Literals
-  <https://docs.julialang.org/en/v1.3/manual/strings/#Triple-Quoted-String-Literals-1>.
+    Python's Literal String Interpolation
+    <https://www.python.org/dev/peps/pep-0498/> and Docstrings
+    <https://www.python.org/dev/peps/pep-0257/> and Julia's Triple-Quoted
+    String Literals
+    <https://docs.julialang.org/en/v1.3/manual/strings/#Triple-Quoted-String-Literals-1>.
+License: MIT + file LICENSE
+URL: https://github.com/tidyverse/glue, https://glue.tidyverse.org/
+BugReports: https://github.com/tidyverse/glue/issues
 Depends: 
     R (>= 3.2)
 Imports:
-  methods
+    methods
 Suggests: 
-    DBI,
-    R.utils,
-    RSQLite,
     covr,
     crayon,
+    DBI,
     dplyr,
     forcats,
     ggplot2,
     knitr,
     magrittr,
     microbenchmark,
+    R.utils,
     rmarkdown,
     rprintf,
+    RSQLite,
     stringr,
     testthat,
     vctrs (>= 0.3.0),
     waldo,
     withr
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.1.2
-Roxygen: list(markdown = TRUE)
-URL: https://github.com/tidyverse/glue, https://glue.tidyverse.org/
-BugReports: https://github.com/tidyverse/glue/issues
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr
 ByteCompile: true
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
