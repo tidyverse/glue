@@ -50,7 +50,9 @@
 
 
 <meta property="og:title" content="Collapse a character vector — glue_collapse" />
-<meta property="og:description" content="Collapses a character vector of any length into a length 1 vector." />
+<meta property="og:description" content="glue_collapse() collapses a character vector of any length into a length 1 vector.
+glue_sql_collapse() does the same but returns a [DBI::SQL()]
+object rather than a glue object." />
 <meta property="og:image" content="https://glue.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -95,7 +97,7 @@
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
         </div>
       </div>
     </div>
@@ -159,15 +161,19 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Collapse a character vector</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/glue/blob/master/R/glue.R'><code>R/glue.R</code></a>, <a href='https://github.com/tidyverse/glue/blob/master/R/sql.R'><code>R/sql.R</code></a></small>
     <div class="hidden name"><code>glue_collapse.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Collapses a character vector of any length into a length 1 vector.</p>
+    <p><code>glue_collapse()</code> collapses a character vector of any length into a length 1 vector.
+<code>glue_sql_collapse()</code> does the same but returns a <code>[DBI::SQL()]</code>
+object rather than a glue object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>glue_collapse</span><span class='op'>(</span><span class='va'>x</span>, sep <span class='op'>=</span> <span class='st'>""</span>, width <span class='op'>=</span> <span class='cn'>Inf</span>, last <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>glue_collapse</span><span class='op'>(</span><span class='va'>x</span>, sep <span class='op'>=</span> <span class='st'>""</span>, width <span class='op'>=</span> <span class='cn'>Inf</span>, last <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span>
+
+<span class='fu'>glue_sql_collapse</span><span class='op'>(</span><span class='va'>x</span>, sep <span class='op'>=</span> <span class='st'>""</span>, width <span class='op'>=</span> <span class='cn'>Inf</span>, last <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,7 +224,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://jimhester.com'>Jim Hester</a>.
+    Developed by <a href='http://jimhester.com'>Jim Hester</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
