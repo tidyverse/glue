@@ -1,14 +1,24 @@
 # glue (development version)
 
+## Breaking changes
+
+* Long deprecated function `collapse()` has been removed (#213)
+
+## New functions and arguments
+
 * New `glue_sql_collapse()` function to collapse inputs and return a `DBI::SQL()` object (#103).
+
 * `glue()` gains a new `.comment` argument, to control the comment character (#193).
 * `glue()` gains a new `.null` argument, to control the value to replace `NULL` values with (#217, @echasnovski).
+
+## Bugfixes and minor changes
+
 * `sql_quote_transformer()` is now allows whitespace after the trailing `*` (#218).
-* Deprecated function `collapse()` has been removed (#213)
 * `compare_proxy.glue()` method defined so glue objects can be compared to strings in testthat 3e without errors (#212)
+* `print.glue()` no longer prints an empty newline for 0 length inputs (#214)
 * Unterminated comments in glue expression now throw an error (#227, @gaborcsardi)
 * Unterminated quotes in glue expressions now throw an error (#226, @gaborcsardi)
-* `print.glue()` no longer prints an empty newline for 0 length inputs (#214)
+
 
 # glue 1.4.2
 
