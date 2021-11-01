@@ -20,15 +20,4 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
-* biolink      (NA)
-* broom        (NA)
-* CB2          (NA)
-* codebook     (NA)
-* corx         (NA)
-* daqapo       (NA)
-* dipsaus      (NA)
-* easyr        (NA)
-* huxtable     (NA)
-* radiant.data (NA)
-* reproducible (NA)
-* tidycomm     (NA)
+* numform - https://github.com/trinker/numform/pull/28
