@@ -124,7 +124,7 @@
     
     
 <p>Transformers allow you to apply functions to the glue input and output, before and after evaluation. This allows you to write things like <code><a href="../reference/glue_sql.html">glue_sql()</a></code>, which automatically quotes variables for you or add a syntax for automatically collapsing outputs.</p>
-<p>The transformer functions simply take two arguments <code>text</code> and <code>envir</code>, where <code>text</code> is the unparsed string inside the glue block and <code>envir</code> is the execution environment. Most transformers will then call <code><a href="https://rdrr.io/r/base/eval.html">eval(parse(text = text, keep.source = FALSE), envir)</a></code> which parses and evaluates the code.</p>
+<p>The transformer functions simply take two arguments <code>text</code> and <code>envir</code>, where <code>text</code> is the unparsed string inside the glue block and <code>envir</code> is the execution environment. Most transformers will then call <code>eval(parse(text = text, keep.source = FALSE), envir)</code> which parses and evaluates the code.</p>
 <p>You can then supply the transformer function to glue with the <code>.transformer</code> argument. In this way users can manipulate the text before parsing and change the output after evaluation.</p>
 <p>It is often useful to write a <code><a href="../reference/glue.html">glue()</a></code> wrapper function which supplies a <code>.transformer</code> to <code><a href="../reference/glue.html">glue()</a></code> or <code><a href="../reference/glue.html">glue_data()</a></code> and potentially has additional arguments. One important consideration when doing this is to include <code>.envir = parent.frame()</code> in the wrapper to ensure the evaluation environment is correct.</p>
 <p>Some example implementations of potentially useful transformers follow. The aim right now is not to include most of these custom functions within the <code>glue</code> package. Rather, users are encouraged to create custom functions using transformers to fit their individual needs.</p>
@@ -133,7 +133,7 @@
 <div id="collapse-transformer" class="section level3">
 <h3 class="hasAnchor">
 <a href="#collapse-transformer" class="anchor"></a>collapse transformer</h3>
-<p>A transformer which automatically collapses any glue block ending with <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code>.</p>
+<p>A transformer which automatically collapses any glue block ending with <code>*</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">collapse_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">regex</span> <span class="op">=</span> <span class="st">"[*]$"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>

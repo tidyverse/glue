@@ -130,7 +130,7 @@
 <p>Install the latest version with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"glue"</span><span class="op">)</span></code></pre></div>
-<p>glue has three primary functions, <code><a href="../../reference/glue.html">glue()</a></code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/glue_collapse.html">glue_collapse()</a></code>. <code><a href="../../reference/glue.html">glue()</a></code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code>{}</code> and the value of the expression is inserted into the string.</p>
+<p>glue has three primary functions, <code><a href="../../reference/glue.html">glue()</a></code>, <code><a href="../../reference/glue.html">glue_data()</a></code> and <code><a href="../../reference/glue_collapse.html">glue_collapse()</a></code>. <code><a href="../../reference/glue.html">glue()</a></code> works in a similar way to double quotes <code>"</code> in a shell or python’s <a href="https://www.python.org/dev/peps/pep-0498/">String Interpolation</a>. You surround the code you want evaluated by <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> and the value of the expression is inserted into the string.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">50</span>
@@ -164,8 +164,8 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
 <span class="va">mtcars</span><span class="op">$</span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
-<span class="va">mtcars</span> <span class="op">%&gt;%</span>
-  <span class="va">head</span> <span class="op">%&gt;%</span>
+<span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../../reference/glue.html">glue_data</a></span><span class="op">(</span><span class="st">"The {model} has {gear} gears, {cyl} cylinders, and {hp} horsepower."</span><span class="op">)</span>
 <span class="co">#&gt; The Mazda RX4 has 4 gears, 6 cylinders, and 110 horsepower.</span>
 <span class="co">#&gt; The Mazda RX4 Wag has 4 gears, 6 cylinders, and 110 horsepower.</span>
@@ -180,7 +180,7 @@
 <div id="glue-transformers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue-transformers" class="anchor"></a>glue transformers</h2>
-<p>New to glue 1.2.0 are transformer functions, which allow you to define custom behavior for glue functions. For example a <code>collapse_transformer()</code> which automatically collapses any blocks which end with <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code>.</p>
+<p>New to glue 1.2.0 are transformer functions, which allow you to define custom behavior for glue functions. For example a <code>collapse_transformer()</code> which automatically collapses any blocks which end with <code>*</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">collapse_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">regex</span> <span class="op">=</span> <span class="st">"[*]$"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">function</span><span class="op">(</span><span class="va">code</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span>

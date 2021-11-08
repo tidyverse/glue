@@ -163,7 +163,7 @@
 
     <div id="glue-150" class="section level1">
 <h1 class="page-header" data-toc-text="1.5.0">
-<a href="#glue-150" class="anchor"></a>glue 1.5.0<small> Unreleased </small>
+<a href="#glue-150" class="anchor"></a>glue 1.5.0<small> 2021-11-06 </small>
 </h1>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -186,7 +186,7 @@
 <a href="#bugfixes-and-minor-changes" class="anchor"></a>Bugfixes and minor changes</h2>
 <ul>
 <li>
-<code>sql_quote_transformer()</code> is now allows whitespace after the trailing <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> (<a href='https://github.com/tidyverse/glue/issues/218'>#218</a>).</li>
+<code>sql_quote_transformer()</code> is now allows whitespace after the trailing <code>*</code> (<a href='https://github.com/tidyverse/glue/issues/218'>#218</a>).</li>
 <li>
 <code>compare_proxy.glue()</code> method defined so glue objects can be compared to strings in testthat 3e without errors (<a href='https://github.com/tidyverse/glue/issues/212'>#212</a>)</li>
 <li>
@@ -254,9 +254,9 @@
 <a href="#features" class="anchor"></a>Features</h2>
 <ul>
 <li>
-<code><a href="../reference/glue.html">glue()</a></code> now has a <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> method to combine strings.</li>
+<code><a href="../reference/glue.html">glue()</a></code> now has a <code>+</code> method to combine strings.</li>
 <li>
-<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now collapses zero-length vector into <code><a href="https://dbi.r-dbi.org/reference/SQL.html">DBI::SQL("NULL")</a></code> (<a href='https://github.com/tidyverse/glue/issues/134'>#134</a> <a href='https://github.com/shrektan'>@shrektan</a>).</li>
+<code><a href="../reference/glue_sql.html">glue_sql()</a></code> now collapses zero-length vector into <code>DBI::SQL("NULL")</code> (<a href='https://github.com/tidyverse/glue/issues/134'>#134</a> <a href='https://github.com/shrektan'>@shrektan</a>).</li>
 </ul>
 </div>
 <div id="bugfixes-and-minor-changes-1" class="section level2">
@@ -281,7 +281,7 @@
 <h2 class="hasAnchor">
 <a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
-<li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for clarities sake. Previous uses can be replaced by <code><a href="https://rdrr.io/r/base/eval.html">eval(parse(text = text), envir)</a></code>.</p></li>
+<li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for clarities sake. Previous uses can be replaced by <code>eval(parse(text = text), envir)</code>.</p></li>
 <li><p><code><a href="https://dplyr.tidyverse.org/reference/compute.html">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collapse()</a></code>.</p></li>
 </ul>
 </div>
