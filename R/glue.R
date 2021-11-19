@@ -28,6 +28,9 @@
 #'   value is replaced by the value of `.null`.
 #' @param .comment \[`character(1)`: \sQuote{#}]\cr Value to use as the comment
 #'   character.
+#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr If `True` treat the text
+#'   as literal text, do not try to parse single or double quotes, backticks or
+#'   comments.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
@@ -79,7 +82,7 @@
 #' @export
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .null = character(),
-  .comment = "#", .transformer = identity_transformer, .trim = TRUE) {
+  .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
 
   if (is.null(.envir)) {
     .envir <- emptyenv()
@@ -170,7 +173,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   }
 
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args, f, .open, .close, .comment)
+  res <- .Call(glue_, unnamed_args, f, .open, .close, .comment, .literal)
 
   res <- drop_null(res)
 
@@ -195,8 +198,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .comment = "#", .transformer = identity_transformer, .trim = TRUE) {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .comment = .comment, .transformer = .transformer, .trim = .trim)
+glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
+  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .comment = .comment, .literal = .literal, .transformer = .transformer, .trim = .trim)
 }
 
 #' Collapse a character vector

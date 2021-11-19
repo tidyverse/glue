@@ -15,6 +15,7 @@ glue_data(
   .na = "NA",
   .null = character(),
   .comment = "#",
+  .literal = FALSE,
   .transformer = identity_transformer,
   .trim = TRUE
 )
@@ -28,6 +29,7 @@ glue(
   .na = "NA",
   .null = character(),
   .comment = "#",
+  .literal = FALSE,
   .transformer = identity_transformer,
   .trim = TRUE
 )
@@ -62,6 +64,10 @@ value is replaced by the value of \code{.null}.}
 
 \item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
 character.}
+
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{True} treat the text
+as literal text, do not try to parse single or double quotes, backticks or
+comments.}
 
 \item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
 \code{data} used to transform the output of each block before during or after

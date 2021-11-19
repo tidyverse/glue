@@ -1,5 +1,7 @@
 # glue (development version)
 
+* `glue()` gains a new `.literal` argument, to parse the text as literal text without trying to parse comments, quotes or backticks. (#235)
+
 # glue 1.5.0
 
 ## Breaking changes

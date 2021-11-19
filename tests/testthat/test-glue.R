@@ -540,3 +540,10 @@ test_that("glue can use different comment characters (#193)", {
     "foo#"
   )
 })
+
+test_that("glue can parse text as literal text", {
+  expect_equal(
+    glue(.comment = "", "{'fo`o\"#}", .literal = TRUE, .transformer = function(x, ...) x),
+    "'fo`o\"#"
+  )
+})
