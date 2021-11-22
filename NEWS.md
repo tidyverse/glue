@@ -1,5 +1,7 @@
 # glue (development version)
 
+Unterminated backticks trigger the same error as unterminated single or double quotes (#237).
+
 # glue 1.5.0
 
 ## Breaking changes
