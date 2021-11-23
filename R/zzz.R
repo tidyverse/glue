@@ -11,6 +11,14 @@
   s3_register("vctrs::vec_cast", "character.glue")
   s3_register("vctrs::vec_cast", "glue.character")
 
+  if (isNamespaceLoaded("knitr")) {
+    knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
+  } else {
+    setHook(packageEvent("knitr", "onLoad"), function(...) {
+      knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
+    })
+  }
+
   invisible()
 }
 #nocov end

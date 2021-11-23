@@ -21,16 +21,9 @@ eng_glue_sql <- function(options) {
     "The 'connection' option (DBI connection) is required for glue_sql chunks.")
   }
   glue_sql_options$.con <- con
-
-  options$code <- do.call(glue_sql, c(list(options$code), glue_sql_options))
+  options$code <- do.call(glue_sql, c(list(paste0(options$code, collapse = "\n")), glue_sql_options))
   options$engine <- "sql"
   knitr::knit_engines$get("sql")(options)
-}
-
-.onLoad <- function(libname, pkgname) {
-  if (requireNamespace("knitr", quietly = TRUE)) {
-    knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
-  }
 }
 
 # nocov end
