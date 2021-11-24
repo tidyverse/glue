@@ -2,6 +2,8 @@
 
 The existing custom language engines for knitr, `glue` and `glue_sql`, are documented in a new vignette (#71).
 
+Unterminated backticks trigger the same error as unterminated single or double quotes (#237).
+
 # glue 1.5.0
 
 ## Breaking changes
