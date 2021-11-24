@@ -19,6 +19,8 @@ navbar:
       href: articles/transformers.html
     - text: Speed of glue
       href: articles/speed.html
+    - text: Custom knitr engines
+      href: articles/engines.html
   - text: News
     menu:
       - text: "Release notes"
