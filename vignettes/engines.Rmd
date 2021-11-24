@@ -30,16 +30,16 @@ Maybe the most useful use of the 'glue' engine is to set the knitr option `resul
 #### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
 ```
 
-If you want to pass additional options onto the glue call, simply include them as knitr options.
+If you want to pass additional arguments into the glue call, simply include them as chunk options.
 
 ````markdown
-`r '' ````{glue, .comment = "", results = 'asis', echo = FALSE}
-#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+`r '' ````{glue, .open = "<<", .close = ">>", results = 'asis', echo = FALSE}
+The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
 ```
 ````
 
 ```{glue, .open = "<<", .close = ">>", results = 'asis', echo = FALSE}
-mean of **x** is <<mean(x)>>.
+The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
 ```
 
 ## `glue_sql` engine
