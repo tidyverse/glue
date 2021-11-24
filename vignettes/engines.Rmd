@@ -1,6 +1,10 @@
 ---
-title: "glue custom knitr engines"
-output: html_document
+title: "glue custom knitr language engines"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{"glue custom knitr language engines"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
