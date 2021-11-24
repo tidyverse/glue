@@ -42,6 +42,8 @@ if (require(crayon)) {
 
   glue_col("{blue 1 + 1 = {1 + 1}}")
 
+  glue_col("{blue 2 + 2 = {green {2 + 2}}}")
+
   white_on_grey <- bgBlack $ white
   glue_col("{white_on_grey
     Roses are {red {colors()[[552]]}}

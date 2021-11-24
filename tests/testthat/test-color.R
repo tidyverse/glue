@@ -1,36 +1,49 @@
-skip_if_not_installed("crayon")
-library(crayon)
+test_that("glue_col() is just glue() when it should be", {
+  skip_if_not_installed("crayon")
+  expect_identical(glue_col("foo"), as_glue("foo"))
+  expect_identical(glue_col("1 + 1 = {1 + 1}"), glue("1 + 1 = {1 + 1}"))
+})
 
-describe("glue_col", {
-  it("returns the string if no substations needed", {
-    expect_identical(glue_col("foo"), as_glue("foo"))
-  })
-  it("works the same as glue for parsable expressions", {
-    expect_identical(glue_col("1 + 1 = {1 + 1}"), glue("1 + 1 = {1 + 1}"))
-  })
-  it("applies crayon functions", {
-    expect_identical(glue_col("{blue foo}"), as_glue(blue("foo")))
+test_that("glue_col() applies crayon functions, crayon not attached", {
+  skip_if_not_installed("crayon")
+  skip_if("crayon" %in% (.packages()))
 
-    blue_and_white <- bgBlue $ white
-    expect_identical(glue_col("{blue_and_white foo}"), as_glue(blue_and_white("foo")))
+  expect_identical(glue_col("{blue foo}"), as_glue(crayon::blue("foo")))
+})
 
-    expect_identical(glue_col("{blue_and_white {1 + 1}}"), as_glue(blue_and_white("2")))
-  })
-  it("works on multiline strings", {
-    expect_identical(
-      glue_col("
-   {red foo
+test_that("glue_col() applies crayon functions, crayon is attached", {
+  skip_if_not_installed("crayon")
+  if( !"crayon" %in% (.packages())) {
+    withr::local_package("crayon")
+  }
+
+  blue_and_white <- bgBlue $ white
+  expect_identical(glue_col("{blue_and_white foo}"), as_glue(blue_and_white("foo")))
+  expect_identical(glue_col("{blue_and_white {1 + 1}}"), as_glue(blue_and_white("2")))
+})
+
+test_that("glue_col() works on multiline strings", {
+  skip_if_not_installed("crayon")
+  expect_identical(
+    glue_col("
+    {red foo
         bar
-        }"), as_glue(red("foo\nbar")))
-  })
-  it("works on nested colors", {
-    expect_identical(glue_col("{red This is a {green serious} problem}"),
-      as_glue(red("This is a " %+% green("serious") %+% " problem")))
-  })
+        }"), as_glue(crayon::red("foo\nbar")))
+})
 
-  it("errors if there is invalid syntax or fun is not found", {
+test_that("glue_col() works on nested colors", {
+  skip_if_not_installed("crayon")
+  if( !"crayon" %in% (.packages())) {
+    withr::local_package("crayon")
+  }
+  expect_identical(
+    glue_col("{red This is a {green serious} problem}"),
+    as_glue(red("This is a " %+% green("serious") %+% " problem"))
+  )
+})
+
+test_that("glue_col() errors for invalid syntax or when color_fun can't be found", {
     expect_error(glue_col("{_}"), "unexpected input")
-
     expect_error(glue_col("{foo _}"), "object 'foo' of mode 'function' was not found")
 
     foo <- 1
@@ -38,13 +51,16 @@ describe("glue_col", {
 
     foo <- crayon::blue
     expect_identical(glue_col("{foo _}"), as_glue(foo("_")))
-  })
 })
 
-describe("glue_data_col", {
-  it("works as expected", {
-    mt <- head(mtcars)
-    expect_identical(glue_data_col(mt, "A {blue {gear}} speed car with {bold {hp}} hp!"),
-      as_glue("A " %+% blue(mt$gear) %+% " speed car with " %+% bold(mt$hp) %+% " hp!"))
-  })
+test_that("glue_data_col() works", {
+  skip_if_not_installed("crayon")
+  if( !"crayon" %in% (.packages())) {
+    withr::local_package("crayon")
+  }
+  mt <- head(mtcars)
+  expect_identical(
+    glue_data_col(mt, "A {blue {gear}} speed car with {bold {hp}} hp!"),
+    as_glue("A " %+% blue(mt$gear) %+% " speed car with " %+% bold(mt$hp) %+% " hp!")
+  )
 })
