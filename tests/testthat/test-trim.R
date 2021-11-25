@@ -157,7 +157,13 @@ test_that("lines containing only indentation are handled properly", {
 
 # https://github.com/tidyverse/glue/issues/238
 test_that("indent counter resets at newline", {
-  expect_identical(trim("\n \n  abcd"), trim("\n\nabcd"))
-  expect_identical(trim("\n  \n  abcd"), trim("\n\nabcd"))
-  expect_identical(trim("\n   \n  abcd"), trim("\n\nabcd"))
+  # whitespace-only line has 2 spaces < min_indent
+  # comment in trim_() says:
+  # "if the line consists only of tabs and spaces, and if the line is
+  #  shorter than min_indent, copy the entire line"
+  expect_identical(trim("\n \n  abcd"), " \nabcd")
+
+  # whitespace-only line has n spaces, n >= min_indent
+  expect_identical( trim("\n  \n  abcd"),  "\nabcd")
+  expect_identical(trim("\n   \n  abcd"), " \nabcd")
 })
