@@ -2,6 +2,7 @@ url: https://glue.tidyverse.org
 
 template:
   package: tidytemplate
+  bootstrap: 5
 
 development:
   mode: auto
@@ -33,6 +34,3 @@ navbar:
 authors:
   "Jim Hester":
     href: http://jimhester.com
-
-home:
-  strip_header: true
