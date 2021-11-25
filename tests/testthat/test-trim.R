@@ -16,7 +16,7 @@ test_that("trim works", {
       "test
     "))
   expect_identical("test",
-    trim("      
+    trim("
       test
       "))
   expect_identical("test",
@@ -153,4 +153,11 @@ test_that("lines containing only indentation are handled properly", {
        \tc"),
     "a\nb\n\nc"
   )
+})
+
+# https://github.com/tidyverse/glue/issues/238
+test_that("indent counter resets at newline", {
+  expect_identical(trim("\n \n  abcd"), trim("\n\nabcd"))
+  expect_identical(trim("\n  \n  abcd"), trim("\n\nabcd"))
+  expect_identical(trim("\n   \n  abcd"), trim("\n\nabcd"))
 })
