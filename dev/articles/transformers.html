@@ -212,7 +212,9 @@
   <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .open <span class="op">=</span> <span class="st">":"</span>, .close <span class="op">=</span> <span class="st">":"</span>, .envir <span class="op">=</span> <span class="va">.envir</span>, .transformer <span class="op">=</span> <span class="va">emoji_transformer</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">glue_ji</span><span class="op">(</span><span class="st">"one :heart:"</span><span class="op">)</span>
-<span class="fu">glue_ji</span><span class="op">(</span><span class="st">"many :heart*:"</span><span class="op">)</span></code></pre></div>
+<span class="co">#&gt; one ❤️</span>
+<span class="fu">glue_ji</span><span class="op">(</span><span class="st">"many :heart*:"</span><span class="op">)</span>
+<span class="co">#&gt; many 💘❤️💟💌</span></code></pre></div>
 </div>
 <div id="sprintf-transformer" class="section level3">
 <h3 class="hasAnchor">
