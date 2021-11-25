@@ -22,9 +22,9 @@ evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is pa
 }
 \description{
 \code{glue_safe()} and \code{glue_data_safe()} differ from \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}}
-in that the safe versions only look up symbols from an environment use
-\code{\link[=get]{get()}} they do not execute any R code. This makes them suitable when used
-with untrusted input, such as inputs in a shiny application, where using the
+in that the safe versions only look up symbols from an environment using
+\code{\link[=get]{get()}}. They do not execute any R code. This makes them suitable for use
+with untrusted input, such as inputs in a Shiny application, where using the
 normal functions would allow an attacker to execute arbitrary code.
 }
 \examples{

@@ -12,17 +12,17 @@ knitr::opts_chunk$set(echo = TRUE)
 library(glue)
 ```
 
-Glue provides a few [custom language engine](https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine) for knir, which allows you to use glue directly in knitr chunks.
+Glue provides a few [custom language engines](https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine) for knir, which allows you to use glue directly in knitr chunks.
 
 ## `glue` engine
 
-The first engine is the 'glue' engine, which evaluates the chunk contents as a glue template.
+The first engine is the `glue` engine, which evaluates the chunk contents as a glue template.
 
 ```{glue}
 1 + 1 = {1 + 1}
 ```
 
-Maybe the most useful use of the 'glue' engine is to set the knitr option `results = 'asis'` and output markdown or HTML directly into the document.
+Maybe the most useful use of the `glue` engine is to set the knitr option `results = 'asis'` and output markdown or HTML directly into the document.
 
 ````markdown
 `r '' ````{glue, results = 'asis', echo = FALSE}
@@ -48,7 +48,7 @@ The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
 
 ## `glue_sql` engine
 
-The second engine is 'glue_sql', which will use `glue::glue_sql()` to generate a SQL query and then run the query using the [sql engine](https://bookdown.org/yihui/rmarkdown/language-engines.html#sql).
+The second engine is `glue_sql`, which will use `glue::glue_sql()` to generate a SQL query and then run the query using the [sql engine](https://bookdown.org/yihui/rmarkdown/language-engines.html#sql).
 
 First we create a new connection to an in-memory SQLite database, and write a new table to it.
 ```{r}

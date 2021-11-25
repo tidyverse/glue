@@ -1,11 +1,10 @@
 #' Safely interpolate strings
 #'
 #' `glue_safe()` and `glue_data_safe()` differ from [glue()] and [glue_data()]
-#' in that the safe versions only look up symbols from an environment use
-#' [get()] they do not execute any R code. This makes them suitable when used
-#' with untrusted input, such as inputs in a shiny application, where using the
+#' in that the safe versions only look up symbols from an environment using
+#' [get()]. They do not execute any R code. This makes them suitable for use
+#' with untrusted input, such as inputs in a Shiny application, where using the
 #' normal functions would allow an attacker to execute arbitrary code.
-#' @inheritParams glue
 #' @inheritParams glue
 #' @export
 #' @examples

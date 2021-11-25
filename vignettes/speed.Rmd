@@ -5,7 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Speed of glue}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  % \VignetteDepends{R.utils
+  %\VignetteDepends{R.utils
     R.utils,
     forcats,
     microbenchmark,
