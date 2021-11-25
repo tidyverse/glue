@@ -96,6 +96,12 @@ command
 system(command)
 ```
 
+```{r include = FALSE}
+if (file.exists("test")) {
+  unlink("test")
+}
+```
+
 ### emoji transformer
 
 A transformer which converts the text to the equivalent emoji.

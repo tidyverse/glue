@@ -517,6 +517,7 @@ test_that("+ method for glue works", {
 test_that("unterminated quotes are error", {
   expect_error(glue("{this doesn\"t work}"), "Unterminated quote")
   expect_error(glue("{this doesn't work}"), "Unterminated quote")
+  expect_error(glue("{this doesn`t work}"), "Unterminated quote")
 })
 
 test_that("unterminated comment", {

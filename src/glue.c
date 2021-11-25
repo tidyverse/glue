@@ -163,7 +163,7 @@ SEXP glue_(
         SEXP expr = PROTECT(Rf_ScalarString(
             Rf_mkCharLenCE(&xx[start], (i - close_len) + 1 - start, CE_UTF8)));
         SEXP call = PROTECT(Rf_lang2(f, expr));
-        SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
+        SEXP result = PROTECT(Rf_eval(call, R_EmptyEnv));
 
         /* text in between last glue statement */
         if (j > 0) {
@@ -202,6 +202,9 @@ SEXP glue_(
   } else if (state == double_quote) {
     free(str);
     Rf_error("Unterminated quote (\")");
+  } else if (state == backtick) {
+    free(str);
+    Rf_error("Unterminated quote (`)");
   } else if (state == comment) {
     free(str);
     Rf_error("Unterminated comment");
