@@ -127,14 +127,14 @@
 
     
     
-<p>Glue provides a few <a href="https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine">custom language engine</a> for knir, which allows you to use glue directly in knitr chunks.</p>
+<p>Glue provides a few <a href="https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine">custom language engines</a> for knir, which allows you to use glue directly in knitr chunks.</p>
 <div id="glue-engine" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue-engine" class="anchor"></a><code>glue</code> engine</h2>
-<p>The first engine is the ‘glue’ engine, which evaluates the chunk contents as a glue template.</p>
+<p>The first engine is the <code>glue</code> engine, which evaluates the chunk contents as a glue template.</p>
 <pre class="glue"><code>1 + 1 = {1 + 1}</code></pre>
 <pre><code>## 1 + 1 = 2</code></pre>
-<p>Maybe the most useful use of the ‘glue’ engine is to set the knitr option <code>results = 'asis'</code> and output markdown or HTML directly into the document.</p>
+<p>Maybe the most useful use of the <code>glue</code> engine is to set the knitr option <code>results = 'asis'</code> and output markdown or HTML directly into the document.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="bn">```{glue, results = 'asis', echo = FALSE}</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="bn">#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="bn">```</span></span></code></pre></div>
@@ -151,7 +151,7 @@
 <div id="glue_sql-engine" class="section level2">
 <h2 class="hasAnchor">
 <a href="#glue_sql-engine" class="anchor"></a><code>glue_sql</code> engine</h2>
-<p>The second engine is ‘glue_sql’, which will use <code><a href="../reference/glue_sql.html">glue::glue_sql()</a></code> to generate a SQL query and then run the query using the <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html#sql">sql engine</a>.</p>
+<p>The second engine is <code>glue_sql</code>, which will use <code><a href="../reference/glue_sql.html">glue::glue_sql()</a></code> to generate a SQL query and then run the query using the <a href="https://bookdown.org/yihui/rmarkdown/language-engines.html#sql">sql engine</a>.</p>
 <p>First we create a new connection to an in-memory SQLite database, and write a new table to it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span>

@@ -51,9 +51,9 @@
 
 <meta property="og:title" content="Safely interpolate strings — glue_safe" />
 <meta property="og:description" content="glue_safe() and glue_data_safe() differ from glue() and glue_data()
-in that the safe versions only look up symbols from an environment use
-get() they do not execute any R code. This makes them suitable when used
-with untrusted input, such as inputs in a shiny application, where using the
+in that the safe versions only look up symbols from an environment using
+get(). They do not execute any R code. This makes them suitable for use
+with untrusted input, such as inputs in a Shiny application, where using the
 normal functions would allow an attacker to execute arbitrary code." />
 <meta property="og:image" content="https://glue.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -172,9 +172,9 @@ normal functions would allow an attacker to execute arbitrary code." />
 
     <div class="ref-description">
     <p><code>glue_safe()</code> and <code>glue_data_safe()</code> differ from <code><a href='glue.html'>glue()</a></code> and <code><a href='glue.html'>glue_data()</a></code>
-in that the safe versions only look up symbols from an environment use
-<code><a href='https://rdrr.io/r/base/get.html'>get()</a></code> they do not execute any R code. This makes them suitable when used
-with untrusted input, such as inputs in a shiny application, where using the
+in that the safe versions only look up symbols from an environment using
+<code><a href='https://rdrr.io/r/base/get.html'>get()</a></code>. They do not execute any R code. This makes them suitable for use
+with untrusted input, such as inputs in a Shiny application, where using the
 normal functions would allow an attacker to execute arbitrary code.</p>
     </div>
 
