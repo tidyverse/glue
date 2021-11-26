@@ -174,6 +174,9 @@ sql_quote_transformer <- function(connection, .na) {
         if (should_collapse) {
           res <- glue_collapse(res, ", ")
         }
+        if (length(res) == 0L) {
+          res <- DBI::SQL("NULL")
+        }
         return(res)
       }
 
