@@ -1,10 +1,12 @@
 # glue (development version)
 
-The existing custom language engines for knitr, `glue` and `glue_sql`, are documented in a new vignette (#71).
+* The existing custom language engines for knitr, `glue` and `glue_sql`, are documented in a new vignette (#71).
 
-`glue_col()` gives special treatment to styling functions from the crayon package, e.g. `glue_col("{blue foo}")` "just works" now, even if crayon is not attached (but is installed) (#241).
+* `glue_col()` gives special treatment to styling functions from the crayon package, e.g. `glue_col("{blue foo}")` "just works" now, even if crayon is not attached (but is installed) (#241).
 
-Unterminated backticks trigger the same error as unterminated single or double quotes (#237).
+* Unterminated backticks trigger the same error as unterminated single or double quotes (#237).
+
+* `glue_sql()` collapses zero-length `DBI::SQL` object into `DBI::SQL("NULL")` (#244 @shrektan).
 
 # glue 1.5.0
 
