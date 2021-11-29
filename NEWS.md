@@ -1,6 +1,6 @@
 # glue (development version)
 
-* Jenny is now the maintainer.
+* Jennifer Bryan is now the maintainer.
 
 * The existing custom language engines for knitr, `glue` and `glue_sql`, are documented in a new vignette (#71).
 
