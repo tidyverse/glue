@@ -16,7 +16,7 @@ test_that("trim works", {
       "test
     "))
   expect_identical("test",
-    trim("      
+    trim("\x20\x20\x20\x20\x20\x20
       test
       "))
   expect_identical("test",
@@ -153,4 +153,17 @@ test_that("lines containing only indentation are handled properly", {
        \tc"),
     "a\nb\n\nc"
   )
+})
+
+# https://github.com/tidyverse/glue/issues/238
+test_that("indent counter resets at newline", {
+  # whitespace-only line has 1 space < min_indent (which is 2)
+  # comment in trim_() says:
+  # "if the line consists only of tabs and spaces, and if the line is
+  #  shorter than min_indent, copy the entire line"
+  expect_identical(trim("\n \n  abcd"), " \nabcd")
+
+  # whitespace-only line has n spaces, n >= min_indent
+  expect_identical( trim("\n  \n  abcd"),  "\nabcd")
+  expect_identical(trim("\n   \n  abcd"), " \nabcd")
 })
