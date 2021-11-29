@@ -48,6 +48,7 @@ SEXP trim_(SEXP x) {
     while (i < str_len) {
       if (xx[i] == '\n') {
         new_line = true;
+        indent = 0;
       } else if (new_line) {
         if (xx[i] == ' ' || xx[i] == '\t') {
           ++indent;
