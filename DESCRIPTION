@@ -4,6 +4,8 @@ Version: 1.5.0.9000
 Authors@R: c(
     person("Jim", "Hester", , "jim.hester@rstudio.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2739-7082")),
+    person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6983-2759")),
     person("RStudio", role = c("cph", "fnd"))
   )
 Description: An implementation of interpreted string literals, inspired by

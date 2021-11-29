@@ -5,6 +5,7 @@ The existing custom language engines for knitr, `glue` and `glue_sql`, are docum
 `glue_col()` gives special treatment to styling functions from the crayon package, e.g. `glue_col("{blue foo}")` "just works" now, even if crayon is not attached (but is installed) (#241).
 
 Unterminated backticks trigger the same error as unterminated single or double quotes (#237).
+* Jenny is now the maintainer.
 
 # glue 1.5.0
 
