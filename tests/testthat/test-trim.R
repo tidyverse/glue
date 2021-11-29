@@ -16,7 +16,7 @@ test_that("trim works", {
       "test
     "))
   expect_identical("test",
-    trim("
+    trim("\x20\x20\x20\x20\x20\x20
       test
       "))
   expect_identical("test",
