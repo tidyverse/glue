@@ -8,6 +8,8 @@
 
 * Unterminated backticks trigger the same error as unterminated single or double quotes (#237).
 
+* `glue_sql()` collapses zero-length `DBI::SQL` object into `DBI::SQL("NULL")` (#244 @shrektan).
+
 # glue 1.5.0
 
 ## Breaking changes
