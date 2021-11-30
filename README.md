@@ -260,17 +260,16 @@ glue("x + y") + " = {x + y}"
 Some other implementations of string interpolation in R (although not
 using identical syntax).
 
-  - [stringr::str\_interp](https://stringr.tidyverse.org/reference/str_interp.html)
-  - [pystr::pystr\_format](https://cran.r-project.org/package=pystr)
-  - [R.utils::gstring](https://cran.r-project.org/package=R.utils)
-  - [rprintf](https://cran.r-project.org/package=rprintf)
+-   [stringr::str\_interp](https://stringr.tidyverse.org/reference/str_interp.html)
+-   [R.utils::gstring](https://cran.r-project.org/package=R.utils)
+-   [rprintf](https://cran.r-project.org/package=rprintf)
 
 String templating is closely related to string interpolation, although
 not exactly the same concept. Some packages implementing string
 templating in R include.
 
-  - [whisker](https://cran.r-project.org/package=whisker)
-  - [brew](https://cran.r-project.org/package=brew)
+-   [whisker](https://cran.r-project.org/package=whisker)
+-   [brew](https://cran.r-project.org/package=brew)
 
 ## Code of Conduct
 
