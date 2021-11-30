@@ -1,6 +1,6 @@
 Package: glue
 Title: Interpreted String Literals
-Version: 1.5.0.9000
+Version: 1.5.1
 Authors@R: c(
     person("Jim", "Hester", role = "aut",
            comment = c(ORCID = "0000-0002-2739-7082")),
