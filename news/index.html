@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
         </div>
       </div>
     </div>
@@ -118,6 +118,9 @@
     </li>
     <li>
       <a href="../articles/speed.html">Speed of glue</a>
+    </li>
+    <li>
+      <a href="../articles/engines.html">Custom knitr engines</a>
     </li>
   </ul>
 </li>
@@ -161,6 +164,18 @@
       <small>Source: <a href='https://github.com/tidyverse/glue/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="glue-151" class="section level1">
+<h1 class="page-header" data-toc-text="1.5.1">
+<a href="#glue-151" class="anchor"></a>glue 1.5.1<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>Jennifer Bryan is now the maintainer.</p></li>
+<li><p>The existing custom language engines for knitr, <code>glue</code> and <code>glue_sql</code>, are documented in a new vignette (<a href='https://github.com/tidyverse/glue/issues/71'>#71</a>).</p></li>
+<li><p><code><a href="../reference/glue_col.html">glue_col()</a></code> gives special treatment to styling functions from the crayon package, e.g. <code>glue_col("{blue foo}")</code> “just works” now, even if crayon is not attached (but is installed) (<a href='https://github.com/tidyverse/glue/issues/241'>#241</a>).</p></li>
+<li><p>Unterminated backticks trigger the same error as unterminated single or double quotes (<a href='https://github.com/tidyverse/glue/issues/237'>#237</a>).</p></li>
+<li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> collapses zero-length <code><a href="https://dbi.r-dbi.org/reference/SQL.html">DBI::SQL</a></code> object into <code>DBI::SQL("NULL")</code> (<a href='https://github.com/tidyverse/glue/issues/244'>#244</a> <a href='https://github.com/shrektan'>@shrektan</a>).</p></li>
+</ul>
+</div>
     <div id="glue-150" class="section level1">
 <h1 class="page-header" data-toc-text="1.5.0">
 <a href="#glue-150" class="anchor"></a>glue 1.5.0<small> 2021-11-06 </small>
@@ -366,7 +381,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://jimhester.com'>Jim Hester</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://jimhester.com'>Jim Hester</a>, Jennifer Bryan, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

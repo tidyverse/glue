@@ -104,7 +104,7 @@ expression (these can be nested).{blue 1 + 1 = {1 + 1}}
         <a class="navbar-brand" href="../index.html">glue</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
         </div>
       </div>
     </div>
@@ -128,6 +128,9 @@ expression (these can be nested).{blue 1 + 1 = {1 + 1}}
     </li>
     <li>
       <a href="../articles/speed.html">Speed of glue</a>
+    </li>
+    <li>
+      <a href="../articles/engines.html">Custom knitr engines</a>
     </li>
   </ul>
 </li>
@@ -223,6 +226,8 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
 <span class='r-in'></span>
 <span class='r-in'>  <span class='fu'>glue_col</span><span class='op'>(</span><span class='st'>"{blue 1 + 1 = {1 + 1}}"</span><span class='op'>)</span></span>
 <span class='r-in'></span>
+<span class='r-in'>  <span class='fu'>glue_col</span><span class='op'>(</span><span class='st'>"{blue 2 + 2 = {green {2 + 2}}}"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
 <span class='r-in'>  <span class='va'>white_on_grey</span> <span class='op'>&lt;-</span> <span class='va'>bgBlack</span> <span class='op'>$</span> <span class='va'>white</span></span>
 <span class='r-in'>  <span class='fu'>glue_col</span><span class='op'>(</span><span class='st'>"{white_on_grey</span>
 <span class='r-in'>    Roses are {red {colors()[[552]]}}</span>
@@ -253,7 +258,7 @@ cause <code>NA</code> output. Otherwise the value is replaced by the value of <c
 
 <div class="author">
   <p>
-    Developed by <a href='http://jimhester.com'>Jim Hester</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='http://jimhester.com'>Jim Hester</a>, Jennifer Bryan, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
