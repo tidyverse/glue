@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://glue.tidyverse.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/MAINTENANCE.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/articles/engines.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/articles/speed.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/articles/transformers.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://glue.tidyverse.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://glue.tidyverse.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://glue.tidyverse.org/reference/as_glue.html</loc>
@@ -28,21 +67,12 @@
     <loc>https://glue.tidyverse.org/reference/identity_transformer.html</loc>
   </url>
   <url>
+    <loc>https://glue.tidyverse.org/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://glue.tidyverse.org/reference/quoting.html</loc>
   </url>
   <url>
     <loc>https://glue.tidyverse.org/reference/trim.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/engines.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/releases/glue-1.2.0.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/speed.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/transformers.html</loc>
   </url>
 </urlset>

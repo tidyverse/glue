@@ -4,7 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="An implementation of interpreted string literals, inspired by
+    Pythons Literal String Interpolation
+    &lt;https://www.python.org/dev/peps/pep-0498/&gt; and Docstrings
+    &lt;https://www.python.org/dev/peps/pep-0257/&gt; and Julias Triple-Quoted
+    String Literals
+    &lt;https://docs.julialang.org/en/v1.3/manual/strings/#Triple-Quoted-String-Literals-1&gt;.">
 <title>Interpreted String Literals • glue</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -12,14 +18,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
-<!--optional theme--><link href=".css" rel="stylesheet">
-<meta property="og:title" content="Interpreted String Literals">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Interpreted String Literals">
 <meta property="og:description" content="An implementation of interpreted string literals, inspired by
     Pythons Literal String Interpolation
     &lt;https://www.python.org/dev/peps/pep-0498/&gt; and Docstrings
@@ -27,7 +32,6 @@
     String Literals
     &lt;https://docs.julialang.org/en/v1.3/manual/strings/#Triple-Quoted-String-Literals-1&gt;.">
 <meta property="og:image" content="https://glue.tidyverse.org/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -37,155 +41,132 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script>
+</script><script defer data-domain="glue.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<body>
+    <a href="#container" class="visually-hidden-focusable">Skip to content</a>
+    
 
-      <div class="navbar-brand-container">
-        <a class="navbar-brand" href="index.html">glue</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
-        </div>
-      </div>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="index.html">Home</a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
+    <a class="navbar-brand me-2" href="index.html">glue</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.1</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="reference/index.html">Reference</a>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/engines.html">glue custom knitr language engines</a>
+    <a class="dropdown-item" href="articles/speed.html">Speed of glue</a>
+    <a class="dropdown-item" href="articles/transformers.html">Transformers</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/transformers.html">Transformers</a>
-    </li>
-    <li>
-      <a href="articles/speed.html">Speed of glue</a>
-    </li>
-    <li>
-      <a href="articles/engines.html">Custom knitr engines</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2017/10/glue-1.2.0/">glue 1.2.0</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="news/index.html">Changelog</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Release notes</li>
-    <li>
-      <a href="articles/releases/glue-1.2.0.html">Version 1.2.0</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="news/index.html">Change log</a>
-    </li>
-  </ul>
-</li>
-        <li>
-  <a href="https://github.com/tidyverse/glue/">
-    <span class="fab fa-github fa-lg"></span>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tidyverse/glue/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
+</nav><div class="container template-home" id="container">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="glue-">glue 
+<a class="anchor" aria-label="anchor" href="#glue-"></a>
+</h1>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-
-<div id="glue-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#glue-" class="anchor"></a>glue <a href="https:/glue.tidyverse.org"><img src="reference/figures/logo.png" align="right" height="139"></a>
-</h1></div>
-
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
 <p>Glue offers interpreted string literals that are small, fast, and dependency-free. Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Install the released version from CRAN:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"glue"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"glue"</span><span class="op">)</span>
 
 <span class="co"># Install the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/glue"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tidyverse/glue"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-<div id="variables-can-be-passed-directly-into-strings" class="section level5">
-<h5 class="hasAnchor">
-<a href="#variables-can-be-passed-directly-into-strings" class="anchor"></a>Variables can be passed directly into strings.</h5>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<div class="section level5">
+<h5 id="variables-can-be-passed-directly-into-strings">Variables can be passed directly into strings.<a class="anchor" aria-label="anchor" href="#variables-can-be-passed-directly-into-strings"></a>
+</h5>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue" class="external-link">glue</a></span><span class="op">)</span>
 <span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'My name is {name}.'</span><span class="op">)</span>
 <span class="co">#&gt; My name is Fred.</span></code></pre></div>
 </div>
-<div id="long-strings-are-broken-by-line-and-concatenated-together" class="section level5">
-<h5 class="hasAnchor">
-<a href="#long-strings-are-broken-by-line-and-concatenated-together" class="anchor"></a>Long strings are broken by line and concatenated together.</h5>
+<div class="section level5">
+<h5 id="long-strings-are-broken-by-line-and-concatenated-together">Long strings are broken by line and concatenated together.<a class="anchor" aria-label="anchor" href="#long-strings-are-broken-by-line-and-concatenated-together"></a>
+</h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue" class="external-link">glue</a></span><span class="op">)</span>
 
 <span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">50</span>
-<span class="va">anniversary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1991-10-12"</span><span class="op">)</span>
+<span class="va">anniversary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"1991-10-12"</span><span class="op">)</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'My name is {name},'</span>,
   <span class="st">' my age next year is {age + 1},'</span>,
   <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span><span class="op">)</span>
 <span class="co">#&gt; My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.</span></code></pre></div>
 </div>
-<div id="named-arguments-are-used-to-assign-temporary-variables" class="section level5">
-<h5 class="hasAnchor">
-<a href="#named-arguments-are-used-to-assign-temporary-variables" class="anchor"></a>Named arguments are used to assign temporary variables.</h5>
+<div class="section level5">
+<h5 id="named-arguments-are-used-to-assign-temporary-variables">Named arguments are used to assign temporary variables.<a class="anchor" aria-label="anchor" href="#named-arguments-are-used-to-assign-temporary-variables"></a>
+</h5>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'My name is {name},'</span>,
   <span class="st">' my age next year is {age + 1},'</span>,
   <span class="st">' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.'</span>,
   name <span class="op">=</span> <span class="st">"Joe"</span>,
   age <span class="op">=</span> <span class="fl">40</span>,
-  anniversary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2001-10-12"</span><span class="op">)</span><span class="op">)</span>
+  anniversary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2001-10-12"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.</span></code></pre></div>
 </div>
-<div id="glue_data-is-useful-with-magrittr-pipes" class="section level5">
-<h5 class="hasAnchor">
-<a href="#glue_data-is-useful-with-magrittr-pipes" class="anchor"></a><code>glue_data()</code> is useful with <a href="https://cran.r-project.org/package=magrittr">magrittr</a> pipes.</h5>
+<div class="section level5">
+<h5 id="glue_data-is-useful-with-magrittr-pipes">
+<code>glue_data()</code> is useful with <a href="https://cran.r-project.org/package=magrittr" class="external-link">magrittr</a> pipes.<a class="anchor" aria-label="anchor" href="#glue_data-is-useful-with-magrittr-pipes"></a>
+</h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">`%&gt;%`</span> <span class="op">&lt;-</span> <span class="fu">magrittr</span><span class="fu">::</span><span class="va">`%&gt;%`</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/glue.html">glue_data</a></span><span class="op">(</span><span class="st">"{rownames(.)} has {hp} hp"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/glue.html">glue_data</a></span><span class="op">(</span><span class="st">"{rownames(.)} has {hp} hp"</span><span class="op">)</span>
 <span class="co">#&gt; Mazda RX4 has 110 hp</span>
 <span class="co">#&gt; Mazda RX4 Wag has 110 hp</span>
 <span class="co">#&gt; Datsun 710 has 93 hp</span>
@@ -193,13 +174,13 @@
 <span class="co">#&gt; Hornet Sportabout has 175 hp</span>
 <span class="co">#&gt; Valiant has 105 hp</span></code></pre></div>
 </div>
-<div id="or-within-dplyr-pipelines" class="section level5">
-<h5 class="hasAnchor">
-<a href="#or-within-dplyr-pipelines" class="anchor"></a>Or within dplyr pipelines</h5>
+<div class="section level5">
+<h5 id="or-within-dplyr-pipelines">Or within dplyr pipelines<a class="anchor" aria-label="anchor" href="#or-within-dplyr-pipelines"></a>
+</h5>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>description <span class="op">=</span> <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"This {Species} has a petal length of {Petal.Length}"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>description <span class="op">=</span> <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"This {Species} has a petal length of {Petal.Length}"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span>
 <span class="co">#&gt; 2          4.9         3.0          1.4         0.2  setosa</span>
@@ -215,9 +196,9 @@
 <span class="co">#&gt; 5 This setosa has a petal length of 1.4</span>
 <span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></code></pre></div>
 </div>
-<div id="leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed" class="section level5">
-<h5 class="hasAnchor">
-<a href="#leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed" class="anchor"></a>Leading whitespace and blank lines from the first and last lines are automatically trimmed.</h5>
+<div class="section level5">
+<h5 id="leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed">Leading whitespace and blank lines from the first and last lines are automatically trimmed.<a class="anchor" aria-label="anchor" href="#leading-whitespace-and-blank-lines-from-the-first-and-last-lines-are-automatically-trimmed"></a>
+</h5>
 <p>This lets you indent the strings naturally in code.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
@@ -229,9 +210,9 @@
 <span class="co">#&gt; Can have multiple lines</span>
 <span class="co">#&gt;   with additional indention preserved</span></code></pre></div>
 </div>
-<div id="an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline" class="section level5">
-<h5 class="hasAnchor">
-<a href="#an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline" class="anchor"></a>An additional newline can be used if you want a leading or trailing newline.</h5>
+<div class="section level5">
+<h5 id="an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline">An additional newline can be used if you want a leading or trailing newline.<a class="anchor" aria-label="anchor" href="#an-additional-newline-can-be-used-if-you-want-a-leading-or-trailing-newline"></a>
+</h5>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
 
@@ -241,9 +222,10 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; leading or trailing newlines can be added explicitly</span></code></pre></div>
 </div>
-<div id="-at-the-end-of-a-line-continues-it-without-a-new-line" class="section level5">
-<h5 class="hasAnchor">
-<a href="#-at-the-end-of-a-line-continues-it-without-a-new-line" class="anchor"></a><code>\\</code> at the end of a line continues it without a new line.</h5>
+<div class="section level5">
+<h5 id="-at-the-end-of-a-line-continues-it-without-a-new-line">
+<code>\\</code> at the end of a line continues it without a new line.<a class="anchor" aria-label="anchor" href="#-at-the-end-of-a-line-continues-it-without-a-new-line"></a>
+</h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"
     A formatted string \\
@@ -252,25 +234,25 @@
     "</span><span class="op">)</span>
 <span class="co">#&gt; A formatted string can also be on a single line</span></code></pre></div>
 </div>
-<div id="a-literal-brace-is-inserted-by-using-doubled-braces" class="section level5">
-<h5 class="hasAnchor">
-<a href="#a-literal-brace-is-inserted-by-using-doubled-braces" class="anchor"></a>A literal brace is inserted by using doubled braces.</h5>
+<div class="section level5">
+<h5 id="a-literal-brace-is-inserted-by-using-doubled-braces">A literal brace is inserted by using doubled braces.<a class="anchor" aria-label="anchor" href="#a-literal-brace-is-inserted-by-using-doubled-braces"></a>
+</h5>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Fred"</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"My name is {name}, not {{name}}."</span><span class="op">)</span>
 <span class="co">#&gt; My name is Fred, not {name}.</span></code></pre></div>
 </div>
-<div id="alternative-delimiters-can-be-specified-with-open-and-close" class="section level5">
-<h5 class="hasAnchor">
-<a href="#alternative-delimiters-can-be-specified-with-open-and-close" class="anchor"></a>Alternative delimiters can be specified with <code>.open</code> and <code>.close</code>.</h5>
+<div class="section level5">
+<h5 id="alternative-delimiters-can-be-specified-with-open-and-close">Alternative delimiters can be specified with <code>.open</code> and <code>.close</code>.<a class="anchor" aria-label="anchor" href="#alternative-delimiters-can-be-specified-with-open-and-close"></a>
+</h5>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">one</span> <span class="op">&lt;-</span> <span class="st">"1"</span>
 <span class="fu"><a href="reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"The value of $e^{2\\pi i}$ is $&lt;&lt;one&gt;&gt;$."</span>, .open <span class="op">=</span> <span class="st">"&lt;&lt;"</span>, .close <span class="op">=</span> <span class="st">"&gt;&gt;"</span><span class="op">)</span>
 <span class="co">#&gt; The value of $e^{2\pi i}$ is $1$.</span></code></pre></div>
 </div>
-<div id="all-valid-r-code-works-in-expressions-including-braces-and-escaping" class="section level5">
-<h5 class="hasAnchor">
-<a href="#all-valid-r-code-works-in-expressions-including-braces-and-escaping" class="anchor"></a>All valid R code works in expressions, including braces and escaping.</h5>
+<div class="section level5">
+<h5 id="all-valid-r-code-works-in-expressions-including-braces-and-escaping">All valid R code works in expressions, including braces and escaping.<a class="anchor" aria-label="anchor" href="#all-valid-r-code-works-in-expressions-including-braces-and-escaping"></a>
+</h5>
 <p>Backslashes do need to be doubled just like in all R strings.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">`foo}\``</span> <span class="op">&lt;-</span> <span class="st">"foo"</span>
@@ -283,16 +265,17 @@
   }"</span><span class="op">)</span>
 <span class="co">#&gt; foo</span></code></pre></div>
 </div>
-<div id="glue_sql-makes-constructing-sql-statements-safe-and-easy" class="section level5">
-<h5 class="hasAnchor">
-<a href="#glue_sql-makes-constructing-sql-statements-safe-and-easy" class="anchor"></a><code>glue_sql()</code> makes constructing SQL statements safe and easy</h5>
+<div class="section level5">
+<h5 id="glue_sql-makes-constructing-sql-statements-safe-and-easy">
+<code>glue_sql()</code> makes constructing SQL statements safe and easy<a class="anchor" aria-label="anchor" href="#glue_sql-makes-constructing-sql-statements-safe-and-easy"></a>
+</h5>
 <p>Use backticks to quote identifiers, normal strings and numbers are quoted appropriately for your backend.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue" class="external-link">glue</a></span><span class="op">)</span>
 
-<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"iris"</span>, <span class="va">iris</span><span class="op">)</span>
+<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html" class="external-link">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"iris"</span>, <span class="va">iris</span><span class="op">)</span>
 <span class="va">var</span> <span class="op">&lt;-</span> <span class="st">"sepal_width"</span>
 <span class="va">tbl</span> <span class="op">&lt;-</span> <span class="st">"iris"</span>
 <span class="va">num</span> <span class="op">&lt;-</span> <span class="fl">2</span>
@@ -315,15 +298,15 @@
     FROM {`tbl`}
     WHERE {`tbl`}.sepal_length &gt; ?
   "</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span>
-<span class="va">query</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html">dbSendQuery</a></span><span class="op">(</span><span class="va">con</span>, <span class="va">sql</span><span class="op">)</span>
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbBind.html">dbBind</a></span><span class="op">(</span><span class="va">query</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">num</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbFetch.html">dbFetch</a></span><span class="op">(</span><span class="va">query</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">query</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html" class="external-link">dbSendQuery</a></span><span class="op">(</span><span class="va">con</span>, <span class="va">sql</span><span class="op">)</span>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbBind.html" class="external-link">dbBind</a></span><span class="op">(</span><span class="va">query</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">num</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbFetch.html" class="external-link">dbFetch</a></span><span class="op">(</span><span class="va">query</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt;   sepal_width</span>
 <span class="co">#&gt; 1         3.5</span>
 <span class="co">#&gt; 2         3.0</span>
 <span class="co">#&gt; 3         3.2</span>
 <span class="co">#&gt; 4         3.1</span>
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbClearResult.html">dbClearResult</a></span><span class="op">(</span><span class="va">query</span><span class="op">)</span>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbClearResult.html" class="external-link">dbClearResult</a></span><span class="op">(</span><span class="va">query</span><span class="op">)</span>
 
 <span class="co"># `glue_sql()` can be used to build up more complex queries with</span>
 <span class="co"># interchangeable sub queries. It returns `DBI::SQL()` objects which are</span>
@@ -356,12 +339,12 @@
 <span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</span>
 
 <span class="fu"><a href="reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,
-  vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span><span class="op">)</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span>
+  vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span><span class="op">)</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span>
 <span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></code></pre></div>
 </div>
-<div id="optionally-combine-strings-with-" class="section level5">
-<h5 class="hasAnchor">
-<a href="#optionally-combine-strings-with-" class="anchor"></a>Optionally combine strings with <code>+</code>
+<div class="section level5">
+<h5 id="optionally-combine-strings-with-">Optionally combine strings with <code>+</code>
+<a class="anchor" aria-label="anchor" href="#optionally-combine-strings-with-"></a>
 </h5>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
@@ -371,94 +354,96 @@
 </div>
 </div>
 </div>
-<div id="other-implementations" class="section level1">
-<h1 class="hasAnchor">
-<a href="#other-implementations" class="anchor"></a>Other implementations</h1>
+<div class="section level1">
+<h1 id="other-implementations">Other implementations<a class="anchor" aria-label="anchor" href="#other-implementations"></a>
+</h1>
 <p>Some other implementations of string interpolation in R (although not using identical syntax).</p>
 <ul>
-<li><a href="https://stringr.tidyverse.org/reference/str_interp.html">stringr::str_interp</a></li>
-<li><a href="https://cran.r-project.org/package=R.utils">R.utils::gstring</a></li>
-<li><a href="https://cran.r-project.org/package=rprintf">rprintf</a></li>
+<li><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">stringr::str_interp</a></li>
+<li><a href="https://cran.r-project.org/package=R.utils" class="external-link">R.utils::gstring</a></li>
+<li><a href="https://cran.r-project.org/package=rprintf" class="external-link">rprintf</a></li>
 </ul>
 <p>String templating is closely related to string interpolation, although not exactly the same concept. Some packages implementing string templating in R include.</p>
 <ul>
-<li><a href="https://cran.r-project.org/package=whisker">whisker</a></li>
-<li><a href="https://cran.r-project.org/package=brew">brew</a></li>
+<li><a href="https://cran.r-project.org/package=whisker" class="external-link">whisker</a></li>
+<li><a href="https://cran.r-project.org/package=brew" class="external-link">brew</a></li>
 </ul>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
 <p>Please note that the glue project is released with a <a href="https://glue.tidyverse.org/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
 
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
-<h2>Links</h2>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=glue">https://​cloud.r-project.org/​package=glue</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/tidyverse/glue/">https://​github.com/​tidyverse/​glue/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/tidyverse/glue/issues">https://​github.com/​tidyverse/​glue/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=glue" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/tidyverse/glue/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tidyverse/glue/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing glue</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://jimhester.com">Jim Hester</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2739-7082" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Jennifer Bryan <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://www.jimhester.com/" class="external-link">Jim Hester</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2739-7082" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
-<a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=glue"><img src="https://www.r-pkg.org/badges/version/glue" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://github.com/tidyverse/glue/actions"><img src="https://github.com/tidyverse/glue/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/github/tidyverse/glue?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg" alt="Coverage Status"></a></li>
+<li><a href="https://cran.r-project.org/package=glue" class="external-link"><img src="https://www.r-pkg.org/badges/version/glue" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://github.com/tidyverse/glue/actions" class="external-link"><img src="https://github.com/tidyverse/glue/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/github/tidyverse/glue?branch=master" class="external-link"><img src="https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>
-</div>
-</div>
 
-
-      <footer><div class="tidyverse">
-  <p>glue is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  </aside>
 </div>
 
-<div class="author">
-  <p>
-    Developed by <a href="http://jimhester.com">Jim Hester</a>, Jennifer Bryan, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
-  </p>
+
+   </div>
+  <footer><div class="container">
+  <div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
-      </footer>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
-  
-
-
-  </body>
+  </div></footer>
+</body>
 </html>
