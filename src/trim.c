@@ -63,7 +63,8 @@ SEXP trim_(SEXP x) {
       ++i;
     }
 
-    if (new_line && indent < min_indent) {
+    /* if string ends with '\n', `indent = 0` only because we made it so */
+    if (xx[str_len - 1] != '\n' && new_line && indent < min_indent) {
       min_indent = indent;
     }
 

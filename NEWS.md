@@ -1,5 +1,7 @@
 # glue (development version)
 
+* Trailing whitespace-only lines don't interfere with indentation (#247).
+
 # glue 1.5.1
 
 * Jennifer Bryan is now the maintainer.

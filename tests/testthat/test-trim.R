@@ -167,3 +167,14 @@ test_that("indent counter resets at newline", {
   expect_identical( trim("\n  \n  abcd"),  "\nabcd")
   expect_identical(trim("\n   \n  abcd"), " \nabcd")
 })
+
+# https://github.com/tidyverse/glue/issues/247
+test_that("trailing whitespace-only line doesn't goof up indentation", {
+  expect_identical(trim("\n  A\n\n"), "A\n")
+  # comment in trim_() says:
+  # "if the line consists only of tabs and spaces, and if the line is
+  #  shorter than min_indent, copy the entire line"
+  expect_identical(trim("\n  A\n \n"), "A\n ")
+  expect_identical(trim("\n  A\n  \n"), "A\n")
+  expect_identical(trim("\n  A\n   \n"), "A\n ")
+})
