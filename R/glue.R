@@ -261,7 +261,7 @@ glue_collapse <- function(x, sep = "", width = Inf, last = "") {
 #'     ")
 #'
 #' glue("
-#'   \\ntrailing or leading newlines can be added explicitly\\n
+#'   \ntrailing or leading newlines can be added explicitly\n
 #'   ")
 #'
 #' glue("
