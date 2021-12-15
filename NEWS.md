@@ -2,7 +2,7 @@
 
 * Trailing whitespace-only lines don't interfere with indentation (#247).
 
-* `glue()` gains a new `.literal` argument, to parse the text as literal text without trying to parse comments, quotes or backticks. (#235)
+* `glue()`, `glue_data()`, `glue_col()`, and `glue_data_col()` gain a new `.literal` argument, which treats bracketed expressions as literal text, i.e. it prevents parsing of quotes and comments (#235). This is mostly useful when evaluation is being delegated to a custom transformer.
 
 # glue 1.5.1
 
