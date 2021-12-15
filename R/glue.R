@@ -28,7 +28,7 @@
 #'   value is replaced by the value of `.null`.
 #' @param .comment \[`character(1)`: \sQuote{#}]\cr Value to use as the comment
 #'   character.
-#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr If `True` treat the text
+#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr If `TRUE` treat the text
 #'   as literal text, do not try to parse single or double quotes, backticks or
 #'   comments.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
