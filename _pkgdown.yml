@@ -4,33 +4,16 @@ template:
   package: tidytemplate
   bootstrap: 5
 
+  includes:
+    in_header: |
+      <script defer data-domain="glue.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+  params:
+    ganalytics: UA-115082821-1
+
 development:
   mode: auto
 
-navbar:
-  type: default
-  left:
-  - text: Home
-    href: index.html
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    menu:
-    - text: Transformers
-      href: articles/transformers.html
-    - text: Speed of glue
-      href: articles/speed.html
-    - text: Custom knitr engines
-      href: articles/engines.html
-  - text: News
-    menu:
-      - text: "Release notes"
-      - text: "Version 1.2.0"
-        href: articles/releases/glue-1.2.0.html
-      - text: "------------------"
-      - text: "Change log"
-        href: news/index.html
-
-authors:
-  "Jim Hester":
-    href: http://jimhester.com
+news:
+  releases:
+  - text: "glue 1.2.0"
+    href: https://www.tidyverse.org/blog/2017/10/glue-1.2.0/
