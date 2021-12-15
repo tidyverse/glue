@@ -36,14 +36,14 @@
 #'     and {bold bold} and {underline underline} too!
 #'     }")
 #' }
-glue_col <- function(..., .envir = parent.frame(), .na = "NA") {
-  glue(..., .envir = .envir, .na = .na, .transformer = color_transformer)
+glue_col <- function(..., .envir = parent.frame(), .na = "NA", .literal = FALSE) {
+  glue(..., .envir = .envir, .na = .na, .literal = .literal, .transformer = color_transformer)
 }
 
 #' @rdname glue_col
 #' @export
-glue_data_col <- function(.x, ..., .envir = parent.frame(), .na = "NA") {
-  glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = color_transformer)
+glue_data_col <- function(.x, ..., .envir = parent.frame(), .na = "NA", .literal = FALSE) {
+  glue_data(.x, ..., .envir = .envir, .na = .na, .literal = .literal, .transformer = color_transformer)
 }
 
 color_transformer <- function(code, envir) {

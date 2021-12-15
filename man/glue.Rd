@@ -65,7 +65,7 @@ value is replaced by the value of \code{.null}.}
 \item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
 character.}
 
-\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{True} treat the text
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{TRUE} treat the text
 as literal text, do not try to parse single or double quotes, backticks or
 comments.}
 

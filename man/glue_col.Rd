@@ -5,9 +5,9 @@
 \alias{glue_data_col}
 \title{Construct strings with color}
 \usage{
-glue_col(..., .envir = parent.frame(), .na = "NA")
+glue_col(..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
 
-glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA")
+glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
 }
 \arguments{
 \item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
@@ -21,6 +21,10 @@ evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is pa
 \item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
+
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{TRUE} treat the text
+as literal text, do not try to parse single or double quotes, backticks or
+comments.}
 
 \item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
 }
