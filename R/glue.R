@@ -4,22 +4,22 @@
 #' broken by line and concatenated together. Leading whitespace and blank lines
 #' from the first and last lines are automatically trimmed.
 #'
-#' @param .x \[`listish`]\cr An environment, list or data frame used to lookup values.
-#' @param ... \[`expressions`]\cr Unnamed arguments are taken to be expressions
+#' @param .x \[`listish`]\cr An environment, list, or data frame used to lookup values.
+#' @param ... \[`expressions`]\cr Unnamed arguments are taken to be expression
 #'     string(s) to format. Multiple inputs are concatenated together before formatting.
 #'     Named arguments are taken to be temporary variables available for substitution.
 #' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
 #' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
 #'   evaluated from left to right. If `.x` is an environment, the expressions are
-#'   evaluated in that environment and `.envir` is ignored. If `NULL` is passed it is equivalent to [emptyenv()].
+#'   evaluated in that environment and `.envir` is ignored. If `NULL` is passed, it is equivalent to [emptyenv()].
 #' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
 #'   full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 #'   full delimiter escapes it.
 #' @param .transformer \[`function]`\cr A function taking three parameters `code`, `envir` and
-#'   `data` used to transform the output of each block before during or after
+#'   `data` used to transform the output of each block before, during, or after
 #'   evaluation. For example transformers see `vignette("transformers")`.
-#' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace NA values
+#' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace `NA` values
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
 #' @param .null \[`character(1)`: \sQuote{character()}]\cr Value to replace
@@ -28,9 +28,11 @@
 #'   value is replaced by the value of `.null`.
 #' @param .comment \[`character(1)`: \sQuote{#}]\cr Value to use as the comment
 #'   character.
-#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr If `TRUE` treat the text
-#'   as literal text, do not try to parse single or double quotes, backticks or
-#'   comments.
+#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr If `TRUE`, treat the
+#'   enclosed expressions as literal text. Do not try to parse single or double
+#'   quotes, backticks, or comments. Setting `.literal = TRUE` probably only
+#'   makes sense when delegating evaluation to a custom `.transformer`, as is
+#'   the case with `glue_col()`.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and

@@ -35,9 +35,9 @@ glue(
 )
 }
 \arguments{
-\item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 
-\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.}
 
@@ -45,7 +45,7 @@ Named arguments are taken to be temporary variables available for substitution.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
-evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
 \item{.open}{[\code{character(1)}: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
 full delimiter escapes it.}
@@ -53,7 +53,7 @@ full delimiter escapes it.}
 \item{.close}{[\code{character(1)}: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 full delimiter escapes it.}
 
-\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
@@ -65,12 +65,14 @@ value is replaced by the value of \code{.null}.}
 \item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
 character.}
 
-\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{TRUE} treat the text
-as literal text, do not try to parse single or double quotes, backticks or
-comments.}
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{TRUE}, treat the
+enclosed expressions as literal text. Do not try to parse single or double
+quotes, backticks, or comments. Setting \code{.literal = TRUE} probably only
+makes sense when delegating evaluation to a custom \code{.transformer}, as is
+the case with \code{glue_col()}.}
 
 \item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
-\code{data} used to transform the output of each block before during or after
+\code{data} used to transform the output of each block before, during, or after
 evaluation. For example transformers see \code{vignette("transformers")}.}
 
 \item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
