@@ -25,8 +25,8 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 \item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{TRUE}, treat the
 enclosed expressions as literal text. Do not try to parse single or double
 quotes, backticks, or comments. Setting \code{.literal = TRUE} probably only
-makes sense when delegating evaluation to a custom \code{.transformer}, as is
-the case with \code{glue_col()}.}
+makes sense in combination with a custom \code{.transformer}, as is the case
+with \code{glue_col()}.}
 
 \item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
