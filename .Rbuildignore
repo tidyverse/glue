@@ -20,3 +20,4 @@
 ^\.github/workflows/pr-commands\.yaml$
 ^MAINTENANCE\.md$
 ^internal$
+^CRAN-SUBMISSION$
