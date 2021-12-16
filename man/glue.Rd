@@ -68,7 +68,8 @@ character.}
 \item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
 double quotes, backticks, and comments as regular characters (vs. as
 syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
-\code{.transformer}, as is the case with \code{glue_col()}.}
+\code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
+(especially, its name) as experimental.}
 
 \item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
 \code{data} used to transform the output of each block before, during, or after

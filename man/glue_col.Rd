@@ -25,7 +25,8 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 \item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
 double quotes, backticks, and comments as regular characters (vs. as
 syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
-\code{.transformer}, as is the case with \code{glue_col()}.}
+\code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
+(especially, its name) as experimental.}
 
 \item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }

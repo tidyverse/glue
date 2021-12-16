@@ -32,7 +32,8 @@
 #'   double quotes, backticks, and comments as regular characters (vs. as
 #'   syntactic elements), when parsing the expression string. Setting `.literal
 #'   = TRUE` probably only makes sense in combination with a custom
-#'   `.transformer`, as is the case with `glue_col()`.
+#'   `.transformer`, as is the case with `glue_col()`. Regard this argument
+#'   (especially, its name) as experimental.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
