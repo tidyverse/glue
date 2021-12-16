@@ -101,8 +101,8 @@
 ## Breaking changes
 
 * The `evaluate()` function has been removed. Changes elsewhere in glue made
-  the implementation trivial so it was removed for clarities sake. Previous
-  uses can be replaced by `eval(parse(text = text), envir)`.
+  the implementation trivial so it was removed for the sake of clarity.
+  Previous uses can be replaced by `eval(parse(text = text), envir)`.
 
 * `collapse()` has been renamed to `glue_collapse()` to avoid namespace
   collisions with `dplyr::collapse()`.
