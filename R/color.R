@@ -18,7 +18,7 @@
 #' {blue 1 + 1 = {1 + 1}}
 #' ```
 #'
-#' If the text you want to color contains syntactical elements you would like
+#' If the text you want to color contains syntactic elements you would like
 #' glue to ignore, such as quotes or a comment character, specify `.literal =
 #' TRUE`.
 #'

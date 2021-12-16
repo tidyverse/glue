@@ -22,11 +22,10 @@ evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is pa
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
-\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr If \code{TRUE}, treat the
-enclosed expressions as literal text. Do not try to parse single or double
-quotes, backticks, or comments. Setting \code{.literal = TRUE} probably only
-makes sense in combination with a custom \code{.transformer}, as is the case
-with \code{glue_col()}.}
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
+\code{.transformer}, as is the case with \code{glue_col()}.}
 
 \item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
@@ -42,7 +41,7 @@ If you want an expression to be evaluated, simply place that in a normal brace
 expression (these can be nested).\preformatted{\{blue 1 + 1 = \{1 + 1\}\}
 }
 
-If the text you want to color contains syntactical elements you would like
+If the text you want to color contains syntactic elements you would like
 glue to ignore, such as quotes or a comment character, specify \code{.literal = TRUE}.
 }
 \examples{

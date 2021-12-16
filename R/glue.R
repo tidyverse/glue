@@ -28,11 +28,11 @@
 #'   value is replaced by the value of `.null`.
 #' @param .comment \[`character(1)`: \sQuote{#}]\cr Value to use as the comment
 #'   character.
-#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr If `TRUE`, treat the
-#'   enclosed expressions as literal text. Do not try to parse single or double
-#'   quotes, backticks, or comments. Setting `.literal = TRUE` probably only
-#'   makes sense in combination with a custom `.transformer`, as is the case
-#'   with `glue_col()`.
+#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr Whether to treat single or
+#'   double quotes, backticks, and comments as regular characters (vs. as
+#'   syntactic elements), when parsing the expression string. Setting `.literal
+#'   = TRUE` probably only makes sense in combination with a custom
+#'   `.transformer`, as is the case with `glue_col()`.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
