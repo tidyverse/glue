@@ -73,5 +73,10 @@ glue_col(
   "A URL: {magenta https://github.com/tidyverse/glue#readme}",
   .literal = TRUE
 )
+
+# `.literal = TRUE` does NOT prevent evaluation
+x <- "world"
+y <- "day"
+glue_col("hello {x}! {green it's a new {y}!}", .literal = TRUE)
 \dontshow{\}) # examplesIf}
 }

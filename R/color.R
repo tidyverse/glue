@@ -50,6 +50,11 @@
 #'   "A URL: {magenta https://github.com/tidyverse/glue#readme}",
 #'   .literal = TRUE
 #' )
+#'
+#' # `.literal = TRUE` does NOT prevent evaluation
+#' x <- "world"
+#' y <- "day"
+#' glue_col("hello {x}! {green it's a new {y}!}", .literal = TRUE)
 glue_col <- function(..., .envir = parent.frame(), .na = "NA", .literal = FALSE) {
   glue(..., .envir = .envir, .na = .na, .literal = .literal, .transformer = color_transformer)
 }
