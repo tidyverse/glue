@@ -13,7 +13,7 @@ test_that("glue_col() applies crayon functions, crayon not attached", {
 
 test_that("glue_col() applies crayon functions, crayon is attached", {
   skip_if_not_installed("crayon")
-  if( !"crayon" %in% (.packages())) {
+  if(!"crayon" %in% (.packages())) {
     withr::local_package("crayon")
   }
 
@@ -33,7 +33,7 @@ test_that("glue_col() works on multiline strings", {
 
 test_that("glue_col() works on nested colors", {
   skip_if_not_installed("crayon")
-  if( !"crayon" %in% (.packages())) {
+  if(!"crayon" %in% (.packages())) {
     withr::local_package("crayon")
   }
   expect_identical(
@@ -55,12 +55,67 @@ test_that("glue_col() errors for invalid syntax or when color_fun can't be found
 
 test_that("glue_data_col() works", {
   skip_if_not_installed("crayon")
-  if( !"crayon" %in% (.packages())) {
+  if(!"crayon" %in% (.packages())) {
     withr::local_package("crayon")
   }
   mt <- head(mtcars)
   expect_identical(
     glue_data_col(mt, "A {blue {gear}} speed car with {bold {hp}} hp!"),
     as_glue("A " %+% blue(mt$gear) %+% " speed car with " %+% bold(mt$hp) %+% " hp!")
+  )
+})
+
+# https://github.com/tidyverse/glue/issues/158
+test_that("glue_col() can exploit the `.literal` argument", {
+  skip_if_not_installed("crayon")
+  if(!"crayon" %in% (.packages())) {
+    withr::local_package("crayon")
+  }
+
+  # single quote
+  expect_snapshot(
+    error = TRUE,
+    glue_col("Colorless {green idea's} sleep furiously")
+  )
+  expect_identical(
+    glue_col("Colorless {green idea's} sleep furiously", .literal = TRUE),
+    as_glue("Colorless " %+% green("idea's") %+% " sleep furiously")
+  )
+
+  # double quote
+  expect_snapshot(
+    error = TRUE,
+    glue_col('Colorless {green idea"s} sleep furiously')
+  )
+  expect_identical(
+    glue_col('Colorless {green idea"s} sleep furiously', .literal = TRUE),
+    as_glue("Colorless " %+% green('idea"s') %+% " sleep furiously")
+  )
+
+  # backtick
+  expect_snapshot(
+    error = TRUE,
+    glue_col("Colorless {green idea`s} sleep furiously")
+  )
+  expect_identical(
+    glue_col("Colorless {green idea`s} sleep furiously", .literal = TRUE),
+    as_glue("Colorless " %+% green("idea`s") %+% " sleep furiously")
+  )
+
+  # `#`
+  expect_snapshot(
+    error = TRUE,
+    glue_col("Hey a URL: {blue https://example.com/#section}")
+  )
+  expect_identical(
+    glue_col("Hey a URL: {blue https://example.com/#section}", .literal = TRUE),
+    as_glue("Hey a URL: " %+% blue("https://example.com/#section"))
+  )
+})
+
+test_that("`.literal` does not prevent evaluation", {
+  expect_identical(
+    glue_col("{blue 1 + 1' = {1 + 1}}", .literal = TRUE),
+    as_glue("1 + 1' = 2")
   )
 })

@@ -18,6 +18,10 @@
 #' {blue 1 + 1 = {1 + 1}}
 #' ```
 #'
+#' If the text you want to color contains syntactic elements you would like
+#' glue to ignore, such as quotes or a comment character, specify `.literal =
+#' TRUE`.
+#'
 #' @inheritParams glue
 #' @export
 #' @examples
@@ -35,15 +39,25 @@
 #'     `glue_col()` can show {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
 #'     and {bold bold} and {underline underline} too!
 #'     }")
+#'
+#'   # this would error due to an unterminated quote, if we did not specify
+#'   # `.literal = TRUE`
+#'   glue_col("{yellow It's} happening!", .literal = TRUE)
+#'
+#'   # ditto, but for the `#` comment
+#'   glue_col(
+#'     "A URL: {magenta https://github.com/tidyverse/glue#readme}",
+#'     .literal = TRUE
+#'   )
 #' }
-glue_col <- function(..., .envir = parent.frame(), .na = "NA") {
-  glue(..., .envir = .envir, .na = .na, .transformer = color_transformer)
+glue_col <- function(..., .envir = parent.frame(), .na = "NA", .literal = FALSE) {
+  glue(..., .envir = .envir, .na = .na, .literal = .literal, .transformer = color_transformer)
 }
 
 #' @rdname glue_col
 #' @export
-glue_data_col <- function(.x, ..., .envir = parent.frame(), .na = "NA") {
-  glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = color_transformer)
+glue_data_col <- function(.x, ..., .envir = parent.frame(), .na = "NA", .literal = FALSE) {
+  glue_data(.x, ..., .envir = .envir, .na = .na, .literal = .literal, .transformer = color_transformer)
 }
 
 color_transformer <- function(code, envir) {

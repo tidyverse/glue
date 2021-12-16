@@ -21,7 +21,13 @@ SEXP resize(SEXP out, R_xlen_t n) {
   return Rf_xlengthgets(out, n);
 }
 
-SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg, SEXP comment_arg) {
+SEXP glue_(
+    SEXP x,
+    SEXP f,
+    SEXP open_arg,
+    SEXP close_arg,
+    SEXP comment_arg,
+    SEXP literal_arg) {
   typedef enum {
     text,
     escape,
@@ -47,6 +53,8 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg, SEXP comment_arg) {
   if (Rf_xlength(comment_arg) > 0) {
     comment_char = CHAR(STRING_ELT(comment_arg, 0))[0];
   }
+
+  Rboolean literal = LOGICAL(literal_arg)[0];
 
   int delim_equal = strncmp(open, close, open_len) == 0;
 
@@ -128,18 +136,24 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg, SEXP comment_arg) {
         --delim_level;
         i += close_len - 1;
       } else {
-        if (xx[i] == comment_char) {
+        if (!literal && xx[i] == comment_char) {
           state = comment;
         } else {
           switch (xx[i]) {
           case '\'':
-            state = single_quote;
+            if (!literal) {
+              state = single_quote;
+            }
             break;
           case '"':
-            state = double_quote;
+            if (!literal) {
+              state = double_quote;
+            }
             break;
           case '`':
-            state = backtick;
+            if (!literal) {
+              state = backtick;
+            }
             break;
           };
         }

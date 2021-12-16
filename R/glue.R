@@ -4,22 +4,22 @@
 #' broken by line and concatenated together. Leading whitespace and blank lines
 #' from the first and last lines are automatically trimmed.
 #'
-#' @param .x \[`listish`]\cr An environment, list or data frame used to lookup values.
-#' @param ... \[`expressions`]\cr Unnamed arguments are taken to be expressions
+#' @param .x \[`listish`]\cr An environment, list, or data frame used to lookup values.
+#' @param ... \[`expressions`]\cr Unnamed arguments are taken to be expression
 #'     string(s) to format. Multiple inputs are concatenated together before formatting.
 #'     Named arguments are taken to be temporary variables available for substitution.
 #' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
 #' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
 #'   evaluated from left to right. If `.x` is an environment, the expressions are
-#'   evaluated in that environment and `.envir` is ignored. If `NULL` is passed it is equivalent to [emptyenv()].
+#'   evaluated in that environment and `.envir` is ignored. If `NULL` is passed, it is equivalent to [emptyenv()].
 #' @param .open \[`character(1)`: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
 #'   full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 #'   full delimiter escapes it.
 #' @param .transformer \[`function]`\cr A function taking three parameters `code`, `envir` and
-#'   `data` used to transform the output of each block before during or after
+#'   `data` used to transform the output of each block before, during, or after
 #'   evaluation. For example transformers see `vignette("transformers")`.
-#' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace NA values
+#' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace `NA` values
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
 #' @param .null \[`character(1)`: \sQuote{character()}]\cr Value to replace
@@ -28,6 +28,12 @@
 #'   value is replaced by the value of `.null`.
 #' @param .comment \[`character(1)`: \sQuote{#}]\cr Value to use as the comment
 #'   character.
+#' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr Whether to treat single or
+#'   double quotes, backticks, and comments as regular characters (vs. as
+#'   syntactic elements), when parsing the expression string. Setting `.literal
+#'   = TRUE` probably only makes sense in combination with a custom
+#'   `.transformer`, as is the case with `glue_col()`. Regard this argument
+#'   (especially, its name) as experimental.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
@@ -79,7 +85,7 @@
 #' @export
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .null = character(),
-  .comment = "#", .transformer = identity_transformer, .trim = TRUE) {
+  .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
 
   if (is.null(.envir)) {
     .envir <- emptyenv()
@@ -170,7 +176,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   }
 
   # Parse any glue strings
-  res <- .Call(glue_, unnamed_args, f, .open, .close, .comment)
+  res <- .Call(glue_, unnamed_args, f, .open, .close, .comment, .literal)
 
   res <- drop_null(res)
 
@@ -195,8 +201,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .comment = "#", .transformer = identity_transformer, .trim = TRUE) {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .comment = .comment, .transformer = .transformer, .trim = .trim)
+glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
+  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .comment = .comment, .literal = .literal, .transformer = .transformer, .trim = .trim)
 }
 
 #' Collapse a character vector

@@ -10,7 +10,7 @@ glue_sql(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 }
 \arguments{
-\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.}
 
@@ -18,13 +18,13 @@ Named arguments are taken to be temporary variables available for substitution.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
-evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
-\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
-\item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
 \value{
 A \code{\link[DBI:SQL]{DBI::SQL()}} object with the given query.

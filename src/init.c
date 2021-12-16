@@ -4,11 +4,11 @@
 #include <stdlib.h> // for NULL
 
 /* .Call calls */
-extern SEXP glue_(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP glue_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP trim_(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"glue_", (DL_FUNC)&glue_, 5},
+    {"glue_", (DL_FUNC)&glue_, 6},
     {"trim_", (DL_FUNC)&trim_, 1},
     {NULL, NULL, 0}};
 
