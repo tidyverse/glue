@@ -42,33 +42,36 @@ If you want an expression to be evaluated, simply place that in a normal brace
 expression (these can be nested).\preformatted{\{blue 1 + 1 = \{1 + 1\}\}
 }
 
-If the text you want to color contains syntactic elements you would like
-glue to ignore, such as quotes or a comment character, specify \code{.literal = TRUE}.
+If the text you want to color contains, e.g., an unpaired quote or a comment
+character, specify \code{.literal = TRUE}.
 }
 \examples{
-if (require(crayon)) {
-  glue_col("{blue foo bar}")
+\dontshow{if (require(crayon)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(crayon)
 
-  glue_col("{blue 1 + 1 = {1 + 1}}")
+glue_col("{blue foo bar}")
 
-  glue_col("{blue 2 + 2 = {green {2 + 2}}}")
+glue_col("{blue 1 + 1 = {1 + 1}}")
 
-  white_on_grey <- bgBlack $ white
-  glue_col("{white_on_grey
-    Roses are {red {colors()[[552]]}}
-    Violets are {blue {colors()[[26]]}}
-    `glue_col()` can show {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
-    and {bold bold} and {underline underline} too!
-    }")
+glue_col("{blue 2 + 2 = {green {2 + 2}}}")
 
-  # this would error due to an unterminated quote, if we did not specify
-  # `.literal = TRUE`
-  glue_col("{yellow It's} happening!", .literal = TRUE)
+white_on_black <- bgBlack $ white
+glue_col("{white_on_black
+  Roses are {red {colors()[[552]]}},
+  Violets are {blue {colors()[[26]]}},
+  `glue_col()` can show \\\\
+  {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
+  and {bold bold} and {underline underline} too!
+}")
 
-  # ditto, but for the `#` comment
-  glue_col(
-    "A URL: {magenta https://github.com/tidyverse/glue#readme}",
-    .literal = TRUE
-  )
-}
+# this would error due to an unterminated quote, if we did not specify
+# `.literal = TRUE`
+glue_col("{yellow It's} happening!", .literal = TRUE)
+
+# `.literal = TRUE` also prevents an error here due to the `#` comment
+glue_col(
+  "A URL: {magenta https://github.com/tidyverse/glue#readme}",
+  .literal = TRUE
+)
+\dontshow{\}) # examplesIf}
 }
