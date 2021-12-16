@@ -542,9 +542,18 @@ test_that("glue can use different comment characters (#193)", {
   )
 })
 
-test_that("glue can parse text as literal text", {
+test_that("`.literal` treats quotes and `#` as regular characters", {
+  expect_snapshot(
+    error = TRUE,
+    glue("{'fo`o\"#}", .transformer = function(x, ...) x)
+  )
   expect_equal(
-    glue(.comment = "", "{'fo`o\"#}", .literal = TRUE, .transformer = function(x, ...) x),
+    glue("{'fo`o\"#}", .literal = TRUE, .transformer = function(x, ...) x),
     "'fo`o\"#"
   )
+})
+
+test_that("`.literal` is not about (preventing) evaluation", {
+  x <- "world"
+  expect_equal(glue("hello {x}!"), glue("hello {x}!", .literal = TRUE))
 })
