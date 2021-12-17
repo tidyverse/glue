@@ -1,3 +1,5 @@
+# glue (development version)
+
 # glue 1.6.0
 
 * `glue()`, `glue_data()`, `glue_col()`, and `glue_data_col()` gain a new `.literal` argument, which controls how quotes and the comment character are treated when parsing the expression string (#235). This is mostly useful when using a custom transformer.
