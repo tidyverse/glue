@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glue</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,6 +64,11 @@
       <small>Source: <a href="https://github.com/tidyverse/glue/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.6.0" id="glue-160">glue 1.6.0<a class="anchor" aria-label="anchor" href="#glue-160"></a></h2><p class="text-muted">CRAN release: 2021-12-17</p>
+<ul><li><p><code><a href="../reference/glue.html">glue()</a></code>, <code><a href="../reference/glue.html">glue_data()</a></code>, <code><a href="../reference/glue_col.html">glue_col()</a></code>, and <code><a href="../reference/glue_col.html">glue_data_col()</a></code> gain a new <code>.literal</code> argument, which controls how quotes and the comment character are treated when parsing the expression string (<a href="https://github.com/tidyverse/glue/issues/235" class="external-link">#235</a>). This is mostly useful when using a custom transformer.</p></li>
+<li><p>Trailing whitespace-only lines don’t interfere with indentation (<a href="https://github.com/tidyverse/glue/issues/247" class="external-link">#247</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.1" id="glue-151">glue 1.5.1<a class="anchor" aria-label="anchor" href="#glue-151"></a></h2><p class="text-muted">CRAN release: 2021-11-30</p>
 <ul><li><p>Jennifer Bryan is now the maintainer.</p></li>
@@ -153,7 +158,7 @@
 <h2 class="pkg-version" data-toc-text="1.3.0" id="glue-130">glue 1.3.0<a class="anchor" aria-label="anchor" href="#glue-130"></a></h2><p class="text-muted">CRAN release: 2018-07-17</p>
 <div class="section level3">
 <h3 id="breaking-changes-1-3-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-3-0"></a></h3>
-<ul><li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for clarities sake. Previous uses can be replaced by <code>eval(parse(text = text), envir)</code>.</p></li>
+<ul><li><p>The <code>evaluate()</code> function has been removed. Changes elsewhere in glue made the implementation trivial so it was removed for the sake of clarity. Previous uses can be replaced by <code>eval(parse(text = text), envir)</code>.</p></li>
 <li><p><code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> has been renamed to <code><a href="../reference/glue_collapse.html">glue_collapse()</a></code> to avoid namespace collisions with <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">dplyr::collapse()</a></code>.</p></li>
 </ul></div>
 <div class="section level3">

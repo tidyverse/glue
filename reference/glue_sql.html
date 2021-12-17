@@ -22,7 +22,7 @@ SQL quoting. glue_sql_collapse() can be used to collapse DBI::SQL() objects."><m
     
     <a class="navbar-brand me-2" href="../index.html">glue</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +88,7 @@ SQL quoting. <code><a href="glue_collapse.html">glue_sql_collapse()</a></code> c
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
-<dd><p>[<code>expressions</code>]<br> Unnamed arguments are taken to be expressions
+<dd><p>[<code>expressions</code>]<br> Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.</p></dd>
 <dt>.con</dt>
@@ -96,13 +96,13 @@ Named arguments are taken to be temporary variables available for substitution.<
 <dt>.envir</dt>
 <dd><p>[<code>environment</code>: <code><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame()</a></code>]<br> Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If <code>.x</code> is an environment, the expressions are
-evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed it is equivalent to <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">emptyenv()</a></code>.</p></dd>
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed, it is equivalent to <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">emptyenv()</a></code>.</p></dd>
 <dt>.na</dt>
-<dd><p>[<code>character(1)</code>: ‘NA’]<br> Value to replace NA values
+<dd><p>[<code>character(1)</code>: ‘NA’]<br> Value to replace <code>NA</code> values
 with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code> result will
 cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></dd>
 <dt>.x</dt>
-<dd><p>[<code>listish</code>]<br> An environment, list or data frame used to lookup values.</p></dd>
+<dd><p>[<code>listish</code>]<br> An environment, list, or data frame used to lookup values.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
