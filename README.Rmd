@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 library(glue)
 ```
 
-# glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# glue <a href='https://glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
 [![R build status](https://github.com/tidyverse/glue/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/glue/actions)
