@@ -18,14 +18,23 @@ braces which are then evaluated and inserted into the argument string.
 
 ## Installation
 
-``` r
-# Install the released version from CRAN:
-install.packages("glue")
+<div class=".pkgdown-release">
 
-# Install the development version from GitHub:
-# install.packages("devtools")
+``` r
+# Install released version from CRAN
+install.packages("glue")
+```
+
+</div>
+
+<div class=".pkgdown-devel">
+
+``` r
+# Install development version from GitHub
 devtools::install_github("tidyverse/glue")
 ```
+
+</div>
 
 ## Usage
 

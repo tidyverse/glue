@@ -29,14 +29,19 @@ Glue offers interpreted string literals that are small, fast, and dependency-fre
 
 ## Installation
 
-```{r installation, eval = FALSE}
-# Install the released version from CRAN:
+::: .pkgdown-release
+```{r, eval = FALSE}
+# Install released version from CRAN
 install.packages("glue")
+```
+:::
 
-# Install the development version from GitHub:
-# install.packages("devtools")
+::: .pkgdown-devel
+```{r, eval = FALSE}
+# Install development version from GitHub
 devtools::install_github("tidyverse/glue")
 ```
+:::
 
 ## Usage
 
