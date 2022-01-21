@@ -11,9 +11,11 @@
   s3_register("vctrs::vec_cast", "character.glue")
   s3_register("vctrs::vec_cast", "glue.character")
 
-  if (require("knitr", quietly = TRUE)) {
-    knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
-  } else {
+  eng_try <- try(
+    knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql),
+    silent = TRUE
+  )
+  if (inherits(eng_try, "try-error")) {
     setHook(packageEvent("knitr", "onLoad"), function(...) {
       knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
     })
