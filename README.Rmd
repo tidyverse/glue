@@ -53,7 +53,7 @@ glue('My name is {name}.')
 ```
 
 Note that `glue::glue()` is also made available via `stringr::str_glue()`.
-So if you've already attached stringr (or perhaps the whole tidyverse, you can access `glue()` like so:
+So if you've already attached stringr (or perhaps the whole tidyverse), you can access `glue()` like so:
 
 ```{r eval = FALSE}
 library(stringr) # or library(tidyverse)
