@@ -1,5 +1,7 @@
 # glue (development version)
 
+* glue now registers its custom knitr engines in a way that is more robust to namespace-loading edge cases that can arise during package installation (#254).
+
 # glue 1.6.0
 
 * `glue()`, `glue_data()`, `glue_col()`, and `glue_data_col()` gain a new `.literal` argument, which controls how quotes and the comment character are treated when parsing the expression string (#235). This is mostly useful when using a custom transformer.
@@ -10,7 +12,7 @@
 
 * Jennifer Bryan is now the maintainer.
 
-* The existing custom language engines for knitr, `glue` and `glue_sql`, are documented in a new vignette (#71).
+* The existing custom language engines for knitr, `glue` and `glue_sql`, are documented in a new vignette (#71). *Detail added after release: glue now sets up registration of these engines in `.onLoad()`.*
 
 * `glue_col()` gives special treatment to styling functions from the crayon package, e.g. `glue_col("{blue foo}")` "just works" now, even if crayon is not attached (but is installed) (#241).
 
