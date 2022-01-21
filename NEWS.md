@@ -1,6 +1,6 @@
 # glue (development version)
 
-* Fixed `knitr` lazy loading on `R-devel` (#253 @hsbadr).
+* Fixed `knitr` lazy loading on `R-devel` (#255 @hsbadr).
 
 # glue 1.6.0
 
