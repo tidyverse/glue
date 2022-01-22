@@ -137,16 +137,16 @@
 <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"eps"</span>, order <span class="op">=</span> <span class="st">"median"</span>, signif <span class="op">=</span> <span class="fl">4</span>, <span class="va">simple</span><span class="op">)</span>
 
 <span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></code></pre></div>
-<p>While <code><a href="../reference/glue.html">glue()</a></code> is slower than <code>paste0</code>,<code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> it is twice as fast as <code>str_interp()</code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
+<p>While <code><a href="../reference/glue.html">glue()</a></code> is slower than <code>paste0</code>,<code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> it is twice as fast as <code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">str_interp()</a></code> and <code>gstring()</code>, and on par with <code>rprintf()</code>.</p>
 <p>Although <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code>, <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> don’t do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.</p>
 <p><code>rprintf()</code> does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.</p>
-<p>So glue is ~2x as fast as the two functions (<code>str_interp()</code>, <code>gstring()</code>), which do have roughly equivalent functionality.</p>
+<p>So glue is ~2x as fast as the two functions (<code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">str_interp()</a></code>, <code>gstring()</code>), which do have roughly equivalent functionality.</p>
 <p>It also is still quite fast, with over 6000 evaluations per second on this machine.</p>
 </div>
 <div class="section level2">
 <h2 id="vectorized-performance">Vectorized performance<a class="anchor" aria-label="anchor" href="#vectorized-performance"></a>
 </h2>
-<p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code>. NB: <code>str_interp()</code> does not support vectorization, and so was removed.</p>
+<p>Taking advantage of glue’s vectorization is the best way to avoid performance. For instance the vectorized form of the previous benchmark is able to generate 100,000 strings in only 22ms with performance much closer to that of <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code>. NB: <code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">str_interp()</a></code> does not support vectorization, and so was removed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="fl">1e5</span><span class="op">)</span>
 
