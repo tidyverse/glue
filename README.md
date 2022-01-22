@@ -47,6 +47,20 @@ glue('My name is {name}.')
 #> My name is Fred.
 ```
 
+Note that `glue::glue()` is also made available via
+`stringr::str_glue()`. So if you’ve already attached stringr (or perhaps
+the whole tidyverse), you can access `glue()` like so:
+
+``` r
+library(stringr) # or library(tidyverse)
+
+stringr_fcn <- "`stringr::str_glue()`"
+glue_fcn    <- "`glue::glue()`"
+
+str_glue('{stringr_fcn} is essentially an alias for {glue_fcn}.')
+#> `stringr::str_glue()` is essentially an alias for `glue::glue()`.
+```
+
 ##### Long strings are broken by line and concatenated together.
 
 ``` r
