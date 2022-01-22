@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(glue)
 ```
 
-Glue provides a few [custom language engines](https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine) for knir, which allows you to use glue directly in knitr chunks.
+Glue provides a few [custom language engines](https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine) for knitr, which allows you to use glue directly in knitr chunks.
 
 ## `glue` engine
 
