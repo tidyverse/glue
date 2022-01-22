@@ -14,7 +14,8 @@ glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.}
 
-\item{.con}{[\code{DBIConnection}]:A DBI connection object obtained from \code{\link[DBI:dbConnect]{DBI::dbConnect()}}.}
+\item{.con}{[\code{DBIConnection}]: A DBI connection object obtained from
+\code{\link[DBI:dbConnect]{DBI::dbConnect()}}.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
@@ -54,6 +55,7 @@ collapsed with commas. This is useful for the \href{https://www.w3schools.com/sq
 for instance.
 }
 \examples{
+\dontshow{if (requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 iris2 <- iris
 colnames(iris2) <- gsub("[.]", "_", tolower(colnames(iris)))
@@ -156,6 +158,7 @@ query
 DBI::dbGetQuery(con, query, n = 5)
 
 DBI::dbDisconnect(con)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=glue_sql_collapse]{glue_sql_collapse()}} to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.

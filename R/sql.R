@@ -23,9 +23,10 @@
 #' for instance.
 #' @inheritParams glue
 #' @seealso [glue_sql_collapse()] to collapse [DBI::SQL()] objects.
-#' @param .con \[`DBIConnection`]:A DBI connection object obtained from [DBI::dbConnect()].
+#' @param .con \[`DBIConnection`]: A DBI connection object obtained from
+#'   [DBI::dbConnect()].
 #' @return A [DBI::SQL()] object with the given query.
-#' @examples
+#' @examplesIf requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)
 #' con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 #' iris2 <- iris
 #' colnames(iris2) <- gsub("[.]", "_", tolower(colnames(iris)))
@@ -104,9 +105,9 @@
 #'   nickname = c("Beachhead Iris", "Harlequin Blueflag", "Virginia Iris"),
 #'   stringsAsFactors = FALSE
 #' )
-#' 
+#'
 #' DBI::dbWriteTable(con, nicknames_db, nicknames)
-#' 
+#'
 #' cols <- list(
 #'   DBI::Id(table = iris_db, column = "sepal_length"),
 #'   DBI::Id(table = iris_db, column = "sepal_width"),
