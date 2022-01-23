@@ -16,14 +16,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">glue</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.6.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
@@ -65,6 +65,10 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.6.1" id="glue-161">glue 1.6.1<a class="anchor" aria-label="anchor" href="#glue-161"></a></h2><p class="text-muted">CRAN release: 2022-01-22</p>
+<ul><li>glue now registers its custom knitr engines in a way that is more robust to namespace-loading edge cases that can arise during package installation (<a href="https://github.com/tidyverse/glue/issues/254" class="external-link">#254</a>).</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.6.0" id="glue-160">glue 1.6.0<a class="anchor" aria-label="anchor" href="#glue-160"></a></h2><p class="text-muted">CRAN release: 2021-12-17</p>
 <ul><li><p><code><a href="../reference/glue.html">glue()</a></code>, <code><a href="../reference/glue.html">glue_data()</a></code>, <code><a href="../reference/glue_col.html">glue_col()</a></code>, and <code><a href="../reference/glue_col.html">glue_data_col()</a></code> gain a new <code>.literal</code> argument, which controls how quotes and the comment character are treated when parsing the expression string (<a href="https://github.com/tidyverse/glue/issues/235" class="external-link">#235</a>). This is mostly useful when using a custom transformer.</p></li>
 <li><p>Trailing whitespace-only lines don’t interfere with indentation (<a href="https://github.com/tidyverse/glue/issues/247" class="external-link">#247</a>).</p></li>
@@ -72,7 +76,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.1" id="glue-151">glue 1.5.1<a class="anchor" aria-label="anchor" href="#glue-151"></a></h2><p class="text-muted">CRAN release: 2021-11-30</p>
 <ul><li><p>Jennifer Bryan is now the maintainer.</p></li>
-<li><p>The existing custom language engines for knitr, <code>glue</code> and <code>glue_sql</code>, are documented in a new vignette (<a href="https://github.com/tidyverse/glue/issues/71" class="external-link">#71</a>).</p></li>
+<li><p>The existing custom language engines for knitr, <code>glue</code> and <code>glue_sql</code>, are documented in a new vignette (<a href="https://github.com/tidyverse/glue/issues/71" class="external-link">#71</a>). <em>Detail added after release: glue now sets up registration of these engines in <code><a href="https://rdrr.io/r/base/ns-hooks.html" class="external-link">.onLoad()</a></code>.</em></p></li>
 <li><p><code><a href="../reference/glue_col.html">glue_col()</a></code> gives special treatment to styling functions from the crayon package, e.g. <code>glue_col("{blue foo}")</code> “just works” now, even if crayon is not attached (but is installed) (<a href="https://github.com/tidyverse/glue/issues/241" class="external-link">#241</a>).</p></li>
 <li><p>Unterminated backticks trigger the same error as unterminated single or double quotes (<a href="https://github.com/tidyverse/glue/issues/237" class="external-link">#237</a>).</p></li>
 <li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> collapses zero-length <code><a href="https://dbi.r-dbi.org/reference/SQL.html" class="external-link">DBI::SQL</a></code> object into <code>DBI::SQL("NULL")</code> (<a href="https://github.com/tidyverse/glue/issues/244" class="external-link">#244</a> <a href="https://github.com/shrektan" class="external-link">@shrektan</a>).</p></li>
@@ -213,7 +217,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
   </div></footer></body></html>
