@@ -43,14 +43,15 @@ test_that("glue_col() works on nested colors", {
 })
 
 test_that("glue_col() errors for invalid syntax or when color_fun can't be found", {
-    expect_error(glue_col("{_}"), "unexpected input")
-    expect_error(glue_col("{foo _}"), "object 'foo' of mode 'function' was not found")
+  expect_snapshot(error = TRUE, glue_col("{%}"))
 
-    foo <- 1
-    expect_error(glue_col("{foo _}"), "object 'foo' of mode 'function' was not found")
+  expect_snapshot(error = TRUE, glue_col("{foo %}"))
 
-    foo <- crayon::blue
-    expect_identical(glue_col("{foo _}"), as_glue(foo("_")))
+  foo <- 1
+  expect_snapshot(error = TRUE, glue_col("{foo %}"))
+
+  foo <- crayon::blue
+  expect_identical(glue_col("{foo %}"), as_glue(foo("%")))
 })
 
 test_that("glue_data_col() works", {
