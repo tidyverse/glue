@@ -5,7 +5,7 @@ articles:
   engines: engines.html
   speed: speed.html
   transformers: transformers.html
-last_built: 2022-01-23T16:14Z
+last_built: 2022-02-23T22:45Z
 urls:
   reference: https://glue.tidyverse.org/reference
   article: https://glue.tidyverse.org/articles
