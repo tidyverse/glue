@@ -1,3 +1,5 @@
+# glue (development version)
+
 # glue 1.6.2
 
 * Modify a test for better forward compatibility with R.
