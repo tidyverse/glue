@@ -36,6 +36,12 @@
 #'   (especially, its name) as experimental.
 #' @param .trim \[`logical(1)`: \sQuote{TRUE}]\cr Whether to trim the input
 #'   template with [trim()] or not.
+#'
+#' @details
+#' If `glue_data` is called with both `.x` and temporary variable via named
+#' arguments, both will be used to lookup values, with named arguments taking
+#' precedence.
+#'
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257/> upon which this is based.
 #' @examples
@@ -76,6 +82,9 @@
 #'   mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
 #'
 #' }}
+#'
+#' # `glue_data()` gives preference to named arguments over `.x` elements
+#' glue_data("SELECT {x} + {y}", .x = list(x = 1, y = 2), x = 3)
 #'
 #' # Alternative delimiters can also be used if needed
 #' one <- "1"
