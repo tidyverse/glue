@@ -207,7 +207,7 @@ SEXP glue_(
     Rf_error("Unterminated quote (`)");
   } else if (state == comment) {
     free(str);
-    Rf_error("Unterminated comment");
+    Rf_error("Comments in glue expressions must be terminated by a newline.");
   }
 
   free(str);
