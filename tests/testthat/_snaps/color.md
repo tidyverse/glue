@@ -47,5 +47,5 @@
     Code
       glue_col("Hey a URL: {blue https://example.com/#section}")
     Error <simpleError>
-      Unterminated comment
+      Comments in glue expressions must be terminated by a newline.
 
