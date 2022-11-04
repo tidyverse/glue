@@ -521,8 +521,14 @@ test_that("unterminated quotes are error", {
 })
 
 test_that("unterminated comment", {
-  expect_error(glue("pre {1 + 5 # comment} post"), "Unterminated comment")
-  expect_error(glue("pre {1 + 5 # comment"), "Unterminated comment")
+  expect_snapshot(
+    error = TRUE,
+    glue("pre {1 + 5 # comment} post")
+  )
+  expect_snapshot(
+    error = TRUE,
+    glue("pre {1 + 5 # comment")
+  )
 
   expect_equal(glue("pre {1 + 5 + #comment\n 4} post"), "pre 10 post")
 })
