@@ -47,5 +47,5 @@
     Code
       glue_col("Hey a URL: {blue https://example.com/#section}")
     Error <simpleError>
-      Comments in glue expressions must be terminated by a newline.
+      A '#' comment in a glue expression must terminate with a newline.
 
