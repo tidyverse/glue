@@ -1,5 +1,7 @@
 # glue (development version)
 
+* Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
+
 # glue 1.6.2
 
 * Modify a test for better forward compatibility with R.
