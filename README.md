@@ -294,6 +294,7 @@ templating in R include.
 
 -   [whisker](https://cran.r-project.org/package=whisker)
 -   [brew](https://cran.r-project.org/package=brew)
+-   [jinjar](https://cran.r-project.org/package=jinjar)
 
 ## Code of Conduct
 
