@@ -74,12 +74,12 @@ In this example we use the `sqlite` engine, which uses backticks for quoting, bu
 `r '' ````{glue_sql, connection = con}
 SELECT `model`, `hp`, {`var`}
 FROM {`tbl`}
-WHERE {`tbl`}.hp > {num}
+WHERE {`tbl`}.`hp` > {num}
 ```
 ````
 
 ```{glue_sql, connection = con}
 SELECT `model`, `hp`, {`var`}
   FROM {`tbl`}
-  WHERE {`tbl`}.hp > {num}
+  WHERE {`tbl`}.`hp` > {num}
 ```
