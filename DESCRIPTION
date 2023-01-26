@@ -32,6 +32,7 @@ Suggests:
     magrittr,
     microbenchmark,
     R.utils,
+    rlang,
     rmarkdown,
     rprintf,
     RSQLite,
