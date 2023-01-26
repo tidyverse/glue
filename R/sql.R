@@ -184,22 +184,14 @@ sql_quote_transformer <- function(connection, .na) {
         }
         return(res)
       }
-
-      # convert objects to characters
-      is_object <- is.object(res)
-      if (is_object) {
-        res <- as.character(res)
-      }
-
-      is_na <- is.na(res)
-      if (any(is_na)) {
-        res[is_na] <- rep(list(.na), sum(is_na))
-      }
-
-      is_char <- vapply(res, function(x) !is.na(x) && is.character(x), logical(1))
-      res[is_char] <- lapply(res[is_char], function(x) DBI::dbQuoteLiteral(conn = connection, x))
-      res[!is_char] <- lapply(res[!is_char], function(x) DBI::SQL(conn = connection, x))
     }
+
+    if (is.list(res)) {
+      res <- unlist(lapply(res, DBI::dbQuoteLiteral, conn = connection))
+    } else {
+      res <- DBI::dbQuoteLiteral(connection, res)
+    }
+
     if (should_collapse) {
       res <- glue_collapse(res, ", ")
     }

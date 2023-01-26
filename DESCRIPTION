@@ -24,7 +24,7 @@ Imports:
 Suggests: 
     covr,
     crayon,
-    DBI,
+    DBI (>= 1.1.3),
     dplyr,
     forcats,
     ggplot2,
