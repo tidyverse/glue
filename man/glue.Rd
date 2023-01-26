@@ -78,6 +78,9 @@ evaluation. For example transformers see \code{vignette("transformers")}.}
 \item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
 template with \code{\link[=trim]{trim()}} or not.}
 }
+\value{
+A glue object, as created by \code{\link[=as_glue]{as_glue()}}.
+}
 \description{
 Expressions enclosed by braces will be evaluated as R code. Long strings are
 broken by line and concatenated together. Leading whitespace and blank lines

@@ -12,5 +12,12 @@ as_glue(x, ...)
 \item{...}{further arguments passed to methods.}
 }
 \description{
-Coerce object to glue
+A glue object is a character vector with S3 class \code{"glue"}. It implements
+a print method that shows the literal contents (rather than it's string
+implementation) and \code{+} method so that you can concatenate with the
+addition operator.
+}
+\examples{
+x <- as_glue(c("abc", "\"\\\\\\\\", "\n"))
+x
 }

@@ -38,6 +38,7 @@
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257/> upon which this is based.
+#' @return A glue object, as created by [as_glue()].
 #' @examples
 #' name <- "Fred"
 #' age <- 50
@@ -297,9 +298,18 @@ print.glue <- function(x, ..., sep = "\n") {
 }
 
 #' Coerce object to glue
+#'
+#' A glue object is a character vector with S3 class `"glue"`. It implements
+#' a print method that shows the literal contents (rather than it's string
+#' implementation) and `+` method so that you can concatenate with the
+#' addition operator.
+#'
 #' @param x object to be coerced.
 #' @param ... further arguments passed to methods.
 #' @export
+#' @examples
+#' x <- as_glue(c("abc", "\"\\\\", "\n"))
+#' x
 as_glue <- function(x, ...) {
   UseMethod("as_glue")
 }
