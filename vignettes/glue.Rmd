@@ -26,29 +26,31 @@ install.packages("glue")
 library(glue)
 ```
 
-
 ## Glueing character strings
 
-`glue()` can be used to glue together character strings, such as text: 
+`glue()` can be used to glue together character strings, such as text:
+
 ```{r}
 glue("glueing", "some", "text", "together")
 ```
 
-The default for `glue()` is glueing with _no_ separator&mdash; you can provide a separator with the `.sep` argument:
+The default for `glue()` is glueing with *no* separator--- you can provide a separator with the `.sep` argument:
+
 ```{r}
 glue("glueing", "some", "text", "together", .sep = " ")
 glue("glueing", "some", "text", "together", .sep = ".")
 ```
 
 You can optionally combine strings with `+`:
+
 ```{r}
 glue("glueing") + " some" + " text" + " together"
 ```
 
-
 ## Glueing & formatting
 
 Leading whitespace and blank lines from the first and last lines are automatically trimmed with `glue()`, letting you indent the strings naturally in code:
+
 ```{r}
 glue("
     A formatted string
@@ -58,6 +60,7 @@ glue("
 ```
 
 An additional newline can be used if you want a leading or trailing newline.
+
 ```{r}
 glue("
 
@@ -67,6 +70,7 @@ glue("
 ```
 
 `\\` at the end of a line continues it without a new line:
+
 ```{r}
 glue("
     A formatted string \\
@@ -75,8 +79,8 @@ glue("
     ")
 ```
 
-
 You can add colour to your strings with `glue_col()`:
+
 ```{r}
 library(crayon)
 
@@ -85,27 +89,28 @@ glue_col("This ", "{red text}", " is not", " {blue blue}")
 
 ```
 
-
-## Glueing character strings _with_ R code
+## Glueing character strings *with* R code
 
 Glue evaluates R code provided in curly braces and glues the result together with character strings.
 
 Variables can be passed directly into strings:
+
 ```{r}
 name <- "glue"
 glue('We are learning how to use the {name} R package.')
 ```
 
 R expressions can be passed into strings:
+
 ```{r}
 release_date <- as.Date("2017-06-13")
 glue('The first version of the glue package was released on a {format(release_date, "%A")}.')
 ```
 
-
 ## Glue with a data frame
 
 `glue_data()` can be used to work with a list or data frame:
+
 ```{r message=FALSE}
 library(dplyr)
 
@@ -115,6 +120,7 @@ glue_data(head(starwars), "{name} is from the planet {homeworld}.")
 ## Glueing with `dplyr` & `ggplot2`
 
 `glue()` can be used with `dplyr` & `ggplot2` pipelines:
+
 ```{r, message = FALSE,fig.width=7}
 library(dplyr)
 library(ggplot2)
@@ -127,9 +133,7 @@ starwars %>%
   coord_flip()
 ```
 
-
-
 ## Additional Vignettes
 
- - [Speed of glue](https://glue.tidyverse.org/articles/speed.html) 
- - [Transformers](https://glue.tidyverse.org/articles/transformers.html)
+-   [Speed of glue](https://glue.tidyverse.org/articles/speed.html)
+-   [Transformers](https://glue.tidyverse.org/articles/transformers.html)
