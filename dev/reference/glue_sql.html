@@ -105,9 +105,10 @@ evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL<
 
 
 <dt>.na</dt>
-<dd><p>[<code>character(1)</code>: ‘NA’]<br> Value to replace <code>NA</code> values
-with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code> result will
-cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p></dd>
+<dd><p>[<code>character(1)</code>: <code>DBI::SQL("NULL")</code>]<br> Value to replace
+<code>NA</code> values with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code>
+result will cause <code>NA</code> output. Otherwise the value is replaced by the
+value of <code>.na</code>.</p></dd>
 
 
 <dt>.x</dt>
