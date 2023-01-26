@@ -25,6 +25,10 @@
 #' @seealso [glue_sql_collapse()] to collapse [DBI::SQL()] objects.
 #' @param .con \[`DBIConnection`]: A DBI connection object obtained from
 #'   [DBI::dbConnect()].
+#' @param .na \[`character(1)`: `DBI::SQL("NULL")`]\cr Value to replace
+#'   `NA` values with. If `NULL` missing values are propagated, that is an `NA`
+#'   result will cause `NA` output. Otherwise the value is replaced by the
+#'   value of `.na`.
 #' @return A [DBI::SQL()] object with the given query.
 #' @examplesIf requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)
 #' con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")

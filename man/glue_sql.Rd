@@ -21,9 +21,10 @@ Named arguments are taken to be temporary variables available for substitution.}
 evaluated from left to right. If \code{.x} is an environment, the expressions are
 evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
-\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
-with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
-cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
+\item{.na}{[\code{character(1)}: \code{DBI::SQL("NULL")}]\cr Value to replace
+\code{NA} values with. If \code{NULL} missing values are propagated, that is an \code{NA}
+result will cause \code{NA} output. Otherwise the value is replaced by the
+value of \code{.na}.}
 
 \item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
