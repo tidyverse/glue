@@ -11,7 +11,7 @@ trim(x)
 }
 \description{
 This trims a character vector according to the trimming rules used by glue.
-These follow similar rules to \href{https://www.python.org/dev/peps/pep-0257}{Python Docstrings},
+These follow similar rules to \href{https://www.python.org/dev/peps/pep-0257/}{Python Docstrings},
 with the following features.
 \itemize{
 \item Leading and trailing whitespace from the first and last lines is removed.
@@ -28,7 +28,7 @@ glue("
     ")
 
 glue("
-  \\\\ntrailing or leading newlines can be added explicitly\\\\n
+  \ntrailing or leading newlines can be added explicitly\n
   ")
 
 glue("

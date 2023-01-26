@@ -5,49 +5,82 @@
 \alias{glue_data_col}
 \title{Construct strings with color}
 \usage{
-glue_col(..., .envir = parent.frame(), .na = "NA")
+glue_col(..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
 
-glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA")
+glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
 }
 \arguments{
-\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
-evaluated in that environment and \code{.envir} is ignored.}
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
-\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
 with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
 cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
-\item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
+\code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
+(especially, its name) as experimental.}
+
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
 \description{
 The \link[crayon:crayon]{crayon} package defines a number of functions used to
 color terminal output. \code{glue_col()} and \code{glue_data_col()} functions provide
 additional syntax to make using these functions in glue strings easier.
 
-Using the following syntax will apply the function \code{crayon::blue()} to the text 'foo bar'.\preformatted{\{blue foo bar\}
-}
+Using the following syntax will apply the function \code{\link[crayon:crayon]{crayon::blue()}} to the text 'foo bar'.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{\{blue foo bar\}
+}\if{html}{\out{</div>}}
 
 If you want an expression to be evaluated, simply place that in a normal brace
-expression (these can be nested).\preformatted{\{blue 1 + 1 = \{1 + 1\}\}
-}
+expression (these can be nested).
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{\{blue 1 + 1 = \{1 + 1\}\}
+}\if{html}{\out{</div>}}
+
+If the text you want to color contains, e.g., an unpaired quote or a comment
+character, specify \code{.literal = TRUE}.
 }
 \examples{
-if (require(crayon)) {
-  glue_col("{blue foo bar}")
+\dontshow{if (require(crayon)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(crayon)
 
-  glue_col("{blue 1 + 1 = {1 + 1}}")
+glue_col("{blue foo bar}")
 
-  white_on_grey <- bgBlack $ white
-  glue_col("{white_on_grey
-    Roses are {red {colors()[[552]]}}
-    Violets are {blue {colors()[[26]]}}
-    `glue_col()` can show {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
-    and {bold bold} and {underline underline} too!
-    }")
-}
+glue_col("{blue 1 + 1 = {1 + 1}}")
+
+glue_col("{blue 2 + 2 = {green {2 + 2}}}")
+
+white_on_black <- bgBlack $ white
+glue_col("{white_on_black
+  Roses are {red {colors()[[552]]}},
+  Violets are {blue {colors()[[26]]}},
+  `glue_col()` can show \\\\
+  {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
+  and {bold bold} and {underline underline} too!
+}")
+
+# this would error due to an unterminated quote, if we did not specify
+# `.literal = TRUE`
+glue_col("{yellow It's} happening!", .literal = TRUE)
+
+# `.literal = TRUE` also prevents an error here due to the `#` comment
+glue_col(
+  "A URL: {magenta https://github.com/tidyverse/glue#readme}",
+  .literal = TRUE
+)
+
+# `.literal = TRUE` does NOT prevent evaluation
+x <- "world"
+y <- "day"
+glue_col("hello {x}! {green it's a new {y}!}", .literal = TRUE)
+\dontshow{\}) # examplesIf}
 }

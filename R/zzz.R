@@ -1,32 +1,25 @@
 # nocov start
 .onLoad <- function(...) {
-  register_s3_method("testthat", "compare", "glue")
+  s3_register("testthat::compare", "glue")
+
+  s3_register("waldo::compare_proxy", "glue")
+
+  s3_register("vctrs::vec_ptype2", "glue.glue")
+  s3_register("vctrs::vec_ptype2", "character.glue")
+  s3_register("vctrs::vec_ptype2", "glue.character")
+  s3_register("vctrs::vec_cast", "glue.glue")
+  s3_register("vctrs::vec_cast", "character.glue")
+  s3_register("vctrs::vec_cast", "glue.character")
+
+  if (isNamespaceLoaded("knitr") &&
+      "knit_engines" %in% getNamespaceExports("knitr")) {
+    knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
+  } else {
+    setHook(packageEvent("knitr", "onLoad"), function(...) {
+      knitr::knit_engines$set(glue = eng_glue, glue_sql = eng_glue_sql, gluesql = eng_glue_sql)
+    })
+  }
 
   invisible()
 }
-
-register_s3_method <- function(pkg, generic, class, fun = NULL) {
-  stopifnot(is.character(pkg), length(pkg) == 1)
-  stopifnot(is.character(generic), length(generic) == 1)
-  stopifnot(is.character(class), length(class) == 1)
-
-  if (is.null(fun)) {
-    fun <- get(paste0(generic, ".", class), envir = parent.frame())
-  } else {
-    stopifnot(is.function(fun))
-  }
-
-  if (pkg %in% loadedNamespaces()) {
-    registerS3method(generic, class, fun, envir = asNamespace(pkg))
-  }
-
-  # Always register hook in case package is later unloaded & reloaded
-  setHook(
-    packageEvent(pkg, "onLoad"),
-    function(...) {
-      registerS3method(generic, class, fun, envir = asNamespace(pkg))
-    }
-  )
-}
-
 #nocov end

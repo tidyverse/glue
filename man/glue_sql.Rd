@@ -10,30 +10,32 @@ glue_sql(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
 }
 \arguments{
-\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expressions
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.}
 
-\item{.con}{[\code{DBIConnection}]:A DBI connection object obtained from \code{DBI::dbConnect()}.}
+\item{.con}{[\code{DBIConnection}]: A DBI connection object obtained from
+\code{\link[DBI:dbConnect]{DBI::dbConnect()}}.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
-evaluated in that environment and \code{.envir} is ignored.}
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
-\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace NA values
-with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
-cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
+\item{.na}{[\code{character(1)}: \code{DBI::SQL("NULL")}]\cr Value to replace
+\code{NA} values with. If \code{NULL} missing values are propagated, that is an \code{NA}
+result will cause \code{NA} output. Otherwise the value is replaced by the
+value of \code{.na}.}
 
-\item{.x}{[\code{listish}]\cr An environment, list or data frame used to lookup values.}
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
 \value{
-A \code{DBI::SQL()} object with the given query.
+A \code{\link[DBI:SQL]{DBI::SQL()}} object with the given query.
 }
 \description{
 SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
-\code{glue_data_sql()} are analogs to \code{glue()} and \code{glue_data()} which handle the
-SQL quoting.
+\code{glue_data_sql()} are analogs to \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}} which handle the
+SQL quoting. \code{glue_sql_collapse()} can be used to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
 }
 \details{
 They automatically quote character results, quote identifiers if the glue
@@ -42,7 +44,7 @@ non-characters such as numbers. If numeric data is stored in a character
 column (which should be quoted) pass the data to \code{glue_sql()} as a
 character.
 
-Returning the result with \code{DBI::SQL()} will suppress quoting if desired for
+Returning the result with \code{\link[DBI:SQL]{DBI::SQL()}} will suppress quoting if desired for
 a given value.
 
 Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries}{parameterized queries}
@@ -54,6 +56,7 @@ collapsed with commas. This is useful for the \href{https://www.w3schools.com/sq
 for instance.
 }
 \examples{
+\dontshow{if (requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 iris2 <- iris
 colnames(iris2) <- gsub("[.]", "_", tolower(colnames(iris)))
@@ -118,7 +121,7 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
   vals = c("setosa", "versicolor"), .con = con)
 
-# If you need to reference a variables from multiple tables use `DBI::Id()`.
+# If you need to reference variables from multiple tables use `DBI::Id()`.
 # Here we create a new table of nicknames, join the two tables together and
 # select columns from both tables. Using `DBI::Id()` and the special
 # `glue_sql()` syntax ensures all the table and column identifiers are quoted
@@ -144,10 +147,20 @@ cols <- list(
 iris_species <- DBI::Id(table = iris_db, column = "species")
 nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
 
-query <- glue_sql("SELECT {`cols`*} FROM {`iris_db`} JOIN {`nicknames_db`} ON {`iris_species`}={`nicknames_species`}", .con = con)
+query <- glue_sql("
+  SELECT {`cols`*}
+  FROM {`iris_db`}
+  JOIN {`nicknames_db`}
+  ON {`iris_species`}={`nicknames_species`}",
+  .con = con
+)
 query
 
 DBI::dbGetQuery(con, query, n = 5)
 
 DBI::dbDisconnect(con)
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=glue_sql_collapse]{glue_sql_collapse()}} to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
 }

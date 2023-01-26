@@ -1,7 +1,7 @@
 #' Quoting operators
 #'
 #' These functions make it easy to quote each individual element and are useful
-#' in conjunction with `glue_collapse()`.
+#' in conjunction with [glue_collapse()].
 #' @param x A character to quote.
 #' @name quoting
 #' @export

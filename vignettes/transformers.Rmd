@@ -77,7 +77,7 @@ e.g. via `system()` or `system2()`.
 shell_transformer <- function(type = c("sh", "csh", "cmd", "cmd2")) {
   type <- match.arg(type)
   function(text, envir) {
-    res <- eval(parse(text = text, keep.source = FALSE), envir)
+    res <- identity_transformer(text, envir)
     shQuote(res)
   }
 }
@@ -94,6 +94,12 @@ writeLines(con = filename, "hello!")
 command <- glue_sh("cat {filename}")
 command
 system(command)
+```
+
+```{r include = FALSE}
+if (file.exists("test")) {
+  unlink("test")
+}
 ```
 
 ### emoji transformer
@@ -119,7 +125,7 @@ glue_ji("many :heart*:")
 
 ### sprintf transformer
 
-A transformer which allows succinct sprintf format strings.
+A transformer which allows succinct `sprintf` format strings.
 
 ```{r}
 sprintf_transformer <- function(text, envir) {
@@ -127,18 +133,43 @@ sprintf_transformer <- function(text, envir) {
   if (m != -1) {
     format <- substring(regmatches(text, m), 2)
     regmatches(text, m) <- ""
-    res <- eval(parse(text = text, keep.source = FALSE), envir)
-    do.call(sprintf, list(glue("%{format}f"), res))
+    res <- identity_transformer(text, envir)
+    do.call(sprintf, list(glue("%{format}"), res))
   } else {
-    eval(parse(text = text, keep.source = FALSE), envir)
+    identity_transformer(text, envir)
   }
 }
 
 glue_fmt <- function(..., .envir = parent.frame()) {
   glue(..., .transformer = sprintf_transformer, .envir = .envir)
 }
-glue_fmt("π = {pi:.2}")
+glue_fmt("π = {pi:.3f}")
 ```
+
+### signif transformer
+
+A transformer generator that represents numbers with a given number of significant digits.
+This is useful if we want to represent all numbers using the same significant digits
+
+```{r}
+signif_transformer <- function(digits = 3) {
+    force(digits)
+    function(text, envir) {
+        x <- identity_transformer(text, envir)
+        if (is.numeric(x)) {
+            signif(x, digits = digits)
+        } else {
+            x
+        }
+    }
+}
+glue_signif <- function(..., .envir = parent.frame()) {
+  glue(..., .transformer = signif_transformer(3), .envir = .envir)
+}
+
+glue_signif("π = {pi}; 10π = {10*pi}; 100π = {100*pi}")
+```
+
 
 ### safely transformer
 
@@ -148,7 +179,7 @@ A transformer that acts like `purrr::safely()`, which returns a value instead of
 safely_transformer <- function(otherwise = NA) {
   function(text, envir) {
     tryCatch(
-      eval(parse(text = text, keep.source = FALSE), envir),
+      identity_transformer(text, envir),
       error = function(e) if (is.language(otherwise)) eval(otherwise) else otherwise)
   }
 }

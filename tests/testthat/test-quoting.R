@@ -1,5 +1,3 @@
-context("quoting")
-
 test_that("single_quote works", {
   expect_identical(single_quote(character()), character())
   expect_identical(single_quote(NA), NA_character_)

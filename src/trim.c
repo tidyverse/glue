@@ -1,7 +1,9 @@
+#define STRICT_R_HEADERS
+#define R_NO_REMAP
 #include "Rinternals.h"
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h> // for strlen()
+#include <string.h> // for strlen(), strchr(), strncpy()
 
 SEXP trim_(SEXP x) {
   size_t len = LENGTH(x);
@@ -46,6 +48,7 @@ SEXP trim_(SEXP x) {
     while (i < str_len) {
       if (xx[i] == '\n') {
         new_line = true;
+        indent = 0;
       } else if (new_line) {
         if (xx[i] == ' ' || xx[i] == '\t') {
           ++indent;
@@ -60,7 +63,8 @@ SEXP trim_(SEXP x) {
       ++i;
     }
 
-    if (new_line && indent < min_indent) {
+    /* if string ends with '\n', `indent = 0` only because we made it so */
+    if (xx[str_len - 1] != '\n' && new_line && indent < min_indent) {
       min_indent = indent;
     }
 
@@ -80,10 +84,23 @@ SEXP trim_(SEXP x) {
         i += 2;
         continue;
       } else if (new_line) {
-        if (i + min_indent < str_len && (xx[i] == ' ' || xx[i] == '\t')) {
-          i += min_indent;
+        size_t skipped = strspn(xx + i, "\t ");
+        /*
+         * if the line consists only of tabs and spaces, and if the line is
+         * shorter than min_indent, copy the entire line and proceed to the
+         * next
+         */
+        if (*(xx + i + skipped) == '\n' && skipped < min_indent) {
+          strncpy(str + j, xx + i, skipped);
+          i += skipped;
+          j += skipped;
+        } else {
+          if (i + min_indent < str_len && (xx[i] == ' ' || xx[i] == '\t')) {
+            i += min_indent;
+          }
         }
         new_line = false;
+        continue;
       }
       str[j++] = xx[i++];
     }

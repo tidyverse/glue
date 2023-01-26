@@ -1,5 +1,3 @@
-context("glue")
-
 test_that("inputs are concatenated, interpolated variables recycled", {
   expect_equal(glue("test", "a", "string", "{1:2}"), c("testastring1", "testastring2"))
 })
@@ -368,6 +366,97 @@ test_that("glue always returns .na if given any NA input and `.na` != NULL", {
     c("1 - foo", "2 - baz", "3 - bar"))
 })
 
+test_that("glue always returns character() if given any NULL input if `.null` == character()", {
+  expect_equal(
+    glue("{NULL}", .null = character()),
+    character())
+
+  expect_equal(
+    glue("{}", .null = character()),
+    character())
+
+  expect_equal(
+    glue(NULL, .null = character()),
+    character())
+
+  expect_equal(
+    glue(NULL, 1, .null = character()),
+    character())
+
+  expect_equal(
+    glue(1, NULL, 2, .null = character()),
+    character())
+
+  expect_equal(
+    glue("x: ", if (FALSE) "positive", .null = character()),
+    character())
+
+  expect_equal(
+    glue("x: {NULL}", .null = character()),
+    character())
+})
+
+test_that("glue drops any NULL input if `.null` == NULL", {
+  # This should work like `paste0()`
+  expect_equal(
+    glue("{NULL}", .null = NULL),
+    character())
+
+  expect_equal(
+    glue("{}", .null = NULL),
+    character())
+
+  expect_equal(
+    glue(NULL, .null = NULL),
+    character())
+
+  expect_equal(
+    glue(NULL, 1, .null = NULL),
+    "1")
+
+  expect_equal(
+    glue(1, NULL, 2, .null = NULL),
+    "12")
+
+  expect_equal(
+    glue("x: ", if (FALSE) "positive", .null = NULL),
+    "x: ")
+
+  expect_equal(
+    glue("x: {NULL}", .null = NULL),
+    "x: ")
+})
+
+test_that("glue replaces NULL input if `.null` is not NULL or character()", {
+  expect_equal(
+    glue("{NULL}", .null = "foo"),
+    "foo")
+
+  expect_equal(
+    glue("{}", .null = "foo"),
+    "foo")
+
+  expect_equal(
+    glue(NULL, .null = "foo"),
+    "foo")
+
+  expect_equal(
+    glue(NULL, 1, .null = "foo"),
+    "foo1")
+
+  expect_equal(
+    glue(1, NULL, 2, .null = "foo"),
+    "1foo2")
+
+  expect_equal(
+    glue("x: ", if (FALSE) "positive", .null = "foo"),
+    "x: foo")
+
+  expect_equal(
+    glue("x: {NULL}", .null = "foo"),
+    "x: foo")
+})
+
 test_that("glue works within functions", {
   x <- 1
   f <- function(msg) glue(msg, .envir = parent.frame())
@@ -414,7 +503,7 @@ test_that("throws informative error if interpolating a function", {
 
   # some crayon functions are OK, make sure this still works
   if (require("crayon")) {
-    expect_is(glue("{red}red{reset}"), "glue")
+    expect_s3_class(glue("{red}red{reset}"), "glue")
   }
 })
 
@@ -423,4 +512,54 @@ test_that("+ method for glue works", {
 
   x <- 1
   expect_identical(glue("x = ") + "{x}", glue("x = {x}"))
+})
+
+test_that("unterminated quotes are error", {
+  expect_error(glue("{this doesn\"t work}"), "Unterminated quote")
+  expect_error(glue("{this doesn't work}"), "Unterminated quote")
+  expect_error(glue("{this doesn`t work}"), "Unterminated quote")
+})
+
+test_that("unterminated comment", {
+  expect_snapshot(
+    error = TRUE,
+    glue("pre {1 + 5 # comment} post")
+  )
+  expect_snapshot(
+    error = TRUE,
+    glue("pre {1 + 5 # comment")
+  )
+
+  expect_equal(glue("pre {1 + 5 + #comment\n 4} post"), "pre 10 post")
+})
+
+test_that("empty glue produces no output", {
+  expect_equal(capture.output(print(glue())), character())
+})
+
+test_that("glue objects can be compared to regular strings", {
+  expect_equal(capture.output(print(glue())), character())
+})
+
+test_that("glue can use different comment characters (#193)", {
+  expect_equal(
+    glue(.comment = "", "{foo#}", .transformer = function(x, ...) x),
+    "foo#"
+  )
+})
+
+test_that("`.literal` treats quotes and `#` as regular characters", {
+  expect_snapshot(
+    error = TRUE,
+    glue("{'fo`o\"#}", .transformer = function(x, ...) x)
+  )
+  expect_equal(
+    glue("{'fo`o\"#}", .literal = TRUE, .transformer = function(x, ...) x),
+    "'fo`o\"#"
+  )
+})
+
+test_that("`.literal` is not about (preventing) evaluation", {
+  x <- "world"
+  expect_equal(glue("hello {x}!"), glue("hello {x}!", .literal = TRUE))
 })

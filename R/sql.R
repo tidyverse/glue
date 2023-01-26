@@ -2,8 +2,8 @@
 #'
 #' SQL databases often have custom quotation syntax for identifiers and strings
 #' which make writing SQL queries error prone and cumbersome to do. `glue_sql()` and
-#' `glue_data_sql()` are analogs to `glue()` and `glue_data()` which handle the
-#' SQL quoting.
+#' `glue_data_sql()` are analogs to [glue()] and [glue_data()] which handle the
+#' SQL quoting. `glue_sql_collapse()` can be used to collapse [DBI::SQL()] objects.
 #'
 #' They automatically quote character results, quote identifiers if the glue
 #' expression is surrounded by backticks '\verb{`}' and do not quote
@@ -11,7 +11,7 @@
 #' column (which should be quoted) pass the data to `glue_sql()` as a
 #' character.
 #'
-#' Returning the result with `DBI::SQL()` will suppress quoting if desired for
+#' Returning the result with [DBI::SQL()] will suppress quoting if desired for
 #' a given value.
 #'
 #' Note [parameterized queries](https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries)
@@ -22,9 +22,15 @@
 #' collapsed with commas. This is useful for the [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp)
 #' for instance.
 #' @inheritParams glue
-#' @param .con \[`DBIConnection`]:A DBI connection object obtained from `DBI::dbConnect()`.
-#' @return A `DBI::SQL()` object with the given query.
-#' @examples
+#' @seealso [glue_sql_collapse()] to collapse [DBI::SQL()] objects.
+#' @param .con \[`DBIConnection`]: A DBI connection object obtained from
+#'   [DBI::dbConnect()].
+#' @param .na \[`character(1)`: `DBI::SQL("NULL")`]\cr Value to replace
+#'   `NA` values with. If `NULL` missing values are propagated, that is an `NA`
+#'   result will cause `NA` output. Otherwise the value is replaced by the
+#'   value of `.na`.
+#' @return A [DBI::SQL()] object with the given query.
+#' @examplesIf requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)
 #' con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 #' iris2 <- iris
 #' colnames(iris2) <- gsub("[.]", "_", tolower(colnames(iris)))
@@ -89,7 +95,7 @@
 #' glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 #'   vals = c("setosa", "versicolor"), .con = con)
 #'
-#' # If you need to reference a variables from multiple tables use `DBI::Id()`.
+#' # If you need to reference variables from multiple tables use `DBI::Id()`.
 #' # Here we create a new table of nicknames, join the two tables together and
 #' # select columns from both tables. Using `DBI::Id()` and the special
 #' # `glue_sql()` syntax ensures all the table and column identifiers are quoted
@@ -103,9 +109,9 @@
 #'   nickname = c("Beachhead Iris", "Harlequin Blueflag", "Virginia Iris"),
 #'   stringsAsFactors = FALSE
 #' )
-#' 
+#'
 #' DBI::dbWriteTable(con, nicknames_db, nicknames)
-#' 
+#'
 #' cols <- list(
 #'   DBI::Id(table = iris_db, column = "sepal_length"),
 #'   DBI::Id(table = iris_db, column = "sepal_width"),
@@ -115,7 +121,13 @@
 #' iris_species <- DBI::Id(table = iris_db, column = "species")
 #' nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
 #'
-#' query <- glue_sql("SELECT {`cols`*} FROM {`iris_db`} JOIN {`nicknames_db`} ON {`iris_species`}={`nicknames_species`}", .con = con)
+#' query <- glue_sql("
+#'   SELECT {`cols`*}
+#'   FROM {`iris_db`}
+#'   JOIN {`nicknames_db`}
+#'   ON {`iris_species`}={`nicknames_species`}",
+#'   .con = con
+#' )
 #' query
 #'
 #' DBI::dbGetQuery(con, query, n = 5)
@@ -123,20 +135,30 @@
 #' DBI::dbDisconnect(con)
 #' @export
 glue_sql <- function(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL")) {
-  DBI::SQL(glue(..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con)))
+  DBI::SQL(glue(..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con, .na)))
 }
 
 #' @rdname glue_sql
 #' @export
 glue_data_sql <- function(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL")) {
-  DBI::SQL(glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con)))
+  DBI::SQL(glue_data(.x, ..., .envir = .envir, .na = .na, .transformer = sql_quote_transformer(.con, .na)))
 }
 
-sql_quote_transformer <- function(connection) {
+#' @rdname glue_collapse
+#' @export
+glue_sql_collapse <- function(x, sep = "", width = Inf, last = "") {
+  DBI::SQL(glue_collapse(x, sep = sep, width = width, last = last))
+}
+
+sql_quote_transformer <- function(connection, .na) {
+  if (is.null(.na)) {
+    .na <- DBI::SQL(NA)
+  }
+
   function(text, envir) {
-    should_collapse <- grepl("[*]$", text)
+    should_collapse <- grepl("[*][[:space:]]*$", text)
     if (should_collapse) {
-      text <- sub("[*]$", "", text)
+      text <- sub("[*][[:space:]]*$", "", text)
     }
     m <- gregexpr("^`|`$", text)
     is_quoted <- any(m[[1]] != -1)
@@ -153,26 +175,30 @@ sql_quote_transformer <- function(connection) {
       }
     } else {
       res <- eval(parse(text = text, keep.source = FALSE), envir)
+      if (inherits(res, "SQL")) {
+        if (should_collapse) {
+          res <- glue_collapse(res, ", ")
+        }
+        if (length(res) == 0L) {
+          res <- DBI::SQL("NULL")
+        }
+        return(res)
+      }
 
       # convert objects to characters
-      if (is.object(res) && !inherits(res, "SQL")) {
+      is_object <- is.object(res)
+      if (is_object) {
         res <- as.character(res)
       }
 
-      # Convert all NA's as needed
-      if (any(is.na(res))) {
-        res[is.na(res)] <- NA_character_
+      is_na <- is.na(res)
+      if (any(is_na)) {
+        res[is_na] <- rep(list(.na), sum(is_na))
       }
 
       is_char <- vapply(res, function(x) !is.na(x) && is.character(x), logical(1))
-
-      if (any(is_char)) {
-        res[is_char] <- DBI::dbQuoteLiteral(conn = connection, unlist(res[is_char]))
-      }
-
-      if (any(!is_char)) {
-        res[!is_char] <- DBI::SQL(conn = connection, unlist(res[!is_char]))
-      }
+      res[is_char] <- lapply(res[is_char], function(x) DBI::dbQuoteLiteral(conn = connection, x))
+      res[!is_char] <- lapply(res[!is_char], function(x) DBI::SQL(conn = connection, x))
     }
     if (should_collapse) {
       res <- glue_collapse(res, ", ")

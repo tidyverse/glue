@@ -13,12 +13,13 @@ knitr::opts_chunk$set(
 library(glue)
 ```
 
-# glue <a href='https:/glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# glue <a href='https://glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
+<!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
-[![Travis-CI Build Status](https://travis-ci.org/tidyverse/glue.svg?branch=master)](https://travis-ci.org/tidyverse/glue)
-[![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/glue/master.svg)](https://codecov.io/github/tidyverse/glue?branch=master)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/glue?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/glue)
+[![R-CMD-check](https://github.com/tidyverse/glue/actions/workflows/.github/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/.github/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml)
+<!-- badges: end -->
 
 ## Overview
 
@@ -26,14 +27,19 @@ Glue offers interpreted string literals that are small, fast, and dependency-fre
 
 ## Installation
 
-```{r installation, eval = FALSE}
-# Install the released version from CRAN:
+::: .pkgdown-release
+```{r, eval = FALSE}
+# Install released version from CRAN
 install.packages("glue")
+```
+:::
 
-# Install the development version from GitHub:
-# install.packages("devtools")
+::: .pkgdown-devel
+```{r, eval = FALSE}
+# Install development version from GitHub
 devtools::install_github("tidyverse/glue")
 ```
+:::
 
 ## Usage
 
@@ -48,6 +54,19 @@ glue('My name is {name}.')
 # A literal brace is inserted by using doubled braces.
 name <- "Fred"
 glue("My name is {name}, not {{name}}.")
+```
+
+`glue::glue()` is also made available via `stringr::str_glue()`.
+So if you've already attached stringr (or perhaps the whole tidyverse), you can access `glue()` like so:
+
+```{r eval = FALSE}
+library(stringr) # or library(tidyverse)
+
+stringr_fcn <- "`stringr::str_glue()`"
+glue_fcn    <- "`glue::glue()`"
+
+str_glue('{stringr_fcn} is essentially an alias for {glue_fcn}.')
+#> `stringr::str_glue()` is essentially an alias for `glue::glue()`.
 ```
 
 `glue_data()` works well with pipes:
@@ -84,8 +103,7 @@ Learn more in `vignette("glue")`.
 
 Some other implementations of string interpolation in R (although not using identical syntax).
 
-- [stringr::str_interp](http://stringr.tidyverse.org/reference/str_interp.html)
-- [pystr::pystr_format](https://cran.r-project.org/package=pystr)
+- [stringr::str_interp](https://stringr.tidyverse.org/reference/str_interp.html)
 - [R.utils::gstring](https://cran.r-project.org/package=R.utils)
 - [rprintf](https://cran.r-project.org/package=rprintf)
 
@@ -95,6 +113,7 @@ include.
 
 - [whisker](https://cran.r-project.org/package=whisker)
 - [brew](https://cran.r-project.org/package=brew)
+- [jinjar](https://cran.r-project.org/package=jinjar)
 
 ## Code of Conduct
 

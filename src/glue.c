@@ -1,3 +1,5 @@
+#define STRICT_R_HEADERS
+#define R_NO_REMAP
 #include "Rinternals.h"
 #include <stdlib.h>
 #include <string.h>
@@ -19,7 +21,13 @@ SEXP resize(SEXP out, R_xlen_t n) {
   return Rf_xlengthgets(out, n);
 }
 
-SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
+SEXP glue_(
+    SEXP x,
+    SEXP f,
+    SEXP open_arg,
+    SEXP close_arg,
+    SEXP comment_arg,
+    SEXP literal_arg) {
   typedef enum {
     text,
     escape,
@@ -40,6 +48,13 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
 
   const char* close = CHAR(STRING_ELT(close_arg, 0));
   size_t close_len = strlen(close);
+
+  char comment_char = '\0';
+  if (Rf_xlength(comment_arg) > 0) {
+    comment_char = CHAR(STRING_ELT(comment_arg, 0))[0];
+  }
+
+  Rboolean literal = LOGICAL(literal_arg)[0];
 
   int delim_equal = strncmp(open, close, open_len) == 0;
 
@@ -121,27 +136,34 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
         --delim_level;
         i += close_len - 1;
       } else {
-        switch (xx[i]) {
-        case '\'':
-          state = single_quote;
-          break;
-        case '"':
-          state = double_quote;
-          break;
-        case '`':
-          state = backtick;
-          break;
-        case '#':
+        if (!literal && xx[i] == comment_char) {
           state = comment;
-          break;
-        };
+        } else {
+          switch (xx[i]) {
+          case '\'':
+            if (!literal) {
+              state = single_quote;
+            }
+            break;
+          case '"':
+            if (!literal) {
+              state = double_quote;
+            }
+            break;
+          case '`':
+            if (!literal) {
+              state = backtick;
+            }
+            break;
+          };
+        }
       }
       if (delim_level == 0) {
         /* Result of the current glue statement */
         SEXP expr = PROTECT(Rf_ScalarString(
             Rf_mkCharLenCE(&xx[start], (i - close_len) + 1 - start, CE_UTF8)));
         SEXP call = PROTECT(Rf_lang2(f, expr));
-        SEXP result = PROTECT(Rf_eval(call, R_GlobalEnv));
+        SEXP result = PROTECT(Rf_eval(call, R_EmptyEnv));
 
         /* text in between last glue statement */
         if (j > 0) {
@@ -172,7 +194,20 @@ SEXP glue_(SEXP x, SEXP f, SEXP open_arg, SEXP close_arg) {
   }
 
   if (state == delim) {
+    free(str);
     Rf_error("Expecting '%s'", close);
+  } else if (state == single_quote) {
+    free(str);
+    Rf_error("Unterminated quote (')");
+  } else if (state == double_quote) {
+    free(str);
+    Rf_error("Unterminated quote (\")");
+  } else if (state == backtick) {
+    free(str);
+    Rf_error("Unterminated quote (`)");
+  } else if (state == comment) {
+    free(str);
+    Rf_error("A '#' comment in a glue expression must terminate with a newline.");
   }
 
   free(str);
