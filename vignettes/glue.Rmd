@@ -8,58 +8,69 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE,
-                      comment = "#>",
-                      messages = FALSE,
-                      warning = FALSE)
-
-library(glue)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 The `glue` package contains functions for glueing together character strings and R code.
 
-```{r eval = FALSE}
-# Install the released version of the glue package from CRAN:
-install.packages("glue")
-
-# Load the glue package
+```{r}
 library(glue)
 ```
 
-## Glueing character strings
+## Gluing and interpolating
 
 `glue()` can be used to glue together character strings, such as text:
 
 ```{r}
-glue("glueing", "some", "text", "together")
+glue("glueing ", "some ", "text ", "together")
 ```
 
-The default for `glue()` is glueing with *no* separator--- you can provide a separator with the `.sep` argument:
+But it's real power comes with `{}`: anything inside of `{}` will be evaluated and pasted into the string.
+This makes it easy to interpolate variables:
 
 ```{r}
-glue("glueing", "some", "text", "together", .sep = " ")
-glue("glueing", "some", "text", "together", .sep = ".")
+name <- "glue"
+glue('We are learning how to use the {name} R package.')
 ```
 
-You can optionally combine strings with `+`:
+And more complex functions:
 
 ```{r}
-glue("glueing") + " some" + " text" + " together"
+release_date <- as.Date("2017-06-13")
+glue('The first version of the glue package was released on a {format(release_date, "%A")}.')
 ```
 
-## Glueing & formatting
+All valid R code works in expressions, including braces and escaping.
+Backslashes do need to be doubled just like in all R strings.
 
+```{r}
+`foo}\`` <- "foo"
+glue("{
+      {
+        '}\\'' # { and } in comments, single quotes
+        \"}\\\"\" # or double quotes are ignored
+        `foo}\\`` # as are { in backticks
+      }
+  }")
+```
+
+## Long lines
+
+Glue comes with a number of features that make it easier to use when work with large quantities of text.
 Leading whitespace and blank lines from the first and last lines are automatically trimmed with `glue()`, letting you indent the strings naturally in code:
 
 ```{r}
-glue("
+my_fun <- function() {
+  glue("
     A formatted string
     Can have multiple lines
       with additional indention preserved
-    ")
+    ")  
+}
+my_fun()
 ```
 
-An additional newline can be used if you want a leading or trailing newline.
+An add extra newlines can be used if you want a leading or trailing newline:
 
 ```{r}
 glue("
@@ -69,7 +80,7 @@ glue("
   ")
 ```
 
-`\\` at the end of a line continues it without a new line:
+You can use `\\` at the end of a line continues to continue a single line:
 
 ```{r}
 glue("
@@ -79,61 +90,69 @@ glue("
     ")
 ```
 
-You can add colour to your strings with `glue_col()`:
+## SQL
+
+glue_sql()` makes constructing SQL statements safe and easy
+Use backticks to quote identifiers, normal strings and numbers are quoted
+appropriately for your backend.
 
 ```{r}
-library(crayon)
-
-glue_col("{blue glueing blue text together}")
-glue_col("This ", "{red text}", " is not", " {blue blue}")
-
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris)
+var <- "sepal_width"
+tbl <- "iris"
+num <- 2
+val <- "setosa"
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length > {num}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
 ```
 
-## Glueing character strings *with* R code
-
-Glue evaluates R code provided in curly braces and glues the result together with character strings.
-
-Variables can be passed directly into strings:
+`glue_sql()` can be used in conjunction with parameterized queries using `DBI::dbBind()` to provide protection for SQL Injection attacks
 
 ```{r}
-name <- "glue"
-glue('We are learning how to use the {name} R package.')
+sql <- glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length > ?
+", .con = con)
+query <- DBI::dbSendQuery(con, sql)
+DBI::dbBind(query, list(num))
+DBI::dbFetch(query, n = 4)
+DBI::dbClearResult(query)
 ```
 
-R expressions can be passed into strings:
+`glue_sql()` can be used to build up more complex queries with
+ interchangeable sub queries. It returns `DBI::SQL()` objects which are properly protected from quoting.
 
 ```{r}
-release_date <- as.Date("2017-06-13")
-glue('The first version of the glue package was released on a {format(release_date, "%A")}.')
+sub_query <- glue_sql("
+  SELECT *
+  FROM {`tbl`}
+  ", .con = con)
+
+glue_sql("
+  SELECT s.{`var`}
+  FROM ({sub_query}) AS s
+  ", .con = con)
 ```
 
-## Glue with a data frame
+If you want to input multiple values for use in SQL IN statements put `*` at the end of the value and the values will be collapsed and quoted appropriately.
 
-`glue_data()` can be used to work with a list or data frame:
+```{r}
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1, .con = con)
 
-```{r message=FALSE}
-library(dplyr)
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1:5, .con = con)
 
-glue_data(head(starwars), "{name} is from the planet {homeworld}.")
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = "setosa", .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = c("setosa", "versicolor"), .con = con)
 ```
-
-## Glueing with `dplyr` & `ggplot2`
-
-`glue()` can be used with `dplyr` & `ggplot2` pipelines:
-
-```{r, message = FALSE,fig.width=7}
-library(dplyr)
-library(ggplot2)
-
-starwars %>%
-  mutate(new_x_label = glue("{name} ({species})")) %>% 
-  filter(height > 200) %>% 
-  ggplot(aes(new_x_label, height)) +
-  geom_col() +
-  coord_flip()
-```
-
-## Additional Vignettes
-
--   [Speed of glue](https://glue.tidyverse.org/articles/speed.html)
--   [Transformers](https://glue.tidyverse.org/articles/transformers.html)
