@@ -563,3 +563,11 @@ test_that("`.literal` is not about (preventing) evaluation", {
   x <- "world"
   expect_equal(glue("hello {x}!"), glue("hello {x}!", .literal = TRUE))
 })
+
+# glue_collapse() ---------------------------------------------------------
+
+test_that("handles special cases", {
+  expect_equal(glue_collapse(character()), as_glue(""))
+  expect_equal(glue_collapse(c("x", "y", NA)), as_glue(NA_character_))
+})
+

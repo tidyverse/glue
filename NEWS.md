@@ -1,5 +1,8 @@
 # glue (development version)
 
+* `glue_collapse(character())` now returns `""`, so that it always returns a 
+  single string (#88).
+
 * Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
 
 # glue 1.6.2

@@ -216,6 +216,7 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' @param last String used to separate the last two items if `x` has at least
 #' 2 items.
 #' @inheritParams base::paste
+#' @returns Always returns a length-1 character vector of class glue.
 #' @examples
 #' glue_collapse(glue("{1:10}"))
 #'
@@ -227,7 +228,7 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' @export
 glue_collapse <- function(x, sep = "", width = Inf, last = "") {
   if (length(x) == 0) {
-    return(as_glue(character()))
+    return(as_glue(""))
   }
   if (any(is.na(x))) {
     return(as_glue(NA_character_))
