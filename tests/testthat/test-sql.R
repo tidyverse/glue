@@ -47,8 +47,8 @@ describe("glue_sql", {
     expect_identical(glue_sql("{var*}", .con = con, var = letters[1:5]), DBI::SQL("'a', 'b', 'c', 'd', 'e'"))
   })
   it('collapses values should return NULL for length zero vector', {
-    expect_identical(glue_sql("{var*}", .con = con, var = character()), DBI::SQL("NULL"))
-    expect_identical(glue_sql("{var*}", .con = con, var = DBI::SQL(character())), DBI::SQL("NULL"))
+    expect_identical(glue_sql("{var*}", .con = con, var = character()), DBI::SQL(""))
+    expect_identical(glue_sql("{var*}", .con = con, var = DBI::SQL(character())), DBI::SQL(""))
   })
   it("should return an SQL NULL by default for missing values", {
     var <- list(NA, NA_character_, NA_real_, NA_integer_)
@@ -116,7 +116,7 @@ describe("glue_sql_collapse", {
   it("returns an SQL object", {
     expect_identical(
       glue_sql_collapse(character()),
-      DBI::SQL(character())
+      DBI::SQL("")
     )
 
     expect_identical(

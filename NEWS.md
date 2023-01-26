@@ -1,7 +1,7 @@
 # glue (development version)
 
-* `glue_collapse(character())` now returns `""`, so that it always returns a 
-  single string (#88).
+* `glue_collapse(character())` (and hence `glue_sql_collapse()`) now return 
+  `""`, so that it always returns a single string (#88).
 
 * Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
 
