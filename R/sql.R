@@ -175,12 +175,16 @@ sql_quote_transformer <- function(connection, .na) {
       }
     } else {
       res <- eval(parse(text = text, keep.source = FALSE), envir)
+      if (length(res) == 0L) {
+        if (should_collapse) {
+          return("")
+        } else {
+          return(NULL)
+        }
+      }
       if (inherits(res, "SQL")) {
         if (should_collapse) {
           res <- glue_collapse(res, ", ")
-        }
-        if (length(res) == 0L) {
-          res <- DBI::SQL("NULL")
         }
         return(res)
       }
@@ -202,9 +206,6 @@ sql_quote_transformer <- function(connection, .na) {
     }
     if (should_collapse) {
       res <- glue_collapse(res, ", ")
-    }
-    if (length(res) == 0L) {
-      res <- DBI::SQL("NULL")
     }
     res
   }

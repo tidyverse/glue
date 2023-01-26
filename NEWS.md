@@ -1,5 +1,7 @@
 # glue (development version)
 
+* `glue_sql()` now collapes an empty vector to `""` not `"NULL"` (#272).
+
 * Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
 
 # glue 1.6.2
