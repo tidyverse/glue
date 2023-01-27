@@ -213,8 +213,11 @@ test_that("converting glue to glue", {
   expect_equal(glue("foo bar"), "foo bar")
 })
 
-test_that("printing glue identical to cat()", {
-  expect_output(print(glue("foo\nbar")), "foo\nbar")
+test_that("glue has useful print method", {
+  expect_snapshot({
+    x <- c("abc", "def\nghi", "\"\\", NA)
+    glue("{x}", .na = NULL)
+  })
 })
 
 test_that("length 0 inputs produce length 0 outputs", {
@@ -531,14 +534,6 @@ test_that("unterminated comment", {
   )
 
   expect_equal(glue("pre {1 + 5 + #comment\n 4} post"), "pre 10 post")
-})
-
-test_that("empty glue produces no output", {
-  expect_equal(capture.output(print(glue())), character())
-})
-
-test_that("glue objects can be compared to regular strings", {
-  expect_equal(capture.output(print(glue())), character())
 })
 
 test_that("glue can use different comment characters (#193)", {

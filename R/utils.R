@@ -48,11 +48,18 @@ colour_na <- function() {
   grDevices::rgb(5, 5, 2, maxColorValue = 5)
 }
 
-style_na <- function(x) {
-  if (requireNamespace("crayon", quietly = TRUE)) {
-    crayon::style(x, bg = colour_na())
+style_red <- function(...) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::col_red(...)
   } else {
-    x # nocov
+    paste0(...) # nocov
+  }
+}
+style_grey <- function(...) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::col_grey(...)
+  } else {
+    paste0(...) # nocov
   }
 }
 

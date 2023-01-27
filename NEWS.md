@@ -1,5 +1,8 @@
 # glue (development version)
 
+* glue objects have a new print method that does a better job of showing
+  multi-line strings and how many strings you have in the vector (#290).
+
 * Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
 
 # glue 1.6.2

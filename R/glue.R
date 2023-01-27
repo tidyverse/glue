@@ -287,11 +287,20 @@ trim <- function(x) {
 
 #' @export
 print.glue <- function(x, ..., sep = "\n") {
-  x[is.na(x)] <- style_na(x[is.na(x)])
-
-  if (length(x) > 0) {
-    cat(x, ..., sep = sep)
+  if (length(x) == 0) {
+    cat("<Length-0 glue vector>\n")
+    return(invisible(x))
   }
+
+  id <- format(paste0("[", seq_along(x), "] "), justify = "right")
+  indent <- paste0(style_grey(id, "|"), " ")
+  exdent <- paste0(strrep(" ", nchar(id[[1]])), style_grey("|"), " ")
+
+  out <- x
+  out[is.na(out)] <- style_red("NA")
+  out <- paste0(indent, out)
+  out <- gsub("\n", paste0("\n", exdent), out)
+  cat(paste0(out, "\n", collapse = ""))
 
   invisible(x)
 }

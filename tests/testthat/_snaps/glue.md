@@ -1,3 +1,15 @@
+# glue has useful print method
+
+    Code
+      x <- c("abc", "def\nghi", "\"\\", NA)
+      glue("{x}", .na = NULL)
+    Output
+      [1] | abc
+      [2] | def
+          | ghi
+      [3] | "\
+      [4] | NA
+
 # unterminated comment
 
     Code
