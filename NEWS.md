@@ -1,5 +1,9 @@
 # glue (development version)
 
+* `+` now works in more situations, and gives errors when one side isn't a 
+  character vector. It no longer automatically applies glue interpolation to
+  both sides; you'll need to do that yourself as needed (#286).
+
 * Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
 
 # glue 1.6.2
