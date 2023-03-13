@@ -20,6 +20,9 @@ glue_sql_collapse(x, sep = "", width = Inf, last = "")
 \item{last}{String used to separate the last two items if \code{x} has at least
 2 items.}
 }
+\value{
+A glue object, as created by \code{\link[=as_glue]{as_glue()}}.
+}
 \description{
 \code{glue_collapse()} collapses a character vector of any length into a length 1 vector.
 \code{glue_sql_collapse()} does the same but returns a \verb{[DBI::SQL()]}
@@ -32,5 +35,4 @@ glue_collapse(glue("{1:10}"))
 glue_collapse(glue("{1:10}"), width = 5)
 
 glue_collapse(1:4, ", ", last = " and ")
-#> 1, 2, 3 and 4
 }
