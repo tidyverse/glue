@@ -93,7 +93,8 @@ normal functions would allow an attacker to execute arbitrary code.</p>
     <dl><dt>...</dt>
 <dd><p>[<code>expressions</code>]<br> Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
-Named arguments are taken to be temporary variables available for substitution.</p></dd>
+Named arguments are taken to be temporary variables available for substitution.</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>For <span class="st">`</span><span class="at">glue_data()</span><span class="st">`</span>, elements <span class="cf">in</span> <span class="st">`</span><span class="at">...</span><span class="st">`</span> override the values <span class="cf">in</span> <span class="st">`</span><span class="at">.x</span><span class="st">`</span>.</span></code></pre><p></p></div></dd>
 
 
 <dt>.envir</dt>
@@ -106,6 +107,12 @@ evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL<
 <dd><p>[<code>listish</code>]<br> An environment, list, or data frame used to lookup values.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>A glue object, as created by <code><a href="as_glue.html">as_glue()</a></code>.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
