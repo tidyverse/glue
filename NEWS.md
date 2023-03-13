@@ -1,5 +1,7 @@
 # glue (development version)
 
+* `glue_sql()` now collapses an empty vector to `""` not `"NULL"` (#272).
+
 * `glue_sql()` now uses `DBI::dbQuoteLiteral()` for all object types. This 
   should increase fidelity of escaping for different object types (#279).
 
