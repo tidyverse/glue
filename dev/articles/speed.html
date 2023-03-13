@@ -57,8 +57,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/engines.html">glue custom knitr language engines</a>
     <a class="dropdown-item" href="../articles/speed.html">Speed of glue</a>
+    <a class="dropdown-item" href="../articles/engines.html">glue custom knitr language engines</a>
     <a class="dropdown-item" href="../articles/transformers.html">Transformers</a>
   </div>
 </li>
@@ -98,12 +98,25 @@
       <img src="../logo.png" class="logo" alt=""><h1>Speed of glue</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/HEAD/vignettes/speed.Rmd" class="external-link"><code>vignettes/speed.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/HEAD/vignettes/articles/speed.Rmd" class="external-link"><code>vignettes/articles/speed.Rmd</code></a></small>
       <div class="d-none name"><code>speed.Rmd</code></div>
     </div>
 
     
     
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue" class="external-link">glue</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bench.r-lib.org/" class="external-link">bench</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
 <p>Glue is advertised as</p>
 <blockquote>
 <p>Fast, dependency free string literals</p>
@@ -111,84 +124,104 @@
 <p>So what do we mean when we say that glue is fast? This does not mean
 glue is the fastest thing to use in all cases, however for the features
 it provides we can confidently say it is fast.</p>
-<p>A good way to determine this is to compare it’s speed of execution to
+<p>A good way to determine this is to compare its speed of execution to
 some alternatives.</p>
 <ul>
 <li>
-<code><a href="https://rdrr.io/r/base/paste.html" class="external-link">base::paste0()</a></code>, <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">base::sprintf()</a></code> -
-Functions in base R implemented in C that provide variable insertion
-(but not interpolation).</li>
+<code><a href="https://rdrr.io/r/base/paste.html" class="external-link">base::paste0()</a></code>, <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">base::sprintf()</a></code>: Functions
+in base R implemented in C that provide variable insertion (but not
+interpolation).</li>
 <li>
-<code><a href="https://henrikbengtsson.github.io/R.utils/reference/gstring.html" class="external-link">R.utils::gstring()</a></code>, <code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">stringr::str_interp()</a></code>
-- Provides a similar interface as glue, but using <code>${}</code> to
-delimit blocks to interpolate.</li>
+<code><a href="https://henrikbengtsson.github.io/R.utils/reference/gstring.html" class="external-link">R.utils::gstring()</a></code>: Provides a similar interface as
+glue, but uses <code>${}</code> to delimit blocks to interpolate.</li>
 <li>
 <code>pystr::pystr_format()</code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;pystr is no longer available from CRAN due to failure to
 correct installation errors and was therefore removed from further
 testing.&lt;/p&gt;"><sup>1</sup></a>,
-<code><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf::rprintf()</a></code> - Provide a interfaces similar to python
+<code><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf::rprintf()</a></code>: Provide an interface similar to python
 string formatters with variable replacement, but not arbitrary
 interpolation.</li>
 </ul>
+<p>Note: <code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">stringr::str_interp()</a></code> was previously included in
+this benchmark, but is now formally marked as “superseded”, in favor of
+<code><a href="https://stringr.tidyverse.org/reference/str_glue.html" class="external-link">stringr::str_glue()</a></code>, which just calls
+<code><a href="../reference/glue.html">glue::glue()</a></code>.</p>
 <div class="section level2">
 <h2 id="simple-concatenation">Simple concatenation<a class="anchor" aria-label="anchor" href="#simple-concatenation"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="st">"baz"</span></span>
 <span></span>
-<span><span class="va">simple</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
-<span>  glue <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span>,</span>
-<span>  gstring <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://henrikbengtsson.github.io/R.utils/reference/gstring.html" class="external-link">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,</span>
-<span>  paste0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
-<span>  sprintf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"foo%s"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
-<span>  str_interp <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">str_interp</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,</span>
-<span>  rprintf <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span></span>
+<span><span class="va">simple</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<span>  glue       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  gstring    <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://henrikbengtsson.github.io/R.utils/reference/gstring.html" class="external-link">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,</span>
+<span>  paste0     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
+<span>  sprintf    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"foo%s"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
+<span>  rprintf    <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"eps"</span>, order <span class="op">=</span> <span class="st">"median"</span>, signif <span class="op">=</span> <span class="fl">4</span>, <span class="va">simple</span><span class="op">)</span></span>
+<span><span class="va">simple</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">expression</span><span class="op">:</span><span class="va">total_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">median</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
+<span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf      1000ns    1.1µs   <span style="text-decoration: underline;">819</span>461.        0B     0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0          2µs    2.3µs   <span style="text-decoration: underline;">423</span>804.        0B     0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue          119µs  129.6µs     <span style="text-decoration: underline;">7</span>606.  129.18KB    18.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring       398µs  413.6µs     <span style="text-decoration: underline;">2</span>380.    2.44MB     8.31</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf       485µs    496µs     <span style="text-decoration: underline;">1</span>989.   78.16KB     6.17</span></span>
 <span></span>
+<span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></span></code></pre></div>
-<p>While <code><a href="../reference/glue.html">glue()</a></code> is slower than
-<code>paste0</code>,<code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> it is twice as fast as
-<code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">str_interp()</a></code> and <code>gstring()</code>, and on par with
-<code>rprintf()</code>.</p>
-<p>Although <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code>, <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> don’t do
+<p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p>While <code><a href="../reference/glue.html">glue()</a></code> is slower than <code>paste0</code> and
+<code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code>, it is twice as fast as <code>gstring()</code>,
+and <code>rprintf()</code>.</p>
+<p>Although <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> don’t do
 string interpolation and will likely always be significantly faster than
 glue, glue was never meant to be a direct replacement for them.</p>
-<p><code>rprintf()</code> does only variable interpolation, not
+<p><code><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf::rprintf()</a></code> does only variable interpolation, not
 arbitrary expressions, which was one of the explicit goals of writing
 glue.</p>
-<p>So glue is ~2x as fast as the two functions
-(<code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">str_interp()</a></code>, <code>gstring()</code>), which do have
-roughly equivalent functionality.</p>
-<p>It also is still quite fast, with over 6000 evaluations per second on
+<p>So glue is ~2x as fast as the function (<code>gstring()</code>),
+which has roughly equivalent functionality.</p>
+<p>It also is still quite fast, with over 8000 evaluations per second on
 this machine.</p>
 </div>
 <div class="section level2">
 <h2 id="vectorized-performance">Vectorized performance<a class="anchor" aria-label="anchor" href="#vectorized-performance"></a>
 </h2>
-<p>Taking advantage of glue’s vectorization is the best way to avoid
-performance. For instance the vectorized form of the previous benchmark
-is able to generate 100,000 strings in only 22ms with performance much
-closer to that of <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> and <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code>. NB:
-<code><a href="https://stringr.tidyverse.org/reference/str_interp.html" class="external-link">str_interp()</a></code> does not support vectorization, and so was
-removed.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>Taking advantage of glue’s vectorization is the best way to improve
+performance. In a vectorized form of the previous benchmark, glue’s
+performance is much closer to that of <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a></code> and
+<code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="fl">1e5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vectorized</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
-<span>  glue <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span>,</span>
+<span><span class="va">vectorized</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<span>  glue    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  gstring <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://henrikbengtsson.github.io/R.utils/reference/gstring.html" class="external-link">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,</span>
-<span>  paste0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
+<span>  paste0  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
 <span>  sprintf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"foo%s"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
 <span>  rprintf <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"ms"</span>, order <span class="op">=</span> <span class="st">"median"</span>, signif <span class="op">=</span> <span class="fl">4</span>, <span class="va">vectorized</span><span class="op">)</span></span>
+<span><span class="va">vectorized</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">expression</span><span class="op">:</span><span class="va">total_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">median</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
+<span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf      15.8ms     16ms      62.1   781.3KB     2.07</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0       18.2ms   18.6ms      53.8   781.3KB     2.07</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue         23.4ms   23.6ms      42.4    2.29MB     2.12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring      23.6ms   23.7ms      42.1    1.53MB     2.10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf      50.3ms   50.4ms      19.8    3.05MB     2.20</span></span>
 <span></span>
-<span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># plotting function defined in a hidden chunk</span></span>
+<span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span><span class="op">)</span></span></code></pre></div>
+<p><img src="speed_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
