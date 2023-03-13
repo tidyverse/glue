@@ -29,7 +29,10 @@ describe("glue_sql", {
       DBI::Id(schema = "foo", table = "bar", column = "baz"),
       DBI::Id(schema = "foo", table = "bar", column = "baz2")
     )
-    expect_identical(glue_sql("{`var`*}", .con = con), DBI::SQL("`foo`.`bar`.`baz`, `foo`.`bar`.`baz2`"))
+    expect_identical(
+      glue_sql("{`var`*}", .con = con),
+      DBI::SQL("`foo`.`bar`.`baz`, `foo`.`bar`.`baz2`")
+    )
   })
   it("Does not quote numbers", {
     var <- 1
@@ -55,16 +58,11 @@ describe("glue_sql", {
     expect_identical(glue_sql("x = {var}", .con = con), rep(DBI::SQL("x = NULL"), 4))
   })
 
-  it("should return NA for missing values and .na = NULL", {
-    var <- list(NA, NA_character_, NA_real_, NA_integer_)
-    expect_identical(glue_sql("x = {var}", .con = con, .na = NULL), rep(DBI::SQL(NA), 4))
-  })
-
   it("should preserve the type of the even with missing values (#130)", {
       expect_identical(glue_sql("x = {c(1L, NA)}", .con = con), DBI::SQL(c(paste0("x = ", c(1, "NULL")))))
       expect_identical(glue_sql("x = {c(1, NA)}", .con = con), DBI::SQL(c(paste0("x = ", c(1, "NULL")))))
       expect_identical(glue_sql("x = {c('1', NA)}", .con = con), DBI::SQL(c(paste0("x = ", c("'1'", "NULL")))))
-      expect_identical(glue_sql("x = {c(TRUE, NA)}", .con = con), DBI::SQL(c(paste0("x = ", c("TRUE", "NULL")))))
+      expect_identical(glue_sql("x = {c(TRUE, NA)}", .con = con), DBI::SQL(c(paste0("x = ", c("1", "NULL")))))
   })
 
   it("should return NA for missing values quote strings", {
@@ -79,14 +77,17 @@ describe("glue_sql", {
 
   it("should quote values from lists properly", {
     var <- list(1, 2, "three")
-    expect_identical(glue_sql("x = {var}", .con = con), DBI::SQL(c("x = 1", "x = 2", "x = 'three'")))
+    expect_identical(
+      glue_sql("x = {var}", .con = con),
+      DBI::SQL(c("x = 1", "x = 2", "x = 'three'"))
+    )
   })
 
   it("should handle NA when collapsing (#185)", {
     expect_identical(glue_sql("x IN ({c(NA, 'A')*})", .con = con), DBI::SQL(paste0("x IN (NULL, 'A')")))
     expect_identical(glue_sql("x IN ({c(NA, 1)*})", .con = con), DBI::SQL(paste0("x IN (NULL, 1)")))
     expect_identical(glue_sql("x IN ({c(NA, 1L)*})", .con = con), DBI::SQL(paste0("x IN (NULL, 1)")))
-    expect_identical(glue_sql("x IN ({c(NA, TRUE)*})", .con = con), DBI::SQL(paste0("x IN (NULL, TRUE)")))
+    expect_identical(glue_sql("x IN ({c(NA, TRUE)*})", .con = con), DBI::SQL(paste0("x IN (NULL, 1)")))
   })
 
   it("should handle DBI::SQL() elements correctly when collapsing (#191)", {

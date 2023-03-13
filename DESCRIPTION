@@ -23,7 +23,7 @@ Imports:
     methods
 Suggests: 
     crayon,
-    DBI,
+    DBI (>= 1.1.3),
     dplyr,
     knitr,
     magrittr,
