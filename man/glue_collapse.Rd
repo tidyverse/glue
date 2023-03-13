@@ -35,5 +35,4 @@ glue_collapse(glue("{1:10}"))
 glue_collapse(glue("{1:10}"), width = 5)
 
 glue_collapse(1:4, ", ", last = " and ")
-#> 1, 2, 3 and 4
 }
