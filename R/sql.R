@@ -1,5 +1,6 @@
 #' Interpolate strings with SQL escaping
 #'
+#' @description
 #' SQL databases often have custom quotation syntax for identifiers and strings
 #' which make writing SQL queries error prone and cumbersome to do. `glue_sql()` and
 #' `glue_data_sql()` are analogs to [glue()] and [glue_data()] which handle the

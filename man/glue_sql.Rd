@@ -89,8 +89,7 @@ SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
 \code{glue_data_sql()} are analogs to \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}} which handle the
 SQL quoting. \code{glue_sql_collapse()} can be used to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
-}
-\details{
+
 They automatically quote character results, quote identifiers if the glue
 expression is surrounded by backticks '\verb{`}' and do not quote
 non-characters such as numbers. If numeric data is stored in a character

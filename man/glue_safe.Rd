@@ -23,6 +23,9 @@ evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is pa
 
 \item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
+\value{
+A glue object, as created by \code{\link[=as_glue]{as_glue()}}.
+}
 \description{
 \code{glue_safe()} and \code{glue_data_safe()} differ from \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}}
 in that the safe versions only look up symbols from an environment using

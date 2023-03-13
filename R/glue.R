@@ -40,7 +40,7 @@
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257/> upon which this is based.
-#' @return A glue object, as created by [as_glue()].
+#' @returns A glue object, as created by [as_glue()].
 #' @examples
 #' name <- "Fred"
 #' age <- 50
@@ -219,6 +219,7 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' @param last String used to separate the last two items if `x` has at least
 #' 2 items.
 #' @inheritParams base::paste
+#' @inherit glue return
 #' @examples
 #' glue_collapse(glue("{1:10}"))
 #'
@@ -226,7 +227,6 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' glue_collapse(glue("{1:10}"), width = 5)
 #'
 #' glue_collapse(1:4, ", ", last = " and ")
-#' #> 1, 2, 3 and 4
 #' @export
 glue_collapse <- function(x, sep = "", width = Inf, last = "") {
   if (length(x) == 0) {
@@ -261,6 +261,7 @@ glue_collapse <- function(x, sep = "", width = Inf, last = "") {
 #' to the minimum indentation of all non-blank lines after the first.
 #' - Lines can be continued across newlines by using `\\`.
 #' @param x A character vector to trim.
+#' @returns A character vector.
 #' @export
 #' @examples
 #' glue("
@@ -301,17 +302,22 @@ print.glue <- function(x, ..., sep = "\n") {
 
 #' Coerce object to glue
 #'
-#' A glue object is a character vector with S3 class `"glue"`. It implements
-#' a print method that shows the literal contents (rather than it's string
-#' implementation) and `+` method so that you can concatenate with the
-#' addition operator.
+#' A glue object is a character vector with S3 class `"glue"`. The `"glue"`
+#' class implements a print method that shows the literal contents (rather than
+#' the string implementation) and a `+` method, so that you can concatenate with
+#' the addition operator.
 #'
 #' @param x object to be coerced.
 #' @param ... further arguments passed to methods.
+#' @returns A character vector with S3 class `"glue"`.
 #' @export
 #' @examples
 #' x <- as_glue(c("abc", "\"\\\\", "\n"))
 #' x
+#'
+#' x <- 1
+#' y <- 3
+#' glue("x + y") + " = {x + y}"
 as_glue <- function(x, ...) {
   UseMethod("as_glue")
 }

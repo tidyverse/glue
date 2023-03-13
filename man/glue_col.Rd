@@ -33,6 +33,9 @@ syntactic elements), when parsing the expression string. Setting \code{.literal 
 
 \item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
+\value{
+A glue object, as created by \code{\link[=as_glue]{as_glue()}}.
+}
 \description{
 The \link[crayon:crayon]{crayon} package defines a number of functions used to
 color terminal output. \code{glue_col()} and \code{glue_data_col()} functions provide
