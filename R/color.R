@@ -22,6 +22,7 @@
 #' character, specify `.literal = TRUE`.
 #'
 #' @inheritParams glue
+#' @inherit glue return
 #' @export
 #' @examplesIf require(crayon)
 #' library(crayon)

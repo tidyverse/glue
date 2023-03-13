@@ -1,0 +1,113 @@
+---
+title: "Speed of glue"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+# used inside the plot function, but not in user-visible code
+library(forcats)
+library(tidyr)
+library(ggbeeswarm)
+```
+
+```{r setup}
+library(glue)
+library(ggplot2)
+library(bench)
+library(dplyr)
+```
+
+Glue is advertised as
+
+> Fast, dependency free string literals
+
+So what do we mean when we say that glue is fast?
+This does not mean glue is the fastest thing to use in all cases, however for the features it provides we can confidently say it is fast.
+
+A good way to determine this is to compare its speed of execution to some alternatives.
+
+- `base::paste0()`, `base::sprintf()`: Functions in base R implemented in C
+  that provide variable insertion (but not interpolation).
+- `R.utils::gstring()`: Provides a similar interface as glue, but uses `${}` to
+  delimit blocks to interpolate.
+- `pystr::pystr_format()`[^1], `rprintf::rprintf()`: Provide an interface
+  similar to python string formatters with variable replacement, but not
+  arbitrary interpolation.
+  
+Note: `stringr::str_interp()` was previously included in this benchmark, but is now formally marked as "superseded", in favor of `stringr::str_glue()`, which just calls `glue::glue()`.
+
+```{r setup2, include = FALSE}
+plot_comparison <- function(x, ...) {
+  dat <- x %>%
+    mutate(expression = fct_reorder(as.character(expression), min, .desc = TRUE)) %>%
+    arrange(expression) %>%
+    mutate(accent = expression == "glue", .after = expression) %>%
+    unnest(c(time, gc))
+  ggplot(dat) +
+    aes(expression, time) +
+    geom_quasirandom(aes(color = accent), ..., show.legend = FALSE) +
+    scale_color_manual(values = c("FALSE" = "grey", "TRUE" = "orange")) +
+    coord_flip()
+}
+```
+
+## Simple concatenation
+
+```{r, message = FALSE}
+bar <- "baz"
+
+simple <- bench::mark(
+  glue       = as.character(glue::glue("foo{bar}")),
+  gstring    = R.utils::gstring("foo${bar}"),
+  paste0     = paste0("foo", bar),
+  sprintf    = sprintf("foo%s", bar),
+  rprintf    = rprintf::rprintf("foo$bar", bar = bar)
+)
+
+simple %>%
+  select(expression:total_time) %>%
+  arrange(median)
+
+# plotting function defined in a hidden chunk
+plot_comparison(simple)
+```
+
+While `glue()` is slower than `paste0` and `sprintf()`, it is twice as fast as `gstring()`, and `rprintf()`.
+
+Although `paste0()` and `sprintf()` don't do string interpolation and will likely always be significantly faster than glue, glue was never meant to be a direct replacement for them.
+
+`rprintf::rprintf()` does only variable interpolation, not arbitrary expressions, which was one of the explicit goals of writing glue.
+
+So glue is ~2x as fast as the function (`gstring()`), which has roughly equivalent functionality.
+
+It also is still quite fast, with over 8000 evaluations per second on this machine.
+
+## Vectorized performance
+
+Taking advantage of glue's vectorization is the best way to improve performance.
+In a vectorized form of the previous benchmark, glue's performance is much closer to that of `paste0()` and `sprintf()`.
+
+```{r, message = FALSE}
+bar <- rep("bar", 1e5)
+
+vectorized <- bench::mark(
+  glue    = as.character(glue::glue("foo{bar}")),
+  gstring = R.utils::gstring("foo${bar}"),
+  paste0  = paste0("foo", bar),
+  sprintf = sprintf("foo%s", bar),
+  rprintf = rprintf::rprintf("foo$bar", bar = bar)
+)
+
+vectorized %>%
+  select(expression:total_time) %>%
+  arrange(median)
+
+# plotting function defined in a hidden chunk
+plot_comparison(vectorized)
+```
+
+[^1]: pystr is no longer available from CRAN due to failure to correct
+installation errors and was therefore removed from further testing.
