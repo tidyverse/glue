@@ -9,6 +9,9 @@ trim(x)
 \arguments{
 \item{x}{A character vector to trim.}
 }
+\value{
+A character vector.
+}
 \description{
 This trims a character vector according to the trimming rules used by glue.
 These follow similar rules to \href{https://www.python.org/dev/peps/pep-0257/}{Python Docstrings},

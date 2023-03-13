@@ -6,6 +6,7 @@
 #' with untrusted input, such as inputs in a Shiny application, where using the
 #' normal functions would allow an attacker to execute arbitrary code.
 #' @inheritParams glue
+#' @inherit glue return
 #' @export
 #' @examples
 #' "1 + 1" <- 5
