@@ -166,11 +166,11 @@ this benchmark, but is now formally marked as “superseded”, in favor of
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf       700ns  900.1ns  1<span style="text-decoration: underline;">026</span>642.        0B     0   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0        1.5µs    1.7µs   <span style="text-decoration: underline;">524</span>971.        0B    52.5 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue         94.2µs  105.2µs     <span style="text-decoration: underline;">9</span>211.  129.18KB    29.3 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring     307.7µs  324.7µs     <span style="text-decoration: underline;">3</span>034.    2.44MB    15.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     367.4µs  381.3µs     <span style="text-decoration: underline;">2</span>592.   78.16KB     8.35</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf     699.9ns    900ns   <span style="text-decoration: underline;">991</span>457.        0B    99.2 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0        1.6µs    1.9µs   <span style="text-decoration: underline;">503</span>826.        0B     0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue        103.4µs  113.7µs     <span style="text-decoration: underline;">8</span>576.  129.18KB    29.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring       338µs    357µs     <span style="text-decoration: underline;">2</span>758.    2.44MB    15.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     409.2µs  421.8µs     <span style="text-decoration: underline;">2</span>345.   78.16KB     8.35</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></span></code></pre></div>
@@ -213,11 +213,11 @@ performance is much closer to that of <code><a href="https://rdrr.io/r/base/past
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf      11.7ms   11.8ms      84.1   781.3KB     4.20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0       13.5ms   13.7ms      72.4   781.3KB     2.07</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gstring      17.3ms   17.6ms      56.9    1.53MB     4.37</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> glue         17.3ms   17.6ms      56.6    2.29MB     4.35</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf      37.1ms   37.3ms      26.8    3.05MB     2.06</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf      13.3ms   13.6ms      73.8   781.3KB     2.05</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0       15.3ms   15.6ms      64.0   781.3KB     2.06</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gstring      19.4ms   19.7ms      50.7    1.53MB     4.41</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> glue         19.6ms   19.7ms      50.2    2.29MB     4.37</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf      41.9ms   43.2ms      23.3    3.05MB     4.66</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span><span class="op">)</span></span></code></pre></div>

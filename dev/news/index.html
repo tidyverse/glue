@@ -66,7 +66,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="glue-development-version">glue (development version)<a class="anchor" aria-label="anchor" href="#glue-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> now uses <code><a href="https://dbi.r-dbi.org/reference/dbQuoteLiteral.html" class="external-link">DBI::dbQuoteLiteral()</a></code> for all object types. This should increase fidelity of escaping for different object types (<a href="https://github.com/tidyverse/glue/issues/279" class="external-link">#279</a>).</p></li>
+<ul><li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> now collapses an empty vector to <code>""</code> not <code>"NULL"</code> (<a href="https://github.com/tidyverse/glue/issues/272" class="external-link">#272</a>).</p></li>
+<li><p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> now uses <code><a href="https://dbi.r-dbi.org/reference/dbQuoteLiteral.html" class="external-link">DBI::dbQuoteLiteral()</a></code> for all object types. This should increase fidelity of escaping for different object types (<a href="https://github.com/tidyverse/glue/issues/279" class="external-link">#279</a>).</p></li>
 <li><p>The “Speed of glue” vignette has been converted to an article, which allows several package to be removed from <code>Suggests</code> (and re-located to <code>Config/Needs/website</code>). The code got a light refresh, including a switch from microbenchmark to bench and more modern use of ggplot2.</p></li>
 <li><p>Add <code>$(C_VISIBILITY)</code> to compiler flags to hide internal symbols from the dll (<a href="https://github.com/tidyverse/glue/issues/284" class="external-link">#284</a> <a href="https://github.com/lionel-" class="external-link">@lionel-</a>).</p></li>
 </ul></div>
