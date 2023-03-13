@@ -1,5 +1,7 @@
 # glue (development version)
 
+* The "Speed of glue" vignette has been converted to an article, which allows several package to be removed from `Suggests` (and re-located to `Config/Needs/website`). The code got a light refresh, including a switch from microbenchmark to bench and more modern use of ggplot2.
+
 * Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
 
 # glue 1.6.2

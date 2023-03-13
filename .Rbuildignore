@@ -21,3 +21,4 @@
 ^MAINTENANCE\.md$
 ^internal$
 ^CRAN-SUBMISSION$
+^vignettes/articles$
