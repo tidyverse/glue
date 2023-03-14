@@ -21,7 +21,7 @@ glue_sql_collapse(x, sep = "", width = Inf, last = "")
 2 items.}
 }
 \value{
-Always returns a length-1 character vector of class glue.
+Always returns a length-1 glue object, as created by \code{\link[=as_glue]{as_glue()}}.
 }
 \description{
 \code{glue_collapse()} collapses a character vector of any length into a length 1 vector.
