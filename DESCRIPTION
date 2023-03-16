@@ -15,7 +15,7 @@ Description: An implementation of interpreted string literals, inspired by
     String Literals
     <https://docs.julialang.org/en/v1.3/manual/strings/#Triple-Quoted-String-Literals-1>.
 License: MIT + file LICENSE
-URL: https://github.com/tidyverse/glue, https://glue.tidyverse.org/
+URL: https://glue.tidyverse.org/, https://github.com/tidyverse/glue
 BugReports: https://github.com/tidyverse/glue/issues
 Depends: 
     R (>= 3.4)
