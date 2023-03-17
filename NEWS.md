@@ -1,5 +1,8 @@
 # glue (development version)
 
+* `glue_collapse(character())` (and hence `glue_sql_collapse(character())`) now
+  return `""`, so that they always return a single string (#88).
+
 * `glue_sql()` now collapses an empty vector to `""` not `"NULL"` (#272).
 
 * `glue_sql()` now uses `DBI::dbQuoteLiteral()` for all object types. This 

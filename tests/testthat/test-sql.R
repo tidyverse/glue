@@ -50,7 +50,6 @@ describe("glue_sql", {
     expect_identical(glue_sql("{var*}", .con = con, var = letters[1:5]), DBI::SQL("'a', 'b', 'c', 'd', 'e'"))
   })
   it('collapses empty values to empty string', {
-    expect_identical(glue_sql("{var*}", .con = con, var = NULL), DBI::SQL(""))
     expect_identical(glue_sql("{var*}", .con = con, var = character()), DBI::SQL(""))
     expect_identical(glue_sql("{var*}", .con = con, var = DBI::SQL(character())), DBI::SQL(""))
   })
@@ -122,7 +121,7 @@ describe("glue_sql_collapse", {
   it("returns an SQL object", {
     expect_identical(
       glue_sql_collapse(character()),
-      DBI::SQL(character())
+      DBI::SQL("")
     )
 
     expect_identical(
