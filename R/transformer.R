@@ -8,7 +8,7 @@
 #'   custom glue transformers and some common use cases.
 #' @export
 identity_transformer <- function(text, envir) {
-  if (requireNamespace("rlang", quiet = TRUE)) {
+  if (requireNamespace("rlang", quietly = TRUE)) {
     tryCatch(
       expr <- parse(text = text, keep.source = FALSE),
       error = function(err) {
