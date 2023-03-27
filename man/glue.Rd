@@ -39,7 +39,10 @@ glue(
 
 \item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
-Named arguments are taken to be temporary variables available for substitution.}
+Named arguments are taken to be temporary variables available for substitution.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{For `glue_data()`, elements in `...` override the values in `.x`.
+}\if{html}{\out{</div>}}}
 
 \item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
 
@@ -77,6 +80,9 @@ evaluation. For example transformers see \code{vignette("transformers")}.}
 
 \item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
 template with \code{\link[=trim]{trim()}} or not.}
+}
+\value{
+A glue object, as created by \code{\link[=as_glue]{as_glue()}}.
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Long strings are
