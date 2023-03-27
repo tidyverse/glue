@@ -1,5 +1,8 @@
 # glue (development version)
 
+* If rlang is installed, glue will generate more informative errors if an
+  interpolated expression either can't be parsed or fails to evaluate (#229).
+
 * `glue_collapse(character())` (and hence `glue_sql_collapse(character())`) now
   return `""`, so that they always return a single string (#88).
 
