@@ -457,6 +457,76 @@ test_that("glue replaces NULL input if `.null` is not NULL or character()", {
     "x: foo")
 })
 
+test_that("glue always returns character() if given any empty input if `.empty` == character()", {
+  expect_equal(
+    glue("{character()}", .empty = character()),
+    character())
+
+  expect_equal(
+    glue("{numeric()}", .empty = character()),
+    character())
+
+  expect_equal(
+    glue("{logical()}", .empty = character()),
+    character())
+
+  expect_equal(
+    glue("{integer()}", 1, .empty = character()),
+    character())
+
+  expect_equal(
+    glue("{double()}", 1, .empty = character()),
+    character())
+
+  expect_equal(
+    glue("{complex()}", 1, .empty = character()),
+    character())
+
+  expect_equal(
+    glue("{raw()}", 1, .empty = character()),
+    character())
+})
+
+test_that("glue always defaults to .null if given any empty input if `.empty` == 'NULL'", {
+  expect_equal(
+    glue("{character()}", .empty = NULL, .null = "foo"),
+    "foo")
+
+  expect_equal(
+    glue("{character()}", .empty = NULL, .null = NULL),
+    character())
+
+  expect_equal(
+    glue("{character()}", .empty = NULL, .null = character()),
+    character())
+
+  expect_equal(
+    glue("{character()}foo", .empty = NULL, .null = NULL),
+    "foo")
+})
+
+test_that("glue always returns character() if given any empty input if `.empty` == character()", {
+  expect_equal(
+    glue("{character()}", .empty = "foo"),
+    "foo")
+
+  expect_equal(
+    glue(character(), .empty = "foo"),
+    "foo")
+
+  expect_equal(
+    glue(character(), 1, .empty = "foo"),
+    "foo1")
+
+  expect_equal(
+    glue(1, character(), 2, .empty = "foo"),
+    "1foo2")
+
+  expect_equal(
+    glue("x: {character()}", .empty = "foo"),
+    "x: foo")
+})
+
 test_that("glue works within functions", {
   x <- 1
   f <- function(msg) glue(msg, .envir = parent.frame())

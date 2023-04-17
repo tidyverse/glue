@@ -87,7 +87,7 @@
 #' @name glue
 #' @export
 glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
-  .open = "{", .close = "}", .na = "NA", .null = character(),
+  .open = "{", .close = "}", .na = "NA", .null = character(), .empty = character(),
   .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
 
   if (is.null(.envir)) {
@@ -120,7 +120,12 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
       # - If `.null == NULL` then it is allowed and any such argument will be
       # silently dropped.
       # - In other cases output is treated as it was evaluated to `.null`.
-      eval(call("force", as.symbol(paste0("..", x)))) %||% .null
+      eval_func <- eval(call("force", as.symbol(paste0("..", x))))
+      if (length(eval_func) == 0 & !is.null(eval_func)) {
+        .empty
+      } else {
+        eval_func %||% .null
+      }
     }
   )
   unnamed_args <- drop_null(unnamed_args)
@@ -151,7 +156,11 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   }
 
   f <- function(expr){
-    eval_func <- .transformer(expr, env) %||% .null
+    eval_func <- .transformer(expr, env)
+    if (length(eval_func) == 0 & !is.null(eval_func)) {
+      eval_func <- .empty
+    }
+    eval_func <- eval_func %||% .null
 
     # crayon functions *can* be used, so we use tryCatch()
     # to give as.character() a chance to work
