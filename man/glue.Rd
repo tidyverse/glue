@@ -67,8 +67,9 @@ NULL values with. If \code{character()} whole output is \code{character()}. If
 value is replaced by the value of \code{.null}.}
 
 \item{.empty}{[\code{character(1)}: \sQuote{character()}]\cr Value to replace
-vectors of length 0 with. If \code{character()} whole output is \code{character()}. Otherwise the
-value is replaced by the value of \code{.empty}.}
+vectors of length 0 with. If \code{NULL} empty vectors are treated as NULL and
+the behaviours specified in \code{.null} applies. If \code{character()} whole output is
+\code{character()}. Otherwise the value is replaced by the value of \code{.empty}.}
 
 \item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
 character.}
