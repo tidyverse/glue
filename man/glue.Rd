@@ -14,6 +14,7 @@ glue_data(
   .close = "}",
   .na = "NA",
   .null = character(),
+  .empty = character(),
   .comment = "#",
   .literal = FALSE,
   .transformer = identity_transformer,
@@ -64,6 +65,10 @@ cause \code{NA} output. Otherwise the value is replaced by the value of \code{.n
 NULL values with. If \code{character()} whole output is \code{character()}. If
 \code{NULL} all NULL values are dropped (as in \code{paste0()}). Otherwise the
 value is replaced by the value of \code{.null}.}
+
+\item{.empty}{[\code{character(1)}: \sQuote{character()}]\cr Value to replace
+vectors of length 0 with. If \code{character()} whole output is \code{character()}. Otherwise the
+value is replaced by the value of \code{.empty}.}
 
 \item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
 character.}

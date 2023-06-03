@@ -28,6 +28,9 @@
 #'   NULL values with. If `character()` whole output is `character()`. If
 #'   `NULL` all NULL values are dropped (as in `paste0()`). Otherwise the
 #'   value is replaced by the value of `.null`.
+#' @param .empty \[`character(1)`: \sQuote{character()}]\cr Value to replace
+#'   vectors of length 0 with. If `character()` whole output is `character()`. Otherwise the
+#'   value is replaced by the value of `.empty`.
 #' @param .comment \[`character(1)`: \sQuote{#}]\cr Value to use as the comment
 #'   character.
 #' @param .literal \[`boolean(1)`: \sQuote{FALSE}]\cr Whether to treat single or
