@@ -93,7 +93,7 @@ glue('My name is {name},',
 head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 ```
 
-##### Or within dplyr pipelines
+##### `glue()` is useful within dplyr pipelines
 ```{r, message = FALSE}
 library(dplyr)
 head(iris) %>%
