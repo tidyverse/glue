@@ -1,4 +1,4 @@
-# + method requires character vectors
+# `+` method requires character vectors
 
     Code
       as_glue("a") + 1
@@ -9,7 +9,7 @@
     Error <simpleError>
       LHS must be a character vector.
 
-# `+` method returns length-0 for a length-0 input
+# `+` method errors for inputs of incompatible size
 
     Code
       as_glue(letters[1:2]) + letters[1:3]
