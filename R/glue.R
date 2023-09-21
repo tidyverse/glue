@@ -361,7 +361,11 @@ as.character.glue <- function(x, ...) {
     stop("RHS must be a character vector.")
   }
 
-  as_glue(paste0(e1, e2))
+  glue_data(
+    "{e1}{e2}",
+    .x = list(e1 = e1, e2 = e2),
+    .envir = parent.frame()
+  )
 }
 
 #' @importFrom methods setOldClass
