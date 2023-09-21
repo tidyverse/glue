@@ -520,7 +520,7 @@ test_that("`+` method does not interpolate twice", {
 })
 
 test_that("`+` method returns length-0 for a length-0 input", {
-  expect_identical(as_glue("hello") + "world"[0], character())
+  expect_identical(as_glue("hello") + character(), character())
 })
 
 test_that("+ method requires character vectors", {
