@@ -509,9 +509,21 @@ test_that("throws informative error if interpolating a function", {
 
 test_that("+ method for glue works", {
   expect_identical(glue("foo") + "bar", as_glue("foobar"))
+  expect_identical(glue("x = ") + "{x}", as_glue("x = {x}"))
 
-  x <- 1
-  expect_identical(glue("x = ") + "{x}", glue("x = {x}"))
+  x <- c("a", "b", "c")
+  expect_identical("(" + as_glue(x) + ")", paste0("(", x, ")"))
+})
+
+test_that("`+` method does not interpolate twice", {
+  expect_identical(glue("{x}", x = "{wut}") + "y", as_glue("{wut}y"))
+})
+
+test_that("+ method requires character vectors", {
+  expect_snapshot(error = TRUE, {
+    as_glue("a") + 1
+    1 + as_glue("a")
+  })
 })
 
 test_that("unterminated quotes are error", {
