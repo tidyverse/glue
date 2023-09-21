@@ -90,9 +90,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .null = character(),
   .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
 
-  if (is.null(.envir)) {
-    .envir <- emptyenv()
-  }
+  .envir <- .envir %||% emptyenv()
+  stopifnot(is.environment(.envir))
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
