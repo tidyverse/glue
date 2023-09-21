@@ -1,41 +1,114 @@
-# iotables
+# cpp11
 
 <details>
 
-* Version: 0.4.7
-* GitHub: https://github.com/rOpenGov/iotables
-* Source code: https://github.com/cran/iotables
-* Date/Publication: 2021-12-22 17:30:02 UTC
-* Number of recursive dependencies: 115
+* Version: 0.4.3
+* GitHub: https://github.com/r-lib/cpp11
+* Source code: https://github.com/cran/cpp11
+* Date/Publication: 2022-10-12 08:43:54 UTC
+* Number of recursive dependencies: 81
 
-Run `cloud_details(, "iotables")` for more info
+Run `revdepcheck::cloud_details(, "cpp11")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking tests ... ERROR
     ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘environmental_impact.Rmd’ using rmarkdown
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    ...
-    Columns and rows of CPA_L68A, CPA_T, CPA_U are all zeros and will be removed.
-    Joining, by = c("prod_na", "CPA_A01", "CPA_A02", "CPA_A03", "CPA_B", "CPA_C10-12", "CPA_C13-15", "CPA_C16", "CPA_C17", "CPA_C18", "CPA_C19", "CPA_C20", "CPA_C21", "CPA_C22", "CPA_C23", "CPA_C24", "CPA_C25", "CPA_C26", "CPA_C27", "CPA_C28", "CPA_C29", "CPA_C30", "CPA_C31_32", "CPA_C33", "CPA_D", "CPA_E36", "CPA_E37-39", "CPA_F", "CPA_G45", "CPA_G46", "CPA_H49", "CPA_H50", "CPA_H51", "CPA_H52", "CPA_H53", "CPA_I", "CPA_J58", "CPA_J59_60", "CPA_J61", "CPA_J62_63", "CPA_K64", "CPA_K65", "CPA_K66", "CPA_L68B", "CPA_M69_70", "CPA_M71", "CPA_M72", "CPA_M73", "CPA_M74_75", "CPA_N77", "CPA_N78", "CPA_N79", "CPA_N80-82", "CPA_O", "CPA_P", "CPA_Q86", "CPA_Q87_88", "CPA_R90-92", "CPA_R93", "CPA_S94", "CPA_S95", "CPA_S96")
-    Columns and rows of CPA_L68A are all zeros and will be removed.
-    --- finished re-building ‘working_with_eurostat.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘environmental_impact.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+       3.   └─base::seq.default(mid, end)
+      ── Failure ('test-register.R:222:5'): generate_cpp_functions: returns the empty string if there are no functions ──
+      generate_cpp_functions(funs) (`actual`) not equal to character() (`expected`).
+      
+      `actual`:   ""
+      `expected`:   
+      ── Failure ('test-register.R:391:5'): generate_r_functions: returns the empty string if there are no functions ──
+      generate_r_functions(funs) (`actual`) not equal to character() (`expected`).
+      
+      `actual`:   ""
+      `expected`:   
+      
+      [ FAIL 3 | WARN 0 | SKIP 2 | PASS 104 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# lvmisc
+
+<details>
+
+* Version: 0.1.1
+* GitHub: https://github.com/verasls/lvmisc
+* Source code: https://github.com/cran/lvmisc
+* Date/Publication: 2021-04-05 15:20:02 UTC
+* Number of recursive dependencies: 136
+
+Run `revdepcheck::cloud_details(, "lvmisc")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      err$message (`actual`) not equal to glue::glue("The method `my_fun` is not yet implemented \\\n      for an object of class `my_class`.") (`expected`).
+      
+      lines(actual) vs lines(expected)
+        "The method `my_fun` is not yet implemented for an object of class `my_class`."
+      - ""
+      ── Failure ('test-abort.R:109:5'): abort_no_method_for_class() works in objects with multiple classes ──
+      err$message (`actual`) not equal to glue::glue("The method `my_fun` is not yet implemented \\\n       for an object of classes `my_class_1` and `my_class_2`.") (`expected`).
+      
+      lines(actual) vs lines(expected)
+        "The method `my_fun` is not yet implemented for an object of classes `my_class_1` and `my_class_2`."
+      - ""
+      
+      [ FAIL 2 | WARN 18 | SKIP 7 | PASS 238 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# tinkr
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/ropensci/tinkr
+* Source code: https://github.com/cran/tinkr
+* Date/Publication: 2022-08-19 12:30:02 UTC
+* Number of recursive dependencies: 62
+
+Run `revdepcheck::cloud_details(, "tinkr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      `lines(actual[[2]])` is a character vector ('## Dataset', '', 'The data used:', '[data](https://example.com)', '')
+      `lines(expected[[2]])` is absent
+      
+      [ FAIL 14 | WARN 0 | SKIP 12 | PASS 92 ]
+      Deleting unused snapshots:
+      • class-yarn/yarn-kilroy.md
+      • class-yarn/yarn.Rmd
+      • class-yarn/yarn.md
+      • to_md/new-code-chunk.Rmd
+      • to_md/table.md
+      • to_md/to_md-works-for-Rmd.Rmd
+      • to_md/to_md-works.md
+      Error: Test failures
+      Execution halted
     ```
 

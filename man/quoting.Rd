@@ -16,9 +16,16 @@ backtick(x)
 \arguments{
 \item{x}{A character to quote.}
 }
+\value{
+A character vector of the same length as \code{x}, with the same
+  attributes (including names and dimensions) but with no class set.
+
+  Marked UTF-8 encodings are preserved.
+}
 \description{
 These functions make it easy to quote each individual element and are useful
-in conjunction with \code{\link[=glue_collapse]{glue_collapse()}}.
+in conjunction with \code{\link[=glue_collapse]{glue_collapse()}}. These are thin wrappers around
+\code{\link[base:encodeString]{base::encodeString()}}.
 }
 \examples{
 x <- 1:5

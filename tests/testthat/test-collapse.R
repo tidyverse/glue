@@ -18,7 +18,7 @@ test_that("glue_collapse truncates", {
 })
 
 test_that("last argument to glue_collapse", {
-  expect_equal(glue_collapse(character(), last = " and "), as_glue(character()))
+  expect_equal(glue_collapse(character(), last = " and "), as_glue(""))
   expect_equal(glue_collapse("", last = " and "), as_glue(""))
   expect_equal(glue_collapse(1, last = " and "), as_glue("1"))
   expect_equal(glue_collapse(1:2, last = " and "),as_glue( "1 and 2"))
@@ -29,8 +29,8 @@ test_that("last argument to glue_collapse", {
   expect_equal(glue_collapse(1:4, ", ", last = " and ", width = 10), as_glue("1, 2, 3..."))
 })
 
-test_that("glue_collapse returns 0 length output for 0 length input", {
-  expect_identical(glue_collapse(character()), as_glue(character()))
+test_that("glue_collapse returns empty string for 0 length input", {
+  expect_identical(glue_collapse(character()), as_glue(""))
 })
 
 test_that("glue_collapse returns NA_character_ if any inputs are NA", {
