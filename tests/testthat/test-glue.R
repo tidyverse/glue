@@ -515,6 +515,10 @@ test_that("+ method for glue works", {
   expect_identical("(" + as_glue(x) + ")", paste0("(", x, ")"))
 })
 
+test_that("`+` method does not interpolate twice", {
+  expect_identical(glue("{x}", x = "{wut}") + "y", as_glue("{wut}y"))
+})
+
 test_that("+ method requires character vectors", {
   expect_snapshot(error = TRUE, {
     as_glue("a") + 1
