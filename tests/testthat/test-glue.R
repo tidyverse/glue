@@ -519,6 +519,10 @@ test_that("`+` method does not interpolate twice", {
   expect_identical(glue("{x}", x = "{wut}") + "y", as_glue("{wut}y"))
 })
 
+test_that("`+` method returns length-0 for a length-0 input", {
+  expect_identical(as_glue("hello") + "world"[0], character())
+})
+
 test_that("+ method requires character vectors", {
   expect_snapshot(error = TRUE, {
     as_glue("a") + 1
