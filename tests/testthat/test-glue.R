@@ -530,6 +530,12 @@ test_that("+ method requires character vectors", {
   })
 })
 
+test_that("`+` method returns length-0 for a length-0 input", {
+  expect_snapshot(error = TRUE, {
+    as_glue(letters[1:2]) + letters[1:3]
+  })
+})
+
 test_that("unterminated quotes are error", {
   expect_error(glue("{this doesn\"t work}"), "Unterminated quote")
   expect_error(glue("{this doesn't work}"), "Unterminated quote")

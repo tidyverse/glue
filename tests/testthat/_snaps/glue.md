@@ -9,6 +9,13 @@
     Error <simpleError>
       LHS must be a character vector.
 
+# `+` method returns length-0 for a length-0 input
+
+    Code
+      as_glue(letters[1:2]) + letters[1:3]
+    Error <simpleError>
+      Variables must be length 1 or 3
+
 # unterminated comment
 
     Code
