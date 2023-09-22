@@ -2,7 +2,7 @@
 
 * `+` now works in more situations, and gives errors when one side isn't a 
   character vector. It no longer automatically applies glue interpolation to
-  both sides; you'll need to do that yourself as needed (#286).
+  a non-glue input, if there is one. You'll need to do that yourself (#286).
 
 * `glue_collapse(character())` (and hence `glue_sql_collapse(character())`) now
   return `""`, so that they always return a single string (#88).

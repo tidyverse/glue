@@ -354,14 +354,18 @@ as.character.glue <- function(x, ...) {
 
 #' @export
 `+.glue` <- function(e1, e2) {
-  if (!is.character(e1)) {
+  if (!is.null(e1) && !is.character(e1)) {
     stop("LHS must be a character vector.")
   }
-  if (!is.character(e2)) {
+  if (!is.null(e2) && !is.character(e2)) {
     stop("RHS must be a character vector.")
   }
 
-  as_glue(paste0(e1, e2))
+  glue_data(
+    "{e1}{e2}",
+    .x = list(e1 = e1, e2 = e2),
+    .envir = parent.frame()
+  )
 }
 
 #' @importFrom methods setOldClass

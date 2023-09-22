@@ -1,4 +1,4 @@
-# + method requires character vectors
+# `+` method requires character vectors
 
     Code
       as_glue("a") + 1
@@ -8,6 +8,13 @@
       1 + as_glue("a")
     Error <simpleError>
       LHS must be a character vector.
+
+# `+` method errors for inputs of incompatible size
+
+    Code
+      as_glue(letters[1:2]) + letters[1:3]
+    Error <simpleError>
+      Variables must be length 1 or 3
 
 # unterminated comment
 
