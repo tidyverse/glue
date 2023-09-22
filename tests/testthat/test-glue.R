@@ -523,8 +523,12 @@ test_that("`+` method does not interpolate twice", {
   expect_identical(glue("{x}", x = "{wut}") + "y", "{wut}y")
 })
 
-test_that("`+` method returns length-0 for a length-0 input", {
+test_that("`+` method returns length-0 if there is a length-0 input", {
   expect_identical(as_glue("hello") + character(), character())
+})
+
+test_that("`+` method returns length-0 if there is a `NULL` input", {
+  expect_identical(as_glue("hello") + NULL, character())
 })
 
 test_that("`+` recycles", {
