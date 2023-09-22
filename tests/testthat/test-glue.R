@@ -510,11 +510,41 @@ test_that("throws informative error if interpolating a function", {
   }
 })
 
-test_that("+ method for glue works", {
-  expect_identical(glue("foo") + "bar", as_glue("foobar"))
+test_that("`+` method for glue works", {
+  expect_identical(glue("foo") + "bar", "foobar")
+  expect_identical("foo" + glue("bar"), "foobar")
+})
 
-  x <- 1
-  expect_identical(glue("x = ") + "{x}", glue("x = {x}"))
+test_that("`+` method requires character vectors", {
+  expect_snapshot(error = TRUE, {
+    as_glue("a") + 1
+    1 + as_glue("a")
+  })
+})
+
+test_that("`+` method does not interpolate twice", {
+  expect_identical(glue("{x}", x = "{wut}") + "y", "{wut}y")
+})
+
+test_that("`+` method returns length-0 if there is a length-0 input", {
+  expect_identical(as_glue("hello") + character(), character())
+})
+
+test_that("`+` method returns length-0 if there is a `NULL` input", {
+  expect_identical(as_glue("hello") + NULL, character())
+})
+
+test_that("`+` recycles", {
+  x <- c("a", "b", "c")
+  expect_identical("(" + as_glue(x) + ")", paste0("(", x, ")"))
+  y <- as.character(1:3)
+  expect_identical(as_glue(x) + y, c("a1", "b2", "c3"))
+})
+
+test_that("`+` method errors for inputs of incompatible size", {
+  expect_snapshot(error = TRUE, {
+    as_glue(letters[1:2]) + letters[1:3]
+  })
 })
 
 test_that("unterminated quotes are error", {

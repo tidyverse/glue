@@ -5,26 +5,79 @@
 \alias{glue_data_sql}
 \title{Interpolate strings with SQL escaping}
 \usage{
-glue_sql(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
+glue_sql(
+  ...,
+  .con,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = DBI::SQL("NULL"),
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .trim = TRUE
+)
 
-glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
+glue_data_sql(
+  .x,
+  ...,
+  .con,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = DBI::SQL("NULL"),
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .trim = TRUE
+)
 }
 \arguments{
 \item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
-Named arguments are taken to be temporary variables available for substitution.}
+Named arguments are taken to be temporary variables available for substitution.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{For `glue_data()`, elements in `...` override the values in `.x`.
+}\if{html}{\out{</div>}}}
 
 \item{.con}{[\code{DBIConnection}]: A DBI connection object obtained from
 \code{\link[DBI:dbConnect]{DBI::dbConnect()}}.}
+
+\item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
 
 \item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
 evaluated from left to right. If \code{.x} is an environment, the expressions are
 evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
+\item{.open}{[\code{character(1)}: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
+full delimiter escapes it.}
+
+\item{.close}{[\code{character(1)}: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
+full delimiter escapes it.}
+
 \item{.na}{[\code{character(1)}: \code{DBI::SQL("NULL")}]\cr Value to replace
 \code{NA} values with. If \code{NULL} missing values are propagated, that is an \code{NA}
 result will cause \code{NA} output. Otherwise the value is replaced by the
 value of \code{.na}.}
+
+\item{.null}{[\code{character(1)}: \sQuote{character()}]\cr Value to replace
+NULL values with. If \code{character()} whole output is \code{character()}. If
+\code{NULL} all NULL values are dropped (as in \code{paste0()}). Otherwise the
+value is replaced by the value of \code{.null}.}
+
+\item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
+character.}
+
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
+\code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
+(especially, its name) as experimental.}
+
+\item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
+template with \code{\link[=trim]{trim()}} or not.}
 
 \item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
 }
@@ -36,8 +89,7 @@ SQL databases often have custom quotation syntax for identifiers and strings
 which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
 \code{glue_data_sql()} are analogs to \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}} which handle the
 SQL quoting. \code{glue_sql_collapse()} can be used to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
-}
-\details{
+
 They automatically quote character results, quote identifiers if the glue
 expression is surrounded by backticks '\verb{`}' and do not quote
 non-characters such as numbers. If numeric data is stored in a character

@@ -3,6 +3,20 @@
 * glue objects have a new print method that does a better job of showing
   multi-line strings and how many strings you have in the vector (#290).
 
+* `+` now works in more situations, and gives errors when one side isn't a 
+  character vector. It no longer automatically applies glue interpolation to
+  a non-glue input, if there is one. You'll need to do that yourself (#286).
+
+* `glue_collapse(character())` (and hence `glue_sql_collapse(character())`) now
+  return `""`, so that they always return a single string (#88).
+
+* `glue_sql()` now collapses an empty vector to `""` not `"NULL"` (#272).
+
+* `glue_sql()` now uses `DBI::dbQuoteLiteral()` for all object types. This 
+  should increase fidelity of escaping for different object types (#279).
+
+* The "Speed of glue" vignette has been converted to an article, which allows several package to be removed from `Suggests` (and re-located to `Config/Needs/website`). The code got a light refresh, including a switch from microbenchmark to bench and more modern use of ggplot2.
+
 * Add `$(C_VISIBILITY)` to compiler flags to hide internal symbols from the dll (#284 @lionel-).
 
 # glue 1.6.2
