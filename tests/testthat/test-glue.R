@@ -502,7 +502,7 @@ test_that("throws informative error if interpolating a function", {
   expect_error(glue("{cat}"), "is a function")
 
   # some crayon functions are OK, make sure this still works
-  if (require("crayon")) {
+  if (require("crayon", quietly = TRUE)) {
     expect_s3_class(glue("{red}red{reset}"), "glue")
   }
 })
