@@ -302,6 +302,12 @@ print.glue <- function(x, ..., sep = "\n") {
   out <- x
   out[is.na(out)] <- style_red("NA")
   out <- paste0(indent, out)
+  if (requireNamespace("cli", quietly = TRUE)) {
+    # Split into lines and reassemble so that each line gets its own styling
+    lines <- cli::ansi_strsplit(out, "\n")
+    out <- vapply(lines, paste0, collapse = "\n", character(1))
+  }
+
   out <- gsub("\n", paste0("\n", exdent), out)
   cat(paste0(out, "\n", collapse = ""))
 
