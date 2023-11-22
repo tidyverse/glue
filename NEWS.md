@@ -3,6 +3,10 @@
 * If rlang is installed, glue will generate more informative errors if an
   interpolated expression either can't be parsed or fails to evaluate (#229).
 
+* `+` now works in more situations, and gives errors when one side isn't a 
+  character vector. It no longer automatically applies glue interpolation to
+  a non-glue input, if there is one. You'll need to do that yourself (#286).
+
 * `glue_collapse(character())` (and hence `glue_sql_collapse(character())`) now
   return `""`, so that they always return a single string (#88).
 

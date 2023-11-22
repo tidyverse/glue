@@ -90,9 +90,8 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .null = character(),
   .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
 
-  if (is.null(.envir)) {
-    .envir <- emptyenv()
-  }
+  .envir <- .envir %||% emptyenv()
+  stopifnot(is.environment(.envir))
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
@@ -355,7 +354,18 @@ as.character.glue <- function(x, ...) {
 
 #' @export
 `+.glue` <- function(e1, e2) {
-  glue(e1, e2, .envir = parent.frame())
+  if (!is.null(e1) && !is.character(e1)) {
+    stop("LHS must be a character vector.")
+  }
+  if (!is.null(e2) && !is.character(e2)) {
+    stop("RHS must be a character vector.")
+  }
+
+  glue_data(
+    "{e1}{e2}",
+    .x = list(e1 = e1, e2 = e2),
+    .envir = parent.frame()
+  )
 }
 
 #' @importFrom methods setOldClass

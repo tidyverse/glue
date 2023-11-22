@@ -32,7 +32,7 @@ Suggests:
     rlang,
     rmarkdown,
     RSQLite,
-    testthat (>= 3.0.0),
+    testthat (>= 3.2.0),
     vctrs (>= 0.3.0),
     waldo (>= 0.3.0),
     withr

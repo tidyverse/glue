@@ -2,16 +2,18 @@
 
     Code
       identity_transformer("x + ")
-    Error <rlang_error>
-      Failed to parse glue component
+    Condition
+      Error:
+      ! Failed to parse glue component
       Caused by error in `parse()`:
       ! <text>:2:0: unexpected end of input
       1: x + 
          ^
     Code
       identity_transformer("NOTFOUND")
-    Error <rlang_error>
-      Failed to evaluate glue component {NOTFOUND}
-      Caused by error:
+    Condition
+      Error:
+      ! Failed to evaluate glue component {NOTFOUND}
+      Caused by error in `identity_transformer()`:
       ! argument "envir" is missing, with no default
 

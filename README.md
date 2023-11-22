@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
-[![R-CMD-check](https://github.com/tidyverse/glue/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/tidyverse/glue/actions/workflows/.github/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/.github/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
@@ -100,7 +100,7 @@ head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
 #> Valiant has 105 hp
 ```
 
-##### Or within dplyr pipelines
+##### `glue()` is useful within dplyr pipelines
 
 ``` r
 library(dplyr)
@@ -284,17 +284,17 @@ glue("x + y") + " = {x + y}"
 Some other implementations of string interpolation in R (although not
 using identical syntax).
 
--   [stringr::str_interp](https://stringr.tidyverse.org/reference/str_interp.html)
--   [R.utils::gstring](https://cran.r-project.org/package=R.utils)
--   [rprintf](https://cran.r-project.org/package=rprintf)
+- [stringr::str_interp](https://stringr.tidyverse.org/reference/str_interp.html)
+- [R.utils::gstring](https://cran.r-project.org/package=R.utils)
+- [rprintf](https://cran.r-project.org/package=rprintf)
 
 String templating is closely related to string interpolation, although
 not exactly the same concept. Some packages implementing string
 templating in R include.
 
--   [whisker](https://cran.r-project.org/package=whisker)
--   [brew](https://cran.r-project.org/package=brew)
--   [jinjar](https://cran.r-project.org/package=jinjar)
+- [whisker](https://cran.r-project.org/package=whisker)
+- [brew](https://cran.r-project.org/package=brew)
+- [jinjar](https://cran.r-project.org/package=jinjar)
 
 ## Code of Conduct
 
