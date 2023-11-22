@@ -290,9 +290,9 @@ trim <- function(x) {
 
 #' @export
 print.glue <- function(x, ..., sep = "\n") {
+  cat("<glue[", length(x), "]>\n", sep = "")
   if (length(x) == 0) {
-    cat("<Length-0 glue vector>\n")
-    return(invisible(x))
+    return(invisible())
   }
 
   id <- format(paste0("[", seq_along(x), "] "), justify = "right")

@@ -217,6 +217,7 @@ test_that("glue has useful print method", {
   expect_snapshot({
     x <- c("abc", "def\nghi", "\"\\", NA)
     glue("{x}", .na = NULL)
+    glue("{x}", x = character())
   })
 })
 

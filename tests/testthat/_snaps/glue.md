@@ -4,11 +4,16 @@
       x <- c("abc", "def\nghi", "\"\\", NA)
       glue("{x}", .na = NULL)
     Output
+      <glue[4]>
       [1] | abc
       [2] | def
           | ghi
       [3] | "\
       [4] | NA
+    Code
+      glue("{x}", x = character())
+    Output
+      <glue[0]>
 
 # `+` method requires character vectors
 
