@@ -14,38 +14,44 @@
 
     Code
       as_glue("a") + 1
-    Error <simpleError>
-      RHS must be a character vector.
+    Condition
+      Error in `+.glue`:
+      ! RHS must be a character vector.
     Code
       1 + as_glue("a")
-    Error <simpleError>
-      LHS must be a character vector.
+    Condition
+      Error in `+.glue`:
+      ! LHS must be a character vector.
 
 # `+` method errors for inputs of incompatible size
 
     Code
       as_glue(letters[1:2]) + letters[1:3]
-    Error <simpleError>
-      Variables must be length 1 or 3
+    Condition
+      Error:
+      ! Variables must be length 1 or 3
 
 # unterminated comment
 
     Code
       glue("pre {1 + 5 # comment} post")
-    Error <simpleError>
-      A '#' comment in a glue expression must terminate with a newline.
+    Condition
+      Error in `glue_data()`:
+      ! A '#' comment in a glue expression must terminate with a newline.
 
 ---
 
     Code
       glue("pre {1 + 5 # comment")
-    Error <simpleError>
-      A '#' comment in a glue expression must terminate with a newline.
+    Condition
+      Error in `glue_data()`:
+      ! A '#' comment in a glue expression must terminate with a newline.
 
 # `.literal` treats quotes and `#` as regular characters
 
     Code
       glue("{'fo`o\"#}", .transformer = function(x, ...) x)
-    Error <simpleError>
-      Unterminated quote (')
+    Condition
+      Error in `glue_data()`:
+      ! Unterminated quote (')
 
