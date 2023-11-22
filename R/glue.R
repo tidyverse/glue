@@ -289,10 +289,15 @@ trim <- function(x) {
 }
 
 #' @export
-print.glue <- function(x, ..., sep = "\n") {
+print.glue <- function(x, ..., sep = "\n", max = getOption("max.print")) {
   cat("<glue[", length(x), "]>\n", sep = "")
   if (length(x) == 0) {
     return(invisible())
+  }
+
+  truncated <- length(x) > max
+  if (truncated) {
+    x <- x[seq_len(max)]
   }
 
   id <- format(paste0("[", seq_along(x), "] "), justify = "right")
@@ -310,6 +315,10 @@ print.glue <- function(x, ..., sep = "\n") {
 
   out <- gsub("\n", paste0("\n", exdent), out)
   cat(paste0(out, "\n", collapse = ""))
+
+  if (truncated) {
+    cat("...\n")
+  }
 
   invisible(x)
 }

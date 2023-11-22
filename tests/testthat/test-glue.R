@@ -221,6 +221,15 @@ test_that("glue has useful print method", {
   })
 })
 
+test_that("print method truncates long values", {
+
+  withr::local_options(max.print = 10)
+  expect_snapshot({
+    glue("{x}", x = letters)
+  })
+})
+
+
 test_that("length 0 inputs produce length 0 outputs", {
   expect_equal(glue("foo", character(0)), character(0))
   expect_equal(glue("foo", NULL), character(0))
