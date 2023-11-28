@@ -27,8 +27,6 @@ Suggests:
     dplyr,
     knitr,
     magrittr,
-    microbenchmark,
-    R.utils,
     rlang,
     rmarkdown,
     RSQLite,
