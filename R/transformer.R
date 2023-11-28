@@ -7,7 +7,7 @@
 #' @seealso `vignette("transformers", "glue")` for documentation on creating
 #'   custom glue transformers and some common use cases.
 #' @export
-identity_transformer <- function(text, envir) {
+identity_transformer <- function(text, envir = parent.frame()) {
   with_glue_error(
     expr <- parse(text = text, keep.source = FALSE),
     "Failed to parse glue component"

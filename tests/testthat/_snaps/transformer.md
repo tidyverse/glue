@@ -14,6 +14,6 @@
     Condition
       Error:
       ! Failed to evaluate glue component {NOTFOUND}
-      Caused by error in `identity_transformer()`:
-      ! argument "envir" is missing, with no default
+      Caused by error:
+      ! object 'NOTFOUND' not found
 
