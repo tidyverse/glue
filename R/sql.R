@@ -212,7 +212,7 @@ sql_quote_transformer <- function(connection, .na) {
     is_quoted <- any(m[[1]] != -1)
     if (is_quoted) {
       regmatches(text, m) <- ""
-      res <- eval(parse(text = text, keep.source = FALSE), envir)
+      res <- identity_transformer(text, envir)
 
       if (length(res) == 1) {
         res <- DBI::dbQuoteIdentifier(conn = connection, res)
@@ -222,7 +222,7 @@ sql_quote_transformer <- function(connection, .na) {
         res[] <- lapply(res, DBI::dbQuoteIdentifier, conn = connection)
       }
     } else {
-      res <- eval(parse(text = text, keep.source = FALSE), envir)
+      res <- identity_transformer(text, envir)
       if (length(res) == 0L) {
         if (should_collapse) {
           return("")

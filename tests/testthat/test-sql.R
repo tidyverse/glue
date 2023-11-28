@@ -130,3 +130,10 @@ describe("glue_sql_collapse", {
     )
   })
 })
+
+test_that("get nice errors if rlang installed", {
+  expect_snapshot(error = TRUE, {
+    glue_sql("{x + }")
+    glue_sql("{NOTFOUND}")
+  })
+})

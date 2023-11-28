@@ -27,6 +27,7 @@ Suggests:
     dplyr,
     knitr,
     magrittr,
+    rlang,
     rmarkdown,
     RSQLite,
     testthat (>= 3.2.0),
