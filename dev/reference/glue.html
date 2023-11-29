@@ -167,9 +167,12 @@ syntactic elements), when parsing the expression string. Setting <code>.literal 
 
 
 <dt>.transformer</dt>
-<dd><p>[<code>function]</code><br> A function taking three parameters <code>code</code>, <code>envir</code> and
-<code>data</code> used to transform the output of each block before, during, or after
-evaluation. For example transformers see <code><a href="../articles/transformers.html">vignette("transformers")</a></code>.</p></dd>
+<dd><p>[<code>function]</code><br> A function taking two arguments, <code>text</code>
+and <code>envir</code>, where <code>text</code> is the unparsed string inside the glue block and
+<code>envir</code> is the execution environment. A <code>.transformer</code> lets you modify a
+glue block before, during, or after evaluation, allowing you to create your
+own custom <code>glue()</code>-like functions. See <code><a href="../articles/transformers.html">vignette("transformers")</a></code> for
+examples.</p></dd>
 
 
 <dt>.trim</dt>
