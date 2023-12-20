@@ -37,8 +37,6 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Config/Needs/check:
-    r-dbi/DBI
 Config/Needs/website:
     bench,
     forcats,
@@ -52,3 +50,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3.9000
+Remotes:  
+    r-dbi/DBI
