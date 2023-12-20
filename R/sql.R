@@ -114,13 +114,13 @@
 #' DBI::dbWriteTable(con, nicknames_db, nicknames)
 #'
 #' cols <- list(
-#'   DBI::Id(table = iris_db, column = "sepal_length"),
-#'   DBI::Id(table = iris_db, column = "sepal_width"),
-#'   DBI::Id(table = nicknames_db, column = "nickname")
+#'   DBI::Id(iris_db, "sepal_length"),
+#'   DBI::Id(iris_db, "sepal_width"),
+#'   DBI::Id(nicknames_db, "nickname")
 #' )
 #'
-#' iris_species <- DBI::Id(table = iris_db, column = "species")
-#' nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
+#' iris_species <- DBI::Id(iris_db, "species")
+#' nicknames_species <- DBI::Id(nicknames_db, "species")
 #'
 #' query <- glue_sql("
 #'   SELECT {`cols`*}
