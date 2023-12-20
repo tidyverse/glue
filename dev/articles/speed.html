@@ -166,11 +166,11 @@ this benchmark, but is now formally marked as “superseded”, in favor of
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf    751.11ns    812ns  1<span style="text-decoration: underline;">168</span>641.        0B      0  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0       1.52µs   1.65µs   <span style="text-decoration: underline;">584</span>770.        0B     58.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue       100.28µs 105.42µs     <span style="text-decoration: underline;">9</span>345.  140.53KB     33.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring    216.48µs 223.18µs     <span style="text-decoration: underline;">4</span>420.    2.45MB     18.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf    274.63µs 282.17µs     <span style="text-decoration: underline;">3</span>503.   78.14KB     12.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf    730.97ns 771.02ns  1<span style="text-decoration: underline;">265</span>453.        0B      0  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0       1.52µs   1.58µs   <span style="text-decoration: underline;">615</span>824.        0B      0  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue        99.58µs  102.8µs     <span style="text-decoration: underline;">9</span>563.  140.53KB     33.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring    215.67µs 224.63µs     <span style="text-decoration: underline;">4</span>278.    2.45MB     21.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     270.3µs 275.85µs     <span style="text-decoration: underline;">3</span>584.   78.14KB     12.3</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></span></code></pre></div>
@@ -213,11 +213,11 @@ performance is much closer to that of <code><a href="https://rdrr.io/r/base/past
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> paste0        8.3ms   8.32ms     119.    781.3KB     4.19</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> sprintf      9.64ms  10.01ms     100.    781.3KB     4.26</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gstring     11.15ms  11.22ms      89.0    1.53MB     6.51</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> glue        12.75ms  13.13ms      76.2    2.29MB     6.53</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     27.33ms  27.87ms      35.6    3.05MB     2.09</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> paste0        8.3ms   8.34ms     119.    781.3KB     4.12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> sprintf      9.51ms    9.9ms     101.    781.3KB     2.06</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gstring      11.2ms  11.27ms      88.0    1.53MB     6.44</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> glue        12.38ms   12.5ms      79.5    2.29MB     9.09</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     27.53ms  27.82ms      35.8    3.05MB     4.47</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span><span class="op">)</span></span></code></pre></div>
@@ -234,7 +234,7 @@ performance is much closer to that of <code><a href="https://rdrr.io/r/base/past
   <footer><div class="container">
   <div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+<p>Developed by <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
