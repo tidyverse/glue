@@ -23,7 +23,7 @@ Imports:
     methods
 Suggests: 
     crayon,
-    DBI (>= 1.1.3),
+    DBI (>= 1.2.0),
     dplyr,
     knitr,
     magrittr,
@@ -37,6 +37,8 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
+Config/Needs/check:
+    r-dbi/DBI
 Config/Needs/website:
     bench,
     forcats,
