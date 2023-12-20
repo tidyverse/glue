@@ -270,15 +270,6 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 #> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')
 ```
 
-##### Optionally combine strings with `+`
-
-``` r
-x <- 1
-y <- 3
-glue("x + y") + " = {x + y}"
-#> x + y = 4
-```
-
 # Other implementations
 
 Some other implementations of string interpolation in R (although not
