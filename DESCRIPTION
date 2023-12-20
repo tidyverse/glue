@@ -4,9 +4,9 @@ Version: 1.6.2.9000
 Authors@R: c(
     person("Jim", "Hester", role = "aut",
            comment = c(ORCID = "0000-0002-2739-7082")),
-    person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre"),
+    person("Jennifer", "Bryan", , "jenny@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6983-2759")),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: An implementation of interpreted string literals, inspired by
     Python's Literal String Interpolation
@@ -37,15 +37,8 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Config/Needs/website:
-    bench,
-    forcats,
-    ggbeeswarm,
-    ggplot2,
-    R.utils,
-    rprintf,
-    tidyr,
-    tidyverse/tidytemplate
+Config/Needs/website:bench, forcats, ggbeeswarm, ggplot2, R.utils,
+    rprintf, tidyr, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -15,7 +15,7 @@
 #' Returning the result with [DBI::SQL()] will suppress quoting if desired for
 #' a given value.
 #'
-#' Note [parameterized queries](https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries)
+#' Note [parameterized queries](https://solutions.posit.co/connections/db/best-practices/run-queries-safely/#parameterized-queries)
 #' are generally the safest and most efficient way to pass user defined
 #' values in a query, however not every database driver supports them.
 #'

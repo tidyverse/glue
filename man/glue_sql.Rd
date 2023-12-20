@@ -99,7 +99,7 @@ character.
 Returning the result with \code{\link[DBI:SQL]{DBI::SQL()}} will suppress quoting if desired for
 a given value.
 
-Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries}{parameterized queries}
+Note \href{https://solutions.posit.co/connections/db/best-practices/run-queries-safely/#parameterized-queries}{parameterized queries}
 are generally the safest and most efficient way to pass user defined
 values in a query, however not every database driver supports them.
 
