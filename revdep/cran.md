@@ -1,40 +1,43 @@
 ## revdepcheck results
 
-We checked 615 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 711 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 3 new problems
- * We failed to check 17 packages
+ * We saw 7 new problems
+ * We failed to check 2 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* cpp11
+* codebook
+  checking re-building of vignette outputs ... ERROR
+
+* diseasystore
   checking tests ... ERROR
 
-* lvmisc
+* odin
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* shinyCohortBuilder
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* table.glue
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* tidytable
   checking tests ... ERROR
 
-* tinkr
+* vegawidget
+  checking examples ... ERROR
   checking tests ... ERROR
 
 ### Failed to check
 
-* bcmaps               (NA)
-* cleanTS              (NA)
-* CopernicusDEM        (NA)
-* cubble               (NA)
-* ggspatial            (NA)
-* IceSat2R             (NA)
-* lidR                 (NA)
-* MainExistingDatasets (NA)
-* mapscanner           (NA)
-* oceanexplorer        (NA)
-* rbenvo               (NA)
-* reproducible         (NA)
-* simplevis            (NA)
-* SpatialKDE           (NA)
-* spatialsample        (NA)
-* SSVS                 (NA)
-* wallace              (NA)
+* params           (NA)
+* TriDimRegression (NA)

@@ -1,32 +1,21 @@
 # Revdeps
 
-## Failed to check (17)
+## Failed to check (2)
 
-|package              |version |error |warning |note |
-|:--------------------|:-------|:-----|:-------|:----|
-|bcmaps               |?       |      |        |     |
-|cleanTS              |0.1.1   |1     |        |     |
-|CopernicusDEM        |?       |      |        |     |
-|cubble               |?       |      |        |     |
-|ggspatial            |?       |      |        |     |
-|IceSat2R             |?       |      |        |     |
-|lidR                 |?       |      |        |     |
-|MainExistingDatasets |?       |      |        |     |
-|mapscanner           |?       |      |        |     |
-|oceanexplorer        |?       |      |        |     |
-|rbenvo               |?       |      |        |     |
-|reproducible         |?       |      |        |     |
-|simplevis            |?       |      |        |     |
-|SpatialKDE           |?       |      |        |     |
-|spatialsample        |?       |      |        |     |
-|SSVS                 |?       |      |        |     |
-|wallace              |?       |      |        |     |
+|package          |version |error  |warning |note |
+|:----------------|:-------|:------|:-------|:----|
+|[params](failures.md#params)|0.7.3   |__+1__ |        |     |
+|TriDimRegression |1.0.2   |1      |        |     |
 
-## New problems (3)
+## New problems (7)
 
-|package |version |error  |warning |note |
-|:-------|:-------|:------|:-------|:----|
-|[cpp11](problems.md#cpp11)|0.4.3   |__+1__ |        |     |
-|[lvmisc](problems.md#lvmisc)|0.1.1   |__+1__ |        |     |
-|[tinkr](problems.md#tinkr)|0.1.0   |__+1__ |        |     |
+|package            |version |error  |warning |note |
+|:------------------|:-------|:------|:-------|:----|
+|[codebook](problems.md#codebook)|0.9.2   |__+1__ |        |3    |
+|[diseasystore](problems.md#diseasystore)|0.1     |__+1__ |        |     |
+|[odin](problems.md#odin)|1.2.5   |__+3__ |        |     |
+|[shinyCohortBuilder](problems.md#shinycohortbuilder)|0.2.1   |__+2__ |        |     |
+|[table.glue](problems.md#tableglue)|0.0.3   |__+3__ |        |     |
+|[tidytable](problems.md#tidytable)|0.10.2  |__+1__ |        |     |
+|[vegawidget](problems.md#vegawidget)|0.4.3   |__+2__ |        |     |
 
