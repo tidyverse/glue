@@ -1,4 +1,4 @@
-# glue (development version)
+# glue 1.7.0
 
 * If rlang is installed, glue will generate more informative errors if an
   interpolated expression either can't be parsed or fails to evaluate (#229).
