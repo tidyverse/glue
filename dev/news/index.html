@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glue</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.7.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="glue-development-version">glue (development version)<a class="anchor" aria-label="anchor" href="#glue-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.7.0" id="glue-170">glue 1.7.0<a class="anchor" aria-label="anchor" href="#glue-170"></a></h2><p class="text-muted">CRAN release: 2024-01-09</p>
 <ul><li><p>If rlang is installed, glue will generate more informative errors if an interpolated expression either can’t be parsed or fails to evaluate (<a href="https://github.com/tidyverse/glue/issues/229" class="external-link">#229</a>).</p></li>
 <li><p><code>+</code> now works in more situations, and gives errors when one side isn’t a character vector. It no longer automatically applies glue interpolation to a non-glue input, if there is one. You’ll need to do that yourself (<a href="https://github.com/tidyverse/glue/issues/286" class="external-link">#286</a>).</p></li>
 <li><p><code>glue_collapse(character())</code> (and hence <code>glue_sql_collapse(character())</code>) now return <code>""</code>, so that they always return a single string (<a href="https://github.com/tidyverse/glue/issues/88" class="external-link">#88</a>).</p></li>
