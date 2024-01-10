@@ -1,3 +1,5 @@
+# glue (development version)
+
 # glue 1.7.0
 
 * If rlang is installed, glue will generate more informative errors if an
