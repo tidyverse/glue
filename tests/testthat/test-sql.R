@@ -49,12 +49,12 @@ describe("glue_sql", {
     expect_identical(glue_sql("{var*}", .con = con, var = "a"), DBI::SQL("'a'"))
     expect_identical(glue_sql("{var*}", .con = con, var = letters[1:5]), DBI::SQL("'a', 'b', 'c', 'd', 'e'"))
   })
-  it('collapses empty values to empty string', {
-    expect_identical(glue_sql("{var*}", .con = con, var = character()), DBI::SQL(""))
-    expect_identical(glue_sql("{var*}", .con = con, var = DBI::SQL(character())), DBI::SQL(""))
+  it('collapses empty values to NULLempty ', {
+    expect_identical(glue_sql("{var*}", .con = con, var = character()), DBI::SQL("NULL"))
+    expect_identical(glue_sql("{var*}", .con = con, var = DBI::SQL(character())), DBI::SQL("NULL"))
   })
   it("mimics glue() when not collapsing", {
-    expect_equal(glue_sql("{var}", var = NULL), DBI::SQL(glue("{var}", var = NULL)))
+    expect_equal(glue_sql("{var}", .con = con, var = NULL), DBI::SQL(glue("{var}", var = NULL)))
   })
 
   it("should return an SQL NULL by default for missing values", {

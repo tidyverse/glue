@@ -20,8 +20,9 @@
 #' values in a query, however not every database driver supports them.
 #'
 #' If you place a `*` at the end of a glue expression the values will be
-#' collapsed with commas. This is useful for the [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp)
-#' for instance.
+#' collapsed with commas, or if there are no values, produce `NULL`.
+#' This is useful for (e.g.) the
+#' [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp).
 #' @inheritParams glue
 #' @seealso [glue_sql_collapse()] to collapse [DBI::SQL()] objects.
 #' @param .con \[`DBIConnection`]: A DBI connection object obtained from
@@ -223,13 +224,10 @@ sql_quote_transformer <- function(connection, .na) {
       }
     } else {
       res <- identity_transformer(text, envir)
-      if (length(res) == 0L) {
-        if (should_collapse) {
-          return("")
-        } else {
-          return(NULL)
-        }
+      if (length(res) == 0L && should_collapse) {
+        return(DBI::SQL("NULL"))
       }
+
       if (inherits(res, "SQL")) {
         if (should_collapse) {
           res <- glue_collapse(res, ", ")

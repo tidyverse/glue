@@ -1,5 +1,8 @@
 # glue (development version)
 
+* `glue_sql("{var*}")` once again generates `NULL` if var is empty.  
+  This reverts #292. (#318).
+
 * The `.envir` argument to `glue()` and `glue_data()` really must be an
   environment now, as documented. Previously a list-ish object worked in some
   cases (by accident, not really by design). When you need to lookup values in
