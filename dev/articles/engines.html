@@ -118,17 +118,17 @@ chunk contents as a glue template.</p>
 <p>Maybe the most useful use of the <code>glue</code> engine is to set
 the knitr option <code>results = 'asis'</code> and output markdown or
 HTML directly into the document.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{glue, results = 'asis', echo = FALSE}</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="in">```{glue, results = 'asis', echo = FALSE}</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="in">#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="mtcars-has-32-rows-and-11-columns-">mtcars has <strong>32 rows</strong> and <em>11 columns</em>.<a class="anchor" aria-label="anchor" href="#mtcars-has-32-rows-and-11-columns-"></a>
 </h4>
 <p>If you want to pass additional arguments into the glue call, simply
 include them as chunk options.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{glue, .open = "&lt;&lt;", .close = "&gt;&gt;", results = 'asis', echo = FALSE}</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">The **median waiting time** between eruptions is &lt;&lt;median(faithful$waiting)&gt;&gt;.</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="in">```{glue, .open = "&lt;&lt;", .close = "&gt;&gt;", results = 'asis', echo = FALSE}</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="in">The **median waiting time** between eruptions is &lt;&lt;median(faithful$waiting)&gt;&gt;.</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>The <strong>median waiting time</strong> between eruptions is 76.</p>
 </div>
 </div>
@@ -164,14 +164,14 @@ we use the <code>sqlite</code> engine, which uses backticks for quoting,
 but you would use the same backticks inside brace syntax for postgreSQL,
 and <code><a href="../reference/glue_sql.html">glue_sql()</a></code> would automatically use double quotes for
 quoting instead.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{glue_sql, connection = con}</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">SELECT `model`, `hp`, {`var`}</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">FROM {`tbl`}</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">WHERE {`tbl`}.`hp` &gt; {num}</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> `model`, `hp`, `mpg`</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> `mtcars`</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> `mtcars`.`hp` <span class="op">&gt;</span> <span class="dv">150</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="in">```{glue_sql, connection = con}</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="in">SELECT `model`, `hp`, {`var`}</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="in">FROM {`tbl`}</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="in">WHERE {`tbl`}.`hp` &gt; {num}</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="kw">SELECT</span> `model`, `hp`, `mpg`</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="kw">FROM</span> `mtcars`</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="kw">WHERE</span> `mtcars`.`hp` <span class="op">&gt;</span> <span class="dv">150</span></span></code></pre></div>
 <div class="knitsql-table">
 <table class="table">
 <caption>Displaying records 1 - 10</caption>

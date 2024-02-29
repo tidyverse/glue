@@ -92,10 +92,10 @@ character, specify .literal = TRUE."><meta property="og:image" content="https://
 color terminal output. <code>glue_col()</code> and <code>glue_data_col()</code> functions provide
 additional syntax to make using these functions in glue strings easier.</p>
 <p>Using the following syntax will apply the function <code><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">crayon::blue()</a></code> to the text 'foo bar'.</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{blue foo bar}</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>{blue foo bar}</span></code></pre><p></p></div>
 <p>If you want an expression to be evaluated, simply place that in a normal brace
 expression (these can be nested).</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{blue <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="ot">=</span> {<span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span>}}</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>{blue <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="ot">=</span> {<span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span>}}</span></code></pre><p></p></div>
 <p>If the text you want to color contains, e.g., an unpaired quote or a comment
 character, specify <code>.literal = TRUE</code>.</p>
     </div>
@@ -113,7 +113,7 @@ character, specify <code>.literal = TRUE</code>.</p>
 <dd><p>[<code>expressions</code>]<br> Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>For <span class="st">`</span><span class="at">glue_data()</span><span class="st">`</span>, elements <span class="cf">in</span> <span class="st">`</span><span class="at">...</span><span class="st">`</span> override the values <span class="cf">in</span> <span class="st">`</span><span class="at">.x</span><span class="st">`</span>.</span></code></pre><p></p></div></dd>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>For <span class="st">`</span><span class="at">glue_data()</span><span class="st">`</span>, elements <span class="cf">in</span> <span class="st">`</span><span class="at">...</span><span class="st">`</span> override the values <span class="cf">in</span> <span class="st">`</span><span class="at">.x</span><span class="st">`</span>.</span></code></pre><p></p></div></dd>
 
 
 <dt>.envir</dt>
