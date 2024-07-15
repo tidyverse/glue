@@ -99,13 +99,14 @@ character.
 Returning the result with \code{\link[DBI:SQL]{DBI::SQL()}} will suppress quoting if desired for
 a given value.
 
-Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries}{parameterized queries}
+Note \href{https://solutions.posit.co/connections/db/best-practices/run-queries-safely/#parameterized-queries}{parameterized queries}
 are generally the safest and most efficient way to pass user defined
 values in a query, however not every database driver supports them.
 
 If you place a \code{*} at the end of a glue expression the values will be
-collapsed with commas. This is useful for the \href{https://www.w3schools.com/sql/sql_in.asp}{SQL IN Operator}
-for instance.
+collapsed with commas, or if there are no values, produce \code{NULL}.
+This is useful for (e.g.) the
+\href{https://www.w3schools.com/sql/sql_in.asp}{SQL IN Operator}.
 }
 \examples{
 \dontshow{if (requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -191,13 +192,13 @@ nicknames <- data.frame(
 DBI::dbWriteTable(con, nicknames_db, nicknames)
 
 cols <- list(
-  DBI::Id(table = iris_db, column = "sepal_length"),
-  DBI::Id(table = iris_db, column = "sepal_width"),
-  DBI::Id(table = nicknames_db, column = "nickname")
+  DBI::Id(iris_db, "sepal_length"),
+  DBI::Id(iris_db, "sepal_width"),
+  DBI::Id(nicknames_db, "nickname")
 )
 
-iris_species <- DBI::Id(table = iris_db, column = "species")
-nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
+iris_species <- DBI::Id(iris_db, "species")
+nicknames_species <- DBI::Id(nicknames_db, "species")
 
 query <- glue_sql("
   SELECT {`cols`*}

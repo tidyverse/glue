@@ -15,13 +15,14 @@
 #' Returning the result with [DBI::SQL()] will suppress quoting if desired for
 #' a given value.
 #'
-#' Note [parameterized queries](https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries)
+#' Note [parameterized queries](https://solutions.posit.co/connections/db/best-practices/run-queries-safely/#parameterized-queries)
 #' are generally the safest and most efficient way to pass user defined
 #' values in a query, however not every database driver supports them.
 #'
 #' If you place a `*` at the end of a glue expression the values will be
-#' collapsed with commas. This is useful for the [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp)
-#' for instance.
+#' collapsed with commas, or if there are no values, produce `NULL`.
+#' This is useful for (e.g.) the
+#' [SQL IN Operator](https://www.w3schools.com/sql/sql_in.asp).
 #' @inheritParams glue
 #' @seealso [glue_sql_collapse()] to collapse [DBI::SQL()] objects.
 #' @param .con \[`DBIConnection`]: A DBI connection object obtained from
@@ -114,13 +115,13 @@
 #' DBI::dbWriteTable(con, nicknames_db, nicknames)
 #'
 #' cols <- list(
-#'   DBI::Id(table = iris_db, column = "sepal_length"),
-#'   DBI::Id(table = iris_db, column = "sepal_width"),
-#'   DBI::Id(table = nicknames_db, column = "nickname")
+#'   DBI::Id(iris_db, "sepal_length"),
+#'   DBI::Id(iris_db, "sepal_width"),
+#'   DBI::Id(nicknames_db, "nickname")
 #' )
 #'
-#' iris_species <- DBI::Id(table = iris_db, column = "species")
-#' nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
+#' iris_species <- DBI::Id(iris_db, "species")
+#' nicknames_species <- DBI::Id(nicknames_db, "species")
 #'
 #' query <- glue_sql("
 #'   SELECT {`cols`*}
@@ -212,7 +213,7 @@ sql_quote_transformer <- function(connection, .na) {
     is_quoted <- any(m[[1]] != -1)
     if (is_quoted) {
       regmatches(text, m) <- ""
-      res <- eval(parse(text = text, keep.source = FALSE), envir)
+      res <- identity_transformer(text, envir)
 
       if (length(res) == 1) {
         res <- DBI::dbQuoteIdentifier(conn = connection, res)
@@ -222,14 +223,11 @@ sql_quote_transformer <- function(connection, .na) {
         res[] <- lapply(res, DBI::dbQuoteIdentifier, conn = connection)
       }
     } else {
-      res <- eval(parse(text = text, keep.source = FALSE), envir)
-      if (length(res) == 0L) {
-        if (should_collapse) {
-          return("")
-        } else {
-          return(NULL)
-        }
+      res <- identity_transformer(text, envir)
+      if (length(res) == 0L && should_collapse) {
+        return(DBI::SQL("NULL"))
       }
+
       if (inherits(res, "SQL")) {
         if (should_collapse) {
           res <- glue_collapse(res, ", ")

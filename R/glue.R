@@ -18,9 +18,12 @@
 #'   full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 #'   full delimiter escapes it.
-#' @param .transformer \[`function]`\cr A function taking three parameters `code`, `envir` and
-#'   `data` used to transform the output of each block before, during, or after
-#'   evaluation. For example transformers see `vignette("transformers")`.
+#' @param .transformer \[`function]`\cr A function taking two arguments, `text`
+#'   and `envir`, where `text` is the unparsed string inside the glue block and
+#'   `envir` is the execution environment. A `.transformer` lets you modify a
+#'   glue block before, during, or after evaluation, allowing you to create your
+#'   own custom `glue()`-like functions. See `vignette("transformers")` for
+#'   examples.
 #' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace `NA` values
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
@@ -91,10 +94,10 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
 
   .envir <- .envir %||% emptyenv()
-  stopifnot(is.environment(.envir))
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
+    stopifnot(is.environment(.envir))
     parent_env <- .envir
   } else if (is.environment(.x)) {
     parent_env <- .x

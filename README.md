@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# glue <a href='https://glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# glue <a href="https://glue.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="glue website" /></a>
 
 <!-- badges: start -->
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
-[![R-CMD-check](https://github.com/tidyverse/glue/actions/workflows/.github/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/.github/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/tidyverse/glue/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/R-CMD-check.yaml)
 [![test-coverage](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
@@ -31,7 +31,7 @@ install.packages("glue")
 
 ``` r
 # Install development version from GitHub
-devtools::install_github("tidyverse/glue")
+pak::pak("tidyverse/glue")
 ```
 
 </div>
@@ -268,15 +268,6 @@ glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
 glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
   vals = c("setosa", "versicolor"), .con = con)
 #> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')
-```
-
-##### Optionally combine strings with `+`
-
-``` r
-x <- 1
-y <- 3
-glue("x + y") + " = {x + y}"
-#> x + y = 4
 ```
 
 # Other implementations

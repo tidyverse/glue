@@ -74,9 +74,12 @@ syntactic elements), when parsing the expression string. Setting \code{.literal 
 \code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
 (especially, its name) as experimental.}
 
-\item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
-\code{data} used to transform the output of each block before, during, or after
-evaluation. For example transformers see \code{vignette("transformers")}.}
+\item{.transformer}{[\verb{function]}\cr A function taking two arguments, \code{text}
+and \code{envir}, where \code{text} is the unparsed string inside the glue block and
+\code{envir} is the execution environment. A \code{.transformer} lets you modify a
+glue block before, during, or after evaluation, allowing you to create your
+own custom \code{glue()}-like functions. See \code{vignette("transformers")} for
+examples.}
 
 \item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
 template with \code{\link[=trim]{trim()}} or not.}
