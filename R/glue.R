@@ -373,12 +373,3 @@ as.character.glue <- function(x, ...) {
 
 #' @importFrom methods setOldClass
 setOldClass(c("glue", "character"))
-
-
-#' Deprecated Functions
-#'
-#' These functions are Deprecated in this release of glue, they will be removed
-#' in a future version.
-#' @name glue-deprecated
-#' @keywords internal
-NULL
