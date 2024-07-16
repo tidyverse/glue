@@ -41,8 +41,7 @@ glue(
 string(s) to format. Multiple inputs are concatenated together before formatting.
 Named arguments are taken to be temporary variables available for substitution.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{For `glue_data()`, elements in `...` override the values in `.x`.
-}\if{html}{\out{</div>}}}
+For \code{glue_data()}, elements in \code{...} override the values in \code{.x}.}
 
 \item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
 

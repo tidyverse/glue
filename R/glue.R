@@ -6,10 +6,10 @@
 #'
 #' @param .x \[`listish`]\cr An environment, list, or data frame used to lookup values.
 #' @param ... \[`expressions`]\cr Unnamed arguments are taken to be expression
-#'     string(s) to format. Multiple inputs are concatenated together before formatting.
-#'     Named arguments are taken to be temporary variables available for substitution.
+#'   string(s) to format. Multiple inputs are concatenated together before formatting.
+#'   Named arguments are taken to be temporary variables available for substitution.
 #'
-#'     For `glue_data()`, elements in `...` override the values in `.x`.
+#'   For `glue_data()`, elements in `...` override the values in `.x`.
 #' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
 #' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
 #'   evaluated from left to right. If `.x` is an environment, the expressions are
