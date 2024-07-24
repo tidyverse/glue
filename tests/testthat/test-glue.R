@@ -5,6 +5,10 @@ test_that("glue errors if the expression fails", {
   expect_error(glue("{NoTfOuNd}"), "object .* not found")
 })
 
+test_that("glue ignores trailing empty argument", {
+  expect_equal(glue("x", ), glue("x"))
+})
+
 test_that("glue errors if invalid format", {
   expect_error(glue("x={x"), "Expecting '}'")
 })
