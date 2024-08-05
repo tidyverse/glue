@@ -1,5 +1,8 @@
 # glue (development version)
 
+* `glue()` now drops the last argument if it's empty so that you can finish 
+  each line with a comma if you want (#320).
+
 * `glue_sql("{var*}")` once again generates `NULL` if var is empty.  
   This reverts #292. (#318).
 

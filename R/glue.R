@@ -107,6 +107,12 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
   # Capture unevaluated arguments
   dots <- eval(substitute(alist(...)))
+
+  # Trim off last argument if its empty so you can use a trailing comma
+  n <- length(dots)
+  if (n > 0 && identical(dots[[n]], quote(expr = ))) {
+    dots <- dots[-n]
+  }
   named <- has_names(dots)
 
   # Evaluate named arguments, add results to environment
@@ -122,7 +128,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
       # - If `.null == NULL` then it is allowed and any such argument will be
       # silently dropped.
       # - In other cases output is treated as it was evaluated to `.null`.
-      eval(call("force", as.symbol(paste0("..", x)))) %||% .null
+      eval(as.symbol(paste0("..", x))) %||% .null
     }
   )
   unnamed_args <- drop_null(unnamed_args)
