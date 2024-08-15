@@ -38,18 +38,24 @@ pak::pak("tidyverse/glue")
 
 ## Usage
 
-##### Variables can be passed directly into strings.
+`glue()` makes it easy to interpolate data into strings:
 
 ``` r
 library(glue)
+
 name <- "Fred"
 glue('My name is {name}.')
 #> My name is Fred.
+
+# A literal brace is inserted by using doubled braces.
+name <- "Fred"
+glue("My name is {name}, not {{name}}.")
+#> My name is Fred, not {name}.
 ```
 
-Note that `glue::glue()` is also made available via
-`stringr::str_glue()`. So if you’ve already attached stringr (or perhaps
-the whole tidyverse), you can access `glue()` like so:
+`glue::glue()` is also made available via `stringr::str_glue()`. So if
+you’ve already attached stringr (or perhaps the whole tidyverse), you
+can access `glue()` like so:
 
 ``` r
 library(stringr) # or library(tidyverse)
@@ -61,30 +67,17 @@ str_glue('{stringr_fcn} is essentially an alias for {glue_fcn}.')
 #> `stringr::str_glue()` is essentially an alias for `glue::glue()`.
 ```
 
-##### Long strings are broken by line and concatenated together.
+`glue_data()` works well with pipes:
 
 ``` r
-library(glue)
-
-name <- "Fred"
-age <- 50
-anniversary <- as.Date("1991-10-12")
-glue('My name is {name},',
-  ' my age next year is {age + 1},',
-  ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
-#> My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.
-```
-
-##### Named arguments are used to assign temporary variables.
-
-``` r
-glue('My name is {name},',
-  ' my age next year is {age + 1},',
-  ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
-  name = "Joe",
-  age = 40,
-  anniversary = as.Date("2001-10-12"))
-#> My name is Joe, my age next year is 41, my anniversary is Friday, October 12, 2001.
+mtcars$model <- rownames(mtcars)
+mtcars |> head() |> glue_data("{model} has {hp} hp")
+#> Mazda RX4 has 110 hp
+#> Mazda RX4 Wag has 110 hp
+#> Datsun 710 has 93 hp
+#> Hornet 4 Drive has 110 hp
+#> Hornet Sportabout has 175 hp
+#> Valiant has 105 hp
 ```
 
 ##### `glue_data()` is useful with [magrittr](https://cran.r-project.org/package=magrittr) pipes.
@@ -198,11 +191,10 @@ Use backticks to quote identifiers, normal strings and numbers are
 quoted appropriately for your backend.
 
 ``` r
-library(glue)
-
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
 DBI::dbWriteTable(con, "iris", iris)
+
 var <- "sepal_width"
 tbl <- "iris"
 num <- 2
@@ -217,57 +209,6 @@ glue_sql("
 #> FROM `iris`
 #> WHERE `iris`.sepal_length > 2
 #>   AND `iris`.species = 'setosa'
-
-# `glue_sql()` can be used in conjunction with parameterized queries using
-# `DBI::dbBind()` to provide protection for SQL Injection attacks
- sql <- glue_sql("
-    SELECT {`var`}
-    FROM {`tbl`}
-    WHERE {`tbl`}.sepal_length > ?
-  ", .con = con)
-query <- DBI::dbSendQuery(con, sql)
-DBI::dbBind(query, list(num))
-DBI::dbFetch(query, n = 4)
-#>   sepal_width
-#> 1         3.5
-#> 2         3.0
-#> 3         3.2
-#> 4         3.1
-DBI::dbClearResult(query)
-
-# `glue_sql()` can be used to build up more complex queries with
-# interchangeable sub queries. It returns `DBI::SQL()` objects which are
-# properly protected from quoting.
-sub_query <- glue_sql("
-  SELECT *
-  FROM {`tbl`}
-  ", .con = con)
-
-glue_sql("
-  SELECT s.{`var`}
-  FROM ({sub_query}) AS s
-  ", .con = con)
-#> <SQL> SELECT s.`sepal_width`
-#> FROM (SELECT *
-#> FROM `iris`) AS s
-
-# If you want to input multiple values for use in SQL IN statements put `*`
-# at the end of the value and the values will be collapsed and quoted appropriately.
-glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
-  vals = 1, .con = con)
-#> <SQL> SELECT * FROM `iris` WHERE sepal_length IN (1)
-
-glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
-  vals = 1:5, .con = con)
-#> <SQL> SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)
-
-glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
-  vals = "setosa", .con = con)
-#> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa')
-
-glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
-  vals = c("setosa", "versicolor"), .con = con)
-#> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')
 ```
 
 # Other implementations
