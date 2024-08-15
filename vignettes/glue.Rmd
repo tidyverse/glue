@@ -11,6 +11,8 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
+*Note: this vignette is still under development.*
+
 The `glue` package contains functions for glueing together character strings and R code.
 
 ```{r}
