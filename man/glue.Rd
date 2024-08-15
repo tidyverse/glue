@@ -39,7 +39,9 @@ glue(
 
 \item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
 string(s) to format. Multiple inputs are concatenated together before formatting.
-Named arguments are taken to be temporary variables available for substitution.}
+Named arguments are taken to be temporary variables available for substitution.
+
+For \code{glue_data()}, elements in \code{...} override the values in \code{.x}.}
 
 \item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
 
@@ -71,12 +73,18 @@ syntactic elements), when parsing the expression string. Setting \code{.literal 
 \code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
 (especially, its name) as experimental.}
 
-\item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
-\code{data} used to transform the output of each block before, during, or after
-evaluation. For example transformers see \code{vignette("transformers")}.}
+\item{.transformer}{[\verb{function]}\cr A function taking two arguments, \code{text}
+and \code{envir}, where \code{text} is the unparsed string inside the glue block and
+\code{envir} is the execution environment. A \code{.transformer} lets you modify a
+glue block before, during, or after evaluation, allowing you to create your
+own custom \code{glue()}-like functions. See \code{vignette("transformers")} for
+examples.}
 
 \item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
 template with \code{\link[=trim]{trim()}} or not.}
+}
+\value{
+A glue object, as created by \code{\link[=as_glue]{as_glue()}}.
 }
 \description{
 Expressions enclosed by braces will be evaluated as R code. Long strings are

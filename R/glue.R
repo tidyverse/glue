@@ -6,8 +6,10 @@
 #'
 #' @param .x \[`listish`]\cr An environment, list, or data frame used to lookup values.
 #' @param ... \[`expressions`]\cr Unnamed arguments are taken to be expression
-#'     string(s) to format. Multiple inputs are concatenated together before formatting.
-#'     Named arguments are taken to be temporary variables available for substitution.
+#'   string(s) to format. Multiple inputs are concatenated together before formatting.
+#'   Named arguments are taken to be temporary variables available for substitution.
+#'
+#'   For `glue_data()`, elements in `...` override the values in `.x`.
 #' @param .sep \[`character(1)`: \sQuote{""}]\cr Separator used to separate elements.
 #' @param .envir \[`environment`: `parent.frame()`]\cr Environment to evaluate each expression in. Expressions are
 #'   evaluated from left to right. If `.x` is an environment, the expressions are
@@ -16,9 +18,12 @@
 #'   full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 #'   full delimiter escapes it.
-#' @param .transformer \[`function]`\cr A function taking three parameters `code`, `envir` and
-#'   `data` used to transform the output of each block before, during, or after
-#'   evaluation. For example transformers see `vignette("transformers")`.
+#' @param .transformer \[`function]`\cr A function taking two arguments, `text`
+#'   and `envir`, where `text` is the unparsed string inside the glue block and
+#'   `envir` is the execution environment. A `.transformer` lets you modify a
+#'   glue block before, during, or after evaluation, allowing you to create your
+#'   own custom `glue()`-like functions. See `vignette("transformers")` for
+#'   examples.
 #' @param .na \[`character(1)`: \sQuote{NA}]\cr Value to replace `NA` values
 #'   with. If `NULL` missing values are propagated, that is an `NA` result will
 #'   cause `NA` output. Otherwise the value is replaced by the value of `.na`.
@@ -38,6 +43,7 @@
 #'   template with [trim()] or not.
 #' @seealso <https://www.python.org/dev/peps/pep-0498/> and
 #'   <https://www.python.org/dev/peps/pep-0257/> upon which this is based.
+#' @returns A glue object, as created by [as_glue()].
 #' @examples
 #' name <- "Fred"
 #' age <- 50
@@ -87,12 +93,11 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   .open = "{", .close = "}", .na = "NA", .null = character(),
   .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
 
-  if (is.null(.envir)) {
-    .envir <- emptyenv()
-  }
+  .envir <- .envir %||% emptyenv()
 
   # Perform all evaluations in a temporary environment
   if (is.null(.x)) {
+    stopifnot(is.environment(.envir))
     parent_env <- .envir
   } else if (is.environment(.x)) {
     parent_env <- .x
@@ -216,6 +221,7 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' @param last String used to separate the last two items if `x` has at least
 #' 2 items.
 #' @inheritParams base::paste
+#' @returns Always returns a length-1 glue object, as created by [as_glue()].
 #' @examples
 #' glue_collapse(glue("{1:10}"))
 #'
@@ -223,11 +229,10 @@ glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = 
 #' glue_collapse(glue("{1:10}"), width = 5)
 #'
 #' glue_collapse(1:4, ", ", last = " and ")
-#' #> 1, 2, 3 and 4
 #' @export
 glue_collapse <- function(x, sep = "", width = Inf, last = "") {
   if (length(x) == 0) {
-    return(as_glue(character()))
+    return(as_glue(""))
   }
   if (any(is.na(x))) {
     return(as_glue(NA_character_))
@@ -258,6 +263,7 @@ glue_collapse <- function(x, sep = "", width = Inf, last = "") {
 #' to the minimum indentation of all non-blank lines after the first.
 #' - Lines can be continued across newlines by using `\\`.
 #' @param x A character vector to trim.
+#' @returns A character vector.
 #' @export
 #' @examples
 #' glue("
@@ -297,9 +303,23 @@ print.glue <- function(x, ..., sep = "\n") {
 }
 
 #' Coerce object to glue
+#'
+#' A glue object is a character vector with S3 class `"glue"`. The `"glue"`
+#' class implements a print method that shows the literal contents (rather than
+#' the string implementation) and a `+` method, so that you can concatenate with
+#' the addition operator.
+#'
 #' @param x object to be coerced.
 #' @param ... further arguments passed to methods.
+#' @returns A character vector with S3 class `"glue"`.
 #' @export
+#' @examples
+#' x <- as_glue(c("abc", "\"\\\\", "\n"))
+#' x
+#'
+#' x <- 1
+#' y <- 3
+#' glue("x + y") + " = {x + y}"
 as_glue <- function(x, ...) {
   UseMethod("as_glue")
 }
@@ -337,17 +357,19 @@ as.character.glue <- function(x, ...) {
 
 #' @export
 `+.glue` <- function(e1, e2) {
-  glue(e1, e2, .envir = parent.frame())
+  if (!is.null(e1) && !is.character(e1)) {
+    stop("LHS must be a character vector.")
+  }
+  if (!is.null(e2) && !is.character(e2)) {
+    stop("RHS must be a character vector.")
+  }
+
+  glue_data(
+    "{e1}{e2}",
+    .x = list(e1 = e1, e2 = e2),
+    .envir = parent.frame()
+  )
 }
 
 #' @importFrom methods setOldClass
 setOldClass(c("glue", "character"))
-
-
-#' Deprecated Functions
-#'
-#' These functions are Deprecated in this release of glue, they will be removed
-#' in a future version.
-#' @name glue-deprecated
-#' @keywords internal
-NULL

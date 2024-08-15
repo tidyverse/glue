@@ -4,7 +4,7 @@
 \alias{identity_transformer}
 \title{Parse and Evaluate R code}
 \usage{
-identity_transformer(text, envir)
+identity_transformer(text, envir = parent.frame())
 }
 \arguments{
 \item{text}{Text (typically) R code to parse and evaluate.}
