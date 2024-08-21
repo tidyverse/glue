@@ -119,18 +119,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
   env <- bind_args(dots[named], parent_env)
 
   # Concatenate unnamed arguments together
-  unnamed_args <- lapply(
-    which(!named),
-    function(x) {
-      # Any evaluation to `NULL` is replaced with `.null`:
-      # - If `.null == character()` then if any output's length is 0 the
-      # whole output should be forced to be `character(0)`.
-      # - If `.null == NULL` then it is allowed and any such argument will be
-      # silently dropped.
-      # - In other cases output is treated as it was evaluated to `.null`.
-      ...elt(x) %||% .null
-    }
-  )
+  unnamed_args <- lapply(which(!named), function(x) ...elt(x) %||% .null)
   unnamed_args <- drop_null(unnamed_args)
 
   if (length(unnamed_args) == 0) {
