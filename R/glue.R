@@ -107,24 +107,19 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
   # Capture unevaluated arguments
   dots <- eval(substitute(alist(...)))
+
+  # Trim off last argument if its empty so you can use a trailing comma
+  n <- length(dots)
+  if (n > 0 && identical(dots[[n]], quote(expr = ))) {
+    dots <- dots[-n]
+  }
   named <- has_names(dots)
 
   # Evaluate named arguments, add results to environment
   env <- bind_args(dots[named], parent_env)
 
   # Concatenate unnamed arguments together
-  unnamed_args <- lapply(
-    which(!named),
-    function(x) {
-      # Any evaluation to `NULL` is replaced with `.null`:
-      # - If `.null == character()` then if any output's length is 0 the
-      # whole output should be forced to be `character(0)`.
-      # - If `.null == NULL` then it is allowed and any such argument will be
-      # silently dropped.
-      # - In other cases output is treated as it was evaluated to `.null`.
-      eval(call("force", as.symbol(paste0("..", x)))) %||% .null
-    }
-  )
+  unnamed_args <- lapply(which(!named), function(x) ...elt(x) %||% .null)
   unnamed_args <- drop_null(unnamed_args)
 
   if (length(unnamed_args) == 0) {
