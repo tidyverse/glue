@@ -128,7 +128,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
       # - If `.null == NULL` then it is allowed and any such argument will be
       # silently dropped.
       # - In other cases output is treated as it was evaluated to `.null`.
-      eval(as.symbol(paste0("..", x))) %||% .null
+      ...elt(x) %||% .null
     }
   )
   unnamed_args <- drop_null(unnamed_args)
