@@ -91,9 +91,9 @@
 
     
     
-<p><em>Note: this vignette is still under development.</em></p>
-<p>The <code>glue</code> package contains functions for glueing together
-character strings and R code.</p>
+<p>The glue package contains functions for string interpolation: glueing
+together character strings and R code.</p>
+<p>To begin, we’ll need to load the package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glue.tidyverse.org/">glue</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
@@ -116,10 +116,18 @@ it easy to interpolate variables:</p>
 <code class="sourceCode R"><span><span class="va">release_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-06-13"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'The first version of the glue package was released on a {format(release_date, "%A")}.'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The first version of the glue package was released on a Tuesday.</span></span></code></pre></div>
-<p>All valid R code works in expressions, including braces and escaping.
-Backslashes do need to be doubled just like in all R strings.</p>
+<p>All valid R code works in expressions, including braces and
+escaping.Backslashes do need to be doubled just like in all R strings.
+Consider, for instance, adding a variable named <code>foo}`</code> and
+printing its value:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">`foo}\``</span> <span class="op">&lt;-</span> <span class="st">"foo"</span></span>
+<code class="sourceCode R"><span><span class="va">`foo}\``</span> <span class="op">&lt;-</span> <span class="st">"My value"</span></span>
+<span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{</span></span>
+<span><span class="st">  `foo}\\``</span></span>
+<span><span class="st">     }"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; My value</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">`foo}\``</span> <span class="op">&lt;-</span> <span class="st">"My value"</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{</span></span>
 <span><span class="st">      {</span></span>
 <span><span class="st">        '}\\'' # { and } in comments, single quotes</span></span>
@@ -127,17 +135,17 @@ Backslashes do need to be doubled just like in all R strings.</p>
 <span><span class="st">        `foo}\\`` # as are { in backticks</span></span>
 <span><span class="st">      }</span></span>
 <span><span class="st">  }"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; foo</span></span></code></pre></div>
+<span><span class="co">#&gt; My value</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="long-lines">Long lines<a class="anchor" aria-label="anchor" href="#long-lines"></a>
+<h2 id="long-lines-of-text">Long lines of text<a class="anchor" aria-label="anchor" href="#long-lines-of-text"></a>
 </h2>
 <p>Glue comes with a number of features that make it easier to use when
 work with large quantities of text. Leading whitespace and blank lines
 from the first and last lines are automatically trimmed with
 <code><a href="../reference/glue.html">glue()</a></code>, letting you indent the strings naturally in
 code:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">    A formatted string</span></span>
@@ -151,17 +159,20 @@ code:</p>
 <span><span class="co">#&gt;   with additional indention preserved</span></span></code></pre></div>
 <p>An add extra newlines can be used if you want a leading or trailing
 newline:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st"></span></span>
 <span><span class="st">  leading or trailing newlines can be added explicitly</span></span>
-<span><span class="st"></span></span>
+<span><span class="st">  as long as the trailing line contains at least one whitespace character</span></span>
+<span><span class="st">   </span></span>
 <span><span class="st">  "</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; leading or trailing newlines can be added explicitly</span></span></code></pre></div>
+<span><span class="co">#&gt; leading or trailing newlines can be added explicitly</span></span>
+<span><span class="co">#&gt; as long as the trailing line contains at least one whitespace character</span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
 <p>You can use <code>\\</code> at the end of a line continues to
 continue a single line:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">    A formatted string \\</span></span>
 <span><span class="st">    can also be on a \\</span></span>
@@ -170,12 +181,45 @@ continue a single line:</p>
 <span><span class="co">#&gt; A formatted string can also be on a single line</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="glue-in-pipes-and-pipelines">Glue in pipes and pipelines<a class="anchor" aria-label="anchor" href="#glue-in-pipes-and-pipelines"></a>
+</h2>
+<p><code><a href="../reference/glue.html">glue_data()</a></code> is useful with magrittr pipes.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">`%&gt;%`</span> <span class="op">&lt;-</span> <span class="fu">magrittr</span><span class="fu">::</span><span class="va">`%&gt;%`</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/glue.html">glue_data</a></span><span class="op">(</span><span class="st">"{rownames(.)} has {hp} hp"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Mazda RX4 has 110 hp</span></span>
+<span><span class="co">#&gt; Mazda RX4 Wag has 110 hp</span></span>
+<span><span class="co">#&gt; Datsun 710 has 93 hp</span></span>
+<span><span class="co">#&gt; Hornet 4 Drive has 110 hp</span></span>
+<span><span class="co">#&gt; Hornet Sportabout has 175 hp</span></span>
+<span><span class="co">#&gt; Valiant has 105 hp</span></span></code></pre></div>
+<p><code><a href="../reference/glue.html">glue()</a></code> is useful within dplyr pipelines.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>description <span class="op">=</span> <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"This {Species} has a petal length of {Petal.Length}"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
+<span><span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></span>
+<span><span class="co">#&gt; 2          4.9         3.0          1.4         0.2  setosa</span></span>
+<span><span class="co">#&gt; 3          4.7         3.2          1.3         0.2  setosa</span></span>
+<span><span class="co">#&gt; 4          4.6         3.1          1.5         0.2  setosa</span></span>
+<span><span class="co">#&gt; 5          5.0         3.6          1.4         0.2  setosa</span></span>
+<span><span class="co">#&gt; 6          5.4         3.9          1.7         0.4  setosa</span></span>
+<span><span class="co">#&gt;                             description</span></span>
+<span><span class="co">#&gt; 1 This setosa has a petal length of 1.4</span></span>
+<span><span class="co">#&gt; 2 This setosa has a petal length of 1.4</span></span>
+<span><span class="co">#&gt; 3 This setosa has a petal length of 1.3</span></span>
+<span><span class="co">#&gt; 4 This setosa has a petal length of 1.5</span></span>
+<span><span class="co">#&gt; 5 This setosa has a petal length of 1.4</span></span>
+<span><span class="co">#&gt; 6 This setosa has a petal length of 1.7</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="sql">SQL<a class="anchor" aria-label="anchor" href="#sql"></a>
 </h2>
 <p>glue_sql()` makes constructing SQL statements safe and easy Use
 backticks to quote identifiers, normal strings and numbers are quoted
 appropriately for your backend.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html" class="external-link">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"iris"</span>, <span class="va">iris</span><span class="op">)</span></span>
@@ -196,7 +240,7 @@ appropriately for your backend.</p>
 <p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> can be used in conjunction with parameterized
 queries using <code><a href="https://dbi.r-dbi.org/reference/dbBind.html" class="external-link">DBI::dbBind()</a></code> to provide protection for SQL
 Injection attacks</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sql</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">  SELECT {`var`}</span></span>
 <span><span class="st">  FROM {`tbl`}</span></span>
@@ -214,7 +258,7 @@ Injection attacks</p>
 <p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> can be used to build up more complex queries
 with interchangeable sub queries. It returns <code><a href="https://dbi.r-dbi.org/reference/SQL.html" class="external-link">DBI::SQL()</a></code>
 objects which are properly protected from quoting.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub_query</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">  SELECT *</span></span>
 <span><span class="st">  FROM {`tbl`}</span></span>
@@ -230,7 +274,7 @@ objects which are properly protected from quoting.</p>
 <p>If you want to input multiple values for use in SQL IN statements put
 <code>*</code> at the end of the value and the values will be collapsed
 and quoted appropriately.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</span>
 <span>  vals <span class="op">=</span> <span class="fl">1</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</span></span>
