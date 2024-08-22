@@ -3,17 +3,21 @@ title: "Getting started with glue"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Get started with glue}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-*Note: this vignette is still under development.*
+The glue package contains functions for string interpolation: glueing
+together character strings and R code.
 
-The `glue` package contains functions for glueing together character strings and R code.
+To begin, we'll need to load the package.
 
 ```{r}
 library(glue)
@@ -27,8 +31,9 @@ library(glue)
 glue("glueing ", "some ", "text ", "together")
 ```
 
-But it's real power comes with `{}`: anything inside of `{}` will be evaluated and pasted into the string.
-This makes it easy to interpolate variables:
+But it's real power comes with `{}`: anything inside of `{}` will be
+evaluated and pasted into the string. This makes it easy to interpolate
+variables:
 
 ```{r}
 name <- "glue"
@@ -42,11 +47,21 @@ release_date <- as.Date("2017-06-13")
 glue('The first version of the glue package was released on a {format(release_date, "%A")}.')
 ```
 
-All valid R code works in expressions, including braces and escaping.
-Backslashes do need to be doubled just like in all R strings.
+All valid R code works in expressions, including braces and
+escaping.Backslashes do need to be doubled just like in all R strings.
+Consider, for instance, adding a variable named `` foo}` `` and printing
+its value:
 
 ```{r}
-`foo}\`` <- "foo"
+`foo}\`` <- "My value"
+glue("{
+  `foo}\\``
+     }")
+
+```
+
+```{r}
+`foo}\`` <- "My value"
 glue("{
       {
         '}\\'' # { and } in comments, single quotes
@@ -56,10 +71,12 @@ glue("{
   }")
 ```
 
-## Long lines
+## Long lines of text
 
-Glue comes with a number of features that make it easier to use when work with large quantities of text.
-Leading whitespace and blank lines from the first and last lines are automatically trimmed with `glue()`, letting you indent the strings naturally in code:
+Glue comes with a number of features that make it easier to use when
+work with large quantities of text. Leading whitespace and blank lines
+from the first and last lines are automatically trimmed with `glue()`,
+letting you indent the strings naturally in code:
 
 ```{r}
 my_fun <- function() {
@@ -72,17 +89,20 @@ my_fun <- function() {
 my_fun()
 ```
 
-An add extra newlines can be used if you want a leading or trailing newline:
+An add extra newlines can be used if you want a leading or trailing
+newline:
 
 ```{r}
 glue("
 
   leading or trailing newlines can be added explicitly
-
+  as long as the trailing line contains at least one whitespace character
+   
   ")
 ```
 
-You can use `\\` at the end of a line continues to continue a single line:
+You can use `\\` at the end of a line continues to continue a single
+line:
 
 ```{r}
 glue("
@@ -92,10 +112,28 @@ glue("
     ")
 ```
 
+
+## Glue in pipes and pipelines
+
+`glue_data()` is useful with magrittr pipes.
+
+```{r}
+`%>%` <- magrittr::`%>%`
+head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
+```
+`glue()` is useful within dplyr pipelines.
+
+```{r,message=FALSE}
+library(dplyr)
+head(iris) %>%
+  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+```
+
+
 ## SQL
 
-glue_sql()` makes constructing SQL statements safe and easy
-Use backticks to quote identifiers, normal strings and numbers are quoted
+glue_sql()\` makes constructing SQL statements safe and easy Use
+backticks to quote identifiers, normal strings and numbers are quoted
 appropriately for your backend.
 
 ```{r}
@@ -114,7 +152,8 @@ glue_sql("
   ", .con = con)
 ```
 
-`glue_sql()` can be used in conjunction with parameterized queries using `DBI::dbBind()` to provide protection for SQL Injection attacks
+`glue_sql()` can be used in conjunction with parameterized queries using
+`DBI::dbBind()` to provide protection for SQL Injection attacks
 
 ```{r}
 sql <- glue_sql("
@@ -129,7 +168,8 @@ DBI::dbClearResult(query)
 ```
 
 `glue_sql()` can be used to build up more complex queries with
- interchangeable sub queries. It returns `DBI::SQL()` objects which are properly protected from quoting.
+interchangeable sub queries. It returns `DBI::SQL()` objects which are
+properly protected from quoting.
 
 ```{r}
 sub_query <- glue_sql("
@@ -143,7 +183,9 @@ glue_sql("
   ", .con = con)
 ```
 
-If you want to input multiple values for use in SQL IN statements put `*` at the end of the value and the values will be collapsed and quoted appropriately.
+If you want to input multiple values for use in SQL IN statements put
+`*` at the end of the value and the values will be collapsed and quoted
+appropriately.
 
 ```{r}
 glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
