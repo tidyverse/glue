@@ -1,5 +1,8 @@
 # glue (development version)
 
+* glue gains a new "Getting started" article, with contributions from
+  @stephhazlitt and @BrennanAntone (#137, #170, #332).
+
 * `glue()` now drops the last argument if it's empty so that you can finish 
   each line with a comma if you want (#320).
 
