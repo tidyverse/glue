@@ -21,9 +21,8 @@ library(glue)
 [![test-coverage](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
-## Overview
-
-Glue offers interpreted string literals that are small, fast, and dependency-free.  Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string. 
+glue offers interpreted string literals that are small, fast, and dependency-free.
+glue does this by embedding R expressions in curly braces, which are then evaluated and inserted into the string.
 
 ## Installation
 
@@ -49,136 +48,85 @@ pak::pak("tidyverse/glue")
 library(glue)
 
 name <- "Fred"
-glue('My name is {name}.')
-
-# A literal brace is inserted by using doubled braces.
-name <- "Fred"
-glue("My name is {name}, not {{name}}.")
+glue("My name is {name}.")
 ```
 
-`glue::glue()` is also made available via `stringr::str_glue()`.
-So if you've already attached stringr (or perhaps the whole tidyverse), you can access `glue()` like so:
+`stringr::str_glue()` is an alias for `glue::glue()`.
+So if you've already attached stringr (or perhaps the whole tidyverse), you can use `str_glue()` to access all of the functionality of `glue()`:
 
 ```{r eval = FALSE}
 library(stringr) # or library(tidyverse)
 
-stringr_fcn <- "`stringr::str_glue()`"
-glue_fcn    <- "`glue::glue()`"
-
-str_glue('{stringr_fcn} is essentially an alias for {glue_fcn}.')
-#> `stringr::str_glue()` is essentially an alias for `glue::glue()`.
+name <- "Wilma"
+str_glue("My name is {name}.")
+#> My name is Wilma.
 ```
 
-`glue_data()` works well with pipes:
+You're not limited to using a bare symbol inside `{}`; it can basically be any little bit of R code:
 
 ```{r}
-mtcars$model <- rownames(mtcars)
-mtcars |> head() |> glue_data("{model} has {hp} hp")
+name <- "Pebbles"
+glue("Here is my name in uppercase and doubled: {strrep(toupper(name), 2)}.")
 ```
 
-##### `glue_data()` is useful with [magrittr](https://cran.r-project.org/package=magrittr) pipes.
+### Data can come from various sources
+
+glue can interpolate values from the local environment or from data passed in `name = value` form:
+
 ```{r}
-`%>%` <- magrittr::`%>%`
-head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
+x <- "the local environment"
+glue(
+  "`glue()` can access values from {x} or from {y}. {z}",
+  y = "named arguments",
+  z = "Woo!"
+)
 ```
 
-##### `glue()` is useful within dplyr pipelines
-```{r, message = FALSE}
-library(dplyr)
-head(iris) %>%
-  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
-```
+If the relevant data lives in a data frame (or list or environment), use `glue_data()` instead:
 
-##### Leading whitespace and blank lines from the first and last lines are automatically trimmed.
-This lets you indent the strings naturally in code.
 ```{r}
-glue("
+mini_mtcars <- head(cbind(model = rownames(mtcars), mtcars))
+glue_data(mini_mtcars, "{model} has {hp} hp.")
+```
+
+`glue_data()` is very natural to use with the pipe:
+
+```{r}
+mini_mtcars |>
+  glue_data("{model} gets {mpg} miles per gallon.")
+```
+
+These `glue_data()` examples also demonstrate that `glue()` is vectorized over the data.
+
+### What you see is awfully close to what you get
+
+`glue()` lets you write code that makes it easy to predict what the final string will look like.
+There is considerably less syntactical noise and mystery, compared to `paste()` and `sprintf()`, for example.
+
+Empty first and last lines are automatically trimmed, as is leading whitespace that is common across all lines.
+You don't have to choose between indenting your code properly and getting the output you actually want.
+
+```{r}
+if (TRUE) {
+  glue("
     A formatted string
     Can have multiple lines
       with additional indention preserved
-    ")
+    "
+  )
+}
 ```
 
-##### An additional newline can be used if you want a leading or trailing newline.
-```{r}
-glue("
+## Learning more
 
-  leading or trailing newlines can be added explicitly
+glue is a relatively small and focused package, but there's more to it than the basic usage of `glue()` and `glue_data()` shown here.
+More recommended functions and resources:
 
-  ")
-```
-
-##### `\\` at the end of a line continues it without a new line.
-```{r}
-glue("
-    A formatted string \\
-    can also be on a \\
-    single line
-    ")
-```
-
-##### A literal brace is inserted by using doubled braces.
-```{r}
-name <- "Fred"
-glue("My name is {name}, not {{name}}.")
-```
-
-##### Alternative delimiters can be specified with `.open` and `.close`.
-```{r}
-one <- "1"
-glue("The value of $e^{2\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
-```
-
-##### All valid R code works in expressions, including braces and escaping.
-Backslashes do need to be doubled just like in all R strings.
-```{r}
-  `foo}\`` <- "foo"
-glue("{
-      {
-        '}\\'' # { and } in comments, single quotes
-        \"}\\\"\" # or double quotes are ignored
-        `foo}\\`` # as are { in backticks
-      }
-  }")
-```
-
-##### `glue_sql()` makes constructing SQL statements safe and easy
-Use backticks to quote identifiers, normal strings and numbers are quoted
-appropriately for your backend.
-
-```{r}
-con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
-colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
-DBI::dbWriteTable(con, "iris", iris)
-
-var <- "sepal_width"
-tbl <- "iris"
-num <- 2
-val <- "setosa"
-glue_sql("
-  SELECT {`var`}
-  FROM {`tbl`}
-  WHERE {`tbl`}.sepal_length > {num}
-    AND {`tbl`}.species = {val}
-  ", .con = con)
-```
-
-# Other implementations
-
-Some other implementations of string interpolation in R (although not using identical syntax).
-
-- [stringr::str_interp](https://stringr.tidyverse.org/reference/str_interp.html)
-- [R.utils::gstring](https://cran.r-project.org/package=R.utils)
-- [rprintf](https://cran.r-project.org/package=rprintf)
-
-String templating is closely related to string interpolation, although not
-exactly the same concept. Some packages implementing string templating in R
-include.
-
-- [whisker](https://cran.r-project.org/package=whisker)
-- [brew](https://cran.r-project.org/package=brew)
-- [jinjar](https://cran.r-project.org/package=jinjar)
+* The "Get started" article (`vignette("glue", package = "glue")`) demonstrates more interesting features of `glue()` and `glue_data()`.
+* `glue_sql()` and `glue_data_sql()` are specialized functions for producing SQL statements.
+* glue provides a couple of custom knitr engines that allow you to use glue syntax in chunks; learn more in `vignette("engines", package = "glue")`.
 
 ## Code of Conduct
 
-Please note that the glue project is released with a [Contributor Code of Conduct](https://glue.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://glue.tidyverse.org/CODE_OF_CONDUCT.html).
+By participating in this project, you agree to abide by its terms.
