@@ -14,6 +14,9 @@
   cases (by accident, not really by design). When you need to lookup values in
   a list-ish object, use `glue_data(.x =)` (#308, #317).
 
+* A new `extract_glue_expr()` function was created to extract all expressions
+  that would be evaluated by `glue()` (#334)
+
 # glue 1.7.0
 
 * If rlang is installed, glue will generate more informative errors if an
