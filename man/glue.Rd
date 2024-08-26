@@ -73,7 +73,7 @@ syntactic elements), when parsing the expression string. Setting \code{.literal 
 \code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
 (especially, its name) as experimental.}
 
-\item{.transformer}{[\verb{function]}\cr A function taking two arguments, \code{text}
+\item{.transformer}{[\code{function}]\cr A function taking two arguments, \code{text}
 and \code{envir}, where \code{text} is the unparsed string inside the glue block and
 \code{envir} is the execution environment. A \code{.transformer} lets you modify a
 glue block before, during, or after evaluation, allowing you to create your
