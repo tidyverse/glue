@@ -149,7 +149,6 @@ So, for a top-level `glue()` call, that means the global environment.
 ```{r}
 x <- "the caller environment"
 glue("By default, `glue()` evaluates code in {x}.")
-modern_r <- getRversion() >= "4.1.0"
 ```
 
 But you can provide more narrowly scoped values by passing them to `glue()` in `name = value` form:
@@ -173,7 +172,7 @@ glue_data(mini_mtcars, "{model} has {hp} hp.")
 
 `glue_data()` is very natural to use with the pipe:
 
-```{r, eval = modern_r}
+```{r, eval = getRversion() >= "4.1.0"}
 mini_mtcars |>
   glue_data("{model} gets {mpg} miles per gallon.")
 ```
