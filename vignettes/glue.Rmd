@@ -1,23 +1,20 @@
 ---
-title: "Getting started with glue"
+title: "Introduction to glue"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Get started with glue}
+  %\VignetteIndexEntry{Introduction to glue}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  markdown: 
-    wrap: 72
+editor_options:
+  markdown:
+    wrap: sentence
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-The glue package contains functions for string interpolation: glueing
-together character strings and R code.
-
-To begin, we'll need to load the package.
+The glue package contains functions for string interpolation: gluing together character strings and R code.
 
 ```{r}
 library(glue)
@@ -25,116 +22,186 @@ library(glue)
 
 ## Gluing and interpolating
 
-`glue()` can be used to glue together character strings, such as text:
+`glue()` can be used to glue together some pieces of text:
 
 ```{r}
-glue("glueing ", "some ", "text ", "together")
+glue("glue ", "some ", "text ", "together")
 ```
 
-But it's real power comes with `{}`: anything inside of `{}` will be
-evaluated and pasted into the string. This makes it easy to interpolate
-variables:
+But glue's real power comes with `{}`: anything inside of `{}` is evaluated and pasted into the string.
+This makes it easy to interpolate variables:
 
 ```{r}
 name <- "glue"
-glue('We are learning how to use the {name} R package.')
+glue("We are learning how to use the {name} R package.")
 ```
 
-And more complex functions:
+As well as more complex expressions:
 
 ```{r}
 release_date <- as.Date("2017-06-13")
-glue('The first version of the glue package was released on a {format(release_date, "%A")}.')
+glue("Release was on a {format(release_date, '%A')}.")
 ```
 
-All valid R code works in expressions, including braces and
-escaping.Backslashes do need to be doubled just like in all R strings.
-Consider, for instance, adding a variable named `` foo}` `` and printing
-its value:
+## Control of line breaks
+
+`glue()` honors the line breaks in its input:
 
 ```{r}
-`foo}\`` <- "My value"
-glue("{
-  `foo}\\``
-     }")
-
+glue("
+  A formatted string
+  Can have multiple lines
+    with additional indention preserved
+  "
+)
 ```
 
-```{r}
-`foo}\`` <- "My value"
-glue("{
-      {
-        '}\\'' # { and } in comments, single quotes
-        \"}\\\"\" # or double quotes are ignored
-        `foo}\\`` # as are { in backticks
-      }
-  }")
-```
+The example above demonstrates some other important facts about the pre-processing of the template string:
 
-## Long lines of text
+-   An empty first or last line is automatically trimmed.
+-   Leading whitespace that is common across all lines is trimmed.
 
-Glue comes with a number of features that make it easier to use when
-work with large quantities of text. Leading whitespace and blank lines
-from the first and last lines are automatically trimmed with `glue()`,
-letting you indent the strings naturally in code:
+The elimination of common leading whitespace is advantageous, because you aren't forced to choose between indenting your code normally and getting the output you actually want.
+This is easier to appreciate when you have `glue()` inside a function body (this example also shows an alternative way of styling the end of a `glue()` call):
 
 ```{r}
-my_fun <- function() {
+foo <- function() {
   glue("
     A formatted string
     Can have multiple lines
-      with additional indention preserved
-    ")  
+      with additional indention preserved")
 }
-my_fun()
+foo()
 ```
 
-An add extra newlines can be used if you want a leading or trailing
-newline:
+On the other hand, what if you don't want a line break in the output, but you also like to limit the length of lines in your source code to, e.g., 80 characters?
+The first option is to use `\\` to break the template string into multiple lines, without getting line breaks in the output:
 
 ```{r}
+release_date <- as.Date("2017-06-13")
 glue("
+  The first version of the glue package was released on \\
+  a {format(release_date, '%A')}.")
+```
 
-  leading or trailing newlines can be added explicitly
-  as long as the trailing line contains at least one whitespace character
-   
+This comes up fairly often when an expression to evaluate inside `{}` takes up more characters than its result, i.e. `format(release_date, '%A')` versus `Tuesday`.
+A second way to achieve the same result is to break the template into individual pieces, which are then concatenated.
+
+```{r}
+glue(
+  "The first version of the glue package was released on ",
+  "a {format(release_date, '%A')}."
+)
+```
+
+If you want an explicit newline at the start or end, include an extra empty line.
+
+```{r}
+# no leading or trailing newline
+x <- glue("
+  blah
   ")
+unclass(x)
+
+# both a leading and trailing newline
+y <- glue("
+
+  blah
+
+  ")
+unclass(y)
 ```
 
-You can use `\\` at the end of a line continues to continue a single
-line:
+## Delimiters
+
+By default, code to be evaluated goes inside `{}` in a glue string.
+If want a literal curly brace in your string, double it:
 
 ```{r}
-glue("
-    A formatted string \\
-    can also be on a \\
-    single line
-    ")
+glue("The name of the package is {name}, not {{name}}.")
 ```
 
-
-## Glue in pipes and pipelines
-
-`glue_data()` is useful with magrittr pipes.
+Sometimes it's just more convenient to use different delimiters altogether, especially if the template text comes from elsewhere or is subject to external requirements.
+Consider this example where we want to interpolate the function name into a code snippet that defines a function:
 
 ```{r}
-`%>%` <- magrittr::`%>%`
-head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
+fn_def <- "
+  <<NAME>> <- function(x) {
+    # imagine a function body here
+  }"
+glue(fn_def, NAME = "my_function", .open = "<<", .close = ">>")
 ```
-`glue()` is useful within dplyr pipelines.
 
-```{r,message=FALSE}
+In this glue string, `{` and `}` have very special meaning.
+If we forced ourselves to double them, suddenly it doesn't look like normal R code anymore.
+Using alternative delimiters is a nice option in cases like this.
+
+## Where glue looks for values
+
+By default, `glue()` evaluates the code inside `{}` in the caller environment:
+
+```{r, eval = FALSE}
+glue(..., .envir = parent.frame())
+```
+
+So, for a top-level `glue()` call, that means the global environment.
+
+```{r}
+x <- "the caller environment"
+glue("By default, `glue()` evaluates code in {x}.")
+modern_r <- getRversion() >= "4.1.0"
+```
+
+But you can provide more narrowly scoped values by passing them to `glue()` in `name = value` form:
+
+```{r}
+x <- "the local environment"
+glue(
+  "`glue()` can access values from {x} or from {y}. {z}",
+  y = "named arguments",
+  z = "Woo!"
+)
+```
+
+If the relevant data lives in a data frame (or list or environment), use `glue_data()` instead:
+
+```{r}
+mini_mtcars <- head(cbind(model = rownames(mtcars), mtcars))
+rownames(mini_mtcars) <- NULL
+glue_data(mini_mtcars, "{model} has {hp} hp.")
+```
+
+`glue_data()` is very natural to use with the pipe:
+
+```{r, eval = modern_r}
+mini_mtcars |>
+  glue_data("{model} gets {mpg} miles per gallon.")
+```
+
+Returning to `glue()`, recall that it defaults to evaluation in the caller environment.
+This has happy implications inside a `dplyr::mutate()` pipeline.
+The data-masking feature of `mutate()` means the columns of the target data frame are "in scope" for a `glue()` call:
+
+```r
 library(dplyr)
-head(iris) %>%
-  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
-```
 
+mini_mtcars |>
+  mutate(note = glue("{model} gets {mpg} miles per gallon.")) |>
+  select(note, cyl, disp)
+#>                                            note cyl disp
+#> 1           Mazda RX4 gets 21 miles per gallon.   6  160
+#> 2       Mazda RX4 Wag gets 21 miles per gallon.   6  160
+#> 3        Datsun 710 gets 22.8 miles per gallon.   4  108
+#> 4    Hornet 4 Drive gets 21.4 miles per gallon.   6  258
+#> 5 Hornet Sportabout gets 18.7 miles per gallon.   8  360
+#> 6           Valiant gets 18.1 miles per gallon.   6  225
+```
 
 ## SQL
 
-glue_sql()\` makes constructing SQL statements safe and easy Use
-backticks to quote identifiers, normal strings and numbers are quoted
-appropriately for your backend.
+glue has explicit support for constructing SQL statements.
+Use backticks to quote identifiers.
+Normal strings and numbers are quoted appropriately for your backend.
 
 ```{r}
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
@@ -152,8 +219,7 @@ glue_sql("
   ", .con = con)
 ```
 
-`glue_sql()` can be used in conjunction with parameterized queries using
-`DBI::dbBind()` to provide protection for SQL Injection attacks
+`glue_sql()` can be used in conjunction with parameterized queries using `DBI::dbBind()` to provide protection for SQL Injection attacks.
 
 ```{r}
 sql <- glue_sql("
@@ -167,9 +233,8 @@ DBI::dbFetch(query, n = 4)
 DBI::dbClearResult(query)
 ```
 
-`glue_sql()` can be used to build up more complex queries with
-interchangeable sub queries. It returns `DBI::SQL()` objects which are
-properly protected from quoting.
+`glue_sql()` can be used to build up more complex queries with interchangeable sub queries.
+It returns `DBI::SQL()` objects which are properly protected from quoting.
 
 ```{r}
 sub_query <- glue_sql("
@@ -183,9 +248,7 @@ glue_sql("
   ", .con = con)
 ```
 
-If you want to input multiple values for use in SQL IN statements put
-`*` at the end of the value and the values will be collapsed and quoted
-appropriately.
+If you want to input multiple values for use in SQL IN statements put `*` at the end of the value and the values will be collapsed and quoted appropriately.
 
 ```{r}
 glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
