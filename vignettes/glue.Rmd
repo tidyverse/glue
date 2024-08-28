@@ -112,6 +112,26 @@ y <- glue("
 unclass(y)
 ```
 
+We use `unclass()` above to make it easier to see the absence and presence of the newlines, i.e. to reveal the literal `\n` escape sequences.
+`glue()` and friends generally return a glue object, which is a character vector with the S3 class `"glue"`.
+The `"glue"` class exists primarily for the sake of a print method, which displays the natural formatted result of a glue string.
+Most of the time this is *exactly* what the user wants to see.
+The example above happens to be an exception, where we really do want to see the underlying string representation.
+
+Here's another example to drive home the difference between printing a glue object and looking at its string representation:
+
+```{r}
+x <- glue('
+  abc
+  "	}
+
+  xyz')
+class(x)
+
+x
+unclass(x)
+```
+
 ## Delimiters
 
 By default, code to be evaluated goes inside `{}` in a glue string.
