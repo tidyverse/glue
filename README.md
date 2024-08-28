@@ -58,8 +58,8 @@ str_glue("My name is {name}.")
 #> My name is Wilma.
 ```
 
-You’re not limited to using a bare symbol inside `{}`; it can basically
-be any little bit of R code:
+You’re not limited to using a bare symbol inside `{}`; it can be any
+little bit of R code:
 
 ``` r
 name <- "Pebbles"
@@ -116,26 +116,29 @@ vectorized over the data.
 
 `glue()` lets you write code that makes it easy to predict what the
 final string will look like. There is considerably less syntactical
-noise and mystery, compared to `paste()` and `sprintf()`, for example.
+noise and mystery compared to `paste()` and `sprintf()`.
 
 Empty first and last lines are automatically trimmed, as is leading
 whitespace that is common across all lines. You don’t have to choose
 between indenting your code properly and getting the output you actually
-want.
+want. Consider what happens when `glue()` is used inside the body of a
+function:
 
 ``` r
-if (TRUE) {
+foo <- function() {
   glue("
     A formatted string
     Can have multiple lines
-      with additional indention preserved
-    "
-  )
+      with additional indention preserved")
 }
+foo()
 #> A formatted string
 #> Can have multiple lines
 #>   with additional indention preserved
 ```
+
+The leading whitespace that is common to all 3 lines is absent from the
+result.
 
 ## Learning more
 
@@ -143,8 +146,8 @@ glue is a relatively small and focused package, but there’s more to it
 than the basic usage of `glue()` and `glue_data()` shown here. More
 recommended functions and resources:
 
-- The “Get started” article (`vignette("glue", package = "glue")`)
-  demonstrates more interesting features of `glue()` and `glue_data()`.
+- The “Get started” article (`vignette("glue")`) demonstrates more
+  interesting features of `glue()` and `glue_data()`.
 - `glue_sql()` and `glue_data_sql()` are specialized functions for
   producing SQL statements.
 - glue provides a couple of custom knitr engines that allow you to use

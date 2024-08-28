@@ -105,17 +105,19 @@ There is considerably less syntactical noise and mystery compared to `paste()` a
 
 Empty first and last lines are automatically trimmed, as is leading whitespace that is common across all lines.
 You don't have to choose between indenting your code properly and getting the output you actually want.
+Consider what happens when `glue()` is used inside the body of a function:
 
 ```{r}
-if (TRUE) {
+foo <- function() {
   glue("
     A formatted string
     Can have multiple lines
-      with additional indention preserved
-    "
-  )
+      with additional indention preserved")
 }
+foo()
 ```
+
+The leading whitespace that is common to all 3 lines is absent from the result.
 
 ## Learning more
 
