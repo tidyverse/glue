@@ -22,7 +22,7 @@ library(glue)
 
 ## Gluing and interpolating
 
-`glue()` can be used to glue together some pieces of text:
+`glue()` can be used to glue together pieces of text:
 
 ```{r}
 glue("glue ", "some ", "text ", "together")
