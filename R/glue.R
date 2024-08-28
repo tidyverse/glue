@@ -18,7 +18,7 @@
 #'   full delimiter escapes it.
 #' @param .close \[`character(1)`: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
 #'   full delimiter escapes it.
-#' @param .transformer \[`function]`\cr A function taking two arguments, `text`
+#' @param .transformer \[`function`]\cr A function taking two arguments, `text`
 #'   and `envir`, where `text` is the unparsed string inside the glue block and
 #'   `envir` is the execution environment. A `.transformer` lets you modify a
 #'   glue block before, during, or after evaluation, allowing you to create your
