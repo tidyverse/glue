@@ -62,7 +62,7 @@ str_glue("My name is {name}.")
 #> My name is Wilma.
 ```
 
-You're not limited to using a bare symbol inside `{}`; it can basically be any little bit of R code:
+You're not limited to using a bare symbol inside `{}`; it can be any little bit of R code:
 
 ```{r}
 name <- "Pebbles"
@@ -101,7 +101,7 @@ These `glue_data()` examples also demonstrate that `glue()` is vectorized over t
 ### What you see is awfully close to what you get
 
 `glue()` lets you write code that makes it easy to predict what the final string will look like.
-There is considerably less syntactical noise and mystery, compared to `paste()` and `sprintf()`, for example.
+There is considerably less syntactical noise and mystery compared to `paste()` and `sprintf()`.
 
 Empty first and last lines are automatically trimmed, as is leading whitespace that is common across all lines.
 You don't have to choose between indenting your code properly and getting the output you actually want.
@@ -122,7 +122,7 @@ if (TRUE) {
 glue is a relatively small and focused package, but there's more to it than the basic usage of `glue()` and `glue_data()` shown here.
 More recommended functions and resources:
 
-* The "Get started" article (`vignette("glue", package = "glue")`) demonstrates more interesting features of `glue()` and `glue_data()`.
+* The "Get started" article (`vignette("glue")`) demonstrates more interesting features of `glue()` and `glue_data()`.
 * `glue_sql()` and `glue_data_sql()` are specialized functions for producing SQL statements.
 * glue provides a couple of custom knitr engines that allow you to use glue syntax in chunks; learn more in `vignette("engines", package = "glue")`.
 
