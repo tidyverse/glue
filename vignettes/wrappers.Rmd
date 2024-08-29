@@ -25,7 +25,7 @@ Therefore, you'd prefer to use `<<` and `>>` as the opening and closing delimite
 Spoiler alert: here's the correct way to write such a wrapper:
 
 ```{r}
-myglue <- function(..., .envir = parent.frame()) {
+my_glue <- function(..., .envir = parent.frame()) {
   glue(..., .open = "<<", .close = ">>", .envir = .envir)
 }
 ```
@@ -36,45 +36,71 @@ This is the key move:
 
 If you'd like to understand why this is the way, keep reading.
 
-## A first attempt that does not work
+## Working example
 
-Here's a simple attempt at writing a wrapper around `glue()`:
+Here's an abbreviated excerpt of the roxygen comment that generates the documentation for the starwars dataset in dplyr:
+
+```r
+#' \describe{
+#' \item{name}{Name of the character}
+#' \item{height}{Height (cm)}
+#' \item{mass}{Weight (kg)}
+#' \item{species}{Name of species}
+#' \item{films}{List of films the character appeared in}
+#' }
+```
+
+To produce such text programmatically, the first step might be to generate the `\item` lines from a named list of column names and descriptions.
+Notice that `{` and `}` are important to the `\describe{...}` syntax, so this is an example where it is nice for glue to use different delimiters for expressions.
+
+Put the metadata in a suitable list:
 
 ```{r}
-myglue0 <- function(...) {
-  glue(..., .open = "@@", .close = "~~")
+sw_meta <- list(
+  name    = "Name of the character",
+  height  = "Height (cm)",
+  mass    = "Weight (kg)",
+  species = "Name of species",
+  films   = "List of films the character appeared in"
+)
+```
+
+Define a custom glue wrapper and use it inside another helper that generates `\item` entries[^1]:
+
+[^1]: We're using `<@` and `@>` as the delimiters because this vignette is authored using R Markdown and knitr. The delimiters `<<` and ``>>` actually have special meaning in knitr, so it was easiest to use something else.
+
+```{r}
+my_glue = function(...) {
+  glue(..., .open = "<@", .close = "@>", .envir = parent.frame())
+}
+
+named_list_to_items <- function(x) {
+  my_glue("\\item{<@names(x)@>}{<@x@>}")
 }
 ```
 
-From superficial experimentation, `myglue0()` appears to work:
+Apply `named_list_to_items()` to starwars metadata:
 
 ```{r}
-fn_def <- "
-  @@NAME~~ <- function(x) {
-    @@BODY~~
-  }"
-
-myglue0(fn_def, NAME = "one_plus_one", BODY = "1 + 1")
+named_list_to_items(sw_meta)
 ```
 
-However slightly more sophisticated and realistic usage of `myglue0()` reveals a big problem.
-Here we use `myglue0()` inside another function, `fn_builder0()`:
+Here's how this would fail if we did *not* handle `.envir` correctly in our wrapper function:
 
 ```{r, error = TRUE}
-fn_builder0 <- function(NAME, BODY) {
-  fn_def <- "
-    @@NAME~~ <- function(x) {
-      @@BODY~~
-    }"
-  myglue0(fn_def)
+my_glue_WRONG <- function(...) {
+  glue(..., .open = "<@", .close = "@>")
 }
 
-fn_builder0("two_times_two", "2 * 2")
+named_list_to_items_WRONG <- function(x) {
+  my_glue_WRONG("\\item{<@names(x)@>}{<@x@>}")
+}
+
+named_list_to_items_WRONG(sw_meta)
 ```
 
-What do you mean `NAME` is not found?!?
-It's one of the arguments of `fn_builder0()`.
-It should be "two_times_two".
+It can be hard to understand why `x` can't be found, when it is clearly available inside `named_list_to_items_WRONG()`.
+Why isn't `x` available to `my_glue_WRONG()`?
 
 ## Where does `glue()` evaluate code?
 
@@ -87,65 +113,60 @@ glue(..., .envir = parent.frame(), ...)
 
 The expressions inside a glue string are evaluated with respect to `.envir`, which defaults to the environment where `glue()` is called from.
 
-Let's make new artificial versions of our functions that make it easy to tell where the inner `glue()` call is getting its values.
+Everything is simple when evaluating `glue()` in the global environment.
+
+```{r}
+x <- 0
+y <- 0
+z <- 0
+
+glue("{x} {y} {z}")
+```
+
+Now we wrap `glue()` in our own simple function, `myglue1()`.
+Notice that `myglue()` doesn't capture its caller environment and pass that along.
+
+When we execute `myglue1()` in the global environment, there's no obvious problem.
 
 ```{r}
 myglue1 <- function(...) {
-  NAME <- "myglue_execution_env"
-  glue(..., .open = "@@", .close = "~~")
+  x <- 1
+  glue(...)
 }
 
-fn_builder1 <- function(NAME, BODY) {
-  fn_def <- "
-    @@NAME~~ <- function(x) {
-      @@BODY~~
-    }"
-  myglue1(fn_def)
-}
+myglue1("{x} {y} {z}")
 ```
 
-Let's also strategically define `BODY` in the global environment
+However, if we call our `myglue1()` inside another function, we see that all is not well.
 
 ```{r}
-BODY <- "global_env"
-```
-
-Now let's call our function builder and observe which values are being used for `NAME` and `BODY`:
-
-```{r}
-fn_builder1(NAME = "user_NAME", BODY = "user_BODY")
-```
-
-Neither `NAME` nor `BODY` is getting the values that our user provided in the call to `fn_builder1()`!
-
-That's because the innermost call to `glue()` is looking in these places, in this order, for `NAME` and `BODY`:
-
-1. The ephemeral execution environment of our glue wrapper, `myglue1()`. Here `NAME` has the value "myglue_execution_env" there and that explains part of our result.
-2. The environment where `myglue1()` is defined, which is the global environment. `BODY` has the value "global_env" there and that explains the rest of our result.
-
-Note that the execution environment of `fn_builder1()`, which holds the `NAME` and `BODY` specified by the user, is not consulted at all.
-This is obviously very bad.
-
-## A wrapper that works
-
-We fix our `glue()` wrapper by capturing its caller environment and passing that along to `glue()` to use for evaluation:
-
-```{r}
-myglue <- function(..., .envir = parent.frame()) {
-  glue(..., .open = "@@", .close = "~~", .envir = .envir)
+myglue2 <- function(...) {
+  x <- 2
+  y <- 2
+  myglue1(...)
 }
 
-fn_builder <- function(NAME, BODY) {
-  fn_def <- "
-    @@NAME~~ <- function(x) {
-      @@BODY~~
-    }"
-  myglue(fn_def)
-}
+myglue2("{x} {y} {z}")
 ```
 
-Now our function builder works as intended:
+Why do `x` and `y` not have the value 2?
+Because `myglue1()` and its eventual call to `glue()` have no access to the execution environment of `myglue2()`.
+
+If you want your glue wrapper to behave like `glue()` itself and to work as expected inside other functions, make sure it captures its caller environment and passes that along to `glue()`.
 
 ```{r}
-fn_builder(NAME = "one_plus_one", BODY = "1 + 1")
+myglue3 <- function(..., .envir = parent.frame()) {
+  x <- 3
+  glue(..., .envir = .envir)
+}
+
+myglue3("{x} {y} {z}")
+
+myglue4 <- function(...) {
+  x <- 4
+  y <- 4
+  myglue3(...)
+}
+
+myglue4("{x} {y} {z}")
 ```
