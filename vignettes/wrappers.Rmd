@@ -123,7 +123,7 @@ That's because the innermost call to `glue()` is looking in these places, in thi
 1. The ephemeral execution environment of our glue wrapper, `myglue1()`. Here `NAME` has the value "myglue_execution_env" there and that explains part of our result.
 2. The environment where `myglue1()` is defined, which is the global environment. `BODY` has the value "global_env" there and that explains the rest of our result.
 
-Note that the execution environment of `fn_builder1()`, which holds the and `NAME` and `BODY` specified by the user, is not consulted at all.
+Note that the execution environment of `fn_builder1()`, which holds the `NAME` and `BODY` specified by the user, is not consulted at all.
 This is obviously very bad.
 
 ## A wrapper that works
