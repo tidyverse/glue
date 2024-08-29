@@ -1,0 +1,151 @@
+---
+title: "How to write a function that wraps glue"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to write a function that wraps glue}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(glue)
+```
+
+Imagine that you want to call `glue()` repeatedly inside your own code (e.g. in your own package) with a non-default value for one or more arguments.
+For example, maybe you anticipate producing R code where `{` and `}` have specific syntactic meaning.
+Therefore, you'd prefer to use `<<` and `>>` as the opening and closing delimiters for expressions in `glue()`.
+
+Spoiler alert: here's the correct way to write such a wrapper:
+
+```{r}
+myglue <- function(..., .envir = parent.frame()) {
+  glue(..., .open = "<<", .close = ">>", .envir = .envir)
+}
+```
+
+This is the key move:
+
+> Include `.envir = parent.frame()` as an argument of the wrapper function and pass this `.envir` to the `.envir` argument of `glue()`.
+
+If you'd like to understand why this is the way, keep reading.
+
+## A first attempt that does not work
+
+Here's a simple attempt at writing a wrapper around `glue()`:
+
+```{r}
+myglue0 <- function(...) {
+  glue(..., .open = "@@", .close = "~~")
+}
+```
+
+From superficial experimentation, `myglue0()` appears to work:
+
+```{r}
+fn_def <- "
+  @@NAME~~ <- function(x) {
+    @@BODY~~
+  }"
+
+myglue0(fn_def, NAME = "one_plus_one", BODY = "1 + 1")
+```
+
+However slightly more sophisticated and realistic usage of `myglue0()` reveals a big problem.
+Here we use `myglue0()` inside another function, `fn_builder0()`:
+
+```{r, error = TRUE}
+fn_builder0 <- function(NAME, BODY) {
+  fn_def <- "
+    @@NAME~~ <- function(x) {
+      @@BODY~~
+    }"
+  myglue0(fn_def)
+}
+
+fn_builder0("two_times_two", "2 * 2")
+```
+
+What do you mean `NAME` is not found?!?
+It's one of the arguments of `fn_builder0()`.
+It should be "two_times_two".
+
+## Where does `glue()` evaluate code?
+
+What's going on?
+It's time to look at the (redacted) signature of `glue()`:
+
+```{r, eval = FALSE}
+glue(..., .envir = parent.frame(), ...)
+```
+
+The expressions inside a glue string are evaluated with respect to `.envir`, which defaults to the environment where `glue()` is called from.
+
+Let's make new artificial versions of our functions that make it easy to tell where the inner `glue()` call is getting its values.
+
+```{r}
+myglue1 <- function(...) {
+  NAME <- "myglue_execution_env"
+  glue(..., .open = "@@", .close = "~~")
+}
+
+fn_builder1 <- function(NAME, BODY) {
+  fn_def <- "
+    @@NAME~~ <- function(x) {
+      @@BODY~~
+    }"
+  myglue1(fn_def)
+}
+```
+
+Let's also strategically define `BODY` in the global environment
+
+```{r}
+BODY <- "global_env"
+```
+
+Now let's call our function builder and observe which values are being used for `NAME` and `BODY`:
+
+```{r}
+fn_builder1(NAME = "user_NAME", BODY = "user_BODY")
+```
+
+Neither `NAME` nor `BODY` is getting the values that our user provided in the call to `fn_builder1()`!
+
+That's because the innermost call to `glue()` is looking in these places, in this order, for `NAME` and `BODY`:
+
+1. The ephemeral execution environment of our glue wrapper, `myglue1()`. Here `NAME` has the value "myglue_execution_env" there and that explains part of our result.
+2. The environment where `myglue1()` is defined, which is the global environment. `BODY` has the value "global_env" there and that explains the rest of our result.
+
+Note that the execution environment of `fn_builder1()`, which holds the and `NAME` and `BODY` specified by the user, is not consulted at all.
+This is obviously very bad.
+
+## A wrapper that works
+
+We fix our `glue()` wrapper by capturing its caller environment and passing that along to `glue()` to use for evaluation:
+
+```{r}
+myglue <- function(..., .envir = parent.frame()) {
+  glue(..., .open = "@@", .close = "~~", .envir = .envir)
+}
+
+fn_builder <- function(NAME, BODY) {
+  fn_def <- "
+    @@NAME~~ <- function(x) {
+      @@BODY~~
+    }"
+  myglue(fn_def)
+}
+```
+
+Now our function builder works as intended:
+
+```{r}
+fn_builder(NAME = "one_plus_one", BODY = "1 + 1")
+```
