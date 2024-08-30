@@ -69,7 +69,7 @@ sw_meta <- list(
 
 Define a custom glue wrapper and use it inside another helper that generates `\item` entries[^1]:
 
-[^1]: Note that delimiters `<<` and ``>>` have special meaning in knitr, so if you're generating output for RMarkdown or Quarto, you should avoid them.
+[^1]: Note that delimiters `<<` and `>>` have special meaning in knitr, so if you're generating output for RMarkdown or Quarto, you should avoid them.
 
 ```{r}
 my_glue = function(...) {
