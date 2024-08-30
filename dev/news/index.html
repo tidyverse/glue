@@ -28,6 +28,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/engines.html">glue custom knitr language engines</a></li>
     <li><a class="dropdown-item" href="../articles/speed.html">Speed of glue</a></li>
     <li><a class="dropdown-item" href="../articles/transformers.html">Transformers</a></li>
+    <li><a class="dropdown-item" href="../articles/wrappers.html">How to write a function that wraps glue</a></li>
   </ul></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
@@ -52,7 +53,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="glue-development-version">glue (development version)<a class="anchor" aria-label="anchor" href="#glue-development-version"></a></h2>
-<ul><li><p>glue gains a new “Getting started” article, with contributions from <a href="https://github.com/stephhazlitt" class="external-link">@stephhazlitt</a> and <a href="https://github.com/BrennanAntone" class="external-link">@BrennanAntone</a> (<a href="https://github.com/tidyverse/glue/issues/137" class="external-link">#137</a>, <a href="https://github.com/tidyverse/glue/issues/170" class="external-link">#170</a>, <a href="https://github.com/tidyverse/glue/issues/332" class="external-link">#332</a>).</p></li>
+<ul><li><p>glue has a new article on how to write a wrapper function that calls <code><a href="../reference/glue.html">glue()</a></code> (<a href="https://github.com/tidyverse/glue/issues/281" class="external-link">#281</a>).</p></li>
+<li><p>glue gains a new “Getting started” article, with contributions from <a href="https://github.com/stephhazlitt" class="external-link">@stephhazlitt</a> and <a href="https://github.com/BrennanAntone" class="external-link">@BrennanAntone</a> (<a href="https://github.com/tidyverse/glue/issues/137" class="external-link">#137</a>, <a href="https://github.com/tidyverse/glue/issues/170" class="external-link">#170</a>, <a href="https://github.com/tidyverse/glue/issues/332" class="external-link">#332</a>).</p></li>
 <li><p><code><a href="../reference/glue.html">glue()</a></code> now drops the last argument if it’s empty so that you can finish each line with a comma if you want (<a href="https://github.com/tidyverse/glue/issues/320" class="external-link">#320</a>).</p></li>
 <li><p><code>glue_sql("{var*}")</code> once again generates <code>NULL</code> if var is empty.<br>
 This reverts <a href="https://github.com/tidyverse/glue/issues/292" class="external-link">#292</a>. (<a href="https://github.com/tidyverse/glue/issues/318" class="external-link">#318</a>).</p></li>

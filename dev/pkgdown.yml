@@ -6,7 +6,8 @@ articles:
   glue: glue.html
   articles/speed: speed.html
   transformers: transformers.html
-last_built: 2024-08-28T22:39Z
+  wrappers: wrappers.html
+last_built: 2024-08-30T16:09Z
 urls:
   reference: https://glue.tidyverse.org/reference
   article: https://glue.tidyverse.org/articles
