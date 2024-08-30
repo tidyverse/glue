@@ -121,7 +121,8 @@ the withr, cli, and rlang packages (e.g. <code><a href="https://withr.r-lib.org
 <h2 id="working-example">Working example<a class="anchor" aria-label="anchor" href="#working-example"></a>
 </h2>
 <p>Here’s an abbreviated excerpt of the roxygen comment that generates
-the documentation for the starwars dataset in dplyr:</p>
+the documentation for the starwars dataset in dplyr
+(<code><a href="https://dplyr.tidyverse.org/reference/starwars.html" class="external-link">?dplyr::starwars</a></code>):</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' \describe{</span></span>
 <span><span class="co">#' \item{name}{Name of the character}</span></span>
@@ -131,11 +132,11 @@ the documentation for the starwars dataset in dplyr:</p>
 <span><span class="co">#' \item{films}{List of films the character appeared in}</span></span>
 <span><span class="co">#' }</span></span></code></pre></div>
 <p>To produce such text programmatically, the first step might be to
-generate the <code>\item</code> lines from a named list of column names
-and descriptions. Notice that <code>{</code> and <code>}</code> are
-important to the <code>\describe{...}</code> syntax, so this is an
-example where it is nice for glue to use different delimiters for
-expressions.</p>
+generate the <code>\item{}{}</code> lines from a named list of column
+names and descriptions. Notice that <code>{</code> and <code>}</code>
+are important to the <code>\describe{...}</code> and
+<code>\item{}{}</code> syntax, so this is an example where it is nice
+for glue to use different delimiters for expressions.</p>
 <p>Put the metadata in a suitable list:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sw_meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -147,15 +148,16 @@ expressions.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Define a custom glue wrapper and use it inside another helper that
 generates <code>\item</code> entries<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that delimiters &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt; and
-`&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt; have special meaning in knitr, so if you’re
-generating output for RMarkdown or Quarto, you should avoid them.&lt;/p&gt;"><sup>1</sup></a>:</p>
+&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt; have special meaning in knitr (they are used for a
+templating feature in knitr itself). So in code chunks inside RMarkdown
+or Quarto documents, you may need to use different delimiters.&lt;/p&gt;"><sup>1</sup></a>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_glue</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .open <span class="op">=</span> <span class="st">"&lt;@"</span>, .close <span class="op">=</span> <span class="st">"@&gt;"</span>, .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .open <span class="op">=</span> <span class="st">"&lt;&lt;"</span>, .close <span class="op">=</span> <span class="st">"&gt;&gt;"</span>, .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">named_list_to_items</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">my_glue</span><span class="op">(</span><span class="st">"\\item{&lt;@names(x)@&gt;}{&lt;@x@&gt;}"</span><span class="op">)</span></span>
+<span>  <span class="fu">my_glue</span><span class="op">(</span><span class="st">"\\item{&lt;&lt;names(x)&gt;&gt;}{&lt;&lt;x&gt;&gt;}"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Apply <code>named_list_to_items()</code> to starwars metadata:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -169,11 +171,11 @@ generating output for RMarkdown or Quarto, you should avoid them.&lt;/p&gt;"><su
 <code>.envir</code> correctly in our wrapper function:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_glue_WRONG</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .open <span class="op">=</span> <span class="st">"&lt;@"</span>, .close <span class="op">=</span> <span class="st">"@&gt;"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .open <span class="op">=</span> <span class="st">"&lt;&lt;"</span>, .close <span class="op">=</span> <span class="st">"&gt;&gt;"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">named_list_to_items_WRONG</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">my_glue_WRONG</span><span class="op">(</span><span class="st">"\\item{&lt;@names(x)@&gt;}{&lt;@x@&gt;}"</span><span class="op">)</span></span>
+<span>  <span class="fu">my_glue_WRONG</span><span class="op">(</span><span class="st">"\\item{&lt;&lt;names(x)&gt;&gt;}{&lt;&lt;x&gt;&gt;}"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">named_list_to_items_WRONG</span><span class="op">(</span><span class="va">sw_meta</span><span class="op">)</span></span>
