@@ -125,50 +125,54 @@ z <- 0
 glue("{x} {y} {z}")
 ```
 
-Now we wrap `glue()` in our own simple function, `myglue1()`.
-Notice that `myglue()` doesn't capture its caller environment and pass that along.
+Now we wrap `glue()` in our own simple function, `my_glue1()`.
+Notice that `my_glue1()` does not capture its caller environment and pass that along.
 
-When we execute `myglue1()` in the global environment, there's no obvious problem.
+When we execute `my_glue1()` in the global environment, there's no obvious problem.
 
 ```{r}
-myglue1 <- function(...) {
+my_glue1 <- function(...) {
   x <- 1
   glue(...)
 }
 
-myglue1("{x} {y} {z}")
+my_glue1("{x} {y} {z}")
 ```
 
-However, if we call our `myglue1()` inside another function, we see that all is not well.
+The value of `x` is found in the execution environment of `my_glue1()`.
+The values of `y` and `z` are found in the global environment.
+Importantly, this is because that is the environment where `my_glue1()` is defined, not because that is where `my_glue1()` is called.
+
+However, if we call our `my_glue1()` inside another function, we see that all is not well.
 
 ```{r}
-myglue2 <- function(...) {
+my_glue2 <- function(...) {
   x <- 2
   y <- 2
-  myglue1(...)
+  my_glue1(...)
 }
 
-myglue2("{x} {y} {z}")
+my_glue2("{x} {y} {z}")
 ```
 
 Why do `x` and `y` not have the value 2?
-Because `myglue1()` and its eventual call to `glue()` have no access to the execution environment of `myglue2()`.
+Because `my_glue1()` and its eventual call to `glue()` have no access to the execution environment of `my_glue2()`, which is the caller environment of `my_glue1()`.
 
 If you want your glue wrapper to behave like `glue()` itself and to work as expected inside other functions, make sure it captures its caller environment and passes that along to `glue()`.
 
 ```{r}
-myglue3 <- function(..., .envir = parent.frame()) {
+my_glue3 <- function(..., .envir = parent.frame()) {
   x <- 3
   glue(..., .envir = .envir)
 }
 
-myglue3("{x} {y} {z}")
+my_glue3("{x} {y} {z}")
 
-myglue4 <- function(...) {
+my_glue4 <- function(...) {
   x <- 4
   y <- 4
-  myglue3(...)
+  my_glue3(...)
 }
 
-myglue4("{x} {y} {z}")
+my_glue4("{x} {y} {z}")
 ```
