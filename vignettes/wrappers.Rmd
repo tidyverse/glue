@@ -52,8 +52,8 @@ Here's an abbreviated excerpt of the roxygen comment that generates the document
 #' }
 ```
 
-To produce such text programmatically, the first step might be to generate the `\item` lines from a named list of column names and descriptions.
-Notice that `{` and `}` are important to the `\describe{...}` syntax, so this is an example where it is nice for glue to use different delimiters for expressions.
+To produce such text programmatically, the first step might be to generate the `\item{}{}` lines from a named list of column names and descriptions.
+Notice that `{` and `}` are important to the `\describe{...}` and `\item{}{}` syntax, so this is an example where it is nice for glue to use different delimiters for expressions.
 
 Put the metadata in a suitable list:
 
@@ -69,15 +69,15 @@ sw_meta <- list(
 
 Define a custom glue wrapper and use it inside another helper that generates `\item` entries[^1]:
 
-[^1]: Note that delimiters `<<` and `>>` have special meaning in knitr, so if you're generating output for RMarkdown or Quarto, you should avoid them.
+[^1]: Note that delimiters `<<` and `>>` have special meaning in knitr (they are used for a templating feature in knitr itself). So in code chunks inside RMarkdown or Quarto documents, you may need to use different delimiters.
 
 ```{r}
 my_glue = function(...) {
-  glue(..., .open = "<@", .close = "@>", .envir = parent.frame())
+  glue(..., .open = "<<", .close = ">>", .envir = parent.frame())
 }
 
 named_list_to_items <- function(x) {
-  my_glue("\\item{<@names(x)@>}{<@x@>}")
+  my_glue("\\item{<<names(x)>>}{<<x>>}")
 }
 ```
 
@@ -91,11 +91,11 @@ Here's how this would fail if we did *not* handle `.envir` correctly in our wrap
 
 ```{r, error = TRUE}
 my_glue_WRONG <- function(...) {
-  glue(..., .open = "<@", .close = "@>")
+  glue(..., .open = "<<", .close = ">>")
 }
 
 named_list_to_items_WRONG <- function(x) {
-  my_glue_WRONG("\\item{<@names(x)@>}{<@x@>}")
+  my_glue_WRONG("\\item{<<names(x)>>}{<<x>>}")
 }
 
 named_list_to_items_WRONG(sw_meta)
