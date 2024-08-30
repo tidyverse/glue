@@ -34,7 +34,9 @@ This is the key move:
 
 > Include `.envir = parent.frame()` as an argument of the wrapper function and pass this `.envir` to the `.envir` argument of `glue()`.
 
-If you'd like to understand why this is the way, keep reading.
+If you'd like to know why this is the way, keep reading.
+It pays off to understand this, because the technique applies more broadly than glue.
+Once you recognize this setup, you'll see it in many functions in the withr, cli, and rlang packages (e.g. `withr::defer()`, `cli::cli_abort()`, `rlang::abort()`).
 
 ## Working example
 
