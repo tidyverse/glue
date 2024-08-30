@@ -40,7 +40,7 @@ Once you recognize this setup, you'll see it in many functions in the withr, cli
 
 ## Working example
 
-Here's an abbreviated excerpt of the roxygen comment that generates the documentation for the starwars dataset in dplyr:
+Here's an abbreviated excerpt of the roxygen comment that generates the documentation for the starwars dataset in dplyr (`?dplyr::starwars`):
 
 ```r
 #' \describe{
