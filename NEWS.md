@@ -1,5 +1,8 @@
 # glue (development version)
 
+* glue has a new article on how to write a wrapper function that calls `glue()`
+  (#281).
+
 * glue gains a new "Getting started" article, with contributions from
   @stephhazlitt and @BrennanAntone (#137, #170, #332).
 
