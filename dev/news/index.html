@@ -53,9 +53,19 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="glue-development-version">glue (development version)<a class="anchor" aria-label="anchor" href="#glue-development-version"></a></h2>
-<ul><li><p>glue has a new article on how to write a wrapper function that calls <code><a href="../reference/glue.html">glue()</a></code> (<a href="https://github.com/tidyverse/glue/issues/281" class="external-link">#281</a>).</p></li>
-<li><p>glue gains a new “Getting started” article, with contributions from <a href="https://github.com/stephhazlitt" class="external-link">@stephhazlitt</a> and <a href="https://github.com/BrennanAntone" class="external-link">@BrennanAntone</a> (<a href="https://github.com/tidyverse/glue/issues/137" class="external-link">#137</a>, <a href="https://github.com/tidyverse/glue/issues/170" class="external-link">#170</a>, <a href="https://github.com/tidyverse/glue/issues/332" class="external-link">#332</a>).</p></li>
-<li><p><code><a href="../reference/glue.html">glue()</a></code> now drops the last argument if it’s empty so that you can finish each line with a comma if you want (<a href="https://github.com/tidyverse/glue/issues/320" class="external-link">#320</a>).</p></li>
+<ul><li>
+<p>glue has a two new articles:</p>
+<ul><li>“Get started”, with contributions from <a href="https://github.com/stephhazlitt" class="external-link">@stephhazlitt</a> and <a href="https://github.com/BrennanAntone" class="external-link">@BrennanAntone</a> (<a href="https://github.com/tidyverse/glue/issues/137" class="external-link">#137</a>, <a href="https://github.com/tidyverse/glue/issues/170" class="external-link">#170</a>, <a href="https://github.com/tidyverse/glue/issues/332" class="external-link">#332</a>).</li>
+<li>How to write a function that wraps glue (<a href="https://github.com/tidyverse/glue/issues/281" class="external-link">#281</a>).</li>
+</ul></li>
+<li>
+<p>If the last argument of <code><a href="../reference/glue.html">glue()</a></code> is empty, it is dropped (<a href="https://github.com/tidyverse/glue/issues/320" class="external-link">#320</a>). This makes it easy to structure <code><a href="../reference/glue.html">glue()</a></code> calls with one argument per line, and to anticipate adding arguments:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>  <span class="st">"here's some text, "</span>,</span>
+<span>  <span class="st">"and maybe more text will be added in the future?"</span>,</span>
+<span><span class="op">)</span></span></code></pre></div>
+</li>
 <li><p><code>glue_sql("{var*}")</code> once again generates <code>NULL</code> if var is empty.<br>
 This reverts <a href="https://github.com/tidyverse/glue/issues/292" class="external-link">#292</a>. (<a href="https://github.com/tidyverse/glue/issues/318" class="external-link">#318</a>).</p></li>
 <li><p>The <code>.envir</code> argument to <code><a href="../reference/glue.html">glue()</a></code> and <code><a href="../reference/glue.html">glue_data()</a></code> really must be an environment now, as documented. Previously a list-ish object worked in some cases (by accident, not really by design). When you need to lookup values in a list-ish object, use <code>glue_data(.x =)</code> (<a href="https://github.com/tidyverse/glue/issues/308" class="external-link">#308</a>, <a href="https://github.com/tidyverse/glue/issues/317" class="external-link">#317</a>).</p></li>
@@ -227,7 +237,7 @@ This reverts <a href="https://github.com/tidyverse/glue/issues/292" class="exter
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
   </div></footer></body></html>
