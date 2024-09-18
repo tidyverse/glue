@@ -1,13 +1,19 @@
 # glue (development version)
 
-* glue has a new article on how to write a wrapper function that calls `glue()`
-  (#281).
+* glue has a two new articles:
+  - "Get started", with contributions from @stephhazlitt and @BrennanAntone
+    (#137, #170, #332).
+  - How to write a function that wraps glue (#281).
 
-* glue gains a new "Getting started" article, with contributions from
-  @stephhazlitt and @BrennanAntone (#137, #170, #332).
-
-* `glue()` now drops the last argument if it's empty so that you can finish 
-  each line with a comma if you want (#320).
+* If the last argument of `glue()` is empty, it is dropped (#320). This makes
+  it easy to structure `glue()` calls with one argument per line, and to anticipate adding arguments:
+  
+  ``` r
+  glue(
+    "here's some text, ",
+    "and maybe more text will be added in the future?",
+  )
+  ```
 
 * `glue_sql("{var*}")` once again generates `NULL` if var is empty.  
   This reverts #292. (#318).
