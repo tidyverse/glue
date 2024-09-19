@@ -61,37 +61,10 @@ Run `revdepcheck::cloud_details(, "adoptr")` for more info
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... NOTE
+*   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘adoptr.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘adoptr_jss.Rmd’
-      ...
-    
-    > ess <- ExpectedSampleSize(dist = datadist, prior = alternative)
-    
-    > initial_design <- get_initial_design(theta = 0.3, 
-    +     alpha = 0.025, beta = 0.1, type = "two-stage", dist = datadist, 
-    +     order = 7)
-    
-    ...
-    ! is.environment(.envir) is not TRUE
-    Execution halted
-    
-      ‘adoptr.Rmd’ using ‘UTF-8’... OK
-      ‘adoptr_jss.Rmd’ using ‘UTF-8’... failed
-      ‘composite-scores.Rmd’ using ‘UTF-8’... OK
-      ‘conditional-scores.Rmd’ using ‘UTF-8’... failed
-      ‘defining-new-scores.Rmd’ using ‘UTF-8’... OK
-      ‘other-endpoints.Rmd’ using ‘UTF-8’... OK
-      ‘working-with-priors.Rmd’ using ‘UTF-8’... failed
     ```
 
 # atrrr
@@ -151,7 +124,7 @@ Run `revdepcheck::cloud_details(, "codebook")` for more info
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... NOTE
+*   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘codebook.Rmd’ using rmarkdown
@@ -177,31 +150,6 @@ Run `revdepcheck::cloud_details(, "codebook")` for more info
     ```
 
 ## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘codebook.Rmd’
-      ...
-    
-    
-    
-    
-    
-    Quitting from lines 17-22 [rmdpartial-1]
-    
-    ...
-    Quitting from lines 17-22 [rmdpartial-1]
-    
-      When sourcing ‘codebook_tutorial.R’:
-    Error: is.environment(.envir) is not TRUE
-    Execution halted
-    
-      ‘codebook.Rmd’ using ‘UTF-8’... failed
-      ‘codebook_qualtrics.Rmd’ using ‘UTF-8’... failed
-      ‘codebook_sav.Rmd’ using ‘UTF-8’... failed
-      ‘codebook_tutorial.Rmd’ using ‘UTF-8’... failed
-    ```
 
 *   checking package dependencies ... NOTE
     ```
@@ -327,26 +275,7 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
     Execution halted
     ```
 
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘gtsummary_definition.Rmd’
-      ...
-    +     tbl_regression() %>% bold_p(t = 0.5)
-    
-    > tbl_summary_ex <- trial %>% select(trt, age, grade, 
-    +     response) %>% tbl_summary(by = trt)
-    
-      When sourcing ‘gtsummary_definition.R’:
-    Error: ℹ In argument: `stat = as.character(...)`.
-    Caused by error in `glue_data()`:
-    ! is.environment(.envir) is not TRUE
-    Execution halted
-    
-      ‘gtsummary_definition.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
+*   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
       ...
@@ -408,31 +337,6 @@ Run `revdepcheck::cloud_details(, "logger")` for more info
     ```
 
 ## In both
-
-*   checking running R code from vignettes ... WARNING
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘migration.Rmd’
-      ...
-    > oldconf <- list(threshold = log_threshold(), layout = log_layout(), 
-    +     formatter = log_formatter(), appender = log_appender())
-    
-    > log_appender(appender_stdout)
-    
-    > library(futile.logger)
-    
-    ...
-    Error: there is no package called ‘futile.logger’
-    Execution halted
-    
-      ‘Intro.Rmd’ using ‘UTF-8’... OK
-      ‘anatomy.Rmd’ using ‘UTF-8’... OK
-      ‘customize_logger.Rmd’ using ‘UTF-8’... OK
-      ‘migration.Rmd’ using ‘UTF-8’... failed
-      ‘performance.Rmd’ using ‘UTF-8’... OK
-      ‘r_packages.Rmd’ using ‘UTF-8’... OK
-      ‘write_custom_extensions.Rmd’ using ‘UTF-8’... OK
-    ```
 
 *   checking package dependencies ... NOTE
     ```
@@ -506,7 +410,7 @@ Run `revdepcheck::cloud_details(, "odin")` for more info
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... NOTE
+*   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
       ...
@@ -529,33 +433,6 @@ Run `revdepcheck::cloud_details(, "odin")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘discrete.Rmd’
-      ...
-    beta <- user(0.2)
-    gamma <- user(0.1)
-    ```
-    
-    > sir_generator <- odin::odin(path_sir_model)
-    Loading required namespace: pkgbuild
-    
-    ...
-    > generator <- odin::odin(path_logistic)
-    Loading required namespace: pkgbuild
-    
-      When sourcing ‘odin.R’:
-    Error: is.environment(.envir) is not TRUE
-    Execution halted
-    
-      ‘discrete.Rmd’ using ‘UTF-8’... failed
-      ‘functions.Rmd’ using ‘UTF-8’... OK
-      ‘odin.Rmd’ using ‘UTF-8’... failed
     ```
 
 # params
@@ -732,30 +609,7 @@ Run `revdepcheck::cloud_details(, "shinyCohortBuilder")` for more info
     Execution halted
     ```
 
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘gui-filter-layer.Rmd’
-      ...
-     $ get_params  :function (name)  
-     $ get_data    :function (data_object)  
-     $ get_defaults:function (data_object, cache_object)  
-    
-    > .pre_post_stats_text(name = c("A", "B"), current = 1:2, 
-    +     previous = 3:4, stats = c("pre", "post"))
-    
-      When sourcing ‘gui-filter-layer.R’:
-    Error: is.environment(.envir) is not TRUE
-    Execution halted
-    
-      ‘custom-gui-layer.Rmd’ using ‘UTF-8’... OK
-      ‘gui-filter-layer.Rmd’ using ‘UTF-8’... failed
-      ‘package-options.Rmd’ using ‘UTF-8’... OK
-      ‘shinyCohortBuilder.Rmd’ using ‘UTF-8’... OK
-      ‘updating-source.Rmd’ using ‘UTF-8’... OK
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
+*   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
       ...
@@ -778,6 +632,33 @@ Run `revdepcheck::cloud_details(, "shinyCohortBuilder")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
+    ```
+
+## In both
+
+*   checking Rd files ... NOTE
+    ```
+    checkRd: (-1) gui-filter-layer.Rd:40: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) gui-filter-layer.Rd:41: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) gui-filter-layer.Rd:42: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) gui-filter-layer.Rd:43: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) gui-filter-layer.Rd:44-45: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) gui-filter-layer.Rd:46-49: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) rendering-step-attrition.Rd:34: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) rendering-step-attrition.Rd:35: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) source-gui-layer.Rd:22: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) source-gui-layer.Rd:23: Lost braces in \itemize; meant \describe ?
+    ...
+    checkRd: (-1) trigger-action.Rd:39: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:40: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:41: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:42: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:43: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:44: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:45: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:46: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:47: Lost braces in \itemize; meant \describe ?
+    checkRd: (-1) trigger-action.Rd:48: Lost braces in \itemize; meant \describe ?
     ```
 
 # sqltargets
@@ -885,32 +766,7 @@ Run `revdepcheck::cloud_details(, "table.glue")` for more info
       Execution halted
     ```
 
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘default_rounder.Rmd’
-      ...
-    > names(rspec) <- paste("table.glue", names(rspec), 
-    +     sep = ".")
-    
-    > options(rspec)
-    
-    > table_value(pi)
-    
-    ...
-      {height_upr})")`.
-    ℹ In group 1: `sex = "female"`.
-    Caused by error:
-    ! Failed to evaluate glue component {..f(height_est)}
-    Caused by error in `glue_data()`:
-    ! is.environment(.envir) is not TRUE
-    Execution halted
-    
-      ‘default_rounder.Rmd’ using ‘UTF-8’... failed
-      ‘table_guide.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
+*   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘default_rounder.Rmd’ using rmarkdown
@@ -933,5 +789,20 @@ Run `revdepcheck::cloud_details(, "table.glue")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
+    ```
+
+## In both
+
+*   checking Rd files ... NOTE
+    ```
+    checkRd: (-1) table_ester.Rd:32: Lost braces; missing escapes or markup?
+        32 | inside of curly brackets, i.e., { } . For instance, if estimate = 1.23
+           |                                 ^
+    checkRd: (-1) table_ester.Rd:33: Lost braces; missing escapes or markup?
+        33 | and error = 0.45, then \code{form} = "{estimate} ({error})" will return
+           |                                       ^
+    checkRd: (-1) table_ester.Rd:33: Lost braces; missing escapes or markup?
+        33 | and error = 0.45, then \code{form} = "{estimate} ({error})" will return
+           |                                                   ^
     ```
 

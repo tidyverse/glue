@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 802 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 803 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 11 new problems
- * We failed to check 8 packages
+ * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -13,13 +13,13 @@ Issues with CRAN packages are summarised below.
 * adoptr
   checking examples ... ERROR
   checking tests ... ERROR
-  checking re-building of vignette outputs ... NOTE
+  checking re-building of vignette outputs ... ERROR
 
 * atrrr
   checking tests ... ERROR
 
 * codebook
-  checking re-building of vignette outputs ... NOTE
+  checking re-building of vignette outputs ... ERROR
 
 * gtreg
   checking examples ... ERROR
@@ -27,8 +27,7 @@ Issues with CRAN packages are summarised below.
 
 * gtsummary
   checking examples ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
+  checking re-building of vignette outputs ... ERROR
 
 * logger
   checking tests ... ERROR
@@ -36,7 +35,7 @@ Issues with CRAN packages are summarised below.
 * odin
   checking examples ... ERROR
   checking tests ... ERROR
-  checking re-building of vignette outputs ... NOTE
+  checking re-building of vignette outputs ... ERROR
 
 * roxytypes
   checking examples ... ERROR
@@ -44,8 +43,7 @@ Issues with CRAN packages are summarised below.
 
 * shinyCohortBuilder
   checking examples ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
+  checking re-building of vignette outputs ... ERROR
 
 * sqltargets
   checking tests ... ERROR
@@ -53,16 +51,10 @@ Issues with CRAN packages are summarised below.
 * table.glue
   checking examples ... ERROR
   checking tests ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
+  checking re-building of vignette outputs ... ERROR
 
 ### Failed to check
 
-* censored         (NA)
-* covid19india     (NA)
 * multinma         (NA)
-* OVtool           (NA)
 * params           (NA)
-* scCustomize      (NA)
-* shinyTempSignal  (NA)
 * TriDimRegression (NA)
