@@ -1,4 +1,4 @@
-# glue (development version)
+# glue 1.8.0
 
 * glue has a two new articles:
   - "Get started", with contributions from @stephhazlitt and @BrennanAntone
