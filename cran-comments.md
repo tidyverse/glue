@@ -1,26 +1,28 @@
 ## revdepcheck results
 
-We checked 713 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 803 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * One package fails check intermittently, for reasons seemingly unrelated to glue
+ * We see 9 problems
  * We failed to check 1 package
 
 Issues with CRAN packages are summarised below.
 
-### Problems
+### New problems
 
-* diseasystore
-  checking tests ... ERROR
-  
-This package fails check about half the time in our automated checks and it doesn't seem to have anything to do with the glue package. It looks like so:
+These failures come from glue becoming more strict about an argument and making its behaviour match the documentation.
+All maintainers have been notified and, where possible, given patches.
+I did one round of checks and notifications in December 2023 and another just before this release.
 
-Caused by error in `dplyr::db_write_table()`:
-! Can't write table table `dbplyr_045`.
-Caused by error:
-! Invalid result set
+* adoptr: Notified and pull request made 2024-09-19
+* atrrr: Notified and pull request made 2024-09-19
+* codebook: Notified December 2023
+* gtreg: Failing indirectly due to gtsummary (see next bullet)
+* gtsummary: Notified 2024-09-19
+* logger: Notified 2024-09-19
+* roxytypes: Notified and pull request made 2024-09-19
+* shinyCohortBuilder: Notified December 2023
+* sqltargets: Notified and pull request made 2024-09-19
 
 ### Failed to check
 
-* TriDimRegression (NA)l
-
-Fails because "there is no package called 'rstantools'"
+* params           Loading failure. Notified December 2023
