@@ -1,78 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://glue.tidyverse.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/MAINTENANCE.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/engines.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/speed.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/articles/transformers.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/as_glue.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/glue-deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/glue.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/glue_col.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/glue_collapse.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/glue_safe.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/glue_sql.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/identity_transformer.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/quoting.html</loc>
-  </url>
-  <url>
-    <loc>https://glue.tidyverse.org/reference/trim.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://glue.tidyverse.org/404.html</loc></url>
+<url><loc>https://glue.tidyverse.org/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://glue.tidyverse.org/CONTRIBUTING.html</loc></url>
+<url><loc>https://glue.tidyverse.org/LICENSE-text.html</loc></url>
+<url><loc>https://glue.tidyverse.org/LICENSE.html</loc></url>
+<url><loc>https://glue.tidyverse.org/MAINTENANCE.html</loc></url>
+<url><loc>https://glue.tidyverse.org/SUPPORT.html</loc></url>
+<url><loc>https://glue.tidyverse.org/articles/engines.html</loc></url>
+<url><loc>https://glue.tidyverse.org/articles/glue.html</loc></url>
+<url><loc>https://glue.tidyverse.org/articles/index.html</loc></url>
+<url><loc>https://glue.tidyverse.org/articles/speed.html</loc></url>
+<url><loc>https://glue.tidyverse.org/articles/transformers.html</loc></url>
+<url><loc>https://glue.tidyverse.org/articles/wrappers.html</loc></url>
+<url><loc>https://glue.tidyverse.org/authors.html</loc></url>
+<url><loc>https://glue.tidyverse.org/index.html</loc></url>
+<url><loc>https://glue.tidyverse.org/news/index.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/as_glue.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/glue-package.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/glue.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/glue_col.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/glue_collapse.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/glue_safe.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/glue_sql.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/identity_transformer.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/index.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/quoting.html</loc></url>
+<url><loc>https://glue.tidyverse.org/reference/trim.html</loc></url>
 </urlset>
+
