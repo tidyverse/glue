@@ -129,12 +129,12 @@ foo <- function() {
   glue("
     A formatted string
     Can have multiple lines
-      with additional indention preserved")
+      with additional indentation preserved")
 }
 foo()
 #> A formatted string
 #> Can have multiple lines
-#>   with additional indention preserved
+#>   with additional indentation preserved
 ```
 
 The leading whitespace that is common to all 3 lines is absent from the

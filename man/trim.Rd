@@ -27,7 +27,7 @@ to the minimum indentation of all non-blank lines after the first.
 glue("
     A formatted string
     Can have multiple lines
-      with additional indention preserved
+      with additional indentation preserved
     ")
 
 glue("

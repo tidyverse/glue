@@ -264,7 +264,7 @@ glue_collapse <- function(x, sep = "", width = Inf, last = "") {
 #' glue("
 #'     A formatted string
 #'     Can have multiple lines
-#'       with additional indention preserved
+#'       with additional indentation preserved
 #'     ")
 #'
 #' glue("
