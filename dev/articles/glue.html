@@ -124,12 +124,12 @@ easy to interpolate variables:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">  A formatted string</span></span>
 <span><span class="st">  Can have multiple lines</span></span>
-<span><span class="st">    with additional indention preserved</span></span>
+<span><span class="st">    with additional indentation preserved</span></span>
 <span><span class="st">  "</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; A formatted string</span></span>
 <span><span class="co">#&gt; Can have multiple lines</span></span>
-<span><span class="co">#&gt;   with additional indention preserved</span></span></code></pre></div>
+<span><span class="co">#&gt;   with additional indentation preserved</span></span></code></pre></div>
 <p>The example above demonstrates some other important facts about the
 pre-processing of the template string:</p>
 <ul>
@@ -147,12 +147,12 @@ call):</p>
 <span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">    A formatted string</span></span>
 <span><span class="st">    Can have multiple lines</span></span>
-<span><span class="st">      with additional indention preserved"</span><span class="op">)</span></span>
+<span><span class="st">      with additional indentation preserved"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">foo</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; A formatted string</span></span>
 <span><span class="co">#&gt; Can have multiple lines</span></span>
-<span><span class="co">#&gt;   with additional indention preserved</span></span></code></pre></div>
+<span><span class="co">#&gt;   with additional indentation preserved</span></span></code></pre></div>
 <p>On the other hand, what if you don’t want a line break in the output,
 but you also like to limit the length of lines in your source code to,
 e.g., 80 characters? The first option is to use <code>\\</code> to break
