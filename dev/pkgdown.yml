@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   engines: engines.html
@@ -7,7 +7,7 @@ articles:
   articles/speed: speed.html
   transformers: transformers.html
   wrappers: wrappers.html
-last_built: 2024-10-04T16:27Z
+last_built: 2025-06-19T18:58Z
 urls:
   reference: https://glue.tidyverse.org/reference
   article: https://glue.tidyverse.org/articles
