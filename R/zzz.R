@@ -1,6 +1,6 @@
 # nocov start
 .onLoad <- function(...) {
-  # Do not swap these for `@exportS3Method`, which has a nasty bug (#TODO)
+  # Do not swap these for `@exportS3Method`, which has a nasty bug (#347)
   s3_register("testthat::compare", "glue")
   s3_register("waldo::compare_proxy", "glue")
   s3_register("vctrs::vec_ptype2", "glue.glue")
