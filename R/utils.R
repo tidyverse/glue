@@ -75,7 +75,7 @@ delayed_assign <- function(x, value, eval.env = parent.frame(1), assign.env = pa
   do.call(delayedAssign, list(x, value, eval.env, assign.env))
 }
 
-#' @exportS3Method testthat::compare
+# Lazily registered in `.onLoad()`
 compare.glue <- function(x, y, ...) {
   if (identical(class(y), "character")) {
     class(x) <- NULL
@@ -83,7 +83,7 @@ compare.glue <- function(x, y, ...) {
   NextMethod("compare")
 }
 
-#' @exportS3Method waldo::compare_proxy
+# Lazily registered in `.onLoad()`
 compare_proxy.glue <- function(x, path = "x") {
   class(x) <- NULL
   NextMethod("compare_proxy")
