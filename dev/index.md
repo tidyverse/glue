@@ -1,0 +1,159 @@
+# glue
+
+glue offers interpreted string literals that are small, fast, and
+dependency-free. glue does this by embedding R expressions in curly
+braces, which are then evaluated and inserted into the string.
+
+## Installation
+
+``` r
+# Install development version from GitHub
+pak::pak("tidyverse/glue")
+```
+
+## Usage
+
+[`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) makes it
+easy to interpolate data into strings:
+
+``` r
+library(glue)
+
+name <- "Fred"
+glue("My name is {name}.")
+#> My name is Fred.
+```
+
+[`stringr::str_glue()`](https://stringr.tidyverse.org/reference/str_glue.html)
+is an alias for
+[`glue::glue()`](https://glue.tidyverse.org/dev/reference/glue.md). So
+if you’ve already attached stringr (or perhaps the whole tidyverse), you
+can use
+[`str_glue()`](https://stringr.tidyverse.org/reference/str_glue.html) to
+access all of the functionality of
+[`glue()`](https://glue.tidyverse.org/dev/reference/glue.md):
+
+``` r
+library(stringr) # or library(tidyverse)
+
+name <- "Wilma"
+str_glue("My name is {name}.")
+#> My name is Wilma.
+```
+
+You’re not limited to using a bare symbol inside
+[`{}`](https://rdrr.io/r/base/Paren.html); it can be any little bit of R
+code:
+
+``` r
+name <- "Pebbles"
+glue("Here is my name in uppercase and doubled: {strrep(toupper(name), 2)}.")
+#> Here is my name in uppercase and doubled: PEBBLESPEBBLES.
+```
+
+### Data can come from various sources
+
+glue can interpolate values from the local environment or from data
+passed in `name = value` form:
+
+``` r
+x <- "the local environment"
+glue(
+  "`glue()` can access values from {x} or from {y}. {z}",
+  y = "named arguments",
+  z = "Woo!"
+)
+#> `glue()` can access values from the local environment or from named arguments. Woo!
+```
+
+If the relevant data lives in a data frame (or list or environment), use
+[`glue_data()`](https://glue.tidyverse.org/dev/reference/glue.md)
+instead:
+
+``` r
+mini_mtcars <- head(cbind(model = rownames(mtcars), mtcars))
+glue_data(mini_mtcars, "{model} has {hp} hp.")
+#> Mazda RX4 has 110 hp.
+#> Mazda RX4 Wag has 110 hp.
+#> Datsun 710 has 93 hp.
+#> Hornet 4 Drive has 110 hp.
+#> Hornet Sportabout has 175 hp.
+#> Valiant has 105 hp.
+```
+
+[`glue_data()`](https://glue.tidyverse.org/dev/reference/glue.md) is
+very natural to use with the pipe:
+
+``` r
+mini_mtcars |>
+  glue_data("{model} gets {mpg} miles per gallon.")
+#> Mazda RX4 gets 21 miles per gallon.
+#> Mazda RX4 Wag gets 21 miles per gallon.
+#> Datsun 710 gets 22.8 miles per gallon.
+#> Hornet 4 Drive gets 21.4 miles per gallon.
+#> Hornet Sportabout gets 18.7 miles per gallon.
+#> Valiant gets 18.1 miles per gallon.
+```
+
+These [`glue_data()`](https://glue.tidyverse.org/dev/reference/glue.md)
+examples also demonstrate that
+[`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) is
+vectorized over the data.
+
+### What you see is awfully close to what you get
+
+[`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) lets you
+write code that makes it easy to predict what the final string will look
+like. There is considerably less syntactical noise and mystery compared
+to [`paste()`](https://rdrr.io/r/base/paste.html) and
+[`sprintf()`](https://rdrr.io/r/base/sprintf.html).
+
+Empty first and last lines are automatically trimmed, as is leading
+whitespace that is common across all lines. You don’t have to choose
+between indenting your code properly and getting the output you actually
+want. Consider what happens when
+[`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) is used
+inside the body of a function:
+
+``` r
+foo <- function() {
+  glue("
+    A formatted string
+    Can have multiple lines
+      with additional indentation preserved")
+}
+foo()
+#> A formatted string
+#> Can have multiple lines
+#>   with additional indentation preserved
+```
+
+The leading whitespace that is common to all 3 lines is absent from the
+result.
+
+## Learning more
+
+glue is a relatively small and focused package, but there’s more to it
+than the basic usage of
+[`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) and
+[`glue_data()`](https://glue.tidyverse.org/dev/reference/glue.md) shown
+here. More recommended functions and resources:
+
+- The “Get started” article
+  ([`vignette("glue")`](https://glue.tidyverse.org/dev/articles/glue.md))
+  demonstrates more interesting features of
+  [`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) and
+  [`glue_data()`](https://glue.tidyverse.org/dev/reference/glue.md).
+- [`glue_sql()`](https://glue.tidyverse.org/dev/reference/glue_sql.md)
+  and
+  [`glue_data_sql()`](https://glue.tidyverse.org/dev/reference/glue_sql.md)
+  are specialized functions for producing SQL statements.
+- glue provides a couple of custom knitr engines that allow you to use
+  glue syntax in chunks; learn more in
+  [`vignette("engines", package = "glue")`](https://glue.tidyverse.org/dev/articles/engines.md).
+
+## Code of Conduct
+
+Please note that this project is released with a [Contributor Code of
+Conduct](https://glue.tidyverse.org/CODE_OF_CONDUCT.html). By
+participating in this project, you agree to abide by its terms.
