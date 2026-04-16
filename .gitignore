@@ -10,3 +10,4 @@ script.R
 /revdep/*noindex
 /docs/
 internal/
+.positai/settings.json
