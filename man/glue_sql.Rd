@@ -108,7 +108,7 @@ This is useful for (e.g.) the
 \href{https://www.w3schools.com/sql/sql_in.asp}{SQL IN Operator}.
 }
 \examples{
-\dontshow{if (requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 iris2 <- iris
 colnames(iris2) <- gsub("[.]", "_", tolower(colnames(iris)))

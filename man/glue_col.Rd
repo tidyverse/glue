@@ -55,7 +55,7 @@ If the text you want to color contains, e.g., an unpaired quote or a comment
 character, specify \code{.literal = TRUE}.
 }
 \examples{
-\dontshow{if (require(crayon)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require(crayon)) withAutoprint(\{ # examplesIf}
 library(crayon)
 
 glue_col("{blue foo bar}")
