@@ -7,7 +7,6 @@ describe("glue_sql", {
 
   it("errors if no connection given", {
     var <- "foo"
-    skip_if(getRversion() < "4.5")
     expect_snapshot(glue_sql("{var}"), error = TRUE)
   })
   it("returns the string if no substations needed", {
@@ -166,6 +165,9 @@ describe("glue_data_sql", {
   con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
   on.exit(DBI::dbDisconnect(con))
 
+  it("errors if no connection given", {
+    expect_snapshot(glue_data_sql(mtcars, "{head(gear)*}"), error = TRUE)
+  })
   it("collapses values if succeeded by a *", {
     var <- "foo"
     expect_identical(
@@ -190,8 +192,11 @@ describe("glue_sql_collapse", {
 })
 
 test_that("get nice errors if rlang installed", {
+  con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+  on.exit(DBI::dbDisconnect(con))
+
   expect_snapshot(error = TRUE, {
-    glue_sql("{x + }")
-    glue_sql("{NOTFOUND}")
+    glue_sql("{x + }", .con = con)
+    glue_sql("{NOTFOUND}", .con = con)
   })
 })
