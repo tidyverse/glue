@@ -149,6 +149,8 @@ glue_sql <- function(
   .literal = FALSE,
   .trim = TRUE
 ) {
+  rlang::check_required(.con)
+
   DBI::SQL(glue(
     ...,
     .sep = .sep,
@@ -180,6 +182,8 @@ glue_data_sql <- function(
   .literal = FALSE,
   .trim = TRUE
 ) {
+  rlang::check_required(.con)
+
   DBI::SQL(glue_data(
     .x,
     ...,
