@@ -1,5 +1,7 @@
 # glue (development version)
 
+* The `glue` knitr engine handles multiline chunks now (#319).
+
 # glue 1.8.0
 
 * glue has two new articles:
