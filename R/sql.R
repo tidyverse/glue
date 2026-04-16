@@ -149,7 +149,9 @@ glue_sql <- function(
   .literal = FALSE,
   .trim = TRUE
 ) {
-  rlang::check_required(.con)
+  if (missing(.con)) {
+    stop("`.con` is absent but must be supplied.")
+  }
 
   DBI::SQL(glue(
     ...,
@@ -182,7 +184,9 @@ glue_data_sql <- function(
   .literal = FALSE,
   .trim = TRUE
 ) {
-  rlang::check_required(.con)
+  if (missing(.con)) {
+    stop("`.con` is absent but must be supplied.")
+  }
 
   DBI::SQL(glue_data(
     .x,
