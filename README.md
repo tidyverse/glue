@@ -1,5 +1,6 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
 # glue <a href="https://glue.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="glue website" /></a>
 
@@ -17,7 +18,7 @@ braces, which are then evaluated and inserted into the string.
 
 ## Installation
 
-<div class=".pkgdown-release">
+<div class="pkgdown-release">
 
 ``` r
 # Install released version from CRAN
@@ -26,7 +27,7 @@ install.packages("glue")
 
 </div>
 
-<div class=".pkgdown-devel">
+<div class="pkgdown-devel">
 
 ``` r
 # Install development version from GitHub
