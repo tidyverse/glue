@@ -171,19 +171,19 @@ intro("Shelmith", "Senior Data Analyst", "Kenya")
 intro("Cate", "Data Scientist", "Kenya")
 #> My name is Cate, a Data Scientist, from Kenya
 
-# `glue_data()` is useful in magrittr pipes
-if (require(magrittr)) {
-
-mtcars %>% glue_data("{rownames(.)} has {hp} hp")
+# `glue_data()` is useful with the pipe
+head(iris, 3) |>
+  glue_data("This {Species} has a petal length of {Petal.Length}")
+#> This setosa has a petal length of 1.4
+#> This setosa has a petal length of 1.4
+#> This setosa has a petal length of 1.3
 
 # Or within dplyr pipelines
 if (require(dplyr)) {
 
-head(iris) %>%
+head(iris) |>
   mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
-
-}}
-#> Loading required package: magrittr
+}
 #> Loading required package: dplyr
 #> 
 #> Attaching package: ‘dplyr’

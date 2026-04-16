@@ -1,8 +1,8 @@
 # Custom knitr language engines
 
 Glue provides a few [custom language
-engines](https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine)
-for knitr, which allows you to use glue directly in knitr chunks.
+engines](https://yihui.org/rmarkdown-cookbook/custom-engine.html) for
+knitr, which allows you to use glue directly in knitr chunks.
 
 ## `glue` engine
 
@@ -43,7 +43,7 @@ The **median waiting time** between eruptions is 76.
 The second engine is `glue_sql`, which will use
 [`glue::glue_sql()`](https://glue.tidyverse.org/dev/reference/glue_sql.md)
 to generate a SQL query and then run the query using the [sql
-engine](https://bookdown.org/yihui/rmarkdown/language-engines.html#sql).
+engine](https://yihui.org/rmarkdown/language-engines.html).
 
 First we create a new connection to an in-memory SQLite database, and
 write a new table to it.

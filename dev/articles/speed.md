@@ -59,23 +59,26 @@ simple <- bench::mark(
   rprintf    = rprintf::rprintf("foo$bar", bar = bar)
 )
 
-simple %>%
-  select(expression:total_time) %>%
+simple |>
+  select(expression:total_time) |>
   arrange(median)
 #> # A tibble: 5 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 sprintf       731ns 771.13ns  1201797.        0B     0   
-#> 2 paste0        1.4µs   1.53µs   617998.        0B     0   
-#> 3 glue         94.5µs  99.51µs     9696.  141.72KB     8.20
-#> 4 gstring     218.7µs 231.38µs     4211.    2.43MB     6.17
-#> 5 rprintf     275.2µs 286.86µs     3411.  504.06KB     2.01
+#> 1 sprintf     721.1ns 771.02ns  1203670.        0B     0   
+#> 2 paste0        1.4µs   1.52µs   631452.        0B     0   
+#> 3 glue           93µs  98.15µs     9837.  141.72KB     8.19
+#> 4 gstring     216.2µs  227.7µs     4264.    2.43MB     6.15
+#> 5 rprintf     272.3µs 284.94µs     3416.  504.06KB     4.05
 
 # plotting function defined in a hidden chunk
 plot_comparison(simple)
 ```
 
-![](speed_files/figure-html/unnamed-chunk-2-1.png)
+![Beeswarm plot comparing execution times of simple string concatenation
+across glue, gstring, paste0, sprintf, and rprintf. sprintf and paste0
+are fastest, followed by glue, then gstring and
+rprintf.](speed_files/figure-html/unnamed-chunk-2-1.png)
 
 While [`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) is
 slower than `paste0` and
@@ -116,23 +119,27 @@ vectorized <- bench::mark(
   rprintf = rprintf::rprintf("foo$bar", bar = bar)
 )
 
-vectorized %>%
-  select(expression:total_time) %>%
+vectorized |>
+  select(expression:total_time) |>
   arrange(median)
 #> # A tibble: 5 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 sprintf       8.3ms   8.32ms     120.    781.3KB     4.14
-#> 2 paste0       8.45ms   8.47ms     118.    781.3KB     4.12
-#> 3 gstring      11.3ms  11.37ms      87.7    1.53MB     6.58
-#> 4 glue        12.47ms  12.86ms      78.0    2.29MB     9.75
-#> 5 rprintf     27.47ms  27.86ms      35.7    3.05MB     4.46
+#> 1 sprintf      8.36ms   8.39ms     119.    781.3KB     4.18
+#> 2 paste0       8.48ms    8.5ms     117.    781.3KB     4.18
+#> 3 gstring      11.4ms  11.48ms      86.9    1.53MB     6.52
+#> 4 glue        12.43ms  12.83ms      78.1    2.29MB     9.76
+#> 5 rprintf     27.98ms  28.14ms      35.2    3.05MB     4.40
 
 # plotting function defined in a hidden chunk
 plot_comparison(vectorized)
 ```
 
-![](speed_files/figure-html/unnamed-chunk-3-1.png)
+![Beeswarm plot comparing execution times of vectorized string
+concatenation across glue, gstring, paste0, sprintf, and rprintf. The
+order is paste0, sprintf, gstring, glue, rprintf. glue's performance is
+very similar to gstring and rprintf is noticeably less performant than
+the rest.](speed_files/figure-html/unnamed-chunk-3-1.png)
 
 ------------------------------------------------------------------------
 
