@@ -89,10 +89,20 @@
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
-glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
-  .open = "{", .close = "}", .na = "NA", .null = character(),
-  .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
-
+glue_data <- function(
+  .x,
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = identity_transformer,
+  .trim = TRUE
+) {
   .envir <- .envir %||% emptyenv()
 
   # Perform all evaluations in a temporary environment
@@ -147,7 +157,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     unnamed_args <- trim(unnamed_args)
   }
 
-  f <- function(expr){
+  f <- function(expr) {
     eval_func <- .transformer(expr, env) %||% .null
 
     # crayon functions *can* be used, so we use tryCatch()
@@ -201,8 +211,33 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .comment = .comment, .literal = .literal, .transformer = .transformer, .trim = .trim)
+glue <- function(
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = identity_transformer,
+  .trim = TRUE
+) {
+  glue_data(
+    .x = NULL,
+    ...,
+    .sep = .sep,
+    .envir = .envir,
+    .open = .open,
+    .close = .close,
+    .na = .na,
+    .null = .null,
+    .comment = .comment,
+    .literal = .literal,
+    .transformer = .transformer,
+    .trim = .trim
+  )
 }
 
 #' Collapse a character vector
