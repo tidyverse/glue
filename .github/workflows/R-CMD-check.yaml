@@ -8,7 +8,6 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    branches: [main, master]
 
 name: R-CMD-check.yaml
 
@@ -56,7 +55,6 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
-          pak-version: devel
 
       - uses: r-lib/actions/check-r-package@v2
         with:
