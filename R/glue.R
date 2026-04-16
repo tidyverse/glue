@@ -71,7 +71,8 @@
 #' intro("Cate", "Data Scientist", "Kenya")
 #'
 #' # `glue_data()` is useful with the pipe
-#' mtcars |> glue_data("{rownames(.)} has {hp} hp")
+#' head(iris, 3) |>
+#'   glue_data("This {Species} has a petal length of {Petal.Length}")
 #'
 #' # Or within dplyr pipelines
 #' if (require(dplyr)) {
