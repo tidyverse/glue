@@ -1,12 +1,12 @@
-# nocov start
 eng_glue <- function(options) {
   glue_options <- options[names(options) %in% names(formals(glue))]
   glue_options$.envir <- glue_options$.envir %||% knitr::knit_global()
 
-  out <- do.call(glue, c(list(options$code), glue_options))
+  out <- do.call(glue, c(list(paste0(options$code, collapse = "\n")), glue_options))
   knitr::engine_output(options, options$code, out)
 }
 
+# nocov start
 eng_glue_sql <- function(options) {
   glue_sql_options <- options[names(options) %in% names(formals(glue_sql))]
   glue_sql_options$.con <- glue_sql_options$.con %||% options$connection
