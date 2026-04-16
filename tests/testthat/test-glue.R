@@ -5,7 +5,7 @@ test_that("inputs are concatenated, interpolated variables recycled", {
   )
 })
 test_that("glue errors if the expression fails", {
-  expect_error(glue("{NoTfOuNd}"), "object .* not found")
+  expect_snapshot(glue("{NoTfOuNd}"), error = TRUE)
 })
 
 test_that("glue ignores trailing empty argument", {
@@ -13,7 +13,7 @@ test_that("glue ignores trailing empty argument", {
 })
 
 test_that("glue errors if invalid format", {
-  expect_error(glue("x={x"), "Expecting '}'")
+  expect_snapshot(glue("x={x"), error = TRUE)
 })
 
 test_that("glue returns length 1 string from length 1 input", {
@@ -144,11 +144,11 @@ test_that("glue assigns arguments in the environment", {
 })
 
 test_that("error if non length 1 inputs", {
-  expect_error(glue(1:2, "{1:2}"), "All unnamed arguments must be length 1")
+  expect_snapshot(glue(1:2, "{1:2}"), error = TRUE)
 })
 
 test_that("error if not simple recycling", {
-  expect_error(glue("{1:2}{1:10}"), "Variables must be length 1 or 10")
+  expect_snapshot(glue("{1:2}{1:10}"), error = TRUE)
 })
 
 test_that("recycle_columns returns if zero length input", {
@@ -563,7 +563,7 @@ test_that("as_glue works", {
 })
 
 test_that("throws informative error if interpolating a function", {
-  expect_error(glue("{cat}"), "is a function")
+  expect_snapshot(glue("{cat}"), error = TRUE)
 
   # some crayon functions are OK, make sure this still works
   if (require("crayon", quietly = TRUE)) {
@@ -609,9 +609,9 @@ test_that("`+` method errors for inputs of incompatible size", {
 })
 
 test_that("unterminated quotes are error", {
-  expect_error(glue("{this doesn\"t work}"), "Unterminated quote")
-  expect_error(glue("{this doesn't work}"), "Unterminated quote")
-  expect_error(glue("{this doesn`t work}"), "Unterminated quote")
+  expect_snapshot(glue("{this doesn\"t work}"), error = TRUE)
+  expect_snapshot(glue("{this doesn't work}"), error = TRUE)
+  expect_snapshot(glue("{this doesn`t work}"), error = TRUE)
 })
 
 test_that("unterminated comment", {

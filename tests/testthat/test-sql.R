@@ -7,7 +7,7 @@ describe("glue_sql", {
 
   it("errors if no connection given", {
     var <- "foo"
-    expect_error(glue_sql("{var}"), "missing")
+    expect_snapshot(glue_sql("{var}"), error = TRUE)
   })
   it("returns the string if no substations needed", {
     expect_identical(glue_sql("foo", .con = con), DBI::SQL("foo"))
