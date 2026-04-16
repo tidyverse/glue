@@ -1,3 +1,7 @@
+The notes below pertain to the previous release of glue, version 1.8.0 on 2024-09-30.
+
+I did not run reverse dependency checks for this patch release.
+
 ## revdepcheck results
 
 We checked 803 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
