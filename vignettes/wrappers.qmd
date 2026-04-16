@@ -1,20 +1,17 @@
 ---
 title: "How to write a function that wraps glue"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to write a function that wraps glue}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-```{r setup}
+```{r}
+#| label: setup
 library(glue)
 ```
 
@@ -89,7 +86,8 @@ named_list_to_items(sw_meta)
 
 Here's how this would fail if we did *not* handle `.envir` correctly in our wrapper function:
 
-```{r, error = TRUE}
+```{r}
+#| error: true
 my_glue_WRONG <- function(...) {
   glue(..., .open = "<<", .close = ">>")
 }
@@ -109,7 +107,8 @@ Why isn't `x` available to `my_glue_WRONG()`?
 What's going on?
 It's time to look at the (redacted) signature of `glue()`:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 glue(..., .envir = parent.frame(), ...)
 ```
 

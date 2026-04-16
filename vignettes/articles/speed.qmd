@@ -1,19 +1,21 @@
 ---
 title: "Speed of glue"
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r}
+#| include: false
 # used inside the plot function, but not in user-visible code
 library(forcats)
 library(tidyr)
 library(ggbeeswarm)
 ```
 
-```{r setup}
+```{r}
+#| label: setup
 library(glue)
 library(ggplot2)
 library(bench)
@@ -39,7 +41,9 @@ A good way to determine this is to compare its speed of execution to some altern
 
 Note: `stringr::str_interp()` was previously included in this benchmark, but is now formally marked as "superseded", in favor of `stringr::str_glue()`, which just calls `glue::glue()`.
 
-```{r setup2, include = FALSE}
+```{r}
+#| label: setup2
+#| include: false
 plot_comparison <- function(x, ...) {
   dat <- x |>
     mutate(expression = fct_reorder(as.character(expression), min, .desc = TRUE)) |>
@@ -56,7 +60,12 @@ plot_comparison <- function(x, ...) {
 
 ## Simple concatenation
 
-```{r, message = FALSE, fig.alt = "Beeswarm plot comparing execution times of simple string concatenation across glue, gstring, paste0, sprintf, and rprintf. sprintf and paste0 are fastest, followed by glue, then gstring and rprintf."}
+```{r}
+#| message: false
+#| fig-alt: >
+#|   Beeswarm plot comparing execution times of simple string concatenation
+#|   across glue, gstring, paste0, sprintf, and rprintf. sprintf and paste0
+#|   are fastest, followed by glue, then gstring and rprintf.
 bar <- "baz"
 
 simple <- bench::mark(
@@ -90,7 +99,13 @@ It also is still quite fast, with over 8000 evaluations per second on this machi
 Taking advantage of glue's vectorization is the best way to improve performance.
 In a vectorized form of the previous benchmark, glue's performance is much closer to that of `paste0()` and `sprintf()`.
 
-```{r, message = FALSE, fig.alt = "Beeswarm plot comparing execution times of vectorized string concatenation across glue, gstring, paste0, sprintf, and rprintf. The order is paste0, sprintf, gstring, glue, rprintf. glue's performance is very similar to gstring and rprintf is noticeably less performant than the rest."}
+```{r}
+#| message: false
+#| fig-alt: >
+#|   Beeswarm plot comparing execution times of vectorized string concatenation
+#|   across glue, gstring, paste0, sprintf, and rprintf. The order is paste0,
+#|   sprintf, gstring, glue, rprintf. glue's performance is very similar to
+#|   gstring and rprintf is noticeably less performant than the rest.
 bar <- rep("bar", 1e5)
 
 vectorized <- bench::mark(

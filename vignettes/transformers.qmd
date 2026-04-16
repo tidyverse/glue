@@ -1,10 +1,13 @@
 ---
 title: "Transformers"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Transformers}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 ---
 
 Transformers allow you to apply functions to the glue input and output, before
@@ -31,10 +34,6 @@ Some example implementations of potentially useful transformers follow. The
 aim right now is not to include most of these custom functions within the
 `glue` package. Rather, users are encouraged to create custom functions using
 transformers to fit their individual needs.
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-```
 
 ```{r}
 library(glue)
@@ -96,7 +95,8 @@ command
 system(command)
 ```
 
-```{r include = FALSE}
+```{r}
+#| include: false
 if (file.exists("test")) {
   unlink("test")
 }
@@ -106,7 +106,8 @@ if (file.exists("test")) {
 
 A transformer which converts the text to the equivalent emoji.
 
-```{r, eval = require("emo")}
+```{r}
+#| eval: !expr require("emo")
 emoji_transformer <- function(text, envir) {
   if (grepl("[*]$", text)) {
     text <- sub("[*]$", "", text)

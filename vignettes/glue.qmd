@@ -1,18 +1,14 @@
 ---
 title: "Introduction to glue"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to glue}
   %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
-editor_options:
-  markdown:
-    wrap: sentence
+  %\VignetteEngine{quarto::html}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-```
 
 The glue package contains functions for string interpolation: gluing together character strings and R code.
 
@@ -75,12 +71,12 @@ foo()
 ```
 
 On the other hand, what if you don't want a line break in the output, but you also like to limit the length of lines in your source code to, e.g., 80 characters?
-The first option is to use `\\` to break the template string into multiple lines, without getting line breaks in the output:
+The first option is to use `\` to break the template string into multiple lines, without getting line breaks in the output:
 
 ```{r}
 release_date <- as.Date("2017-06-13")
 glue("
-  The first version of the glue package was released on \\
+  The first version of the glue package was released on \
   a {format(release_date, '%A')}.")
 ```
 
@@ -162,7 +158,8 @@ Using alternative delimiters is a nice option in cases like this.
 
 By default, `glue()` evaluates the code inside `{}` in the caller environment:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 glue(..., .envir = parent.frame())
 ```
 
@@ -194,7 +191,8 @@ glue_data(mini_mtcars, "{model} has {hp} hp.")
 
 `glue_data()` is very natural to use with the pipe:
 
-```{r, eval = getRversion() >= "4.1.0"}
+```{r}
+#| eval: !expr getRversion() >= "4.1.0"
 mini_mtcars |>
   glue_data("{model} gets {mpg} miles per gallon.")
 ```
