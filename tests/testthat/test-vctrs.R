@@ -1,4 +1,3 @@
-
 test_that("common type of character and glue is glue", {
   expect_identical(
     vctrs::vec_ptype2(character(), glue()),

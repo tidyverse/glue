@@ -23,3 +23,6 @@
 ^CRAN-SUBMISSION$
 ^vignettes/articles$
 ^\.positai/settings\.json$
+^README\.qmd$
+^[.]?air[.]toml$
+^\.vscode$

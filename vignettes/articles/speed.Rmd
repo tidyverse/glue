@@ -36,15 +36,15 @@ A good way to determine this is to compare its speed of execution to some altern
 - `pystr::pystr_format()`[^1], `rprintf::rprintf()`: Provide an interface
   similar to python string formatters with variable replacement, but not
   arbitrary interpolation.
-  
+
 Note: `stringr::str_interp()` was previously included in this benchmark, but is now formally marked as "superseded", in favor of `stringr::str_glue()`, which just calls `glue::glue()`.
 
 ```{r setup2, include = FALSE}
 plot_comparison <- function(x, ...) {
-  dat <- x %>%
-    mutate(expression = fct_reorder(as.character(expression), min, .desc = TRUE)) %>%
-    arrange(expression) %>%
-    mutate(accent = expression == "glue", .after = expression) %>%
+  dat <- x |>
+    mutate(expression = fct_reorder(as.character(expression), min, .desc = TRUE)) |>
+    arrange(expression) |>
+    mutate(accent = expression == "glue", .after = expression) |>
     unnest(c(time, gc))
   ggplot(dat) +
     aes(expression, time) +
@@ -56,7 +56,7 @@ plot_comparison <- function(x, ...) {
 
 ## Simple concatenation
 
-```{r, message = FALSE}
+```{r, message = FALSE, fig.alt = "Beeswarm plot comparing execution times of simple string concatenation across glue, gstring, paste0, sprintf, and rprintf. sprintf and paste0 are fastest, followed by glue, then gstring and rprintf."}
 bar <- "baz"
 
 simple <- bench::mark(
@@ -67,8 +67,8 @@ simple <- bench::mark(
   rprintf    = rprintf::rprintf("foo$bar", bar = bar)
 )
 
-simple %>%
-  select(expression:total_time) %>%
+simple |>
+  select(expression:total_time) |>
   arrange(median)
 
 # plotting function defined in a hidden chunk
@@ -90,7 +90,7 @@ It also is still quite fast, with over 8000 evaluations per second on this machi
 Taking advantage of glue's vectorization is the best way to improve performance.
 In a vectorized form of the previous benchmark, glue's performance is much closer to that of `paste0()` and `sprintf()`.
 
-```{r, message = FALSE}
+```{r, message = FALSE, fig.alt = "Beeswarm plot comparing execution times of vectorized string concatenation across glue, gstring, paste0, sprintf, and rprintf. The order is paste0, sprintf, gstring, glue, rprintf. glue's performance is very similar to gstring and rprintf is noticeably less performant than the rest."}
 bar <- rep("bar", 1e5)
 
 vectorized <- bench::mark(
@@ -101,8 +101,8 @@ vectorized <- bench::mark(
   rprintf = rprintf::rprintf("foo$bar", bar = bar)
 )
 
-vectorized %>%
-  select(expression:total_time) %>%
+vectorized |>
+  select(expression:total_time) |>
   arrange(median)
 
 # plotting function defined in a hidden chunk

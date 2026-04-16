@@ -1,8 +1,11 @@
 test_that("inputs are concatenated, interpolated variables recycled", {
-  expect_equal(glue("test", "a", "string", "{1:2}"), c("testastring1", "testastring2"))
+  expect_equal(
+    glue("test", "a", "string", "{1:2}"),
+    c("testastring1", "testastring2")
+  )
 })
 test_that("glue errors if the expression fails", {
-  expect_error(glue("{NoTfOuNd}"), "object .* not found")
+  expect_snapshot(glue("{NoTfOuNd}"), error = TRUE)
 })
 
 test_that("glue ignores trailing empty argument", {
@@ -10,7 +13,7 @@ test_that("glue ignores trailing empty argument", {
 })
 
 test_that("glue errors if invalid format", {
-  expect_error(glue("x={x"), "Expecting '}'")
+  expect_snapshot(glue("x={x"), error = TRUE)
 })
 
 test_that("glue returns length 1 string from length 1 input", {
@@ -80,14 +83,18 @@ test_that("glue with doubled braces are converted glue single braces", {
 test_that("glue works with complex expressions", {
   `foo}\`` <- "foo"
 
-  expect_equal(glue("{
+  expect_equal(
+    glue(
+      "{
       {
         '}\\'' # { and } in comments, single quotes
         \"}\\\"\" # or double quotes are ignored
         `foo}\\`` # as are { in backticks
       }
-  }"),
-  `foo}\``)
+  }"
+    ),
+    `foo}\``
+  )
 })
 
 test_that("glue works with large outputs", {
@@ -105,12 +112,14 @@ test_that("glue works with large outputs", {
 
 test_that("glue works with named arguments", {
   name <- "Fred"
-  res <- glue('My name is {name},',
+  res <- glue(
+    'My name is {name},',
     ' my age next year is {age + 1},',
     ' a dot is a {.}',
     name = "Joe",
     age = 40,
-    . = "'.'")
+    . = "'.'"
+  )
 
   expect_equal(
     res,
@@ -135,11 +144,11 @@ test_that("glue assigns arguments in the environment", {
 })
 
 test_that("error if non length 1 inputs", {
-  expect_error(glue(1:2, "{1:2}"), "All unnamed arguments must be length 1")
+  expect_snapshot(glue(1:2, "{1:2}"), error = TRUE)
 })
 
 test_that("error if not simple recycling", {
-  expect_error(glue("{1:2}{1:10}"), "Variables must be length 1 or 10")
+  expect_snapshot(glue("{1:2}{1:10}"), error = TRUE)
 })
 
 test_that("recycle_columns returns if zero length input", {
@@ -231,20 +240,22 @@ test_that("length 0 inputs produce length 0 outputs", {
 })
 
 test_that("values are trimmed before evaluation", {
-
   x <- " a1\n b2\n c3"
 
   expect_equal(
-glue("
+    glue(
+      "
   A
   {x}
   B
-  "),
-"A
+  "
+    ),
+    "A
  a1
  b2
  c3
-B")
+B"
+  )
 })
 
 test_that("glue works with alternative delimiters", {
@@ -265,7 +276,6 @@ test_that("glue works with alternative delimiters", {
 })
 
 test_that("you can disable trimming in glue and glue_data", {
-
   expect_equal(glue("\nfoo\n"), "foo")
   expect_equal(glue("\nfoo\n", .trim = FALSE), "\nfoo\n")
 
@@ -315,150 +325,184 @@ test_that("glue always returns UTF-8 encoded strings regardless of input encodin
 test_that("glue always returns NA_character_ if given any NA input and `.na` == NULL", {
   expect_equal(
     glue("{NA}", .na = NULL),
-    NA_character_)
+    NA_character_
+  )
 
   expect_equal(
     glue(NA, .na = NULL),
-    NA_character_)
+    NA_character_
+  )
 
   expect_equal(
     glue(NA, 1, .na = NULL),
-    NA_character_)
+    NA_character_
+  )
 
   expect_equal(
     glue(1, NA, 2, .na = NULL),
-    NA_character_)
+    NA_character_
+  )
 
   x <- c("foo", NA_character_, "bar")
   expect_equal(
     glue("{x}", .na = NULL),
-    c("foo", NA_character_, "bar"))
+    c("foo", NA_character_, "bar")
+  )
 
   expect_equal(
     glue("{1:3} - {x}", .na = NULL),
-    c("1 - foo", NA_character_, "3 - bar"))
+    c("1 - foo", NA_character_, "3 - bar")
+  )
 })
 
 test_that("glue always returns .na if given any NA input and `.na` != NULL", {
   expect_equal(
     glue("{NA}", .na = "foo"),
-    "foo")
+    "foo"
+  )
 
   expect_equal(
     glue("{NA}", .na = "foo"),
-    "foo")
+    "foo"
+  )
 
   expect_equal(
     glue(NA, .na = "foo"),
-    "foo")
+    "foo"
+  )
 
   expect_equal(
     glue(NA, 1, .na = "foo"),
-    "foo1")
+    "foo1"
+  )
 
   expect_equal(
     glue(1, NA, 2, .na = "foo"),
-    "1foo2")
+    "1foo2"
+  )
 
   x <- c("foo", NA_character_, "bar")
   expect_equal(
     glue("{x}", .na = "baz"),
-    c("foo", "baz", "bar"))
+    c("foo", "baz", "bar")
+  )
 
   expect_equal(
     glue("{1:3} - {x}", .na = "baz"),
-    c("1 - foo", "2 - baz", "3 - bar"))
+    c("1 - foo", "2 - baz", "3 - bar")
+  )
 })
 
 test_that("glue always returns character() if given any NULL input if `.null` == character()", {
   expect_equal(
     glue("{NULL}", .null = character()),
-    character())
+    character()
+  )
 
   expect_equal(
     glue("{}", .null = character()),
-    character())
+    character()
+  )
 
   expect_equal(
     glue(NULL, .null = character()),
-    character())
+    character()
+  )
 
   expect_equal(
     glue(NULL, 1, .null = character()),
-    character())
+    character()
+  )
 
   expect_equal(
     glue(1, NULL, 2, .null = character()),
-    character())
+    character()
+  )
 
   expect_equal(
     glue("x: ", if (FALSE) "positive", .null = character()),
-    character())
+    character()
+  )
 
   expect_equal(
     glue("x: {NULL}", .null = character()),
-    character())
+    character()
+  )
 })
 
 test_that("glue drops any NULL input if `.null` == NULL", {
   # This should work like `paste0()`
   expect_equal(
     glue("{NULL}", .null = NULL),
-    character())
+    character()
+  )
 
   expect_equal(
     glue("{}", .null = NULL),
-    character())
+    character()
+  )
 
   expect_equal(
     glue(NULL, .null = NULL),
-    character())
+    character()
+  )
 
   expect_equal(
     glue(NULL, 1, .null = NULL),
-    "1")
+    "1"
+  )
 
   expect_equal(
     glue(1, NULL, 2, .null = NULL),
-    "12")
+    "12"
+  )
 
   expect_equal(
     glue("x: ", if (FALSE) "positive", .null = NULL),
-    "x: ")
+    "x: "
+  )
 
   expect_equal(
     glue("x: {NULL}", .null = NULL),
-    "x: ")
+    "x: "
+  )
 })
 
 test_that("glue replaces NULL input if `.null` is not NULL or character()", {
   expect_equal(
     glue("{NULL}", .null = "foo"),
-    "foo")
+    "foo"
+  )
 
   expect_equal(
     glue("{}", .null = "foo"),
-    "foo")
+    "foo"
+  )
 
   expect_equal(
     glue(NULL, .null = "foo"),
-    "foo")
+    "foo"
+  )
 
   expect_equal(
     glue(NULL, 1, .null = "foo"),
-    "foo1")
+    "foo1"
+  )
 
   expect_equal(
     glue(1, NULL, 2, .null = "foo"),
-    "1foo2")
+    "1foo2"
+  )
 
   expect_equal(
     glue("x: ", if (FALSE) "positive", .null = "foo"),
-    "x: foo")
+    "x: foo"
+  )
 
   expect_equal(
     glue("x: {NULL}", .null = "foo"),
-    "x: foo")
+    "x: foo"
+  )
 })
 
 test_that("glue works within functions", {
@@ -472,15 +516,30 @@ test_that("scoping works within lapply (#42)", {
   f <- function(msg) {
     glue(msg, .envir = parent.frame())
   }
-  expect_identical(lapply(1:2, function(x) f("{x * 2}")),
-    list(as_glue("2"), as_glue("4")))
+  expect_identical(
+    lapply(1:2, function(x) f("{x * 2}")),
+    list(as_glue("2"), as_glue("4"))
+  )
 })
 
 test_that("glue works with lots of arguments", {
   expect_equal(
-    glue("a", "very", "long", "test", "of", "how", "many", "unnamed",
-      "arguments", "you", "can", "have"),
-    "averylongtestofhowmanyunnamedargumentsyoucanhave")
+    glue(
+      "a",
+      "very",
+      "long",
+      "test",
+      "of",
+      "how",
+      "many",
+      "unnamed",
+      "arguments",
+      "you",
+      "can",
+      "have"
+    ),
+    "averylongtestofhowmanyunnamedargumentsyoucanhave"
+  )
 })
 
 test_that("glue does not drop it's class when subsetting", {
@@ -495,7 +554,8 @@ test_that("interpolation variables can have same names as their values (#89)", {
   x <- 1
   expect_equal(
     glue("{x}", x = x + 1),
-    "2")
+    "2"
+  )
 })
 
 test_that("as_glue works", {
@@ -503,7 +563,7 @@ test_that("as_glue works", {
 })
 
 test_that("throws informative error if interpolating a function", {
-  expect_error(glue("{cat}"), "is a function")
+  expect_snapshot(glue("{cat}"), error = TRUE)
 
   # some crayon functions are OK, make sure this still works
   if (require("crayon", quietly = TRUE)) {
@@ -549,9 +609,9 @@ test_that("`+` method errors for inputs of incompatible size", {
 })
 
 test_that("unterminated quotes are error", {
-  expect_error(glue("{this doesn\"t work}"), "Unterminated quote")
-  expect_error(glue("{this doesn't work}"), "Unterminated quote")
-  expect_error(glue("{this doesn`t work}"), "Unterminated quote")
+  expect_snapshot(glue("{this doesn\"t work}"), error = TRUE)
+  expect_snapshot(glue("{this doesn't work}"), error = TRUE)
+  expect_snapshot(glue("{this doesn`t work}"), error = TRUE)
 })
 
 test_that("unterminated comment", {
@@ -596,4 +656,314 @@ test_that("`.literal` treats quotes and `#` as regular characters", {
 test_that("`.literal` is not about (preventing) evaluation", {
   x <- "world"
   expect_equal(glue("hello {x}!"), glue("hello {x}!", .literal = TRUE))
+})
+
+# glue_collapse ----------------------------------------------------------
+
+test_that("glue_collapse works like paste(glue_collapse=)", {
+  # Always return 0 length outputs for 0 length inputs.
+  #expect_identical(paste(glue_collapse = "", character(0)), glue_collapse(character(0)))
+
+  expect_identical(as_glue(paste(collapse = "", "")), glue_collapse(""))
+
+  expect_identical(as_glue(paste(collapse = "", 1:10)), glue_collapse(1:10))
+
+  expect_identical(
+    as_glue(paste(collapse = " ", 1:10)),
+    glue_collapse(1:10, sep = " ")
+  )
+})
+
+test_that("glue_collapse truncates", {
+  expect_identical(as_glue("12345678910"), glue_collapse(1:10, width = 11))
+  expect_identical(as_glue("12345678910"), glue_collapse(1:10, width = 100))
+  expect_identical(as_glue("1234567..."), glue_collapse(1:10, width = 10))
+  expect_identical(as_glue("123..."), glue_collapse(1:10, width = 6))
+  expect_identical(as_glue("1..."), glue_collapse(1:10, width = 4))
+  expect_identical(as_glue("..."), glue_collapse(1:10, width = 0))
+})
+
+test_that("last argument to glue_collapse", {
+  expect_equal(glue_collapse(character(), last = " and "), as_glue(""))
+  expect_equal(glue_collapse("", last = " and "), as_glue(""))
+  expect_equal(glue_collapse(1, last = " and "), as_glue("1"))
+  expect_equal(glue_collapse(1:2, last = " and "), as_glue("1 and 2"))
+  expect_equal(
+    glue_collapse(1:4, ", ", last = " and "),
+    as_glue("1, 2, 3 and 4")
+  )
+
+  expect_equal(
+    glue_collapse(1:4, ", ", last = " and ", width = 5),
+    as_glue("1,...")
+  )
+
+  expect_equal(
+    glue_collapse(1:4, ", ", last = " and ", width = 10),
+    as_glue("1, 2, 3...")
+  )
+})
+
+test_that("glue_collapse returns empty string for 0 length input", {
+  expect_identical(glue_collapse(character()), as_glue(""))
+})
+
+test_that("glue_collapse returns NA_character_ if any inputs are NA", {
+  expect_identical(glue_collapse(NA_character_), as_glue(NA_character_))
+
+  expect_identical(
+    glue_collapse(c(1, 2, 3, NA_character_)),
+    as_glue(NA_character_)
+  )
+
+  expect_identical(
+    glue_collapse(c("foo", NA_character_, "bar")),
+    as_glue(NA_character_)
+  )
+})
+
+# trim -------------------------------------------------------------------
+
+test_that("trim works", {
+  expect_identical("", trim(""))
+  expect_identical(character(), trim(character()))
+  expect_identical(" ", trim(" "))
+  expect_identical("test", trim("test"))
+  expect_identical(" test", trim(" test"))
+  expect_identical("test ", trim("test "))
+  expect_identical("test", trim("test"))
+  expect_identical(c("foo", "bar"), trim(c("foo", "bar")))
+  expect_identical(c("foo", "bar"), trim(c("\nfoo", "bar\n")))
+  expect_identical(
+    "test",
+    trim(
+      "test"
+    )
+  )
+  expect_identical(
+    "test",
+    x <- trim(
+      "test
+    "
+    )
+  )
+  expect_identical(
+    "test",
+    trim(
+      "\x20\x20\x20\x20\x20\x20
+      test
+      "
+    )
+  )
+  expect_identical(
+    "test",
+    trim(
+      "test"
+    )
+  )
+  expect_identical(
+    "test\n  test2",
+    trim(
+      "
+      test
+        test2
+      "
+    )
+  )
+  expect_identical(
+    "test\n  test2\n    test3",
+    trim(
+      "
+      test
+        test2
+          test3
+      "
+    )
+  )
+
+  expect_identical(
+    "\ntest\n",
+    trim(
+      "
+
+      test
+
+      "
+    )
+  )
+})
+
+test_that("trim strips escaped newlines", {
+  expect_identical(
+    "foo bar baz",
+    trim("foo bar \\\nbaz")
+  )
+
+  expect_identical(
+    trim(
+      "
+      foo bar \\
+      baz"
+    ),
+    "foo bar baz"
+  )
+
+  expect_identical(
+    trim(
+      "
+      foo bar \\
+      baz
+      "
+    ),
+    "foo bar baz"
+  )
+
+  expect_identical(
+    "foo bar baz\n",
+    trim("foo bar baz\n\n")
+  )
+
+  expect_identical(
+    "\nfoo bar baz",
+    trim("\n\nfoo bar baz")
+  )
+})
+
+test_that("issue#44", {
+  expect_identical(
+    trim(
+      "12345678
+            foo
+           bar
+          baz
+           bar
+            baz"
+    ),
+    "12345678\n  foo\n bar\nbaz\n bar\n  baz"
+  )
+})
+
+test_that("issue#47", {
+  expect_identical(
+    trim(
+      "
+      Hello,
+      World.
+    "
+    ),
+    "  Hello,\n  World."
+  )
+
+  expect_identical(
+    trim(
+      "
+      foo
+              bar
+        123456789"
+    ),
+    "foo\n        bar\n  123456789"
+  )
+
+  expected <- "The stuff before the bullet list\n  * one bullet"
+
+  expect_identical(
+    trim(
+      "The stuff before the bullet list
+            * one bullet
+          "
+    ),
+    expected
+  )
+
+  expect_identical(
+    trim(
+      "
+      The stuff before the bullet list
+        * one bullet"
+    ),
+    expected
+  )
+
+  expect_identical(
+    trim(
+      "
+         The stuff before the bullet list
+           * one bullet
+         "
+    ),
+    expected
+  )
+})
+
+test_that("lines containing only indentation are handled properly", {
+  # Tabs and spaces are considered indentation. The following examples look
+  # funny because I'm using a tab escape as the last indentation character to
+  # prevent RStudio from removing trailing whitespace on save.
+  expect_identical(
+    trim(
+      "
+         \ta
+         \tb
+         \t
+         \tc"
+    ),
+    "a\nb\n\nc"
+  )
+  expect_identical(
+    trim(
+      "
+         \ta
+       \tb
+         \t
+         \tc"
+    ),
+    " \ta\nb\n \t\n \tc"
+  )
+  # A line shorter than min_indent that contains only indentation should not be
+  # trimmed, removed, or prepended to the next line.
+  expect_identical(
+    trim(
+      "
+       \ta
+       \tb
+      \t
+       \tc"
+    ),
+    "a\nb\n      \t\nc"
+  )
+  # Ensure empty intermedite lines are handled properly
+  expect_identical(
+    trim(
+      "
+       \ta
+       \tb
+
+       \tc"
+    ),
+    "a\nb\n\nc"
+  )
+})
+
+# https://github.com/tidyverse/glue/issues/238
+test_that("indent counter resets at newline", {
+  # whitespace-only line has 1 space < min_indent (which is 2)
+  # comment in trim_() says:
+  # "if the line consists only of tabs and spaces, and if the line is
+  #  shorter than min_indent, copy the entire line"
+  expect_identical(trim("\n \n  abcd"), " \nabcd")
+
+  # whitespace-only line has n spaces, n >= min_indent
+  expect_identical(trim("\n  \n  abcd"), "\nabcd")
+  expect_identical(trim("\n   \n  abcd"), " \nabcd")
+})
+
+# https://github.com/tidyverse/glue/issues/247
+test_that("trailing whitespace-only line doesn't goof up indentation", {
+  expect_identical(trim("\n  A\n\n"), "A\n")
+  # comment in trim_() says:
+  # "if the line consists only of tabs and spaces, and if the line is
+  #  shorter than min_indent, copy the entire line"
+  expect_identical(trim("\n  A\n \n"), "A\n ")
+  expect_identical(trim("\n  A\n  \n"), "A\n")
+  expect_identical(trim("\n  A\n   \n"), "A\n ")
 })

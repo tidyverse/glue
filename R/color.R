@@ -56,18 +56,44 @@
 #' x <- "world"
 #' y <- "day"
 #' glue_col("hello {x}! {green it's a new {y}!}", .literal = TRUE)
-glue_col <- function(..., .envir = parent.frame(), .na = "NA", .literal = FALSE) {
-  glue(..., .envir = .envir, .na = .na, .literal = .literal, .transformer = color_transformer)
+glue_col <- function(
+  ...,
+  .envir = parent.frame(),
+  .na = "NA",
+  .literal = FALSE
+) {
+  glue(
+    ...,
+    .envir = .envir,
+    .na = .na,
+    .literal = .literal,
+    .transformer = color_transformer
+  )
 }
 
 #' @rdname glue_col
 #' @export
-glue_data_col <- function(.x, ..., .envir = parent.frame(), .na = "NA", .literal = FALSE) {
-  glue_data(.x, ..., .envir = .envir, .na = .na, .literal = .literal, .transformer = color_transformer)
+glue_data_col <- function(
+  .x,
+  ...,
+  .envir = parent.frame(),
+  .na = "NA",
+  .literal = FALSE
+) {
+  glue_data(
+    .x,
+    ...,
+    .envir = .envir,
+    .na = .na,
+    .literal = .literal,
+    .transformer = color_transformer
+  )
 }
 
 color_transformer <- function(code, envir) {
-  res <- tryCatch(parse(text = code, keep.source = FALSE), error = function(e) e)
+  res <- tryCatch(parse(text = code, keep.source = FALSE), error = function(e) {
+    e
+  })
   if (!inherits(res, "error")) {
     return(eval(res, envir = envir))
   }

@@ -1,3 +1,46 @@
+# glue errors if the expression fails
+
+    Code
+      glue("{NoTfOuNd}")
+    Condition
+      Error:
+      ! Failed to evaluate glue component {NoTfOuNd}
+      Caused by error:
+      ! object 'NoTfOuNd' not found
+
+# glue errors if invalid format
+
+    Code
+      glue("x={x")
+    Condition
+      Error in `glue_data()`:
+      ! Expecting '}'
+
+# error if non length 1 inputs
+
+    Code
+      glue(1:2, "{1:2}")
+    Condition
+      Error:
+      ! All unnamed arguments must be length 1
+
+# error if not simple recycling
+
+    Code
+      glue("{1:2}{1:10}")
+    Condition
+      Error:
+      ! Variables must be length 1 or 10
+
+# throws informative error if interpolating a function
+
+    Code
+      glue("{cat}")
+    Condition
+      Error:
+      ! glue cannot interpolate functions into strings.
+      * object 'cat' is a function.
+
 # `+` method requires character vectors
 
     Code
@@ -18,6 +61,30 @@
     Condition
       Error:
       ! Variables must be length 1 or 3
+
+# unterminated quotes are error
+
+    Code
+      glue("{this doesn\"t work}")
+    Condition
+      Error in `glue_data()`:
+      ! Unterminated quote (")
+
+---
+
+    Code
+      glue("{this doesn't work}")
+    Condition
+      Error in `glue_data()`:
+      ! Unterminated quote (')
+
+---
+
+    Code
+      glue("{this doesn`t work}")
+    Condition
+      Error in `glue_data()`:
+      ! Unterminated quote (`)
 
 # unterminated comment
 

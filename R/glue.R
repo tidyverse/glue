@@ -70,18 +70,16 @@
 #' intro("Shelmith", "Senior Data Analyst", "Kenya")
 #' intro("Cate", "Data Scientist", "Kenya")
 #'
-#' # `glue_data()` is useful in magrittr pipes
-#' if (require(magrittr)) {
-#'
-#' mtcars %>% glue_data("{rownames(.)} has {hp} hp")
+#' # `glue_data()` is useful with the pipe
+#' head(iris, 3) |>
+#'   glue_data("This {Species} has a petal length of {Petal.Length}")
 #'
 #' # Or within dplyr pipelines
 #' if (require(dplyr)) {
 #'
-#' head(iris) %>%
+#' head(iris) |>
 #'   mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
-#'
-#' }}
+#' }
 #'
 #' # Alternative delimiters can also be used if needed
 #' one <- "1"
@@ -89,10 +87,20 @@
 #' @useDynLib glue glue_
 #' @name glue
 #' @export
-glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
-  .open = "{", .close = "}", .na = "NA", .null = character(),
-  .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
-
+glue_data <- function(
+  .x,
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = identity_transformer,
+  .trim = TRUE
+) {
   .envir <- .envir %||% emptyenv()
 
   # Perform all evaluations in a temporary environment
@@ -147,7 +155,7 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
     unnamed_args <- trim(unnamed_args)
   }
 
-  f <- function(expr){
+  f <- function(expr) {
     eval_func <- .transformer(expr, env) %||% .null
 
     # crayon functions *can* be used, so we use tryCatch()
@@ -201,8 +209,33 @@ glue_data <- function(.x, ..., .sep = "", .envir = parent.frame(),
 
 #' @export
 #' @rdname glue
-glue <- function(..., .sep = "", .envir = parent.frame(), .open = "{", .close = "}", .na = "NA", .null = character(), .comment = "#", .literal = FALSE, .transformer = identity_transformer, .trim = TRUE) {
-  glue_data(.x = NULL, ..., .sep = .sep, .envir = .envir, .open = .open, .close = .close, .na = .na, .null = .null, .comment = .comment, .literal = .literal, .transformer = .transformer, .trim = .trim)
+glue <- function(
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = identity_transformer,
+  .trim = TRUE
+) {
+  glue_data(
+    .x = NULL,
+    ...,
+    .sep = .sep,
+    .envir = .envir,
+    .open = .open,
+    .close = .close,
+    .na = .na,
+    .null = .null,
+    .comment = .comment,
+    .literal = .literal,
+    .transformer = .transformer,
+    .trim = .trim
+  )
 }
 
 #' Collapse a character vector

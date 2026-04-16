@@ -1,16 +1,19 @@
 ---
-output: github_document
+format:
+  gfm:
+    default-image-extension: ""
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
-library(glue)
 ```
 
 # glue <a href="https://glue.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="glue website" /></a>
@@ -26,15 +29,17 @@ glue does this by embedding R expressions in curly braces, which are then evalua
 
 ## Installation
 
-::: .pkgdown-release
-```{r, eval = FALSE}
+::: {.pkgdown-release}
+```{r}
+#| eval: false
 # Install released version from CRAN
 install.packages("glue")
 ```
 :::
 
-::: .pkgdown-devel
-```{r, eval = FALSE}
+::: {.pkgdown-devel}
+```{r}
+#| eval: false
 # Install development version from GitHub
 pak::pak("tidyverse/glue")
 ```
@@ -54,7 +59,8 @@ glue("My name is {name}.")
 `stringr::str_glue()` is an alias for `glue::glue()`.
 So if you've already attached stringr (or perhaps the whole tidyverse), you can use `str_glue()` to access all of the functionality of `glue()`:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 library(stringr) # or library(tidyverse)
 
 name <- "Wilma"

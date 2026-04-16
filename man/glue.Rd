@@ -117,18 +117,16 @@ intro <- function(name, profession, country){
 intro("Shelmith", "Senior Data Analyst", "Kenya")
 intro("Cate", "Data Scientist", "Kenya")
 
-# `glue_data()` is useful in magrittr pipes
-if (require(magrittr)) {
-
-mtcars \%>\% glue_data("{rownames(.)} has {hp} hp")
+# `glue_data()` is useful with the pipe
+head(iris, 3) |>
+  glue_data("This {Species} has a petal length of {Petal.Length}")
 
 # Or within dplyr pipelines
 if (require(dplyr)) {
 
-head(iris) \%>\%
+head(iris) |>
   mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
-
-}}
+}
 
 # Alternative delimiters can also be used if needed
 one <- "1"
