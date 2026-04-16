@@ -26,7 +26,6 @@ Suggests:
     DBI (>= 1.2.0),
     dplyr,
     knitr,
-    magrittr,
     rlang,
     rmarkdown,
     RSQLite,
