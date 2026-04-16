@@ -2,6 +2,9 @@
 
 ## glue (development version)
 
+- The `glue` knitr engine handles multiline chunks now
+  ([\#319](https://github.com/tidyverse/glue/issues/319)).
+
 ## glue 1.8.0
 
 CRAN release: 2024-09-30
