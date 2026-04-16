@@ -76,6 +76,7 @@ delayed_assign <- function(x, value, eval.env = parent.frame(1), assign.env = pa
 }
 
 # Lazily registered in `.onLoad()`
+#' @exportS3Method NULL
 compare.glue <- function(x, y, ...) {
   if (identical(class(y), "character")) {
     class(x) <- NULL
@@ -84,6 +85,7 @@ compare.glue <- function(x, y, ...) {
 }
 
 # Lazily registered in `.onLoad()`
+#' @exportS3Method NULL
 compare_proxy.glue <- function(x, path = "x") {
   class(x) <- NULL
   NextMethod("compare_proxy")
