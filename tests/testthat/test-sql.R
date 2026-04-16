@@ -7,6 +7,7 @@ describe("glue_sql", {
 
   it("errors if no connection given", {
     var <- "foo"
+    skip_if(getRversion() < "4.5")
     expect_snapshot(glue_sql("{var}"), error = TRUE)
   })
   it("returns the string if no substations needed", {
