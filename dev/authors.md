@@ -18,12 +18,12 @@ Source:
 [`DESCRIPTION`](https://github.com/tidyverse/glue/blob/main/DESCRIPTION)
 
 Hester J, Bryan J (2026). *glue: Interpreted String Literals*. R package
-version 1.8.0.9000, <https://glue.tidyverse.org/>.
+version 1.8.1.9000, <https://glue.tidyverse.org/>.
 
     @Manual{,
       title = {glue: Interpreted String Literals},
       author = {Jim Hester and Jennifer Bryan},
       year = {2026},
-      note = {R package version 1.8.0.9000},
+      note = {R package version 1.8.1.9000},
       url = {https://glue.tidyverse.org/},
     }
