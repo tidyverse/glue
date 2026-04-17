@@ -6,18 +6,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Speed of glue • glue</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Speed of glue">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
   window.dataLayer = window.dataLayer || [];
@@ -25,7 +24,10 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-115082821-1');
-</script><script defer data-domain="glue.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+</script><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-o9ySutNf0BRKwH-aSWn7-.js"></script><script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -35,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">glue</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.8.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +87,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Speed of glue</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/v1.8.0/vignettes/articles/speed.Rmd" class="external-link"><code>vignettes/articles/speed.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/main/vignettes/articles/speed.Rmd" class="external-link"><code>vignettes/articles/speed.Rmd</code></a></small>
       <div class="d-none name"><code>speed.Rmd</code></div>
     </div>
 
@@ -139,7 +141,7 @@ this benchmark, but is now formally marked as “superseded”, in favor of
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="st">"baz"</span></span>
 <span></span>
-<span><span class="va">simple</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<span><span class="va">simple</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  glue       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  gstring    <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://henrikbengtsson.github.io/R.utils/reference/gstring.html" class="external-link">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,</span>
 <span>  paste0     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
@@ -147,27 +149,21 @@ this benchmark, but is now formally marked as “superseded”, in favor of
 <span>  rprintf    <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">simple</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">expression</span><span class="op">:</span><span class="va">total_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">simple</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">expression</span><span class="op">:</span><span class="va">total_time</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">median</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf    731.09ns  802.1ns  1<span style="text-decoration: underline;">153</span>386.        0B     0   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0       1.45µs   1.62µs   <span style="text-decoration: underline;">587</span>959.        0B     0   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue        94.52µs 101.24µs     <span style="text-decoration: underline;">9</span>611.  141.56KB    25.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring    218.74µs  231.9µs     <span style="text-decoration: underline;">4</span>199.    2.45MB    16.9 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf    274.46µs 285.39µs     <span style="text-decoration: underline;">3</span>446.  503.39KB     8.23</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf     721.1ns 781.15ns  1<span style="text-decoration: underline;">162</span>959.        0B     0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0        1.4µs   1.56µs   <span style="text-decoration: underline;">604</span>291.        0B     0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> glue         93.9µs 100.34µs     <span style="text-decoration: underline;">9</span>599.  141.56KB     8.21</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gstring     220.6µs 235.19µs     <span style="text-decoration: underline;">4</span>112.    2.43MB     6.17</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     276.8µs 289.83µs     <span style="text-decoration: underline;">3</span>361.  504.06KB     2.01</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
-<span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `trans` argument of `continuous_scale()` is deprecated as of ggplot2</span></span>
-<span><span class="co">#&gt; 3.5.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use the `transform` argument instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
-<p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></span></code></pre></div>
+<p><img src="speed_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="Beeswarm plot comparing execution times of simple string concatenation across glue, gstring, paste0, sprintf, and rprintf. sprintf and paste0 are fastest, followed by glue, then gstring and rprintf." width="700"></p>
 <p>While <code><a href="../reference/glue.html">glue()</a></code> is slower than <code>paste0</code> and
 <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code>, it is twice as fast as <code>gstring()</code>,
 and <code>rprintf()</code>.</p>
@@ -192,7 +188,7 @@ performance is much closer to that of <code><a href="https://rdrr.io/r/base/past
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="fl">1e5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vectorized</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<span><span class="va">vectorized</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  glue    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"foo{bar}"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  gstring <span class="op">=</span> <span class="fu">R.utils</span><span class="fu">::</span><span class="fu"><a href="https://henrikbengtsson.github.io/R.utils/reference/gstring.html" class="external-link">gstring</a></span><span class="op">(</span><span class="st">"foo${bar}"</span><span class="op">)</span>,</span>
 <span>  paste0  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"foo"</span>, <span class="va">bar</span><span class="op">)</span>,</span>
@@ -200,21 +196,21 @@ performance is much closer to that of <code><a href="https://rdrr.io/r/base/past
 <span>  rprintf <span class="op">=</span> <span class="fu">rprintf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rprintf/man/rprintf.html" class="external-link">rprintf</a></span><span class="op">(</span><span class="st">"foo$bar"</span>, bar <span class="op">=</span> <span class="va">bar</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vectorized</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">expression</span><span class="op">:</span><span class="va">total_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">vectorized</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">expression</span><span class="op">:</span><span class="va">total_time</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">median</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> paste0       8.25ms   8.27ms     119.    781.3KB     6.36</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> sprintf      8.96ms      9ms     111.    781.3KB     6.40</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gstring     11.09ms  11.14ms      89.7    1.53MB     8.97</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> glue        11.27ms  11.88ms      83.2    2.29MB    11.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     27.45ms  27.65ms      36.1    3.05MB     5.56</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> sprintf      8.37ms   8.39ms     119.    781.3KB     4.17</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> paste0       8.41ms   8.44ms     118.    781.3KB     4.13</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gstring     11.39ms  11.55ms      85.7    1.53MB     6.43</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> glue        12.57ms  12.93ms      77.6    2.29MB     7.05</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rprintf     33.09ms  33.34ms      29.8    3.05MB     2.13</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span><span class="op">)</span></span></code></pre></div>
-<p><img src="speed_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="speed_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="Beeswarm plot comparing execution times of vectorized string concatenation across glue, gstring, paste0, sprintf, and rprintf. The order is paste0, sprintf, gstring, glue, rprintf. glue's performance is very similar to gstring and rprintf is noticeably less performant than the rest." width="700"></p>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -230,7 +226,7 @@ performance is much closer to that of <code><a href="https://rdrr.io/r/base/past
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>
