@@ -150,11 +150,13 @@ recommended functions and resources:
 
 - The “Get started” article (`vignette("glue")`) demonstrates more
   interesting features of `glue()` and `glue_data()`.
+- “How to write a function that wraps glue” (`vignette("wrappers")`)
+  shows how to write your own glue wrapper functions that work as
+  expected inside other functions.
 - `glue_sql()` and `glue_data_sql()` are specialized functions for
   producing SQL statements.
 - glue provides a couple of custom knitr engines that allow you to use
-  glue syntax in chunks; learn more in
-  `vignette("engines", package = "glue")`.
+  glue syntax in chunks; learn more in `vignette("engines")`.
 
 ## Code of Conduct
 

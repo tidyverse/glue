@@ -21,24 +21,33 @@ Glue provides a few [custom language engines](https://yihui.org/rmarkdown-cookbo
 
 The first engine is the `glue` engine, which evaluates the chunk contents as a glue template.
 
+````markdown
+```{{glue}}
+1 + 1 = {1 + 1}
+```
+````
+
 ```{glue}
+#| echo: false
 1 + 1 = {1 + 1}
 ```
 
-Maybe the most useful use of the `glue` engine is to set the knitr option `results = 'asis'` and output markdown or HTML directly into the document.
+Here's one of the best uses of the `glue` engine:
+Set the knitr option `results` to the value `'asis'` and output markdown or HTML directly into the document.
+Because glue is vectorized, this is a concise way to generate a dynamic list or other repeated Markdown structure, which is difficult with inline R code.
 
 ````markdown
 ```{{glue}}
 #| results: asis
 #| echo: false
-#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+- **{month.abb}** is short for {month.name}
 ```
 ````
 
 ```{glue}
 #| results: asis
 #| echo: false
-#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+- **{month.abb}** is short for {month.name}
 ```
 
 If you want to pass additional arguments into the glue call, simply include them as chunk options.

@@ -26,3 +26,5 @@
 ^README\.qmd$
 ^[.]?air[.]toml$
 ^\.vscode$
+^vignettes/\.quarto$
+^vignettes/*_files$

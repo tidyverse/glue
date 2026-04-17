@@ -38,7 +38,7 @@ VignetteBuilder:
     quarto
 ByteCompile: true
 Config/Needs/website: bench, forcats, ggbeeswarm, ggplot2, R.utils,
-    rprintf, tidyr, tidyverse/tidytemplate
+    rprintf, tidyr, tidyverse/tidytemplate, emilhvitfeldt/emoji
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2026-04-16
 Encoding: UTF-8
