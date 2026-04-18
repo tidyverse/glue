@@ -1,10 +1,13 @@
 ---
 title: "Transformers"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Transformers}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 ---
 
 Transformers allow you to apply functions to the glue input and output, before
@@ -32,10 +35,6 @@ aim right now is not to include most of these custom functions within the
 `glue` package. Rather, users are encouraged to create custom functions using
 transformers to fit their individual needs.
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-```
-
 ```{r}
 library(glue)
 ```
@@ -53,7 +52,7 @@ collapse_transformer <- function(regex = "[*]$", ...) {
     }
     res <- identity_transformer(text, envir)
     if (collapse) {
-      glue_collapse(res, ...)  
+      glue_collapse(res, ...)
     } else {
       res
     }
@@ -62,7 +61,10 @@ collapse_transformer <- function(regex = "[*]$", ...) {
 
 glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", "))
 
-glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", last = " and "))
+glue(
+  "{1:5*}\n{letters[1:5]*}",
+  .transformer = collapse_transformer(sep = ", ", last = " and ")
+)
 
 x <- c("one", "two")
 glue("{x}: {1:5*}", .transformer = collapse_transformer(sep = ", "))
@@ -82,10 +84,13 @@ shell_transformer <- function(type = c("sh", "csh", "cmd", "cmd2")) {
   }
 }
 
-glue_sh <- function(..., .envir = parent.frame(), .type = c("sh", "csh", "cmd", "cmd2")) {
+glue_sh <- function(
+  ...,
+  .envir = parent.frame(),
+  .type = c("sh", "csh", "cmd", "cmd2")
+) {
   .type <- match.arg(.type)
   glue(..., .envir = .envir, .transformer = shell_transformer(.type))
-
 }
 
 filename <- "test"
@@ -96,7 +101,8 @@ command
 system(command)
 ```
 
-```{r include = FALSE}
+```{r}
+#| include: false
 if (file.exists("test")) {
   unlink("test")
 }
@@ -105,19 +111,27 @@ if (file.exists("test")) {
 ### emoji transformer
 
 A transformer which converts the text to the equivalent emoji.
+This uses the [emoji](https://emilhvitfeldt.github.io/emoji/) package.
 
-```{r, eval = require("emo")}
+```{r}
+#| eval: !expr require("emoji")
 emoji_transformer <- function(text, envir) {
   if (grepl("[*]$", text)) {
     text <- sub("[*]$", "", text)
-    glue_collapse(ji_find(text)$emoji)
+    glue_collapse(emoji::emoji_find(text)$emoji)
   } else {
-    ji(text)
+    emoji::emoji(text)
   }
 }
 
 glue_ji <- function(..., .envir = parent.frame()) {
-  glue(..., .open = ":", .close = ":", .envir = .envir, .transformer = emoji_transformer)
+  glue(
+    ...,
+    .open = ":",
+    .close = ":",
+    .envir = .envir,
+    .transformer = emoji_transformer
+  )
 }
 glue_ji("one :heart:")
 glue_ji("many :heart*:")
@@ -153,15 +167,15 @@ This is useful if we want to represent all numbers using the same significant di
 
 ```{r}
 signif_transformer <- function(digits = 3) {
-    force(digits)
-    function(text, envir) {
-        x <- identity_transformer(text, envir)
-        if (is.numeric(x)) {
-            signif(x, digits = digits)
-        } else {
-            x
-        }
+  force(digits)
+  function(text, envir) {
+    x <- identity_transformer(text, envir)
+    if (is.numeric(x)) {
+      signif(x, digits = digits)
+    } else {
+      x
     }
+  }
 }
 glue_signif <- function(..., .envir = parent.frame()) {
   glue(..., .transformer = signif_transformer(3), .envir = .envir)
@@ -180,7 +194,10 @@ safely_transformer <- function(otherwise = NA) {
   function(text, envir) {
     tryCatch(
       identity_transformer(text, envir),
-      error = function(e) if (is.language(otherwise)) eval(otherwise) else otherwise)
+      error = function(e) {
+        if (is.language(otherwise)) eval(otherwise) else otherwise
+      }
+    )
   }
 }
 
@@ -191,12 +208,14 @@ glue_safely <- function(..., .otherwise = NA, .envir = parent.frame()) {
 # Default returns missing if there is an error
 glue_safely("foo: {xyz}")
 
-# Or an empty string
-glue_safely("foo: {xyz}", .otherwise = "Error")
+# Or a custom string
+glue_safely("foo: {xyz}", .otherwise = "Oops, something went wrong!")
 
-# Or output the error message in red
-library(crayon)
-glue_safely("foo: {xyz}", .otherwise = quote(glue("{red}Error: {conditionMessage(e)}{reset}")))
+# Or inline the error message
+glue_safely(
+  "foo: {xyz}",
+  .otherwise = quote(glue("Error: {conditionMessage(e)}"))
+)
 ```
 
 ### "Variables and Values" transformer
@@ -228,7 +247,10 @@ numbers <- sample(100, 4)
 average <- mean(numbers)
 sum <- sum(numbers)
 
-glue("For {description} {numbers=}, {average=}, {sum=}.", .transformer = vv_transformer)
+glue(
+  "For {description} {numbers=}, {average=}, {sum=}.",
+  .transformer = vv_transformer
+)
 
 a <- 3
 b <- 5.6

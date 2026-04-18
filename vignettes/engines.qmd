@@ -1,14 +1,17 @@
 ---
 title: "Custom knitr language engines"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Custom knitr language engines}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    echo: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+#| label: setup
+#| include: false
 library(glue)
 ```
 
@@ -18,31 +21,52 @@ Glue provides a few [custom language engines](https://yihui.org/rmarkdown-cookbo
 
 The first engine is the `glue` engine, which evaluates the chunk contents as a glue template.
 
-```{glue}
-1 + 1 = {1 + 1}
-```
-
-Maybe the most useful use of the `glue` engine is to set the knitr option `results = 'asis'` and output markdown or HTML directly into the document.
-
 ````markdown
-`r '' ````{glue, results = 'asis', echo = FALSE}
-#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+```{{glue}}
+1 + 1 = {1 + 1}
 ```
 ````
 
-```{glue, results = 'asis', echo = FALSE}
-#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+```{glue}
+#| echo: false
+1 + 1 = {1 + 1}
+```
+
+Here's one of the best uses of the `glue` engine:
+Set the knitr option `results` to the value `'asis'` and output markdown or HTML directly into the document.
+Because glue is vectorized, this is a concise way to generate a dynamic list or other repeated Markdown structure, which is difficult with inline R code.
+
+````markdown
+```{{glue}}
+#| results: asis
+#| echo: false
+- **{month.abb}** is short for {month.name}
+```
+````
+
+```{glue}
+#| results: asis
+#| echo: false
+- **{month.abb}** is short for {month.name}
 ```
 
 If you want to pass additional arguments into the glue call, simply include them as chunk options.
 
 ````markdown
-`r '' ````{glue, .open = "<<", .close = ">>", results = 'asis', echo = FALSE}
+```{{glue}}
+#| .open: "<<"
+#| .close: ">>"
+#| results: asis
+#| echo: false
 The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
 ```
 ````
 
-```{glue, .open = "<<", .close = ">>", results = 'asis', echo = FALSE}
+```{glue}
+#| .open: "<<"
+#| .close: ">>"
+#| results: asis
+#| echo: false
 The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
 ```
 
@@ -51,6 +75,7 @@ The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
 The second engine is `glue_sql`, which will use `glue::glue_sql()` to generate a SQL query and then run the query using the [sql engine](https://yihui.org/rmarkdown/language-engines.html).
 
 First we create a new connection to an in-memory SQLite database, and write a new table to it.
+
 ```{r}
 con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 mtcars$model <- rownames(mtcars)
@@ -58,6 +83,7 @@ DBI::dbWriteTable(con, "mtcars", mtcars)
 ```
 
 Next define some variables we that we can use with glue to interpolate.
+
 ```{r}
 var <- "mpg"
 tbl <- "mtcars"
@@ -71,14 +97,16 @@ The second is backticks inside of braces, which are specially interpreted to do 
 In this example we use the `sqlite` engine, which uses backticks for quoting, but you would use the same backticks inside brace syntax for postgreSQL, and `glue_sql()` would automatically use double quotes for quoting instead.
 
 ````markdown
-`r '' ````{glue_sql, connection = con}
+```{{glue_sql}}
+#| connection: con
 SELECT `model`, `hp`, {`var`}
 FROM {`tbl`}
 WHERE {`tbl`}.`hp` > {num}
 ```
 ````
 
-```{glue_sql, connection = con}
+```{glue_sql}
+#| connection: con
 SELECT `model`, `hp`, {`var`}
   FROM {`tbl`}
   WHERE {`tbl`}.`hp` > {num}

@@ -1,20 +1,17 @@
 ---
 title: "How to write a function that wraps glue"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to write a function that wraps glue}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-```{r setup}
+```{r}
+#| label: setup
 library(glue)
 ```
 
@@ -52,18 +49,18 @@ Here's an abbreviated excerpt of the roxygen comment that generates the document
 #' }
 ```
 
-To produce such text programmatically, the first step might be to generate the `\item{}{}` lines from a named list of column names and descriptions.
+To produce such text programmatically, the first step might be to generate the `\item{}{}` lines from a named character vector of column names and descriptions.
 Notice that `{` and `}` are important to the `\describe{...}` and `\item{}{}` syntax, so this is an example where it is nice for glue to use different delimiters for expressions.
 
-Put the metadata in a suitable list:
+Put the metadata in a suitable vector:
 
 ```{r}
-sw_meta <- list(
-  name    = "Name of the character",
-  height  = "Height (cm)",
-  mass    = "Weight (kg)",
+sw_meta <- c(
+  name = "Name of the character",
+  height = "Height (cm)",
+  mass = "Weight (kg)",
   species = "Name of species",
-  films   = "List of films the character appeared in"
+  films = "List of films the character appeared in"
 )
 ```
 
@@ -72,36 +69,37 @@ Define a custom glue wrapper and use it inside another helper that generates `\i
 [^1]: Note that delimiters `<<` and `>>` have special meaning in knitr (they are used for a templating feature in knitr itself). So in code chunks inside RMarkdown or Quarto documents, you may need to use different delimiters.
 
 ```{r}
-my_glue = function(...) {
-  glue(..., .open = "<<", .close = ">>", .envir = parent.frame())
+my_glue <- function(..., .envir = parent.frame()) {
+  glue(..., .open = "<<", .close = ">>", .envir = .envir)
 }
 
-named_list_to_items <- function(x) {
+named_chr_to_items <- function(x) {
   my_glue("\\item{<<names(x)>>}{<<x>>}")
 }
 ```
 
-Apply `named_list_to_items()` to starwars metadata:
+Apply `named_chr_to_items()` to starwars metadata:
 
 ```{r}
-named_list_to_items(sw_meta)
+named_chr_to_items(sw_meta)
 ```
 
 Here's how this would fail if we did *not* handle `.envir` correctly in our wrapper function:
 
-```{r, error = TRUE}
+```{r}
+#| error: true
 my_glue_WRONG <- function(...) {
   glue(..., .open = "<<", .close = ">>")
 }
 
-named_list_to_items_WRONG <- function(x) {
+named_chr_to_items_WRONG <- function(x) {
   my_glue_WRONG("\\item{<<names(x)>>}{<<x>>}")
 }
 
-named_list_to_items_WRONG(sw_meta)
+named_chr_to_items_WRONG(sw_meta)
 ```
 
-It can be hard to understand why `x` can't be found, when it is clearly available inside `named_list_to_items_WRONG()`.
+It can be hard to understand why `x` can't be found, when it is clearly available inside `named_chr_to_items_WRONG()`.
 Why isn't `x` available to `my_glue_WRONG()`?
 
 ## Where does `glue()` evaluate code?
@@ -109,7 +107,8 @@ Why isn't `x` available to `my_glue_WRONG()`?
 What's going on?
 It's time to look at the (redacted) signature of `glue()`:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 glue(..., .envir = parent.frame(), ...)
 ```
 

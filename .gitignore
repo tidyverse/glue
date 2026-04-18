@@ -11,3 +11,4 @@ script.R
 /docs/
 internal/
 .positai/settings.json
+**/.quarto/
