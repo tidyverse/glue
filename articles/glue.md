@@ -42,7 +42,8 @@ glue("Release was on a {format(release_date, '%A')}.")
 breaks in its input:
 
 ``` r
-glue("
+glue(
+  "
   A formatted string
   Can have multiple lines
     with additional indentation preserved
@@ -63,16 +64,17 @@ The elimination of common leading whitespace is advantageous, because
 you aren’t forced to choose between indenting your code normally and
 getting the output you actually want. This is easier to appreciate when
 you have [`glue()`](https://glue.tidyverse.org/reference/glue.md) inside
-a function body (this example also shows an alternative way of styling
-the end of a [`glue()`](https://glue.tidyverse.org/reference/glue.md)
-call):
+a function body (this example also has an alternative placement of the
+closing quote):
 
 ``` r
 foo <- function() {
-  glue("
+  glue(
+    "
     A formatted string
     Can have multiple lines
-      with additional indentation preserved")
+      with additional indentation preserved"
+  )
 }
 foo()
 #> A formatted string
@@ -88,9 +90,11 @@ output:
 
 ``` r
 release_date <- as.Date("2017-06-13")
-glue("
+glue(
+  "
   The first version of the glue package was released on \\
-  a {format(release_date, '%A')}.")
+  a {format(release_date, '%A')}."
+)
 #> The first version of the glue package was released on a Tuesday.
 ```
 
@@ -113,18 +117,22 @@ empty line.
 
 ``` r
 # no leading or trailing newline
-x <- glue("
+x <- glue(
+  "
   blah
-  ")
+  "
+)
 unclass(x)
 #> [1] "blah"
 
 # both a leading and trailing newline
-y <- glue("
+y <- glue(
+  "
 
   blah
 
-  ")
+  "
+)
 unclass(y)
 #> [1] "\nblah\n"
 ```
@@ -146,11 +154,13 @@ glue object and looking at its string representation.
 way to do this that is arguably more expressive.
 
 ``` r
-x <- glue('
+x <- glue(
+  '
   abc
   " }
 
-  xyz')
+  xyz'
+)
 class(x)
 #> [1] "glue"      "character"
 
@@ -168,8 +178,8 @@ as.character(x)
 ## Delimiters
 
 By default, code to be evaluated goes inside
-[`{}`](https://rdrr.io/r/base/Paren.html) in a glue string. If want a
-literal curly brace in your string, double it:
+[`{}`](https://rdrr.io/r/base/Paren.html) in a glue string. If you want
+a literal curly brace in your string, double it:
 
 ``` r
 glue("The name of the package is {name}, not {{name}}.")
@@ -285,6 +295,12 @@ mini_mtcars |>
 #> 6           Valiant gets 18.1 miles per gallon.   6  225
 ```
 
+If you write your own custom wrapper around
+[`glue()`](https://glue.tidyverse.org/reference/glue.md) and get
+unexpected “object not found” errors, read
+[`vignette("wrappers", package = "glue")`](https://glue.tidyverse.org/articles/wrappers.md)
+to learn the right pattern for handling the evaluation environment.
+
 ## SQL
 
 glue has explicit support for constructing SQL statements. Use backticks
@@ -299,12 +315,15 @@ var <- "sepal_width"
 tbl <- "iris"
 num <- 2
 val <- "setosa"
-glue_sql("
+glue_sql(
+  "
   SELECT {`var`}
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length > {num}
     AND {`tbl`}.species = {val}
-  ", .con = con)
+  ",
+  .con = con
+)
 #> <SQL> SELECT `sepal_width`
 #> FROM `iris`
 #> WHERE `iris`.sepal_length > 2
@@ -317,11 +336,14 @@ used in conjunction with parameterized queries using
 provide protection for SQL Injection attacks.
 
 ``` r
-sql <- glue_sql("
+sql <- glue_sql(
+  "
   SELECT {`var`}
   FROM {`tbl`}
   WHERE {`tbl`}.sepal_length > ?
-", .con = con)
+",
+  .con = con
+)
 query <- DBI::dbSendQuery(con, sql)
 DBI::dbBind(query, list(num))
 DBI::dbFetch(query, n = 4)
@@ -339,15 +361,21 @@ It returns [`DBI::SQL()`](https://dbi.r-dbi.org/reference/SQL.html)
 objects which are properly protected from quoting.
 
 ``` r
-sub_query <- glue_sql("
+sub_query <- glue_sql(
+  "
   SELECT *
   FROM {`tbl`}
-  ", .con = con)
+  ",
+  .con = con
+)
 
-glue_sql("
+glue_sql(
+  "
   SELECT s.{`var`}
   FROM ({sub_query}) AS s
-  ", .con = con)
+  ",
+  .con = con
+)
 #> <SQL> SELECT s.`sepal_width`
 #> FROM (SELECT *
 #> FROM `iris`) AS s
@@ -358,19 +386,31 @@ If you want to input multiple values for use in SQL IN statements put
 appropriately.
 
 ``` r
-glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
-  vals = 1, .con = con)
+glue_sql(
+  "SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1,
+  .con = con
+)
 #> <SQL> SELECT * FROM `iris` WHERE sepal_length IN (1)
 
-glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
-  vals = 1:5, .con = con)
+glue_sql(
+  "SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1:5,
+  .con = con
+)
 #> <SQL> SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)
 
-glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
-  vals = "setosa", .con = con)
+glue_sql(
+  "SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = "setosa",
+  .con = con
+)
 #> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa')
 
-glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
-  vals = c("setosa", "versicolor"), .con = con)
+glue_sql(
+  "SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = c("setosa", "versicolor"),
+  .con = con
+)
 #> <SQL> SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')
 ```

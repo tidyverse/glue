@@ -9,29 +9,50 @@ knitr, which allows you to use glue directly in knitr chunks.
 The first engine is the `glue` engine, which evaluates the chunk
 contents as a glue template.
 
-``` glue
-1 + 1 = {1 + 1}
-```
-
-    ## 1 + 1 = 2
-
-Maybe the most useful use of the `glue` engine is to set the knitr
-option `results = 'asis'` and output markdown or HTML directly into the
-document.
-
 ```` markdown
-```{glue, results = 'asis', echo = FALSE}
-#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+```{glue}
+1 + 1 = {1 + 1}
 ```
 ````
 
-#### mtcars has **32 rows** and *11 columns*.
+    1 + 1 = 2
+
+Here’s one of the best uses of the `glue` engine: Set the knitr option
+`results` to the value `'asis'` and output markdown or HTML directly
+into the document. Because glue is vectorized, this is a concise way to
+generate a dynamic list or other repeated Markdown structure, which is
+difficult with inline R code.
+
+```` markdown
+```{glue}
+#| results: asis
+#| echo: false
+- **{month.abb}** is short for {month.name}
+```
+````
+
+- **Jan** is short for January
+- **Feb** is short for February
+- **Mar** is short for March
+- **Apr** is short for April
+- **May** is short for May
+- **Jun** is short for June
+- **Jul** is short for July
+- **Aug** is short for August
+- **Sep** is short for September
+- **Oct** is short for October
+- **Nov** is short for November
+- **Dec** is short for December
 
 If you want to pass additional arguments into the glue call, simply
 include them as chunk options.
 
 ```` markdown
-```{glue, .open = "<<", .close = ">>", results = 'asis', echo = FALSE}
+```{glue}
+#| .open: "<<"
+#| .close: ">>"
+#| results: asis
+#| echo: false
 The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
 ```
 ````
@@ -76,7 +97,8 @@ would use the same backticks inside brace syntax for postgreSQL, and
 automatically use double quotes for quoting instead.
 
 ```` markdown
-```{glue_sql, connection = con}
+```{glue_sql}
+#| connection: con
 SELECT `model`, `hp`, {`var`}
 FROM {`tbl`}
 WHERE {`tbl`}.`hp` > {num}

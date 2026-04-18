@@ -48,7 +48,7 @@ collapse_transformer <- function(regex = "[*]$", ...) {
     }
     res <- identity_transformer(text, envir)
     if (collapse) {
-      glue_collapse(res, ...)  
+      glue_collapse(res, ...)
     } else {
       res
     }
@@ -59,7 +59,10 @@ glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", "))
 #> 1, 2, 3, 4, 5
 #> a, b, c, d, e
 
-glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", last = " and "))
+glue(
+  "{1:5*}\n{letters[1:5]*}",
+  .transformer = collapse_transformer(sep = ", ", last = " and ")
+)
 #> 1, 2, 3, 4 and 5
 #> a, b, c, d and e
 
@@ -84,10 +87,13 @@ shell_transformer <- function(type = c("sh", "csh", "cmd", "cmd2")) {
   }
 }
 
-glue_sh <- function(..., .envir = parent.frame(), .type = c("sh", "csh", "cmd", "cmd2")) {
+glue_sh <- function(
+  ...,
+  .envir = parent.frame(),
+  .type = c("sh", "csh", "cmd", "cmd2")
+) {
   .type <- match.arg(.type)
   glue(..., .envir = .envir, .transformer = shell_transformer(.type))
-
 }
 
 filename <- "test"
@@ -101,23 +107,32 @@ system(command)
 
 ### emoji transformer
 
-A transformer which converts the text to the equivalent emoji.
+A transformer which converts the text to the equivalent emoji. This uses
+the [emoji](https://emilhvitfeldt.github.io/emoji/) package.
 
 ``` r
 emoji_transformer <- function(text, envir) {
   if (grepl("[*]$", text)) {
     text <- sub("[*]$", "", text)
-    glue_collapse(ji_find(text)$emoji)
+    glue_collapse(emoji::emoji_find(text)$emoji)
   } else {
-    ji(text)
+    emoji::emoji(text)
   }
 }
 
 glue_ji <- function(..., .envir = parent.frame()) {
-  glue(..., .open = ":", .close = ":", .envir = .envir, .transformer = emoji_transformer)
+  glue(
+    ...,
+    .open = ":",
+    .close = ":",
+    .envir = .envir,
+    .transformer = emoji_transformer
+  )
 }
 glue_ji("one :heart:")
+#> one ❤️
 glue_ji("many :heart*:")
+#> many 🥰😘😻💌💘💝💖💗💓💞💕💟❣️💔❤️‍🔥❤️‍🩹❤️🩷🧡💛💚💙🩵💜🤎🖤🩶🤍💋🫰🫶🫀💏👩‍❤️‍💋‍👨👨‍❤️‍💋‍👨👩‍❤️‍💋‍👩💑👩‍❤️‍👨👨‍❤️‍👨👩‍❤️‍👩🏠🏡♥️🩺
 ```
 
 ### sprintf transformer
@@ -152,15 +167,15 @@ using the same significant digits
 
 ``` r
 signif_transformer <- function(digits = 3) {
-    force(digits)
-    function(text, envir) {
-        x <- identity_transformer(text, envir)
-        if (is.numeric(x)) {
-            signif(x, digits = digits)
-        } else {
-            x
-        }
+  force(digits)
+  function(text, envir) {
+    x <- identity_transformer(text, envir)
+    if (is.numeric(x)) {
+      signif(x, digits = digits)
+    } else {
+      x
     }
+  }
 }
 glue_signif <- function(..., .envir = parent.frame()) {
   glue(..., .transformer = signif_transformer(3), .envir = .envir)
@@ -181,7 +196,10 @@ safely_transformer <- function(otherwise = NA) {
   function(text, envir) {
     tryCatch(
       identity_transformer(text, envir),
-      error = function(e) if (is.language(otherwise)) eval(otherwise) else otherwise)
+      error = function(e) {
+        if (is.language(otherwise)) eval(otherwise) else otherwise
+      }
+    )
   }
 }
 
@@ -193,13 +211,15 @@ glue_safely <- function(..., .otherwise = NA, .envir = parent.frame()) {
 glue_safely("foo: {xyz}")
 #> foo: NA
 
-# Or an empty string
-glue_safely("foo: {xyz}", .otherwise = "Error")
-#> foo: Error
+# Or a custom string
+glue_safely("foo: {xyz}", .otherwise = "Oops, something went wrong!")
+#> foo: Oops, something went wrong!
 
-# Or output the error message in red
-library(crayon)
-glue_safely("foo: {xyz}", .otherwise = quote(glue("{red}Error: {conditionMessage(e)}{reset}")))
+# Or inline the error message
+glue_safely(
+  "foo: {xyz}",
+  .otherwise = quote(glue("Error: {conditionMessage(e)}"))
+)
 #> foo: Error: Failed to evaluate glue component {xyz}
 #> Caused by error:
 #> ! object 'xyz' not found
@@ -240,7 +260,10 @@ numbers <- sample(100, 4)
 average <- mean(numbers)
 sum <- sum(numbers)
 
-glue("For {description} {numbers=}, {average=}, {sum=}.", .transformer = vv_transformer)
+glue(
+  "For {description} {numbers=}, {average=}, {sum=}.",
+  .transformer = vv_transformer
+)
 #> For some random numbers = [28, 80, 22, 9], average = 34.75, sum = 139.
 
 a <- 3

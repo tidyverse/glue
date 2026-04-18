@@ -51,20 +51,20 @@ documentation for the starwars dataset in dplyr
 ```
 
 To produce such text programmatically, the first step might be to
-generate the `\item{}{}` lines from a named list of column names and
-descriptions. Notice that `{` and `}` are important to the
+generate the `\item{}{}` lines from a named character vector of column
+names and descriptions. Notice that `{` and `}` are important to the
 `\describe{...}` and `\item{}{}` syntax, so this is an example where it
 is nice for glue to use different delimiters for expressions.
 
-Put the metadata in a suitable list:
+Put the metadata in a suitable vector:
 
 ``` r
-sw_meta <- list(
-  name    = "Name of the character",
-  height  = "Height (cm)",
-  mass    = "Weight (kg)",
+sw_meta <- c(
+  name = "Name of the character",
+  height = "Height (cm)",
+  mass = "Weight (kg)",
   species = "Name of species",
-  films   = "List of films the character appeared in"
+  films = "List of films the character appeared in"
 )
 ```
 
@@ -72,19 +72,19 @@ Define a custom glue wrapper and use it inside another helper that
 generates `\item` entries[¹](#fn1):
 
 ``` r
-my_glue = function(...) {
-  glue(..., .open = "<<", .close = ">>", .envir = parent.frame())
+my_glue <- function(..., .envir = parent.frame()) {
+  glue(..., .open = "<<", .close = ">>", .envir = .envir)
 }
 
-named_list_to_items <- function(x) {
+named_chr_to_items <- function(x) {
   my_glue("\\item{<<names(x)>>}{<<x>>}")
 }
 ```
 
-Apply `named_list_to_items()` to starwars metadata:
+Apply `named_chr_to_items()` to starwars metadata:
 
 ``` r
-named_list_to_items(sw_meta)
+named_chr_to_items(sw_meta)
 #> \item{name}{Name of the character}
 #> \item{height}{Height (cm)}
 #> \item{mass}{Weight (kg)}
@@ -100,11 +100,11 @@ my_glue_WRONG <- function(...) {
   glue(..., .open = "<<", .close = ">>")
 }
 
-named_list_to_items_WRONG <- function(x) {
+named_chr_to_items_WRONG <- function(x) {
   my_glue_WRONG("\\item{<<names(x)>>}{<<x>>}")
 }
 
-named_list_to_items_WRONG(sw_meta)
+named_chr_to_items_WRONG(sw_meta)
 #> Error:
 #> ! Failed to evaluate glue component {names(x)}
 #> Caused by error:
@@ -112,7 +112,7 @@ named_list_to_items_WRONG(sw_meta)
 ```
 
 It can be hard to understand why `x` can’t be found, when it is clearly
-available inside `named_list_to_items_WRONG()`. Why isn’t `x` available
+available inside `named_chr_to_items_WRONG()`. Why isn’t `x` available
 to `my_glue_WRONG()`?
 
 ## Where does `glue()` evaluate code?

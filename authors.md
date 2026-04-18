@@ -15,7 +15,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/tidyverse/glue/blob/v1.8.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/tidyverse/glue/blob/pkgdown-v1.8.1/DESCRIPTION)
 
 Hester J, Bryan J (2026). *glue: Interpreted String Literals*. R package
 version 1.8.1, <https://glue.tidyverse.org/>.
