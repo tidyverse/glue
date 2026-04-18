@@ -148,11 +148,11 @@
 <span><span class="co">#&gt; # A tibble: 5 × 6</span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 sprintf    691.04ns 781.03ns  1168142.        0B     0   </span></span>
-<span><span class="co">#&gt; 2 paste0       1.42µs   1.64µs   587918.        0B     0   </span></span>
-<span><span class="co">#&gt; 3 glue        72.98µs  78.57µs    12219.  141.73KB    12.5 </span></span>
-<span><span class="co">#&gt; 4 gstring    184.84µs 195.76µs     5002.    2.46MB     8.20</span></span>
-<span><span class="co">#&gt; 5 rprintf     253.3µs 266.61µs     3699.  504.02KB     4.05</span></span>
+<span><span class="co">#&gt; 1 sprintf       751ns 801.05ns  1164863.        0B     0   </span></span>
+<span><span class="co">#&gt; 2 paste0        1.4µs   1.54µs   607350.        0B     0   </span></span>
+<span><span class="co">#&gt; 3 glue         94.2µs  100.4µs     9521.  141.73KB    10.4 </span></span>
+<span><span class="co">#&gt; 4 gstring     222.2µs 235.28µs     4140.    2.46MB     6.11</span></span>
+<span><span class="co">#&gt; 5 rprintf     276.4µs 288.44µs     3394.  504.02KB     4.05</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">simple</span><span class="op">)</span></span></code></pre></div>
@@ -189,11 +189,11 @@
 <span><span class="co">#&gt; # A tibble: 5 × 6</span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 sprintf      8.55ms    8.6ms     116.    781.3KB     2.04</span></span>
-<span><span class="co">#&gt; 2 paste0       9.25ms   9.47ms     106.    781.3KB     4.14</span></span>
-<span><span class="co">#&gt; 3 gstring     11.89ms  12.16ms      81.9    1.53MB     4.20</span></span>
-<span><span class="co">#&gt; 4 glue        12.28ms  12.73ms      78.9    2.29MB     4.27</span></span>
-<span><span class="co">#&gt; 5 rprintf      28.9ms  29.13ms      34.1    3.05MB     4.54</span></span>
+<span><span class="co">#&gt; 1 paste0       8.35ms   8.38ms     119.    781.3KB     2.05</span></span>
+<span><span class="co">#&gt; 2 sprintf      8.38ms    8.4ms     119.    781.3KB     4.16</span></span>
+<span><span class="co">#&gt; 3 gstring     11.36ms  11.45ms      87.1    1.53MB     4.15</span></span>
+<span><span class="co">#&gt; 4 glue        12.53ms  12.94ms      76.8    2.29MB     8.53</span></span>
+<span><span class="co">#&gt; 5 rprintf     27.47ms  27.59ms      36.0    3.05MB     4.50</span></span>
 <span></span>
 <span><span class="co"># plotting function defined in a hidden chunk</span></span>
 <span><span class="fu">plot_comparison</span><span class="op">(</span><span class="va">vectorized</span><span class="op">)</span></span></code></pre></div>
