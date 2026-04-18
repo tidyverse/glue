@@ -27,18 +27,18 @@ Suggests:
     DBI (>= 1.2.0),
     dplyr,
     knitr,
+    quarto,
     rlang,
-    rmarkdown,
     RSQLite,
     testthat (>= 3.2.0),
     vctrs (>= 0.3.0),
     waldo (>= 0.5.3),
     withr
 VignetteBuilder:
-    knitr
+    quarto
 ByteCompile: true
 Config/Needs/website: bench, forcats, ggbeeswarm, ggplot2, R.utils,
-    rprintf, tidyr, tidyverse/tidytemplate
+    rprintf, tidyr, tidyverse/tidytemplate, emilhvitfeldt/emoji
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2026-04-16
 Encoding: UTF-8
