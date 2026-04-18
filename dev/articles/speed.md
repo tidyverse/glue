@@ -65,11 +65,11 @@ simple |>
 #> # A tibble: 5 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 sprintf       761ns  802.1ns  1161305.        0B     0   
-#> 2 paste0        1.4µs   1.51µs   630883.        0B     0   
-#> 3 glue         92.9µs  97.67µs     9733.  141.73KB    10.3 
-#> 4 gstring     217.6µs 230.77µs     4227.    2.46MB     6.10
-#> 5 rprintf     275.2µs 286.59µs     3422.  504.02KB     4.05
+#> 1 sprintf    691.04ns 781.03ns  1168142.        0B     0   
+#> 2 paste0       1.42µs   1.64µs   587918.        0B     0   
+#> 3 glue        72.98µs  78.57µs    12219.  141.73KB    12.5 
+#> 4 gstring    184.84µs 195.76µs     5002.    2.46MB     8.20
+#> 5 rprintf     253.3µs 266.61µs     3699.  504.02KB     4.05
 
 # plotting function defined in a hidden chunk
 plot_comparison(simple)
@@ -125,11 +125,11 @@ vectorized |>
 #> # A tibble: 5 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 sprintf      8.37ms    8.4ms     119.    781.3KB     4.16
-#> 2 paste0       8.41ms   8.44ms     118.    781.3KB     4.14
-#> 3 gstring     11.31ms  11.37ms      87.8    1.53MB     4.18
-#> 4 glue        12.46ms  12.54ms      79.4    2.29MB     6.62
-#> 5 rprintf      27.5ms   27.6ms      36.2    3.05MB     4.52
+#> 1 sprintf      8.55ms    8.6ms     116.    781.3KB     2.04
+#> 2 paste0       9.25ms   9.47ms     106.    781.3KB     4.14
+#> 3 gstring     11.89ms  12.16ms      81.9    1.53MB     4.20
+#> 4 glue        12.28ms  12.73ms      78.9    2.29MB     4.27
+#> 5 rprintf      28.9ms  29.13ms      34.1    3.05MB     4.54
 
 # plotting function defined in a hidden chunk
 plot_comparison(vectorized)
