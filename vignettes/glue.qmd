@@ -203,7 +203,6 @@ glue_data(mini_mtcars, "{model} has {hp} hp.")
 `glue_data()` is very natural to use with the pipe:
 
 ```{r}
-#| eval: !expr getRversion() >= "4.1.0"
 mini_mtcars |>
   glue_data("{model} gets {mpg} miles per gallon.")
 ```
