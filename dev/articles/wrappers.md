@@ -61,11 +61,11 @@ Put the metadata in a suitable list:
 
 ``` r
 sw_meta <- list(
-  name    = "Name of the character",
-  height  = "Height (cm)",
-  mass    = "Weight (kg)",
+  name = "Name of the character",
+  height = "Height (cm)",
+  mass = "Weight (kg)",
   species = "Name of species",
-  films   = "List of films the character appeared in"
+  films = "List of films the character appeared in"
 )
 ```
 
@@ -73,8 +73,8 @@ Define a custom glue wrapper and use it inside another helper that
 generates `\item` entries[¹](#fn1):
 
 ``` r
-my_glue = function(...) {
-  glue(..., .open = "<<", .close = ">>", .envir = parent.frame())
+my_glue <- function(..., .envir = parent.frame()) {
+  glue(..., .open = "<<", .close = ">>", .envir = .envir)
 }
 
 named_list_to_items <- function(x) {

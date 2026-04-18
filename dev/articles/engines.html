@@ -17,7 +17,10 @@
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Custom knitr language engines">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="engines_files/libs/quarto-html/popper.min.js"></script><script src="engines_files/libs/quarto-html/tippy.umd.min.js"></script><link href="engines_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="engines_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Custom knitr language engines">
+<meta property="og:image" content="https://glue.tidyverse.org/logo.png">
 <meta name="robots" content="noindex">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
   window.dataLayer = window.dataLayer || [];
@@ -78,157 +81,256 @@
 
 
   </div>
-</nav><div class="container template-article" id="container">
-
-
-
-
+</nav><div class="container template-quarto" id="container">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Custom knitr language engines</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/main/vignettes/engines.Rmd" class="external-link"><code>vignettes/engines.Rmd</code></a></small>
-      <div class="d-none name"><code>engines.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/main/vignettes/engines.qmd" class="external-link"><code>vignettes/engines.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p>Glue provides a few <a href="https://yihui.org/rmarkdown-cookbook/custom-engine.html" class="external-link">custom
-language engines</a> for knitr, which allows you to use glue directly in
-knitr chunks.</p>
-<div class="section level2">
-<h2 id="glue-engine">
+
+
+
+
+
+    <p>Glue provides a few <a href="https://yihui.org/rmarkdown-cookbook/custom-engine.html" class="external-link">custom language engines</a> for knitr, which allows you to use glue directly in knitr chunks.</p>
+<section class="level2"><h2 id="glue-engine">
 <code>glue</code> engine<a class="anchor" aria-label="anchor" href="#glue-engine"></a>
 </h2>
-<p>The first engine is the <code>glue</code> engine, which evaluates the
-chunk contents as a glue template.</p>
-<pre class="glue"><code><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">=</span> <span class="op">{</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">}</span></span></code></pre>
-<pre><code><span><span class="co">## 1 + 1 = 2</span></span></code></pre>
-<p>Maybe the most useful use of the <code>glue</code> engine is to set
-the knitr option <code>results = 'asis'</code> and output markdown or
-HTML directly into the document.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="in">```{glue, results = 'asis', echo = FALSE}</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="in">#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<div class="section level4">
-<h4 id="mtcars-has-32-rows-and-11-columns-">mtcars has <strong>32 rows</strong> and <em>11 columns</em>.<a class="anchor" aria-label="anchor" href="#mtcars-has-32-rows-and-11-columns-"></a>
-</h4>
-<p>If you want to pass additional arguments into the glue call, simply
-include them as chunk options.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="in">```{glue, .open = "&lt;&lt;", .close = "&gt;&gt;", results = 'asis', echo = FALSE}</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="in">The **median waiting time** between eruptions is &lt;&lt;median(faithful$waiting)&gt;&gt;.</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p>The first engine is the <code>glue</code> engine, which evaluates the chunk contents as a glue template.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{glue}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="in">1 + 1 = {1 + 1}</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">=</span> <span class="fl">2</span></span></code></pre>
+</div>
+</div>
+<p>Here’s one of the best uses of the <code>glue</code> engine: Set the knitr option <code>results</code> to the value <code>'asis'</code> and output markdown or HTML directly into the document. Because glue is vectorized, this is a concise way to generate a dynamic list or other repeated Markdown structure, which is difficult with inline R code.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{glue}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| results: asis</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| echo: false</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">- **{month.abb}** is short for {month.name}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<ul>
+<li>
+<strong>Jan</strong> is short for January</li>
+<li>
+<strong>Feb</strong> is short for February</li>
+<li>
+<strong>Mar</strong> is short for March</li>
+<li>
+<strong>Apr</strong> is short for April</li>
+<li>
+<strong>May</strong> is short for May</li>
+<li>
+<strong>Jun</strong> is short for June</li>
+<li>
+<strong>Jul</strong> is short for July</li>
+<li>
+<strong>Aug</strong> is short for August</li>
+<li>
+<strong>Sep</strong> is short for September</li>
+<li>
+<strong>Oct</strong> is short for October</li>
+<li>
+<strong>Nov</strong> is short for November</li>
+<li>
+<strong>Dec</strong> is short for December</li>
+</ul>
+<p>If you want to pass additional arguments into the glue call, simply include them as chunk options.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{glue}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| .open: "&lt;&lt;"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| .close: "&gt;&gt;"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">#| results: asis</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">#| echo: false</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">The **median waiting time** between eruptions is &lt;&lt;median(faithful$waiting)&gt;&gt;.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>The <strong>median waiting time</strong> between eruptions is 76.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="glue_sql-engine">
+</section><section class="level2"><h2 id="glue_sql-engine">
 <code>glue_sql</code> engine<a class="anchor" aria-label="anchor" href="#glue_sql-engine"></a>
 </h2>
-<p>The second engine is <code>glue_sql</code>, which will use
-<code><a href="../reference/glue_sql.html">glue::glue_sql()</a></code> to generate a SQL query and then run the
-query using the <a href="https://yihui.org/rmarkdown/language-engines.html" class="external-link">sql
-engine</a>.</p>
-<p>First we create a new connection to an in-memory SQLite database, and
-write a new table to it.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>The second engine is <code>glue_sql</code>, which will use <code><a href="../reference/glue_sql.html">glue::glue_sql()</a></code> to generate a SQL query and then run the query using the <a href="https://yihui.org/rmarkdown/language-engines.html" class="external-link">sql engine</a>.</p>
+<p>First we create a new connection to an in-memory SQLite database, and write a new table to it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span>
 <span><span class="va">mtcars</span><span class="op">$</span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html" class="external-link">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"mtcars"</span>, <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
-<p>Next define some variables we that we can use with glue to
-interpolate.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</div>
+<p>Next define some variables we that we can use with glue to interpolate.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="st">"mpg"</span></span>
 <span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="st">"mtcars"</span></span>
 <span><span class="va">num</span> <span class="op">&lt;-</span> <span class="fl">150</span></span></code></pre></div>
-<p>Then we can use <code>glue_sql</code> to construct and run a query
-using those variables into that database. <em>Note</em> you need to
-provide the connection object as a <code>connection</code> chunk
-option.</p>
-<p>In this example there are two type of quotes. The first is a bare
-backtick, these are passed directly to the SQL engine unchanged. The
-second is backticks inside of braces, which are specially interpreted to
-do the proper quoting for the given SQL engine by glue. In this example
-we use the <code>sqlite</code> engine, which uses backticks for quoting,
-but you would use the same backticks inside brace syntax for postgreSQL,
-and <code><a href="../reference/glue_sql.html">glue_sql()</a></code> would automatically use double quotes for
-quoting instead.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="in">```{glue_sql, connection = con}</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="in">SELECT `model`, `hp`, {`var`}</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="in">FROM {`tbl`}</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="in">WHERE {`tbl`}.`hp` &gt; {num}</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="kw">SELECT</span> `model`, `hp`, `mpg`</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="kw">FROM</span> `mtcars`</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="kw">WHERE</span> `mtcars`.`hp` <span class="op">&gt;</span> <span class="dv">150</span></span></code></pre></div>
-<div class="knitsql-table">
-<table class="table">
+</div>
+<p>Then we can use <code>glue_sql</code> to construct and run a query using those variables into that database. <em>Note</em> you need to provide the connection object as a <code>connection</code> chunk option.</p>
+<p>In this example there are two type of quotes. The first is a bare backtick, these are passed directly to the SQL engine unchanged. The second is backticks inside of braces, which are specially interpreted to do the proper quoting for the given SQL engine by glue. In this example we use the <code>sqlite</code> engine, which uses backticks for quoting, but you would use the same backticks inside brace syntax for postgreSQL, and <code><a href="../reference/glue_sql.html">glue_sql()</a></code> would automatically use double quotes for quoting instead.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{glue_sql}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| connection: con</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">SELECT `model`, `hp`, {`var`}</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">FROM {`tbl`}</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">WHERE {`tbl`}.`hp` &gt; {num}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> `model`, `hp`, `mpg`</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> `mtcars`</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> `mtcars`.`hp` <span class="op">&gt;</span> <span class="dv">150</span></span></code></pre></div>
+<div class="cell-output-display">
+<table class="table caption-top">
 <caption>Displaying records 1 - 10</caption>
 <thead><tr class="header">
-<th align="left">model</th>
-<th align="right">hp</th>
-<th align="right">mpg</th>
+<th style="text-align: left;">model</th>
+<th style="text-align: right;">hp</th>
+<th style="text-align: right;">mpg</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Hornet Sportabout</td>
-<td align="right">175</td>
-<td align="right">18.7</td>
+<td style="text-align: left;">Hornet Sportabout</td>
+<td style="text-align: right;">175</td>
+<td style="text-align: right;">18.7</td>
 </tr>
 <tr class="even">
-<td align="left">Duster 360</td>
-<td align="right">245</td>
-<td align="right">14.3</td>
+<td style="text-align: left;">Duster 360</td>
+<td style="text-align: right;">245</td>
+<td style="text-align: right;">14.3</td>
 </tr>
 <tr class="odd">
-<td align="left">Merc 450SE</td>
-<td align="right">180</td>
-<td align="right">16.4</td>
+<td style="text-align: left;">Merc 450SE</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">16.4</td>
 </tr>
 <tr class="even">
-<td align="left">Merc 450SL</td>
-<td align="right">180</td>
-<td align="right">17.3</td>
+<td style="text-align: left;">Merc 450SL</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">17.3</td>
 </tr>
 <tr class="odd">
-<td align="left">Merc 450SLC</td>
-<td align="right">180</td>
-<td align="right">15.2</td>
+<td style="text-align: left;">Merc 450SLC</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">15.2</td>
 </tr>
 <tr class="even">
-<td align="left">Cadillac Fleetwood</td>
-<td align="right">205</td>
-<td align="right">10.4</td>
+<td style="text-align: left;">Cadillac Fleetwood</td>
+<td style="text-align: right;">205</td>
+<td style="text-align: right;">10.4</td>
 </tr>
 <tr class="odd">
-<td align="left">Lincoln Continental</td>
-<td align="right">215</td>
-<td align="right">10.4</td>
+<td style="text-align: left;">Lincoln Continental</td>
+<td style="text-align: right;">215</td>
+<td style="text-align: right;">10.4</td>
 </tr>
 <tr class="even">
-<td align="left">Chrysler Imperial</td>
-<td align="right">230</td>
-<td align="right">14.7</td>
+<td style="text-align: left;">Chrysler Imperial</td>
+<td style="text-align: right;">230</td>
+<td style="text-align: right;">14.7</td>
 </tr>
 <tr class="odd">
-<td align="left">Camaro Z28</td>
-<td align="right">245</td>
-<td align="right">13.3</td>
+<td style="text-align: left;">Camaro Z28</td>
+<td style="text-align: right;">245</td>
+<td style="text-align: right;">13.3</td>
 </tr>
 <tr class="even">
-<td align="left">Pontiac Firebird</td>
-<td align="right">175</td>
-<td align="right">19.2</td>
+<td style="text-align: left;">Pontiac Firebird</td>
+<td style="text-align: right;">175</td>
+<td style="text-align: right;">19.2</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
    </div>

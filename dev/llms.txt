@@ -144,13 +144,17 @@ here. More recommended functions and resources:
   demonstrates more interesting features of
   [`glue()`](https://glue.tidyverse.org/dev/reference/glue.md) and
   [`glue_data()`](https://glue.tidyverse.org/dev/reference/glue.md).
+- “How to write a function that wraps glue”
+  ([`vignette("wrappers")`](https://glue.tidyverse.org/dev/articles/wrappers.md))
+  shows how to write your own glue wrapper functions that work as
+  expected inside other functions.
 - [`glue_sql()`](https://glue.tidyverse.org/dev/reference/glue_sql.md)
   and
   [`glue_data_sql()`](https://glue.tidyverse.org/dev/reference/glue_sql.md)
   are specialized functions for producing SQL statements.
 - glue provides a couple of custom knitr engines that allow you to use
   glue syntax in chunks; learn more in
-  [`vignette("engines", package = "glue")`](https://glue.tidyverse.org/dev/articles/engines.md).
+  [`vignette("engines")`](https://glue.tidyverse.org/dev/articles/engines.md).
 
 ## Code of Conduct
 

@@ -17,7 +17,10 @@
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to glue">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="glue_files/libs/quarto-html/popper.min.js"></script><script src="glue_files/libs/quarto-html/tippy.umd.min.js"></script><link href="glue_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="glue_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to glue">
+<meta property="og:image" content="https://glue.tidyverse.org/logo.png">
 <meta name="robots" content="noindex">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
   window.dataLayer = window.dataLayer || [];
@@ -78,52 +81,57 @@
 
 
   </div>
-</nav><div class="container template-article" id="container">
-
-
-
-
+</nav><div class="container template-quarto" id="container">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Introduction to glue</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/main/vignettes/glue.Rmd" class="external-link"><code>vignettes/glue.Rmd</code></a></small>
-      <div class="d-none name"><code>glue.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/glue/blob/main/vignettes/glue.qmd" class="external-link"><code>vignettes/glue.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p>The glue package contains functions for string interpolation: gluing
-together character strings and R code.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+
+
+
+
+
+    <p>The glue package contains functions for string interpolation: gluing together character strings and R code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glue.tidyverse.org/">glue</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="gluing-and-interpolating">Gluing and interpolating<a class="anchor" aria-label="anchor" href="#gluing-and-interpolating"></a>
+</div>
+<section class="level2"><h2 id="gluing-and-interpolating">Gluing and interpolating<a class="anchor" aria-label="anchor" href="#gluing-and-interpolating"></a>
 </h2>
 <p><code><a href="../reference/glue.html">glue()</a></code> can be used to glue together pieces of text:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"glue "</span>, <span class="st">"some "</span>, <span class="st">"text "</span>, <span class="st">"together"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; glue some text together</span></span></code></pre></div>
-<p>But glue’s real power comes with <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code>: anything inside of
-<code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> is evaluated and pasted into the string. This makes it
-easy to interpolate variables:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+</div>
+<p>But glue’s real power comes with <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code>: anything inside of <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> is evaluated and pasted into the string. This makes it easy to interpolate variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"glue"</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"We are learning how to use the {name} R package."</span><span class="op">)</span></span>
 <span><span class="co">#&gt; We are learning how to use the glue R package.</span></span></code></pre></div>
+</div>
 <p>As well as more complex expressions:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">release_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-06-13"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Release was on a {format(release_date, '%A')}."</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Release was on a Tuesday.</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="control-of-line-breaks">Control of line breaks<a class="anchor" aria-label="anchor" href="#control-of-line-breaks"></a>
+</section><section class="level2"><h2 id="control-of-line-breaks">Control of line breaks<a class="anchor" aria-label="anchor" href="#control-of-line-breaks"></a>
 </h2>
 <p><code><a href="../reference/glue.html">glue()</a></code> honors the line breaks in its input:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st">  A formatted string</span></span>
 <span><span class="st">  Can have multiple lines</span></span>
 <span><span class="st">    with additional indentation preserved</span></span>
@@ -132,90 +140,82 @@ easy to interpolate variables:</p>
 <span><span class="co">#&gt; A formatted string</span></span>
 <span><span class="co">#&gt; Can have multiple lines</span></span>
 <span><span class="co">#&gt;   with additional indentation preserved</span></span></code></pre></div>
-<p>The example above demonstrates some other important facts about the
-pre-processing of the template string:</p>
+</div>
+<p>The example above demonstrates some other important facts about the pre-processing of the template string:</p>
 <ul>
 <li>An empty first or last line is automatically trimmed.</li>
 <li>Leading whitespace that is common across all lines is trimmed.</li>
 </ul>
-<p>The elimination of common leading whitespace is advantageous, because
-you aren’t forced to choose between indenting your code normally and
-getting the output you actually want. This is easier to appreciate when
-you have <code><a href="../reference/glue.html">glue()</a></code> inside a function body (this example also
-shows an alternative way of styling the end of a <code><a href="../reference/glue.html">glue()</a></code>
-call):</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>The elimination of common leading whitespace is advantageous, because you aren’t forced to choose between indenting your code normally and getting the output you actually want. This is easier to appreciate when you have <code><a href="../reference/glue.html">glue()</a></code> inside a function body (this example also has an alternative placement of the closing quote):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
+<span>  <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>    <span class="st">"</span></span>
 <span><span class="st">    A formatted string</span></span>
 <span><span class="st">    Can have multiple lines</span></span>
-<span><span class="st">      with additional indentation preserved"</span><span class="op">)</span></span>
+<span><span class="st">      with additional indentation preserved"</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">foo</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; A formatted string</span></span>
 <span><span class="co">#&gt; Can have multiple lines</span></span>
 <span><span class="co">#&gt;   with additional indentation preserved</span></span></code></pre></div>
-<p>On the other hand, what if you don’t want a line break in the output,
-but you also like to limit the length of lines in your source code to,
-e.g., 80 characters? The first option is to use <code>\\</code> to break
-the template string into multiple lines, without getting line breaks in
-the output:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+</div>
+<p>On the other hand, what if you don’t want a line break in the output, but you also like to limit the length of lines in your source code to, e.g., 80 characters? The first option is to use <code>\\</code> to break the template string into multiple lines, without getting line breaks in the output:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">release_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2017-06-13"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st">  The first version of the glue package was released on \\</span></span>
-<span><span class="st">  a {format(release_date, '%A')}."</span><span class="op">)</span></span>
+<span><span class="st">  a {format(release_date, '%A')}."</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; The first version of the glue package was released on a Tuesday.</span></span></code></pre></div>
-<p>This comes up fairly often when an expression to evaluate inside
-<code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> takes up more characters than its result,
-i.e. <code>format(release_date, '%A')</code> versus
-<code>Tuesday</code>. A second way to achieve the same result is to
-break the template into individual pieces, which are then
-concatenated.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+</div>
+<p>This comes up fairly often when an expression to evaluate inside <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> takes up more characters than its result, i.e. <code>format(release_date, '%A')</code> versus <code>Tuesday</code>. A second way to achieve the same result is to break the template into individual pieces, which are then concatenated.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
 <span>  <span class="st">"The first version of the glue package was released on "</span>,</span>
 <span>  <span class="st">"a {format(release_date, '%A')}."</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; The first version of the glue package was released on a Tuesday.</span></span></code></pre></div>
-<p>If you want an explicit newline at the start or end, include an extra
-empty line.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+</div>
+<p>If you want an explicit newline at the start or end, include an extra empty line.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># no leading or trailing newline</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st">  blah</span></span>
-<span><span class="st">  "</span><span class="op">)</span></span>
+<span><span class="st">  "</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "blah"</span></span>
 <span></span>
 <span><span class="co"># both a leading and trailing newline</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st"></span></span>
 <span><span class="st">  blah</span></span>
 <span><span class="st"></span></span>
-<span><span class="st">  "</span><span class="op">)</span></span>
+<span><span class="st">  "</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "\nblah\n"</span></span></code></pre></div>
-<p>We use <code><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass()</a></code> above to make it easier to see the
-absence and presence of the newlines, i.e. to reveal the literal
-<code>\n</code> escape sequences. <code><a href="../reference/glue.html">glue()</a></code> and friends
-generally return a glue object, which is a character vector with the S3
-class <code>"glue"</code>. The <code>"glue"</code> class exists
-primarily for the sake of a print method, which displays the natural
-formatted result of a glue string. Most of the time this is
-<em>exactly</em> what the user wants to see. The example above happens
-to be an exception, where we really do want to see the underlying string
-representation.</p>
-<p>Here’s another example to drive home the difference between printing
-a glue object and looking at its string representation.
-<code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character()</a></code> is a another way to do this that is arguably
-more expressive.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'</span></span>
+</div>
+<p>We use <code><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass()</a></code> above to make it easier to see the absence and presence of the newlines, i.e. to reveal the literal <code>\n</code> escape sequences. <code><a href="../reference/glue.html">glue()</a></code> and friends generally return a glue object, which is a character vector with the S3 class <code>"glue"</code>. The <code>"glue"</code> class exists primarily for the sake of a print method, which displays the natural formatted result of a glue string. Most of the time this is <em>exactly</em> what the user wants to see. The example above happens to be an exception, where we really do want to see the underlying string representation.</p>
+<p>Here’s another example to drive home the difference between printing a glue object and looking at its string representation. <code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character()</a></code> is a another way to do this that is arguably more expressive.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
+<span>  <span class="st">'</span></span>
 <span><span class="st">  abc</span></span>
 <span><span class="st">  " }</span></span>
 <span><span class="st"></span></span>
-<span><span class="st">  xyz'</span><span class="op">)</span></span>
+<span><span class="st">  xyz'</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "glue"      "character"</span></span>
 <span></span>
@@ -229,21 +229,17 @@ more expressive.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "abc\n\"\t}\n\nxyz"</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="delimiters">Delimiters<a class="anchor" aria-label="anchor" href="#delimiters"></a>
+</section><section class="level2"><h2 id="delimiters">Delimiters<a class="anchor" aria-label="anchor" href="#delimiters"></a>
 </h2>
-<p>By default, code to be evaluated goes inside <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> in a
-glue string. If want a literal curly brace in your string, double
-it:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>By default, code to be evaluated goes inside <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> in a glue string. If you want a literal curly brace in your string, double it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"The name of the package is {name}, not {{name}}."</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The name of the package is glue, not {name}.</span></span></code></pre></div>
-<p>Sometimes it’s just more convenient to use different delimiters
-altogether, especially if the template text comes from elsewhere or is
-subject to external requirements. Consider this example where we want to
-interpolate the function name into a code snippet that defines a
-function:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+</div>
+<p>Sometimes it’s just more convenient to use different delimiters altogether, especially if the template text comes from elsewhere or is subject to external requirements. Consider this example where we want to interpolate the function name into a code snippet that defines a function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fn_def</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  &lt;&lt;NAME&gt;&gt; &lt;- function(x) {</span></span>
 <span><span class="st">    # imagine a function body here</span></span>
@@ -252,27 +248,25 @@ function:</p>
 <span><span class="co">#&gt; my_function &lt;- function(x) {</span></span>
 <span><span class="co">#&gt;   # imagine a function body here</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre></div>
-<p>In this glue string, <code>{</code> and <code>}</code> have very
-special meaning. If we forced ourselves to double them, suddenly it
-doesn’t look like normal R code anymore. Using alternative delimiters is
-a nice option in cases like this.</p>
 </div>
-<div class="section level2">
-<h2 id="where-glue-looks-for-values">Where glue looks for values<a class="anchor" aria-label="anchor" href="#where-glue-looks-for-values"></a>
+<p>In this glue string, <code>{</code> and <code>}</code> have very special meaning. If we forced ourselves to double them, suddenly it doesn’t look like normal R code anymore. Using alternative delimiters is a nice option in cases like this.</p>
+</section><section class="level2"><h2 id="where-glue-looks-for-values">Where glue looks for values<a class="anchor" aria-label="anchor" href="#where-glue-looks-for-values"></a>
 </h2>
-<p>By default, <code><a href="../reference/glue.html">glue()</a></code> evaluates the code inside
-<code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> in the caller environment:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p>By default, <code><a href="../reference/glue.html">glue()</a></code> evaluates the code inside <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> in the caller environment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="va">...</span>, .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>So, for a top-level <code><a href="../reference/glue.html">glue()</a></code> call, that means the global
-environment.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+</div>
+<p>So, for a top-level <code><a href="../reference/glue.html">glue()</a></code> call, that means the global environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"the caller environment"</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"By default, `glue()` evaluates code in {x}."</span><span class="op">)</span></span>
 <span><span class="co">#&gt; By default, `glue()` evaluates code in the caller environment.</span></span></code></pre></div>
-<p>But you can provide more narrowly scoped values by passing them to
-<code><a href="../reference/glue.html">glue()</a></code> in <code>name = value</code> form:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+</div>
+<p>But you can provide more narrowly scoped values by passing them to <code><a href="../reference/glue.html">glue()</a></code> in <code>name = value</code> form:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"the local environment"</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span></span>
 <span>  <span class="st">"`glue()` can access values from {x} or from {y}. {z}"</span>,</span>
@@ -280,9 +274,10 @@ environment.</p>
 <span>  z <span class="op">=</span> <span class="st">"Woo!"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; `glue()` can access values from the local environment or from named arguments. Woo!</span></span></code></pre></div>
-<p>If the relevant data lives in a data frame (or list or environment),
-use <code><a href="../reference/glue.html">glue_data()</a></code> instead:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+</div>
+<p>If the relevant data lives in a data frame (or list or environment), use <code><a href="../reference/glue.html">glue_data()</a></code> instead:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mini_mtcars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mini_mtcars</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue_data</a></span><span class="op">(</span><span class="va">mini_mtcars</span>, <span class="st">"{model} has {hp} hp."</span><span class="op">)</span></span>
@@ -292,8 +287,10 @@ use <code><a href="../reference/glue.html">glue_data()</a></code> instead:</p>
 <span><span class="co">#&gt; Hornet 4 Drive has 110 hp.</span></span>
 <span><span class="co">#&gt; Hornet Sportabout has 175 hp.</span></span>
 <span><span class="co">#&gt; Valiant has 105 hp.</span></span></code></pre></div>
+</div>
 <p><code><a href="../reference/glue.html">glue_data()</a></code> is very natural to use with the pipe:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mini_mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/glue.html">glue_data</a></span><span class="op">(</span><span class="st">"{model} gets {mpg} miles per gallon."</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Mazda RX4 gets 21 miles per gallon.</span></span>
@@ -302,11 +299,8 @@ use <code><a href="../reference/glue.html">glue_data()</a></code> instead:</p>
 <span><span class="co">#&gt; Hornet 4 Drive gets 21.4 miles per gallon.</span></span>
 <span><span class="co">#&gt; Hornet Sportabout gets 18.7 miles per gallon.</span></span>
 <span><span class="co">#&gt; Valiant gets 18.1 miles per gallon.</span></span></code></pre></div>
-<p>Returning to <code><a href="../reference/glue.html">glue()</a></code>, recall that it defaults to
-evaluation in the caller environment. This has happy implications inside
-a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> pipeline. The data-masking feature of
-<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> means the columns of the target data frame are “in
-scope” for a <code><a href="../reference/glue.html">glue()</a></code> call:</p>
+</div>
+<p>Returning to <code><a href="../reference/glue.html">glue()</a></code>, recall that it defaults to evaluation in the caller environment. This has happy implications inside a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> pipeline. The data-masking feature of <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> means the columns of the target data frame are “in scope” for a <code><a href="../reference/glue.html">glue()</a></code> call:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
@@ -320,14 +314,12 @@ scope” for a <code><a href="../reference/glue.html">glue()</a></code> call:</p
 <span><span class="co">#&gt; 4    Hornet 4 Drive gets 21.4 miles per gallon.   6  258</span></span>
 <span><span class="co">#&gt; 5 Hornet Sportabout gets 18.7 miles per gallon.   8  360</span></span>
 <span><span class="co">#&gt; 6           Valiant gets 18.1 miles per gallon.   6  225</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="sql">SQL<a class="anchor" aria-label="anchor" href="#sql"></a>
+<p>If you write your own custom wrapper around <code><a href="../reference/glue.html">glue()</a></code> and get unexpected “object not found” errors, read <code><a href="../articles/wrappers.html">vignette("wrappers", package = "glue")</a></code> to learn the right pattern for handling the evaluation environment.</p>
+</section><section class="level2"><h2 id="sql">SQL<a class="anchor" aria-label="anchor" href="#sql"></a>
 </h2>
-<p>glue has explicit support for constructing SQL statements. Use
-backticks to quote identifiers. Normal strings and numbers are quoted
-appropriately for your backend.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<p>glue has explicit support for constructing SQL statements. Use backticks to quote identifiers. Normal strings and numbers are quoted appropriately for your backend.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"[.]"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html" class="external-link">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"iris"</span>, <span class="va">iris</span><span class="op">)</span></span>
@@ -335,25 +327,31 @@ appropriately for your backend.</p>
 <span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="st">"iris"</span></span>
 <span><span class="va">num</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
 <span><span class="va">val</span> <span class="op">&lt;-</span> <span class="st">"setosa"</span></span>
-<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st">  SELECT {`var`}</span></span>
 <span><span class="st">  FROM {`tbl`}</span></span>
 <span><span class="st">  WHERE {`tbl`}.sepal_length &gt; {num}</span></span>
 <span><span class="st">    AND {`tbl`}.species = {val}</span></span>
-<span><span class="st">  "</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+<span><span class="st">  "</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt; SELECT `sepal_width`</span></span>
 <span><span class="co">#&gt; FROM `iris`</span></span>
 <span><span class="co">#&gt; WHERE `iris`.sepal_length &gt; 2</span></span>
 <span><span class="co">#&gt;   AND `iris`.species = 'setosa'</span></span></code></pre></div>
-<p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> can be used in conjunction with parameterized
-queries using <code><a href="https://dbi.r-dbi.org/reference/dbBind.html" class="external-link">DBI::dbBind()</a></code> to provide protection for SQL
-Injection attacks.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sql</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"</span></span>
+</div>
+<p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> can be used in conjunction with parameterized queries using <code><a href="https://dbi.r-dbi.org/reference/dbBind.html" class="external-link">DBI::dbBind()</a></code> to provide protection for SQL Injection attacks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sql</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st">  SELECT {`var`}</span></span>
 <span><span class="st">  FROM {`tbl`}</span></span>
 <span><span class="st">  WHERE {`tbl`}.sepal_length &gt; ?</span></span>
-<span><span class="st">"</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+<span><span class="st">"</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">query</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html" class="external-link">dbSendQuery</a></span><span class="op">(</span><span class="va">con</span>, <span class="va">sql</span><span class="op">)</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbBind.html" class="external-link">dbBind</a></span><span class="op">(</span><span class="va">query</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">num</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbFetch.html" class="external-link">dbFetch</a></span><span class="op">(</span><span class="va">query</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
@@ -363,46 +361,146 @@ Injection attacks.</p>
 <span><span class="co">#&gt; 3         3.2</span></span>
 <span><span class="co">#&gt; 4         3.1</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbClearResult.html" class="external-link">dbClearResult</a></span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> can be used to build up more complex queries
-with interchangeable sub queries. It returns <code><a href="https://dbi.r-dbi.org/reference/SQL.html" class="external-link">DBI::SQL()</a></code>
-objects which are properly protected from quoting.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sub_query</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"</span></span>
+</div>
+<p><code><a href="../reference/glue_sql.html">glue_sql()</a></code> can be used to build up more complex queries with interchangeable sub queries. It returns <code><a href="https://dbi.r-dbi.org/reference/SQL.html" class="external-link">DBI::SQL()</a></code> objects which are properly protected from quoting.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sub_query</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st">  SELECT *</span></span>
 <span><span class="st">  FROM {`tbl`}</span></span>
-<span><span class="st">  "</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+<span><span class="st">  "</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"</span></span>
 <span><span class="st">  SELECT s.{`var`}</span></span>
 <span><span class="st">  FROM ({sub_query}) AS s</span></span>
-<span><span class="st">  "</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+<span><span class="st">  "</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt; SELECT s.`sepal_width`</span></span>
 <span><span class="co">#&gt; FROM (SELECT *</span></span>
 <span><span class="co">#&gt; FROM `iris`) AS s</span></span></code></pre></div>
-<p>If you want to input multiple values for use in SQL IN statements put
-<code>*</code> at the end of the value and the values will be collapsed
-and quoted appropriately.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</span>
-<span>  vals <span class="op">=</span> <span class="fl">1</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+</div>
+<p>If you want to input multiple values for use in SQL IN statements put <code>*</code> at the end of the value and the values will be collapsed and quoted appropriately.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</span>
+<span>  vals <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</span>
-<span>  vals <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})"</span>,</span>
+<span>  vals <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE sepal_length IN (1, 2, 3, 4, 5)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</span>
-<span>  vals <span class="op">=</span> <span class="st">"setosa"</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</span>
+<span>  vals <span class="op">=</span> <span class="st">"setosa"</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa')</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span><span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</span>
-<span>  vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span><span class="op">)</span>, .con <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/glue_sql.html">glue_sql</a></span><span class="op">(</span></span>
+<span>  <span class="st">"SELECT * FROM {`tbl`} WHERE species IN ({vals*})"</span>,</span>
+<span>  vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span><span class="op">)</span>,</span>
+<span>  .con <span class="op">=</span> <span class="va">con</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt; SELECT * FROM `iris` WHERE species IN ('setosa', 'versicolor')</span></span></code></pre></div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
    </div>
