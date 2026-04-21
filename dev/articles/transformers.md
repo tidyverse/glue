@@ -229,11 +229,9 @@ glue_safely(
 
 A transformer that expands input of the form `{var_name=}` into
 `var_name = var_value`, i.e. a shorthand for exposing variable names
-with their values. This is inspired by an [f-strings feature coming in
-Python
-3.8](https://docs.python.org/3.8/whatsnew/3.8.html#f-strings-now-support-for-quick-and-easy-debugging).
-It’s actually more general: you can use it with an expression input such
-as `{expr=}`.
+with their values. This is inspired by the [debug
+specifier](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)
+in Python’s f-strings.
 
 ``` r
 vv_transformer <- function(text, envir) {
@@ -265,7 +263,13 @@ glue(
   .transformer = vv_transformer
 )
 #> For some random numbers = [28, 80, 22, 9], average = 34.75, sum = 139.
+```
 
+This transformer is actually more general than just reporting a
+variable’s value. For example, we can use it to report the text and
+value of a more complex expression like `a * 9 + b * 2`:
+
+``` r
 a <- 3
 b <- 5.6
 glue("{a=}\n{b=}\n{a * 9 + b * 2=}", .transformer = vv_transformer)
