@@ -285,7 +285,7 @@
 </div>
 </section><section class="level3"><h3 id="variables-and-values-transformer">“Variables and Values” transformer<a class="anchor" aria-label="anchor" href="#variables-and-values-transformer"></a>
 </h3>
-<p>A transformer that expands input of the form <code>{var_name=}</code> into <code>var_name = var_value</code>, i.e. a shorthand for exposing variable names with their values. This is inspired by an <a href="https://docs.python.org/3.8/whatsnew/3.8.html#f-strings-now-support-for-quick-and-easy-debugging" class="external-link">f-strings feature coming in Python 3.8</a>. It’s actually more general: you can use it with an expression input such as <code>{expr=}</code>.</p>
+<p>A transformer that expands input of the form <code>{var_name=}</code> into <code>var_name = var_value</code>, i.e. a shorthand for exposing variable names with their values. This is inspired by the <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings" class="external-link">debug specifier</a> in Python’s f-strings.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vv_transformer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">text</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span></span>
@@ -316,9 +316,12 @@
 <span>  <span class="st">"For {description} {numbers=}, {average=}, {sum=}."</span>,</span>
 <span>  .transformer <span class="op">=</span> <span class="va">vv_transformer</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; For some random numbers = [28, 80, 22, 9], average = 34.75, sum = 139.</span></span>
-<span></span>
-<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span><span class="co">#&gt; For some random numbers = [28, 80, 22, 9], average = 34.75, sum = 139.</span></span></code></pre></div>
+</div>
+<p>This transformer is actually more general than just reporting a variable’s value. For example, we can use it to report the text and value of a more complex expression like <code>a * 9 + b * 2</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">5.6</span></span>
 <span><span class="fu"><a href="../reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{a=}\n{b=}\n{a * 9 + b * 2=}"</span>, .transformer <span class="op">=</span> <span class="va">vv_transformer</span><span class="op">)</span></span>
 <span><span class="co">#&gt; a = 3</span></span>
