@@ -1,5 +1,11 @@
 # glue (development version)
 
+* `recycle_columns()` now correctly returns `character()` when any column has
+  zero length. The zero-length guard was previously dead code due to a misplaced
+  parenthesis (`any(lengths) == 0` instead of `any(lengths == 0)`), which made
+  `glue()` error with "Variables must be length 1" instead of producing an empty
+  result when an argument had zero length alongside others.
+
 # glue 1.8.1
 
 * The `glue` knitr engine handles multiline chunks now (#319).

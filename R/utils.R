@@ -29,7 +29,7 @@ recycle_columns <- function(x) {
     return(x)
   }
   lengths <- vapply(x, NROW, integer(1))
-  if (any(lengths) == 0) {
+  if (any(lengths == 0)) {
     return(character())
   }
 

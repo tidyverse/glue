@@ -154,6 +154,12 @@ test_that("error if not simple recycling", {
 test_that("recycle_columns returns if zero length input", {
   expect_identical(recycle_columns(list()), list())
   expect_identical(recycle_columns(list(character())), character())
+
+  # A zero-length column mixed with non-empty columns must also short-circuit
+  # to `character()` (previously the guard was dead code that threw an error).
+  expect_identical(recycle_columns(list(character(), "a")), character())
+  expect_identical(recycle_columns(list(character(), c("a", "b"))), character())
+  expect_identical(recycle_columns(list(c("a", "b"), character())), character())
 })
 
 test_that("glue_data evaluates in the object first, then enclosure, then parent", {
